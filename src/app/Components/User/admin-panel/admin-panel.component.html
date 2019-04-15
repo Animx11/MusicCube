@@ -1,0 +1,81 @@
+<div class="adminPanel">
+
+  <div class = "adminPanelNavigator" (click)="isSongClicked = switchValue(isSongClicked)">
+    Song
+    <div class="adminComponentPanel" *ngIf = "isSongClicked">
+      <div class="adminComponentNavigator">Add New Song</div>
+      <div class="adminComponentNavigator">Edit Song</div>
+      <div class="adminComponentNavigator">Delete Song</div>
+    </div>
+  </div>
+  <div class = "adminPanelNavigator" (click)="isBandClicked = switchValue(isBandClicked)">
+    Band
+    <div class="adminComponentPanel" *ngIf = "isBandClicked">
+      <div class="adminComponentNavigator">Add New Band</div>
+      <div class="adminComponentNavigator">Edit Band</div>
+      <div class="adminComponentNavigator">Delete Band</div>
+
+    </div>
+  </div>
+  <div class = "adminPanelNavigator" (click)="isAlbumClicked = switchValue(isAlbumClicked)">
+    Album
+    <div class="adminComponentPanel" *ngIf = "isAlbumClicked">
+      <div class="adminComponentNavigator">Add New Album</div>
+      <div class="adminComponentNavigator">Edit Album</div>
+      <div class="adminComponentNavigator">Delete Album</div>
+
+    </div>
+  </div>
+  <div class = "adminPanelNavigator" (click)="isArtistClicked = switchValue(isArtistClicked)">
+    Artist
+    <div class="adminComponentPanel" *ngIf = "isArtistClicked">
+      <div class="adminComponentNavigator">Add New Artist</div>
+      <div class="adminComponentNavigator">Edit Artist</div>
+      <div class="adminComponentNavigator">Delete Artist</div>
+
+    </div>
+  </div>
+  <div class = "adminPanelNavigator" (click)="isConcertClicked = switchValue(isConcertClicked)">
+    Concert
+    <div class="adminComponentPanel"*ngIf = "isConcertClicked">
+      <div class="adminComponentNavigator">Add New Concert</div>
+      <div class="adminComponentNavigator">Edit Concert</div>
+      <div class="adminComponentNavigator">Delete Concert</div>
+
+    </div>
+  </div>
+  <div class = "adminPanelNavigator" (click)="isGenreClicked = switchValue(isGenreClicked)">
+    Genre
+    <div class="adminComponentPanel" *ngIf = "isGenreClicked">
+      <div class="adminComponentNavigator">Add New Genre</div>
+      <div class="adminComponentNavigator">Edit Genre</div>
+      <div class="adminComponentNavigator">Delete Genre</div>
+
+    </div>
+  </div>
+  <div class = "adminPanelNavigator" (click)="isInstrumentClicked = switchValue(isInstrumentClicked)">
+    Instrument
+    <div class="adminComponentPanel" *ngIf = "isInstrumentClicked">
+      <div class="adminComponentNavigator">Add New Instrument</div>
+      <div class="adminComponentNavigator">Edit Instrument</div>
+      <div class="adminComponentNavigator">Delete Instrument</div>
+
+    </div>
+  </div>
+  <div class = "adminPanelNavigator" (click)="isLocationClicked = switchValue(isLocationClicked)">
+    Location
+    <div class="adminComponentPanel" *ngIf = "isLocationClicked">
+      <div class="adminComponentNavigator">Add New Location</div>
+      <div class="adminComponentNavigator">Edit Location</div>
+      <div class="adminComponentNavigator">Delete Location</div>
+
+    </div>
+  </div>
+
+</div>
+
+<div>
+
+  <router-outlet></router-outlet>
+
+</div>

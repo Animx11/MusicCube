@@ -1,0 +1,11 @@
+<div style="text-align: center;">
+
+  <form #signInForm = "ngForm" id = "signInForm">
+
+    <input type = "text" name = "userName" [(ngModel)]="userName" placeholder="Username" required>
+    <input type = "password" name = "password" [(ngModel)]="password" placeholder="Password" required>
+    <button (click)="signIn()" [disabled]="!signInForm.valid">Sign In</button>
+
+  </form>
+
+</div>
