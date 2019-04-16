@@ -3,72 +3,65 @@
   <div class = "adminPanelNavigator" (click)="isSongClicked = switchValue(isSongClicked)">
     Song
     <div class="adminComponentPanel" *ngIf = "isSongClicked">
-      <div class="adminComponentNavigator">Add New Song</div>
-      <div class="adminComponentNavigator">Edit Song</div>
-      <div class="adminComponentNavigator">Delete Song</div>
+      <a routerLink = "AddSong" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Song</div></a>
+      <a routerLink = "EditSong" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Song</div></a>
+      <a routerLink = "DeleteSong" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Song</div></a>
     </div>
   </div>
   <div class = "adminPanelNavigator" (click)="isBandClicked = switchValue(isBandClicked)">
     Band
     <div class="adminComponentPanel" *ngIf = "isBandClicked">
-      <div class="adminComponentNavigator">Add New Band</div>
-      <div class="adminComponentNavigator">Edit Band</div>
-      <div class="adminComponentNavigator">Delete Band</div>
-
+      <a routerLink = "AddBand" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Band</div></a>
+      <a routerLink = "EditBand" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Band</div></a>
+      <a routerLink = "DeleteBand" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Band</div></a>
     </div>
   </div>
   <div class = "adminPanelNavigator" (click)="isAlbumClicked = switchValue(isAlbumClicked)">
     Album
     <div class="adminComponentPanel" *ngIf = "isAlbumClicked">
-      <div class="adminComponentNavigator">Add New Album</div>
-      <div class="adminComponentNavigator">Edit Album</div>
-      <div class="adminComponentNavigator">Delete Album</div>
-
+      <a routerLink = "AddAlbum" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Album</div></a>
+      <a routerLink = "EditAlbum" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Album</div></a>
+      <a routerLink = "DeleteAlbum" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Album</div></a>
     </div>
   </div>
   <div class = "adminPanelNavigator" (click)="isArtistClicked = switchValue(isArtistClicked)">
     Artist
     <div class="adminComponentPanel" *ngIf = "isArtistClicked">
-      <div class="adminComponentNavigator">Add New Artist</div>
-      <div class="adminComponentNavigator">Edit Artist</div>
-      <div class="adminComponentNavigator">Delete Artist</div>
-
+      <a routerLink = "AddArtist" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Artist</div></a>
+      <a routerLink = "EditArtist" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Artist</div></a>
+      <a routerLink = "DeleteArtist" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Artist</div></a>
     </div>
   </div>
   <div class = "adminPanelNavigator" (click)="isConcertClicked = switchValue(isConcertClicked)">
     Concert
-    <div class="adminComponentPanel"*ngIf = "isConcertClicked">
-      <div class="adminComponentNavigator">Add New Concert</div>
-      <div class="adminComponentNavigator">Edit Concert</div>
-      <div class="adminComponentNavigator">Delete Concert</div>
-
+    <div class="adminComponentPanel" *ngIf = "isConcertClicked">
+      <a routerLink = "AddConcert" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Concert</div></a>
+      <a routerLink = "EditConcert" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Concert</div></a>
+      <a routerLink = "DeleteConcert" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Concert</div></a>
     </div>
   </div>
   <div class = "adminPanelNavigator" (click)="isGenreClicked = switchValue(isGenreClicked)">
     Genre
     <div class="adminComponentPanel" *ngIf = "isGenreClicked">
-      <div class="adminComponentNavigator">Add New Genre</div>
-      <div class="adminComponentNavigator">Edit Genre</div>
-      <div class="adminComponentNavigator">Delete Genre</div>
-
+      <a routerLink = "AddGenre" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Genre</div></a>
+      <a routerLink = "EditGenre" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Genre</div></a>
+      <a routerLink = "DeleteGenre" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Genre</div></a>
     </div>
   </div>
   <div class = "adminPanelNavigator" (click)="isInstrumentClicked = switchValue(isInstrumentClicked)">
     Instrument
     <div class="adminComponentPanel" *ngIf = "isInstrumentClicked">
-      <div class="adminComponentNavigator">Add New Instrument</div>
-      <div class="adminComponentNavigator">Edit Instrument</div>
-      <div class="adminComponentNavigator">Delete Instrument</div>
-
+      <a routerLink = "AddInstrument" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Instrument</div></a>
+      <a routerLink = "EditInstrument" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Instrument</div></a>
+      <a routerLink = "DeleteInstrument" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Instrument</div></a>
     </div>
   </div>
   <div class = "adminPanelNavigator" (click)="isLocationClicked = switchValue(isLocationClicked)">
     Location
     <div class="adminComponentPanel" *ngIf = "isLocationClicked">
-      <div class="adminComponentNavigator">Add New Location</div>
-      <div class="adminComponentNavigator">Edit Location</div>
-      <div class="adminComponentNavigator">Delete Location</div>
-
+      <a routerLink = "AddLocation" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Location</div></a>
+      <a routerLink = "EditLocation" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Location</div></a>
+      <a routerLink = "DeleteLocation" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Location</div></a>
     </div>
   </div>
 
