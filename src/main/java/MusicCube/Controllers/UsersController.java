@@ -1,17 +1,22 @@
 package MusicCube.Controllers;
 
 
+import MusicCube.Entities.AuthorisationToken;
 import MusicCube.Entities.Users;
-import MusicCube.Services.UsersServices.UsersService;
+import MusicCube.Services.Users.UsersService;
+import MusicCube.TockenCreator.TokenCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -23,6 +28,7 @@ public class UsersController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<Users> create(@RequestBody @Valid @NotNull Users user){
+        user.setUserPermission("user");
         usersService.save(user);
         return ResponseEntity.ok().body(user);
     }
@@ -47,6 +53,33 @@ public class UsersController {
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Users> listUsers(){
         return usersService.listUsers();
+    }
+
+    @RequestMapping(value = "/users_permission_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getUserPermissionByUserName(@RequestParam("userName") String userName){
+        return usersService.getUserPermissionByUserName(userName);
+    }
+
+
+    @RequestMapping(value = "/signIn", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Boolean signIn(@RequestParam("userName") String userName, @RequestParam("password") String password){
+        if(password.equals(usersService.getPasswordByUserName(userName))){
+
+            String userPermission = getUserPermissionByUserName(userName);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            TokenCreator tokenCreator = new TokenCreator();
+            AuthorisationToken authorisationToken = tokenCreator.create(userName, userPermission);
+
+
+            ResponseEntity<AuthorisationToken> response = restTemplate.postForEntity("http://localhost:8080/api/token", authorisationToken, AuthorisationToken.class);
+            return true;
+
+        }
+        else{
+            return false;
+        }
     }
 
 }

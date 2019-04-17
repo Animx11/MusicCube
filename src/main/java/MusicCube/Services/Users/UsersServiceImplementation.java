@@ -1,12 +1,11 @@
-package MusicCube.Services.UsersServices;
+package MusicCube.Services.Users;
 
 
 import MusicCube.Entities.Users;
 import MusicCube.Repositories.UsersRepository;
+import MusicCube.Services.Users.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UsersServiceImplementation implements UsersService {
@@ -37,6 +36,16 @@ public class UsersServiceImplementation implements UsersService {
     @Override
     public Iterable<Users> listUsers(){
         return usersRepository.findAll();
+    }
+
+    @Override
+    public String getPasswordByUserName(String userName){
+        return usersRepository.findPasswordByUserName(userName);
+    }
+
+    @Override
+    public String getUserPermissionByUserName(String userName){
+        return usersRepository.findUSerPermissionByUserName(userName);
     }
 
 }

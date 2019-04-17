@@ -1,8 +1,6 @@
-package MusicCube.Services.UsersServices;
+package MusicCube.Services.Users;
 
 import MusicCube.Entities.Users;
-
-import java.util.Optional;
 
 public interface UsersService {
 
@@ -11,6 +9,8 @@ public interface UsersService {
 
     Users getById(int id);
     Iterable<Users> getByUserName(String userName);
+    String getPasswordByUserName(String userName);
+    String getUserPermissionByUserName(String userName);
     Iterable<Users> listUsers();
 
 }

@@ -14,7 +14,7 @@ public class EncrypterAES {
 
     private static void setKey(String myKey)
     {
-        MessageDigest sha = null;
+        MessageDigest sha;
         try {
             key = myKey.getBytes("UTF-8");
             sha = MessageDigest.getInstance("SHA-1");
@@ -25,7 +25,7 @@ public class EncrypterAES {
         catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        catch (UnsupportedEncodingException e) {
+        catch(UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
@@ -50,5 +50,19 @@ public class EncrypterAES {
         setKey(userName + userPermission);
 
     }
+
+    public EncrypterAES(String key) {
+
+        setKey(key);
+
+    }
+
+    public EncrypterAES() {
+
+        setKey("SimplyKey");
+
+    }
+
+
 
 }
