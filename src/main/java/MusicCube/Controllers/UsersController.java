@@ -1,6 +1,7 @@
 package MusicCube.Controllers;
 
 
+import MusicCube.Cipher.EncrypterAES;
 import MusicCube.Entities.AuthorisationToken;
 import MusicCube.Entities.Users;
 import MusicCube.Services.Users.UsersService;
@@ -28,7 +29,14 @@ public class UsersController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<Users> create(@RequestBody @Valid @NotNull Users user){
+
         user.setUserPermission("user");
+        EncrypterAES encrypterAES = new EncrypterAES(user.getUserName(), user.getUserPermission());
+
+        String encryptedPassword;
+        encryptedPassword = encrypterAES.encrypt(user.getPassword());
+        user.setPassword(encryptedPassword);
+
         usersService.save(user);
         return ResponseEntity.ok().body(user);
     }
@@ -63,17 +71,20 @@ public class UsersController {
 
     @RequestMapping(value = "/signIn", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean signIn(@RequestParam("userName") String userName, @RequestParam("password") String password){
-        if(password.equals(usersService.getPasswordByUserName(userName))){
 
-            String userPermission = getUserPermissionByUserName(userName);
+        EncrypterAES encrypterAES = new EncrypterAES(userName, getUserPermissionByUserName(userName));
+
+        String encryptedPassword = encrypterAES.encrypt(password);
+
+        if(encryptedPassword.equals(usersService.getPasswordByUserName(userName))){
 
             RestTemplate restTemplate = new RestTemplate();
-
             TokenCreator tokenCreator = new TokenCreator();
-            AuthorisationToken authorisationToken = tokenCreator.create(userName, userPermission);
 
+            AuthorisationToken authorisationToken = tokenCreator.create(userName, getUserPermissionByUserName(userName));
 
             ResponseEntity<AuthorisationToken> response = restTemplate.postForEntity("http://localhost:8080/api/token", authorisationToken, AuthorisationToken.class);
+
             return true;
 
         }
