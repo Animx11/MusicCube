@@ -6,6 +6,7 @@ import MusicCube.Entities.AuthorisationToken;
 import MusicCube.Entities.Users;
 import MusicCube.Services.Users.UsersService;
 import MusicCube.TockenCreator.TokenCreator;
+import jdk.nashorn.internal.parser.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,7 +32,7 @@ public class UsersController {
     public ResponseEntity<Users> create(@RequestBody @Valid @NotNull Users user){
 
         user.setUserPermission("user");
-        EncrypterAES encrypterAES = new EncrypterAES(user.getUserName(), user.getUserPermission());
+        EncrypterAES encrypterAES = new EncrypterAES();
 
         String encryptedPassword;
         encryptedPassword = encrypterAES.encrypt(user.getPassword());
@@ -70,9 +71,9 @@ public class UsersController {
 
 
     @RequestMapping(value = "/signIn", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean signIn(@RequestParam("userName") String userName, @RequestParam("password") String password){
+    public ResponseEntity<AuthorisationToken> signIn(@RequestParam("userName") String userName, @RequestParam("password") String password){
 
-        EncrypterAES encrypterAES = new EncrypterAES(userName, getUserPermissionByUserName(userName));
+        EncrypterAES encrypterAES = new EncrypterAES();
 
         String encryptedPassword = encrypterAES.encrypt(password);
 
@@ -83,13 +84,11 @@ public class UsersController {
 
             AuthorisationToken authorisationToken = tokenCreator.create(userName, getUserPermissionByUserName(userName));
 
-            ResponseEntity<AuthorisationToken> response = restTemplate.postForEntity("http://localhost:8080/api/token", authorisationToken, AuthorisationToken.class);
-
-            return true;
+            return restTemplate.postForEntity("http://localhost:8080/api/token", authorisationToken, AuthorisationToken.class);
 
         }
         else{
-            return false;
+            return null;
         }
     }
 

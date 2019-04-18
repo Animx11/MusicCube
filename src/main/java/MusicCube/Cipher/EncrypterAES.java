@@ -45,12 +45,6 @@ public class EncrypterAES {
         return null;
     }
 
-    public EncrypterAES(String userName, String userPermission) {
-
-        setKey(userName + userPermission);
-
-    }
-
     public EncrypterAES(String key) {
 
         setKey(key);
