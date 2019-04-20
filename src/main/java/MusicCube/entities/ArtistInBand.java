@@ -25,12 +25,17 @@ public class ArtistInBand {
     @Column
     private boolean isActive;
 
+    @Column
+    private String roles;
+
     public ArtistInBand() {}
 
-    public ArtistInBand(Artist artist, Band band, String yearsActive) {
+    public ArtistInBand(Artist artist, Band band, String yearsActive, boolean isActive, String roles) {
         this.artist = artist;
         this.band = band;
         this.yearsActive = yearsActive;
+        this.isActive = isActive;
+        this.roles = roles;
     }
 
     public int getId() {
@@ -71,5 +76,13 @@ public class ArtistInBand {
 
     public void setYearsActive(String yearsActive) {
         this.yearsActive = yearsActive;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }

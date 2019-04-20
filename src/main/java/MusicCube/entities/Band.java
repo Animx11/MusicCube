@@ -2,10 +2,7 @@ package MusicCube.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -23,11 +20,15 @@ public class Band {
     @Column
     private Date creationDate;
 
+    @ManyToOne
+    private Location formedIn;
+
     public Band() {}
 
-    public Band(String bandName, Date creationDate) {
+    public Band(String bandName, Date creationDate, Location formedIn) {
         this.bandName = bandName;
         this.creationDate = creationDate;
+        this.formedIn = formedIn;
     }
 
     public int getId() {
@@ -52,5 +53,13 @@ public class Band {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Location getFormedIn() {
+        return formedIn;
+    }
+
+    public void setFormedIn(Location formedIn) {
+        this.formedIn = formedIn;
     }
 }
