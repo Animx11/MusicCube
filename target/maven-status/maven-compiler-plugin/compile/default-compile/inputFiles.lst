@@ -1,0 +1,12 @@
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/services/artist/ArtistServiceImpl.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/services/location/LocationServiceImpl.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/entities/Person.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/services/artist/ArtistService.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/repositories/LocationRepository.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/controllers/LocationController.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/repositories/ArtistRepository.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/entities/Artist.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/entities/Location.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/Main.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/services/location/LocationService.java
+/home/q/gitRepos/MusicCube/src/main/java/MusicCube/controllers/ArtistController.java
