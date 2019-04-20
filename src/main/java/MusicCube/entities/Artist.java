@@ -4,7 +4,6 @@ package MusicCube.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Artist extends Person {

@@ -1,9 +1,12 @@
 package MusicCube.entities;
 
 import javax.persistence.*;
-import java.util.Date;import springfox.documentation.builders.RequestHandlerSelectors;
+import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import springfox.documentation.builders.RequestHandlerSelectors;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Person {
 
