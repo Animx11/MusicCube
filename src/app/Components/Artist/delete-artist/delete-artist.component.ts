@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeleteArtistComponent implements OnInit {
 
-  constructor() { }
+  constructor(private artistService: ArtistService) { }
 
   ngOnInit() {
   }
