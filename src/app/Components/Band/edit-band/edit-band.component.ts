@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BandService } from 'src/app/Services/band.service';
 
 @Component({
   selector: 'app-edit-band',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditBandComponent implements OnInit {
 
-  constructor() { }
+  constructor(private bandService: BandService) { }
 
   ngOnInit() {
   }

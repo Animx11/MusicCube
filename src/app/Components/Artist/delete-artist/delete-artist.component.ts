@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistService } from 'src/app/Services/artist.service';
 
 @Component({
   selector: 'app-delete-artist',

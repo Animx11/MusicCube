@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistService } from 'src/app/Services/artist.service';
 
 @Component({
   selector: 'app-edit-artist',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditArtistComponent implements OnInit {
 
-  constructor() { }
+  constructor(private artistService: ArtistService) { }
 
   ngOnInit() {
   }
