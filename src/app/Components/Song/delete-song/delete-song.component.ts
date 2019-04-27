@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SongService } from 'src/app/Services/song.service';
 
 @Component({
   selector: 'app-delete-song',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeleteSongComponent implements OnInit {
 
-  constructor() { }
+  constructor(private songService: SongService) { }
 
   ngOnInit() {
   }
