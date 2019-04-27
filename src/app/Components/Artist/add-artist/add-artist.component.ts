@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistInBandService } from 'src/app/Services/artist-in-band.service';
 
 @Component({
   selector: 'app-add-artist',
