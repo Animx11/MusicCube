@@ -31,7 +31,7 @@ export class AlbumService {
   }
 
   delete(id: number): Observable<any>{
-      return this.create.http.delete(`${apiUrl}/album/${id}`);
+      return this.http.delete(`${apiUrl}/album/${id}`);
   }
 
 }

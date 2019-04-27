@@ -23,7 +23,7 @@ export class Album{
         return this.albumName;
     }
 
-    public getAlbumLengthSecounds(): string{
+    public getAlbumLengthSecounds(): number{
         return this.albumLengthSecounds;
     }
 
