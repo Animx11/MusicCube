@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocationService } from 'src/app/Services/location.service';
 
 @Component({
   selector: 'app-edit-location',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditLocationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private locationService: LocationService) { }
 
   ngOnInit() {
   }
