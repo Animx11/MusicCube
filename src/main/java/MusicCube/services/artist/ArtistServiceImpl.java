@@ -37,4 +37,5 @@ public class ArtistServiceImpl implements ArtistService{
     public Iterable<Artist> getByStageName(String stageName) {
         return artistRepository.findByStageName(stageName);
     }
+
 }

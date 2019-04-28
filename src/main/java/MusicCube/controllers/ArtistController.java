@@ -2,6 +2,8 @@ package MusicCube.controllers;
 
 import MusicCube.services.artist.ArtistService;
 import MusicCube.entities.Artist;
+import MusicCube.entities.Person;
+import MusicCube.services.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +15,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,6 +26,8 @@ public class ArtistController {
     
     @Autowired
     private ArtistService artistService;
+    @Autowired
+    private PersonService personService;
 
     @RequestMapping(value = "/artist{id}",
             method = RequestMethod.GET,
@@ -38,12 +43,27 @@ public class ArtistController {
         return artistService.getAll();
     }
 
-    // --- GET BY NAME ---
-    @RequestMapping(value = "/artists{name}",
+    // --- GET BY STAGE NAME ---
+    @RequestMapping(value = "/artists{stagename}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Artist> getByStageName(String name) {
         return artistService.getByStageName(name);
+    }
+
+    // --- GET BY LASTNAME ---
+    @RequestMapping(value = "/artists{lastname}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Artist> getByLastName(String lastName) {
+        Iterable<Person> persons = personService.getByLastName(lastName);
+        ArrayList<Artist> artists = new ArrayList<>();
+        persons.forEach(person -> {
+            if (person instanceof Artist) {
+                artists.add((Artist)person);
+            }
+        });
+        return artists;
     }
 
     @RequestMapping(value = "/artist",method = RequestMethod.POST)

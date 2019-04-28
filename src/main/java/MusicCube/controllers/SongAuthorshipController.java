@@ -31,12 +31,14 @@ public class SongAuthorshipController {
         return songAuthorshipService.getById(id);
     }
 
-    @RequestMapping(value = "/songAuthors",
+    @RequestMapping(value = "/songAuthorships",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<SongAuthorship> getAll() {
         return songAuthorshipService.getAll();
     }
+
+
 
     @RequestMapping(value = "/songAuthorship",method = RequestMethod.POST)
     public ResponseEntity<SongAuthorship> create(@RequestBody @Valid @NotNull SongAuthorship songAuthorship) {
