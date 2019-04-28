@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InstrumentService } from 'src/app/Services/instrument.service';
 
 @Component({
   selector: 'app-add-instrument',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddInstrumentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private instrumentService: InstrumentService) { }
 
   ngOnInit() {
   }
