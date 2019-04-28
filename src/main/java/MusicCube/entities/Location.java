@@ -22,11 +22,15 @@ public class Location {
     @Column
     private String city;
 
+    @Column
+    private String address;
+
     public Location() {}
 
-    public Location(String country, String city) {
+    public Location(String country, String city, String address) {
         this.country = country;
         this.city = city;
+        this.address = address;
     }
 
     public int getId() {
@@ -51,5 +55,13 @@ public class Location {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

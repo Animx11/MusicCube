@@ -13,14 +13,18 @@ public class Concert {
     @Column
     private Date startTime;
 
+    @Column
+    private String concertName;
+
     @ManyToOne
     private Location location;
 
     public Concert() {}
 
-    public Concert(Date startTime, Location location) {
+    public Concert(Date startTime, Location location, String concertName) {
         this.startTime = startTime;
         this.location = location;
+        this.concertName = concertName;
     }
 
     public int getId() {
@@ -45,5 +49,13 @@ public class Concert {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public String getConcertName() {
+        return concertName;
+    }
+
+    public void setConcertName(String concertName) {
+        this.concertName = concertName;
     }
 }
