@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConcertService } from 'src/app/Services/concert.service';
 
 @Component({
   selector: 'app-edit-concert',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditConcertComponent implements OnInit {
 
-  constructor() { }
+  constructor(private concertService: ConcertService) { }
 
   ngOnInit() {
   }

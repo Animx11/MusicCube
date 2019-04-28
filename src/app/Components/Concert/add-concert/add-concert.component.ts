@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArtistInstrumentService } from 'src/app/Services/artist-instrument.service';
+import { ConcertService } from 'src/app/Services/concert.service';
 
 @Component({
   selector: 'app-add-concert',
@@ -8,7 +8,7 @@ import { ArtistInstrumentService } from 'src/app/Services/artist-instrument.serv
 })
 export class AddConcertComponent implements OnInit {
 
-  constructor() { }
+  constructor(private concertService: ConcertService) { }
 
   ngOnInit() {
   }
