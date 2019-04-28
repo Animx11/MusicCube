@@ -1,4 +1,4 @@
-package MusicCube.Entities;
+package MusicCube.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Instruments {
+public class Instrument {
 
     @Id
     @GeneratedValue
@@ -16,10 +16,14 @@ public class Instruments {
     @Column
     private String name;
 
-    public Instruments() {}
+    @Column
+    private String type;
 
-    public Instruments(String name) {
+    public Instrument() {}
+
+    public Instrument(String name, String type) {
         this.name = name;
+        this.type = type;
     }
 
     public int getId() {
@@ -36,5 +40,13 @@ public class Instruments {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -1,4 +1,4 @@
-package MusicCube.services;
+package MusicCube.services.instrument;
 
 import MusicCube.entities.Instrument;
 import MusicCube.repositories.InstrumentRepository;

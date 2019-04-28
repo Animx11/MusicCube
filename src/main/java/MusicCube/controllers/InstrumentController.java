@@ -1,7 +1,7 @@
-package MusicCube.Controllers;
+package MusicCube.controllers;
 
-import MusicCube.Entities.Instruments;
-import MusicCube.Services.InstrumentService;
+import MusicCube.entities.Instrument;
+import MusicCube.services.instrument.InstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,47 +19,47 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
-public class InstrumentsController {
+public class InstrumentController {
     @Autowired
-    private InstrumentService instrumentService;
+    private InstrumentService instrumentervice;
 
-    @RequestMapping(value = "/instruments{id}",
+    @RequestMapping(value = "/instrument{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Instruments> getById(int id) {
-        return instrumentService.getById(id);
+    public Optional<Instrument> getById(int id) {
+        return instrumentervice.getById(id);
     }
 
     @RequestMapping(value = "/instruments",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Instruments> getAll() {
-        return instrumentService.getAll();
+    public Iterable<Instrument> getAll() {
+        return instrumentervice.getAll();
     }
 
-    @RequestMapping(value = "/instruments",method = RequestMethod.POST)
-    public ResponseEntity<Instruments> create(@RequestBody @Valid @NotNull Instruments instrument) {
-        instrumentService.save(instrument);
+    @RequestMapping(value = "/instrument",method = RequestMethod.POST)
+    public ResponseEntity<Instrument> create(@RequestBody @Valid @NotNull Instrument instrument) {
+        instrumentervice.save(instrument);
         return ResponseEntity.ok().body(instrument);
     }
 
-    @RequestMapping(value = "/instruments",method = RequestMethod.PUT)
-    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Instruments instrument) {
-        Optional<Instruments> artist1 = instrumentService.getById(instrument.getId());
+    @RequestMapping(value = "/instrument",method = RequestMethod.PUT)
+    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Instrument instrument) {
+        Optional<Instrument> artist1 = instrumentervice.getById(instrument.getId());
         if (Objects.nonNull(artist1)) {
-            instrumentService.save(instrument);
+            instrumentervice.save(instrument);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/instruments",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Instruments> redirect(Model model) {
-        return instrumentService.getAll();
+    @RequestMapping(value = "/instrument",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Instrument> redirect(Model model) {
+        return instrumentervice.getAll();
     }
 
-    @RequestMapping(value = "/instruments/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/instrument/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable Integer id) {
-        instrumentService.delete(id);
-        return new RedirectView("/api/instruments",true);
+        instrumentervice.delete(id);
+        return new RedirectView("/api/instrument",true);
     }
 }

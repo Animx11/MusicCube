@@ -1,7 +1,7 @@
-package MusicCube.Repositories;
+package MusicCube.repositories;
 
-import MusicCube.Entities.Instrument;
+import MusicCube.entities.Instrument;
 import org.springframework.data.repository.CrudRepository;
 
-public interface InstrumentsRepository extends CrudRepository<Instrument,Integer> {
+public interface InstrumentRepository extends CrudRepository<Instrument,Integer> {
 }
