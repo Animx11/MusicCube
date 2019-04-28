@@ -22,13 +22,17 @@ public class Song {
     @ManyToOne
     private Band band;
 
+    @ManyToOne
+    private Genre genre;
+
     public Song() {}
 
-    public Song(String songName, int songLengthSeconds, Album album, Band band) {
+    public Song(String songName, int songLengthSeconds, Album album, Band band, Genre genre) {
         this.songName = songName;
         this.songLengthSeconds = songLengthSeconds;
         this.album = album;
         this.band = band;
+        this.genre = genre;
     }
 
     public int getId() {
@@ -70,4 +74,14 @@ public class Song {
     public void setBand(Band band) {
         this.band = band;
     }
+
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
 }
