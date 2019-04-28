@@ -32,4 +32,9 @@ public class ArtistServiceImpl implements ArtistService{
     public void delete(int id) {
         artistRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Artist> getByStageName(String stageName) {
+        return artistRepository.findByStageName(stageName);
+    }
 }

@@ -10,5 +10,6 @@ public interface ArtistService {
     Iterable<Artist> getAll();
     Artist save(Artist artist);
     void delete(int id);
+    Iterable<Artist> getByStageName(String stageName);
 
 }

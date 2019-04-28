@@ -38,6 +38,14 @@ public class ArtistController {
         return artistService.getAll();
     }
 
+    // --- GET BY NAME ---
+    @RequestMapping(value = "/artists{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Artist> getByStageName(String name) {
+        return artistService.getByStageName(name);
+    }
+
     @RequestMapping(value = "/artist",method = RequestMethod.POST)
     public ResponseEntity<Artist> create(@RequestBody @Valid @NotNull Artist artist) {
         artistService.save(artist);
