@@ -1,9 +1,6 @@
 package MusicCube.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -14,12 +11,16 @@ public class Concert {
     private int id;
 
     @Column
-    private Date date;
+    private Date startTime;
+
+    @ManyToOne
+    private Location location;
 
     public Concert() {}
 
-    public Concert(Date date) {
-        this.date = date;
+    public Concert(Date startTime, Location location) {
+        this.startTime = startTime;
+        this.location = location;
     }
 
     public int getId() {
@@ -30,11 +31,19 @@ public class Concert {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
