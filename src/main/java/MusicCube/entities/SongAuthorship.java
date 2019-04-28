@@ -3,7 +3,7 @@ package MusicCube.entities;
 import javax.persistence.*;
 
 @Entity
-public class SongAuthor {
+public class SongAuthorship {
 
     @Id
     @GeneratedValue
@@ -22,9 +22,9 @@ public class SongAuthor {
     @ManyToOne
     private Person author;
 
-    public SongAuthor() {}
+    public SongAuthorship() {}
 
-    public SongAuthor(boolean wroteText, boolean wroteMusic, Song song, Person author) {
+    public SongAuthorship(boolean wroteText, boolean wroteMusic, Song song, Person author) {
         this.wroteText = wroteText;
         this.wroteMusic = wroteMusic;
         this.song = song;

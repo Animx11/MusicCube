@@ -1,7 +1,7 @@
 package MusicCube.controllers;
 
-import MusicCube.services.songauthor.SongAuthorService;
-import MusicCube.entities.SongAuthor;
+import MusicCube.services.songauthorship.SongAuthorshipService;
+import MusicCube.entities.SongAuthorship;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,49 +19,49 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
-public class SongAuthorController {
+public class SongAuthorshipController {
 
     @Autowired
-    private SongAuthorService songAuthorService;
+    private SongAuthorshipService songAuthorshipService;
 
-    @RequestMapping(value = "/songAuthor{id}",
+    @RequestMapping(value = "/songAuthorship{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<SongAuthor> getById(int id) {
-        return songAuthorService.getById(id);
+    public Optional<SongAuthorship> getById(int id) {
+        return songAuthorshipService.getById(id);
     }
 
     @RequestMapping(value = "/songAuthors",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<SongAuthor> getAll() {
-        return songAuthorService.getAll();
+    public Iterable<SongAuthorship> getAll() {
+        return songAuthorshipService.getAll();
     }
 
-    @RequestMapping(value = "/songAuthor",method = RequestMethod.POST)
-    public ResponseEntity<SongAuthor> create(@RequestBody @Valid @NotNull SongAuthor songAuthor) {
-        songAuthorService.save(songAuthor);
-        return ResponseEntity.ok().body(songAuthor);
+    @RequestMapping(value = "/songAuthorship",method = RequestMethod.POST)
+    public ResponseEntity<SongAuthorship> create(@RequestBody @Valid @NotNull SongAuthorship songAuthorship) {
+        songAuthorshipService.save(songAuthorship);
+        return ResponseEntity.ok().body(songAuthorship);
     }
 
-    @RequestMapping(value = "/songAuthor",method = RequestMethod.PUT)
-    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull SongAuthor songAuthor) {
-        Optional<SongAuthor> songAuthor1 = songAuthorService.getById(songAuthor.getId());
+    @RequestMapping(value = "/songAuthorship",method = RequestMethod.PUT)
+    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull SongAuthorship songAuthorship) {
+        Optional<SongAuthorship> songAuthor1 = songAuthorshipService.getById(songAuthorship.getId());
         if (Objects.nonNull(songAuthor1)) {
-            songAuthorService.save(songAuthor);
+            songAuthorshipService.save(songAuthorship);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @ApiIgnore
     @RequestMapping(value = "/songAuthors",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<SongAuthor> redirect(Model model) {
-        return songAuthorService.getAll();
+    public Iterable<SongAuthorship> redirect(Model model) {
+        return songAuthorshipService.getAll();
     }
 
-    @RequestMapping(value = "/songAuthor/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/songAuthorship/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable Integer id) {
-        songAuthorService.delete(id);
+        songAuthorshipService.delete(id);
         return new RedirectView("/api/songAuthors",true);
     }
 }
