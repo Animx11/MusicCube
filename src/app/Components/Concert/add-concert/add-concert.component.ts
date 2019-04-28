@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArtistInstrumentService } from 'src/app/Services/artist-instrument.service';
 
 @Component({
   selector: 'app-add-concert',
