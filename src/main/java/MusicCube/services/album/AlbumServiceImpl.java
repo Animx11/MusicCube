@@ -29,8 +29,9 @@ public class AlbumServiceImpl implements AlbumService {
     public void delete(int id) {
         albumRepository.deleteById(id);
     }
+
     @Override
-    public Iterable<Album> getByName(String name) {
-        return albumRepository.findByName(name);
+    public Iterable<Album> getByAlbumName(String albumName) {
+        return albumRepository.findByAlbumName(albumName);
     }
 }

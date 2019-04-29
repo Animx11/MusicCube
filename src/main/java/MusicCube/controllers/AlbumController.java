@@ -38,6 +38,14 @@ public class AlbumController {
         return albumService.getAll();
     }
 
+    // --- Get by name ---
+    @RequestMapping(value = "/albums{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Album> getByAlbumName(String albumName) {
+        return albumService.getByAlbumName(albumName);
+    }
+
     @RequestMapping(value = "/album",method = RequestMethod.POST)
     public ResponseEntity<Album> create(@RequestBody @Valid @NotNull Album album) {
         albumService.save(album);
@@ -63,12 +71,5 @@ public class AlbumController {
     public RedirectView delete(@PathVariable Integer id) {
         albumService.delete(id);
         return new RedirectView("/api/albums",true);
-    }
-
-    @RequestMapping(value = "/album{name}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Album> getByName(String name) {
-        return albumService.getByName(name);
     }
 }

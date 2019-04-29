@@ -38,6 +38,13 @@ public class GenreController {
         return genreService.getAll();
     }
 
+    @RequestMapping(value = "/genres{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Genre> getByGenreName(String genreName) {
+        return genreService.getByGenreName(genreName);
+    }
+
     @RequestMapping(value = "/genre",method = RequestMethod.POST)
     public ResponseEntity<Genre> create(@RequestBody @Valid @NotNull Genre genre) {
         genreService.save(genre);
@@ -63,12 +70,5 @@ public class GenreController {
     public RedirectView delete(@PathVariable Integer id) {
         genreService.delete(id);
         return new RedirectView("/api/genres",true);
-    }
-
-    @RequestMapping(value = "/genre{name}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Genre> getByName(String name) {
-        return genreService.getByName(name);
     }
 }

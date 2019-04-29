@@ -17,17 +17,14 @@ public class ArtistServiceImpl implements ArtistService{
     public Optional<Artist> getById(int id) {
         return artistRepository.findById(id);
     }
-
     @Override
     public Iterable<Artist> getAll() {
         return artistRepository.findAll();
     }
-
     @Override
     public Artist save(Artist artist) {
         return artistRepository.save(artist);
     }
-
     @Override
     public void delete(int id) {
         artistRepository.deleteById(id);

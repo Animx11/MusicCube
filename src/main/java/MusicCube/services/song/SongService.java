@@ -10,5 +10,6 @@ public interface SongService {
     Iterable<Song> getAll();
     Song save(Song song);
     void delete(int id);
-    Iterable<Song> getByName(String name);
+
+    Iterable<Song> getBySongName(String songName);
 }

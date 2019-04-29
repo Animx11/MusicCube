@@ -1,6 +1,8 @@
 package MusicCube.services.genreinstrument;
 
+import MusicCube.entities.Genre;
 import MusicCube.entities.GenreInstrument;
+import MusicCube.entities.Instrument;
 import MusicCube.repositories.GenreInstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +31,9 @@ public class GenreInstrumentServiceImpl implements GenreInstrumentService {
     public void delete(int id) {
         genreInstrumentRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<GenreInstrument> getByGenre(Genre genre) { return genreInstrumentRepository.findByGenre(genre); }
+    @Override
+    public Iterable<GenreInstrument> getByInstrument(Instrument instrument) { return genreInstrumentRepository.findByInstrument(instrument); }
 }

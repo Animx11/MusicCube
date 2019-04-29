@@ -11,6 +11,6 @@ public interface AlbumService {
     Album save(Album album);
     void delete(int id);
 
-    Iterable<Album> getByName(String name);
+    Iterable<Album> getByAlbumName(String albumName);
 
 }

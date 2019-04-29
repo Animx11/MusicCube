@@ -1,6 +1,8 @@
 package MusicCube.services.artistinstrument;
 
+import MusicCube.entities.Artist;
 import MusicCube.entities.ArtistInstrument;
+import MusicCube.entities.Instrument;
 
 import java.util.Optional;
 
@@ -10,5 +12,8 @@ public interface ArtistInstrumentService {
     Iterable<ArtistInstrument> getAll();
     ArtistInstrument save(ArtistInstrument artistInstrument);
     void delete(int id);
+
+    Iterable<ArtistInstrument> getByArtist(Artist artist);
+    Iterable<ArtistInstrument> getByInstrument(Instrument instrument);
 
 }

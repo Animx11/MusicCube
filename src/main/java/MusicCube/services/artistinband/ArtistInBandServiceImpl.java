@@ -1,6 +1,8 @@
 package MusicCube.services.artistinband;
 
+import MusicCube.entities.Artist;
 import MusicCube.entities.ArtistInBand;
+import MusicCube.entities.Band;
 import MusicCube.repositories.ArtistInBandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +31,9 @@ public class ArtistInBandServiceImpl implements ArtistInBandService {
     public void delete(int id) {
         artistInBandRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<ArtistInBand> getByArtist(Artist artist) { return artistInBandRepository.findByArtist(artist); }
+    @Override
+    public  Iterable<ArtistInBand> getByBand(Band band) { return artistInBandRepository.findByBand(band); }
 }

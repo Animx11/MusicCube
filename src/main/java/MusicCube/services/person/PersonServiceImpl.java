@@ -22,15 +22,16 @@ public class PersonServiceImpl implements PersonService{
         return personRepository.findAll();
     }
     @Override
-    public Iterable<Person> getByLastName(String lastName) {
-        return personRepository.findByLastName(lastName);
-    }
-    @Override
     public Person save(Person person) {
         return personRepository.save(person);
     }
     @Override
     public void delete(int id) {
         personRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Person> getByLastName(String lastName) {
+        return personRepository.findByLastName(lastName);
     }
 }

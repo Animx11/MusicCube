@@ -1,5 +1,7 @@
 package MusicCube.controllers;
 
+import MusicCube.entities.Genre;
+import MusicCube.entities.Instrument;
 import MusicCube.services.genreinstrument.GenreInstrumentService;
 import MusicCube.entities.GenreInstrument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,15 @@ public class GenreInstrumentController {
     public Iterable<GenreInstrument> getAll() {
         return genreInstrumentService.getAll();
     }
+
+    // --- Get by Genre ---
+    @RequestMapping(value = "/genreInstruments{genre}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<GenreInstrument> getByGenre(Genre genre) { return genreInstrumentService.getByGenre(genre); }
+
+    // --- Get by Instrument ---
+    @RequestMapping(value = "/genreInstruments{instrument}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<GenreInstrument> getByInstrument(Instrument instrument) { return genreInstrumentService.getByInstrument(instrument); }
+
 
     @RequestMapping(value = "/genreInstrument",method = RequestMethod.POST)
     public ResponseEntity<GenreInstrument> create(@RequestBody @Valid @NotNull GenreInstrument genreInstrument) {

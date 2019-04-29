@@ -38,6 +38,14 @@ public class SongController {
         return songService.getAll();
     }
 
+    // --- Get by song name ---
+    @RequestMapping(value = "/songs{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Song> getBySongName(String songName) {
+        return songService.getBySongName(songName);
+    }
+
     @RequestMapping(value = "/song",method = RequestMethod.POST)
     public ResponseEntity<Song> create(@RequestBody @Valid @NotNull Song song) {
         songService.save(song);
@@ -65,10 +73,4 @@ public class SongController {
         return new RedirectView("/api/songs",true);
     }
 
-    @RequestMapping(value = "/song{name}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Song> getByName(String name) {
-        return songService.getByName(name);
-    }
 }

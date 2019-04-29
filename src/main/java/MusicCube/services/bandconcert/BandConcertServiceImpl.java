@@ -1,6 +1,8 @@
 package MusicCube.services.bandconcert;
 
+import MusicCube.entities.Band;
 import MusicCube.entities.BandConcert;
+import MusicCube.entities.Concert;
 import MusicCube.repositories.BandConcertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +31,9 @@ public class BandConcertServiceImpl implements BandConcertService {
     public void delete(int id) {
         bandConcertRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<BandConcert> getByBand(Band band) { return bandConcertRepository.findByBand(band); }
+    @Override
+    public Iterable<BandConcert> getByConcert(Concert concert) { return bandConcertRepository.findByConcert(concert); }
 }

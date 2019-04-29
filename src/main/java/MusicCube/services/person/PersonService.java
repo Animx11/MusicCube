@@ -7,7 +7,8 @@ public interface PersonService {
     
     Optional<Person> getById(int id);
     Iterable<Person> getAll();
-    Iterable<Person> getByLastName(String lastName);
     Person save(Person person);
     void delete(int id);
+
+    Iterable<Person> getByLastName(String lastName);
 }

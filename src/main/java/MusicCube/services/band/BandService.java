@@ -10,5 +10,6 @@ public interface BandService {
     Iterable<Band> getAll();
     Band save(Band band);
     void delete(int id);
-    Iterable<Band> getByName(String name);
+
+    Iterable<Band> getByBandName(String bandName);
 }

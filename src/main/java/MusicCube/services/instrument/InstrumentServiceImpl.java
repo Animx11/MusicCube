@@ -29,4 +29,7 @@ public class InstrumentServiceImpl implements InstrumentService {
     public void delete(int id) {
         instrumentRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Instrument> getByInstrumentName(String instrumentName) { return instrumentRepository.findByInstrumentName(instrumentName); }
 }

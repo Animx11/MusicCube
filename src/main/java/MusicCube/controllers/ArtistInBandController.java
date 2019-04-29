@@ -1,5 +1,7 @@
 package MusicCube.controllers;
 
+import MusicCube.entities.Artist;
+import MusicCube.entities.Band;
 import MusicCube.services.artistinband.ArtistInBandService;
 import MusicCube.entities.ArtistInBand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,14 @@ public class ArtistInBandController {
         return artistInBandService.getAll();
     }
 
+    // --- Get by Artist ---
+    @RequestMapping(value = "/artistInBands{artist}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<ArtistInBand> getByArtist(Artist artist) { return artistInBandService.getByArtist(artist); }
+
+    // --- Get by Band ---
+    @RequestMapping(value = "/artistInBands{band}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<ArtistInBand> getByBand(Band band) { return artistInBandService.getByBand(band); }
+
     @RequestMapping(value = "/artistInBand",method = RequestMethod.POST)
     public ResponseEntity<ArtistInBand> create(@RequestBody @Valid @NotNull ArtistInBand artistInBand) {
         artistInBandService.save(artistInBand);
@@ -64,4 +74,7 @@ public class ArtistInBandController {
         artistInBandService.delete(id);
         return new RedirectView("/api/artistInBands",true);
     }
+
+
+
 }

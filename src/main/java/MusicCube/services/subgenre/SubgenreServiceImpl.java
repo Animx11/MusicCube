@@ -1,5 +1,6 @@
 package MusicCube.services.subgenre;
 
+import MusicCube.entities.Genre;
 import MusicCube.entities.Subgenre;
 import MusicCube.repositories.SubgenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,9 @@ public class SubgenreServiceImpl implements SubgenreService {
     public void delete(int id) {
         subgenreRepository.deleteById(id);
     }
+
+    @Override
+    public Iterable<Subgenre> getByChildGenre(Genre childGenre) { return subgenreRepository.findByChildGenre(childGenre); }
+    @Override
+    public Iterable<Subgenre> getByParentGenre(Genre parentGenre) { return subgenreRepository.findByParentGenre(parentGenre); }
 }

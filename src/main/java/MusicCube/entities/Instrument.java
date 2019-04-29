@@ -14,15 +14,15 @@ public class Instrument {
     private int id;
 
     @Column
-    private String name;
+    private String instrumentName;
 
     @Column
     private String type;
 
     public Instrument() {}
 
-    public Instrument(String name, String type) {
-        this.name = name;
+    public Instrument(String instrumentName, String type) {
+        this.instrumentName = instrumentName;
         this.type = type;
     }
 
@@ -35,11 +35,11 @@ public class Instrument {
     }
 
     public String getName() {
-        return name;
+        return instrumentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String instrumentName) {
+        this.instrumentName = instrumentName;
     }
 
     public String getType() {

@@ -1,5 +1,7 @@
 package MusicCube.controllers;
 
+import MusicCube.entities.Person;
+import MusicCube.entities.Song;
 import MusicCube.services.songauthorship.SongAuthorshipService;
 import MusicCube.entities.SongAuthorship;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,14 @@ public class SongAuthorshipController {
         return songAuthorshipService.getAll();
     }
 
+
+    // --- Get by Song ---
+    @RequestMapping(value = "/songAuthors{song}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<SongAuthorship> getBySong(Song song) { return songAuthorshipService.getBySong(song); }
+
+    // --- Get by Author ---
+    @RequestMapping(value = "/songAuthors{author}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<SongAuthorship> getByAuthor(Person author) { return songAuthorshipService.getByAuthor(author); }
 
 
     @RequestMapping(value = "/songAuthorship",method = RequestMethod.POST)

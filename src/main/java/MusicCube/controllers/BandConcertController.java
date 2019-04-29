@@ -1,5 +1,7 @@
 package MusicCube.controllers;
 
+import MusicCube.entities.Band;
+import MusicCube.entities.Concert;
 import MusicCube.services.bandconcert.BandConcertService;
 import MusicCube.entities.BandConcert;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,15 @@ public class BandConcertController {
     public Iterable<BandConcert> getAll() {
         return bandConcertService.getAll();
     }
+
+    // --- Get by Band ---
+    @RequestMapping(value = "/bandConcerts{band}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<BandConcert> getByBand(Band band) { return bandConcertService.getByBand(band); }
+
+    // --- Get by Concert ---
+    @RequestMapping(value = "/bandConcerts{concert}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<BandConcert> getByConcert(Concert concert) { return bandConcertService.getByConcert(concert); }
+
 
     @RequestMapping(value = "/bandConcert",method = RequestMethod.POST)
     public ResponseEntity<BandConcert> create(@RequestBody @Valid @NotNull BandConcert bandConcert) {

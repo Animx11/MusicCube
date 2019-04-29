@@ -37,6 +37,14 @@ public class ConcertController {
         return concertService.getAll();
     }
 
+    // --- Get by concertName
+    @RequestMapping(value = "/Concerts{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Concert> getByConcertName(String concertName) {
+        return concertService.getByConcertName(concertName);
+    }
+
     @RequestMapping(value = "/concerts",method = RequestMethod.POST)
     public ResponseEntity<Concert> create(@RequestBody @Valid @NotNull Concert concert) {
         concertService.save(concert);
@@ -63,10 +71,4 @@ public class ConcertController {
         return new RedirectView("/api/concerts",true);
     }
 
-    @RequestMapping(value = "/Concert{name}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Concert> getByName(String name) {
-        return concertService.getByName(name);
-    }
 }

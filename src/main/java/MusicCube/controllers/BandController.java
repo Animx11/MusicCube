@@ -39,6 +39,15 @@ public class BandController {
         return bandService.getAll();
     }
 
+    // --- Get by band name ---
+    @RequestMapping(value = "/bands{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Band> getByBandName(String bandName) {
+        return bandService.getByBandName(bandName);
+    }
+
+
     @RequestMapping(value = "/band",method = RequestMethod.POST)
     public ResponseEntity<Band> create(@RequestBody @Valid @NotNull Band band) {
         bandService.save(band);
@@ -64,13 +73,6 @@ public class BandController {
     public RedirectView delete(@PathVariable Integer id) {
         bandService.delete(id);
         return new RedirectView("/api/bands",true);
-    }
-
-    @RequestMapping(value = "/band{name}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Band> getByName(String name) {
-        return bandService.getByName(name);
     }
 
 }

@@ -1,5 +1,7 @@
 package MusicCube.controllers;
 
+import MusicCube.entities.Artist;
+import MusicCube.entities.Instrument;
 import MusicCube.services.artistinstrument.ArtistInstrumentService;
 import MusicCube.entities.ArtistInstrument;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,14 @@ public class ArtistInstrumentController {
     public Iterable<ArtistInstrument> getAll() {
         return artistInstrumentService.getAll();
     }
+
+    // --- Get by Artist ---
+    @RequestMapping(value = "/artistInstruments{artist}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<ArtistInstrument> getByArtist(Artist artist) { return artistInstrumentService.getByArtist(artist); }
+
+    // --- Get by Instrument ---
+    @RequestMapping(value = "/artistInstruments{instrument}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<ArtistInstrument> getByInstrument(Instrument instrument) { return artistInstrumentService.getByInstrument(instrument); }
 
     @RequestMapping(value = "/artistInstrument",method = RequestMethod.POST)
     public ResponseEntity<ArtistInstrument> create(@RequestBody @Valid @NotNull ArtistInstrument artistInstrument) {
