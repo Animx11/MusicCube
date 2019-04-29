@@ -12,4 +12,6 @@ public interface ConcertService {
     Concert save(Concert concert);
 
     void delete(int id);
+
+    Iterable<Concert> getByName(String name);
 }

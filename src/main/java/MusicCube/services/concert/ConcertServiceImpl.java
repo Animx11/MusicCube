@@ -29,4 +29,8 @@ public class ConcertServiceImpl implements ConcertService {
     public void delete(int id) {
         concertRepository.deleteById(id);
     }
+    @Override
+    public Iterable<Concert> getByName(String name) {
+        return concertRepository.findByName(name);
+    }
 }

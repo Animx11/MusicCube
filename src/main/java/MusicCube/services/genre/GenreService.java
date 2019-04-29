@@ -10,5 +10,5 @@ public interface GenreService {
     Iterable<Genre> getAll();
     Genre save(Genre genre);
     void delete(int id);
-
+    Iterable<Genre> getByName(String name);
 }

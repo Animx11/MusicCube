@@ -62,4 +62,11 @@ public class ConcertController {
         concertService.delete(id);
         return new RedirectView("/api/concerts",true);
     }
+
+    @RequestMapping(value = "/Concert{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Concert> getByName(String name) {
+        return concertService.getByName(name);
+    }
 }

@@ -29,4 +29,8 @@ public class SongServiceImpl implements SongService {
     public void delete(int id) {
         songRepository.deleteById(id);
     }
+    @Override
+    public Iterable<Song> getByName(String name) {
+        return songRepository.findByName(name);
+    }
 }
