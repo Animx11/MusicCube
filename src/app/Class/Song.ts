@@ -1,59 +1,68 @@
-import { Album } from './Album';
-import { Band } from './Band';
+import { Album } from "./Album";
+import { Band } from "./Band";
+import { Genre } from "./Genre";
 
 export class Song {
+  private id: number;
+  private songName: string;
+  private songLengthSeconds: number;
+  private album: Album;
+  private band: Band;
+  private genre: Genre;
 
-    private id: number;
-    private songName: string;
-    private songLengthSecounds: number;
-    private album: Album;
-    private band: Band;
+  constructor(obj?: any) {
+    this.songName = (obj && obj.songName) || "";
+    this.songLengthSeconds = (obj && obj.songLengthSeconds) || 0;
+    this.album = (obj && obj.album) || null;
+    this.band = (obj && obj.band) || null;
+    this.genre = (obj && obj.genre) || null;
+  }
 
-    constructor(obj?: any) {
-        this.songName = (obj && obj.songName) || '';
-        this.songLengthSecounds = (obj && obj.songLengthSecounds) || 0;
-        this.album = (obj && obj.album) || null;
-        this.band = (obj && obj.band) || null;
-    }
+  // Getters
 
-    // Getters
+  getId(): number {
+    return this.id;
+  }
 
-    getId(): number {
-        return this.id;
-    }
+  getSongName(): string {
+    return this.songName;
+  }
 
-    getSongName(): string {
-        return this.songName;
-    }
+  getSongLengthSeconds(): number {
+    return this.songLengthSeconds;
+  }
 
-    getSongLengthSecounds(): number {
-        return this.songLengthSecounds;
-    }
+  getAlbum(): Album {
+    return this.album;
+  }
 
-    getAlbum(): Album {
-        return this.album;
-    }
+  getBand(): Band {
+    return this.band;
+  }
 
-    getBand(): Band {
-        return this.band;
-    }
+  getGenre(): genre {
+    return this.genre;
+  }
 
-    // Setters
+  // Setters
 
-    setSongName(songName: string) {
-        this.songName = songName;
-    }
+  setSongName(songName: string) {
+    this.songName = songName;
+  }
 
-    setSongLengthSecounds(songLengthSecounds: number) {
-        this.songLengthSecounds = songLengthSecounds;
-    }
+  setSongLengthSeconds(songLengthSeconds: number) {
+    this.songLengthSeconds = songLengthSeconds;
+  }
 
-    setAlbum(album: Album) {
-        this.album = album;
-    }
+  setAlbum(album: Album) {
+    this.album = album;
+  }
 
-    setBand(band: Band) {
-        this.band = band;
-    }
+  setBand(band: Band) {
+    this.band = band;
+  }
 
+  setGenre(genre: genre) {
+    this.genre = genre;
+  }
 }

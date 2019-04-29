@@ -1,3 +1,7 @@
 <div id = "CRUD">
-  add-song works!
+  Song title
+  <input type="text" [(ngModel)]="songName"><br>
+  Length
+  <input type="text" [(ngModel)]="songLengthSeconds"><br>
+  <button (click)="addSong()">Add song</button>
 </div>

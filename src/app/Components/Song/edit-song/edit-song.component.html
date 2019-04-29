@@ -1,3 +1,9 @@
 <div id = "CRUD">
-  edit-song works!
+  Search by name:<input type="text" [(ngModel)]="songName">
+  <button (click)="findBySongName()">Search</button>
+  <button (click)="findAllSongs()">All</button>
+
+  <div *ngFor="let song of songs">
+    Title: {{song.getSongName()}}
+  </div>
 </div>
