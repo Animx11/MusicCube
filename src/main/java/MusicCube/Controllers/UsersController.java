@@ -69,7 +69,6 @@ public class UsersController {
         return usersService.getUserPermissionByUserName(userName);
     }
 
-
     @RequestMapping(value = "/signIn", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthorisationToken> signIn(@RequestParam("userName") String userName, @RequestParam("password") String password){
 
