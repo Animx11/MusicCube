@@ -64,4 +64,11 @@ public class SongController {
         songService.delete(id);
         return new RedirectView("/api/songs",true);
     }
+
+    @RequestMapping(value = "/song{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Song> getByName(String name) {
+        return songService.getByName(name);
+    }
 }

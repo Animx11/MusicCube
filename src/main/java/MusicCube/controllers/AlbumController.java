@@ -64,4 +64,11 @@ public class AlbumController {
         albumService.delete(id);
         return new RedirectView("/api/albums",true);
     }
+
+    @RequestMapping(value = "/album{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Album> getByName(String name) {
+        return albumService.getByName(name);
+    }
 }

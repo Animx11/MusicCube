@@ -64,4 +64,11 @@ public class GenreController {
         genreService.delete(id);
         return new RedirectView("/api/genres",true);
     }
+
+    @RequestMapping(value = "/genre{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Genre> getByName(String name) {
+        return genreService.getByName(name);
+    }
 }

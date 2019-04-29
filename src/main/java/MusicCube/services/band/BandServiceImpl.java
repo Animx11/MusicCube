@@ -29,4 +29,8 @@ public class BandServiceImpl implements BandService {
     public void delete(int id) {
         bandRepository.deleteById(id);
     }
+    @Override
+    public Iterable<Band> getByName(String name) {
+        return bandRepository.findByName(name);
+    }
 }

@@ -29,4 +29,8 @@ public class GenreServiceImpl implements GenreService {
     public void delete(int id) {
         genreRepository.deleteById(id);
     }
+    @Override
+    public Iterable<Genre> getByName(String name) {
+        return genreRepository.findByName(name);
+    }
 }

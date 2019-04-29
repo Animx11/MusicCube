@@ -66,6 +66,11 @@ public class BandController {
         return new RedirectView("/api/bands",true);
     }
 
-
+    @RequestMapping(value = "/band{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Band> getByName(String name) {
+        return bandService.getByName(name);
+    }
 
 }
