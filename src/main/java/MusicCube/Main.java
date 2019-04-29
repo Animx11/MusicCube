@@ -13,19 +13,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication
-@EnableJpaRepositories("MusicCube.Repositories")
+@EnableJpaRepositories("MusicCube.repositories")
 public class Main extends SpringBootServletInitializer {
+
+    @Bean
+    public Docket mcApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select().apis(RequestHandlerSelectors.basePackage("MusicCube.controllers"))
+                .build();
+    }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Main.class);
-    }
-
-    @Bean
-    public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select().apis(RequestHandlerSelectors.basePackage("MusicCube.Controllers"))
-                .build();
     }
 
     public static void main(String[] args) {
