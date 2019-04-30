@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Location } from '../Class/Location';
 
 const apiUrl = 'http://localhost:8080/api';
 
@@ -30,6 +31,10 @@ export class LocationService {
 
   delete(id: number): Observable<any> {
     return this.http.delete(`${apiUrl}/location/${id}`);
+  }
+
+  getByCity(city: string): Observable<any> {
+    return this.http.get(`${apiUrl}/location_by_city?city=${city}`);
   }
 
 }

@@ -3,10 +3,12 @@ export class Location {
     private id: number;
     private country: string;
     private city: string;
+    private address: string;
 
     constructor(obj?: any) {
         this.country = (obj && obj.country) || '';
         this.city = (obj && obj.city) || '';
+        this.address = (obj && obj.address) || '';
     }
 
     // Getters
@@ -23,6 +25,10 @@ export class Location {
         return this.city;
     }
 
+    getAddress(): string {
+        return this.address;
+    }
+
     // Setters
 
     setCountry(country: string) {
@@ -31,6 +37,10 @@ export class Location {
 
     setCity(city: string) {
         this.city = city;
+    }
+
+    setAddress(address: string) {
+        this.address = address;
     }
 
 }

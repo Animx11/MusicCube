@@ -1,3 +1,9 @@
 <div id = "CRUD">
-  edit-location works!
+  Search by name:<input type="text" [(ngModel)]="city">
+  <button (click)="findByCity()">Search</button>
+  <button (click)="findAllLocation()">All</button>
+
+  <div *ngFor="let location of locations">
+    Title: {{song.getSongName()}}
+  </div>
 </div>
