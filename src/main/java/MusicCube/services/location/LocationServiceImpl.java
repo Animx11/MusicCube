@@ -29,4 +29,8 @@ public class LocationServiceImpl implements LocationService {
     public void delete(int id) {
         locationRepository.deleteById(id);
     }
+    @Override
+    public Iterable<Location> getByCity(String city){
+        return locationRepository.findByCity(city);
+    }
 }

@@ -66,6 +66,11 @@ public class LocationController {
         return new RedirectView("/api/locations",true);
     }
 
+    @RequestMapping(value = "/location_by_city", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Location> getByCity(@RequestParam("city") String city){
+        return locationService.getByCity(city);
+    }
+
 
 
 }

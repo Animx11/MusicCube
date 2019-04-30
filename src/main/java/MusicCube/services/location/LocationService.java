@@ -11,4 +11,6 @@ public interface LocationService {
     Location save(Location location);
     void delete(int id);
 
+    Iterable<Location> getByCity(String city);
+
 }
