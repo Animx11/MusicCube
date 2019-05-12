@@ -13,7 +13,7 @@ public class Artist extends Person {
 
     public Artist() {}
 
-    public Artist(Location origin, String firstNames, String lastName, Date birthDate, String stageName) {
+    public Artist(Localization origin, String firstNames, String lastName, Date birthDate, String stageName) {
         super(origin, firstNames, lastName, birthDate);
         this.stageName = stageName;
     }

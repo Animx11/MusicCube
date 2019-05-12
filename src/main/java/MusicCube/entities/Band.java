@@ -21,11 +21,11 @@ public class Band {
     private Date creationDate;
 
     @ManyToOne
-    private Location formedIn;
+    private Localization formedIn;
 
     public Band() {}
 
-    public Band(String bandName, Date creationDate, Location formedIn) {
+    public Band(String bandName, Date creationDate, Localization formedIn) {
         this.bandName = bandName;
         this.creationDate = creationDate;
         this.formedIn = formedIn;
@@ -55,11 +55,11 @@ public class Band {
         this.creationDate = creationDate;
     }
 
-    public Location getFormedIn() {
+    public Localization getFormedIn() {
         return formedIn;
     }
 
-    public void setFormedIn(Location formedIn) {
+    public void setFormedIn(Localization formedIn) {
         this.formedIn = formedIn;
     }
 }

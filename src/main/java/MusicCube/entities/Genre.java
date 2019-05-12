@@ -12,7 +12,7 @@ public class Genre {
     private int id;
 
     @ManyToOne
-    private Location origin;
+    private Localization origin;
 
     @Column
     private String genreName;
@@ -22,7 +22,7 @@ public class Genre {
 
     public Genre() {}
 
-    public Genre(Location origin, String genreName, Date creationDate) {
+    public Genre(Localization origin, String genreName, Date creationDate) {
         this.origin = origin;
         this.genreName = genreName;
         this.creationDate = creationDate;
@@ -36,11 +36,11 @@ public class Genre {
         this.id = id;
     }
 
-    public Location getOrigin() {
+    public Localization getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Location origin) {
+    public void setOrigin(Localization origin) {
         this.origin = origin;
     }
 

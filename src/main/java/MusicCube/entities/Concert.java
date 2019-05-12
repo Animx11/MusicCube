@@ -17,13 +17,13 @@ public class Concert {
     private String concertName;
 
     @ManyToOne
-    private Location location;
+    private Localization localization;
 
     public Concert() {}
 
-    public Concert(Date startTime, Location location, String concertName) {
+    public Concert(Date startTime, Localization localization, String concertName) {
         this.startTime = startTime;
-        this.location = location;
+        this.localization = localization;
         this.concertName = concertName;
     }
 
@@ -43,12 +43,12 @@ public class Concert {
         this.startTime = startTime;
     }
 
-    public Location getLocation() {
-        return location;
+    public Localization getLocalization() {
+        return localization;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocalization(Localization localization) {
+        this.localization = localization;
     }
 
     public String getConcertName() {

@@ -16,8 +16,8 @@ public class Person {
     protected int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LocationId",referencedColumnName = "id")
-    protected Location origin;
+    @JoinColumn(name = "LocalizationId",referencedColumnName = "id")
+    protected Localization origin;
 
     @Column
     protected String firstNames;
@@ -30,7 +30,7 @@ public class Person {
 
     public Person() {}
 
-    public Person(Location origin, String firstNames, String lastName, Date birthDate) {
+    public Person(Localization origin, String firstNames, String lastName, Date birthDate) {
         this.origin = origin;
         this.firstNames = firstNames;
         this.lastName = lastName;
@@ -45,11 +45,11 @@ public class Person {
         this.id = id;
     }
 
-    public Location getOrigin() {
+    public Localization getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Location origin) {
+    public void setOrigin(Localization origin) {
         this.origin = origin;
     }
 

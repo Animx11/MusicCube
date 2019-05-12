@@ -43,7 +43,7 @@ public class SubgenreController {
     @RequestMapping(value = "/subgenres{childgenre}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Subgenre> getByChildGenre(Genre childGenre) { return subgenreService.getByChildGenre(childGenre); }
     // --- Get by parent genre ---
-    @RequestMapping(value = "/subgenres{parent",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/subgenres{parent}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Subgenre> getByParentGenre(Genre parentGenre) { return subgenreService.getByParentGenre(parentGenre); }
 
     @RequestMapping(value = "/subgenre",method = RequestMethod.POST)

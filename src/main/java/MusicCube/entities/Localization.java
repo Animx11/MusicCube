@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Location {
+public class Localization {
 
     @Id
     @GeneratedValue
@@ -25,9 +25,9 @@ public class Location {
     @Column
     private String address;
 
-    public Location() {}
+    public Localization() {}
 
-    public Location(String country, String city, String address) {
+    public Localization(String country, String city, String address) {
         this.country = country;
         this.city = city;
         this.address = address;
