@@ -14,7 +14,7 @@ export class AdminPanelComponent implements OnInit {
   isConcertClicked: boolean;
   isGenreClicked: boolean;
   isInstrumentClicked: boolean;
-  isLocationClicked: boolean;
+  isLocalizationClicked: boolean;
 
   constructor() { }
 
@@ -26,7 +26,7 @@ export class AdminPanelComponent implements OnInit {
     this.isConcertClicked = false;
     this.isGenreClicked = false;
     this.isInstrumentClicked = false;
-    this.isLocationClicked = false;
+    this.isLocalizationClicked = false;
   }
 
 
@@ -43,7 +43,7 @@ export class AdminPanelComponent implements OnInit {
     this.isConcertClicked = false;
     this.isGenreClicked = false;
     this.isInstrumentClicked = false;
-    this.isLocationClicked = false;
+    this.isLocalizationClicked = false;
   }
 
 }

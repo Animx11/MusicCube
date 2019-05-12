@@ -16,7 +16,7 @@ import { Song } from "src/app/Class/Song";
 export class EditSongComponent implements OnInit {
   constructor(private songService: SongService) {}
 
-  songName: String;
+  songName: string;
   songs: Song[];
 
   ngOnInit() {

@@ -1,3 +1,13 @@
-<div id = "CRUD">
-  edit-album works!
+<div id="CRUD">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
+</div>
+<div id="list">
+  <ul>
+    <li *ngFor="let album of (albums$ | async)" (click)="onSelect(album)">
+      {{ album.country }} {{ album.city }} {{ album.address }}
+    </li>
+  </ul>
+</div>
+<div id="editor">
+  <app-edit-album-details [album]="selectedAlbum"></app-edit-album-details>
 </div>

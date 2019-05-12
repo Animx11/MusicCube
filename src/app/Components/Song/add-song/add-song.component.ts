@@ -7,6 +7,9 @@ import {
 } from "@angular/common/http";
 import { SongService } from "src/app/Services/song.service";
 import { Song } from "src/app/Class/Song";
+import { Band } from "src/app/Class/Band";
+import { Album } from "src/app/Class/Album";
+import { Genre } from "src/app/Class/Genre";
 
 @Component({
   selector: "app-add-song",
@@ -14,9 +17,12 @@ import { Song } from "src/app/Class/Song";
   styleUrls: ["./add-song.component.css"],
 })
 export class AddSongComponent implements OnInit {
-  songName: String;
+  songName: string;
   songLengthSeconds: number;
   addNewSong: Song;
+  album: Album;
+  band: Band;
+  genre: Genre;
 
   constructor(private songService: SongService) {}
 

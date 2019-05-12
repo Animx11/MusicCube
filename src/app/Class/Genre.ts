@@ -1,9 +1,9 @@
-import { Location } from './Location';
+import { Localization } from './Localization';
 
 export class Genre {
 
     private id: number;
-    private origin: Location;
+    private origin: Localization;
     private genreName: string;
     private creationDate: Date;
 
@@ -19,7 +19,7 @@ export class Genre {
         return this.id;
     }
 
-    getOrigin(): Location {
+    getOrigin(): Localization {
         return this.origin;
     }
 
@@ -33,7 +33,7 @@ export class Genre {
 
     // Setters
 
-    setOrigin(origin: Location) {
+    setOrigin(origin: Localization) {
         this.origin = origin;
     }
 

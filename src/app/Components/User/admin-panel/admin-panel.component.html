@@ -56,12 +56,12 @@
       <a routerLink = "DeleteInstrument" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Instrument</div></a>
     </div>
   </div>
-  <div class = "adminPanelNavigator" (click)="isLocationClicked = switchValue(isLocationClicked)">
-    Location
-    <div class="adminComponentPanel" *ngIf = "isLocationClicked">
-      <a routerLink = "AddLocation" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Location</div></a>
-      <a routerLink = "EditLocation" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Location</div></a>
-      <a routerLink = "DeleteLocation" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Location</div></a>
+  <div class = "adminPanelNavigator" (click)="isLocalizationClicked = switchValue(isLocalizationClicked)">
+    Localization
+    <div class="adminComponentPanel" *ngIf = "isLocalizationClicked">
+      <a routerLink = "AddLocalization" routerLinkActive = "active"><div class="adminComponentNavigator">Add New Localization</div></a>
+      <a routerLink = "EditLocalization" routerLinkActive = "active"><div class="adminComponentNavigator">Edit Localization</div></a>
+      <a routerLink = "DeleteLocalization" routerLinkActive = "active"><div class="adminComponentNavigator">Delete Localization</div></a>
     </div>
   </div>
 

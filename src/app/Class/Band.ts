@@ -1,11 +1,11 @@
-import { Location } from './Location';
+import { Localization } from './Localization';
 
 export class Band {
 
     private id: number;
     private bandName: string;
     private creationDate: Date;
-    private formedIn: Location;
+    private formedIn: Localization;
 
     constructor(obj?: any) {
         this.bandName = (obj && obj.bandName) || '';
@@ -27,7 +27,7 @@ export class Band {
         return this.creationDate;
     }
 
-    getFormedIn(): Location {
+    getFormedIn(): Localization {
         return this.formedIn;
     }
 
@@ -41,7 +41,7 @@ export class Band {
         this.creationDate = creationDate;
     }
 
-    setFormedIn(formedIn: Location) {
+    setFormedIn(formedIn: Localization) {
         this.formedIn = formedIn;
     }
 

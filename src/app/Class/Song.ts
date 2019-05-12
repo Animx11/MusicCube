@@ -40,7 +40,7 @@ export class Song {
     return this.band;
   }
 
-  getGenre(): genre {
+  getGenre(): Genre {
     return this.genre;
   }
 
@@ -62,7 +62,7 @@ export class Song {
     this.band = band;
   }
 
-  setGenre(genre: genre) {
+  setGenre(genre: Genre) {
     this.genre = genre;
   }
 }

@@ -1,9 +1,9 @@
-import { Location } from './Location';
+import { Localization } from './Localization';
 
 export class Person {
 
     protected id: number;
-    protected origin: Location;
+    protected origin: Localization;
     protected firstNames: string;
     protected lastName: string;
     protected birthDate: Date;
@@ -21,7 +21,7 @@ export class Person {
             return this.id;
         }
     
-        getOrigin(): Location {
+        getOrigin(): Localization {
             return this.origin;
         }
 
@@ -39,7 +39,7 @@ export class Person {
 
         // Setters
 
-        setOrigin(origin: Location) {
+        setOrigin(origin: Localization) {
             this.origin = origin;
         }
 
