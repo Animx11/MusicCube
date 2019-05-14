@@ -3,8 +3,8 @@ package MusicCube.controllers;
 
 import MusicCube.cipher.EncrypterAES;
 import MusicCube.entities.AuthorisationToken;
-import MusicCube.entities.Users;
-import MusicCube.services.Users.UsersService;
+import MusicCube.entities.User;
+import MusicCube.services.user.UserService;
 import MusicCube.tockenCreator.TokenCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,50 +19,50 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UsersController {
+public class UserController {
 
     @Autowired
-    private UsersService usersService;
+    private UserService userService;
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<Users> create(@RequestBody @Valid @NotNull Users user){
+    public ResponseEntity<User> create(@RequestBody @Valid @NotNull User user){
 
-        user.setUserPermission("user");
+        user.setUserPermission("User");
         EncrypterAES encrypterAES = new EncrypterAES();
 
         String encryptedPassword;
         encryptedPassword = encrypterAES.encrypt(user.getPassword());
         user.setPassword(encryptedPassword);
 
-        usersService.save(user);
+        userService.save(user);
         return ResponseEntity.ok().body(user);
     }
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/users", method = RequestMethod.DELETE)
-    public ResponseEntity<Users> delete(@RequestParam("id") Integer id){
-        usersService.delete(id);
+    public ResponseEntity<User> delete(@RequestParam("id") Integer id){
+        userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/users_by_id", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Users getById(@RequestParam("id") int id){
-        return usersService.getById(id);
+    public User getById(@RequestParam("id") int id){
+        return userService.getById(id);
     }
 
     @RequestMapping(value = "/users_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Users> getByUserName(@RequestParam("userName") String userName){
-        return usersService.getByUserName(userName);
+    public Iterable<User> getByUserName(@RequestParam("userName") String userName){
+        return userService.getByUserName(userName);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Users> listUsers(){
-        return usersService.listUsers();
+    public Iterable<User> listUsers(){
+        return userService.listUsers();
     }
 
     @RequestMapping(value = "/users_permission_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getUserPermissionByUserName(@RequestParam("userName") String userName){
-        return usersService.getUserPermissionByUserName(userName);
+        return userService.getUserPermissionByUserName(userName);
     }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -72,7 +72,7 @@ public class UsersController {
 
         String encryptedPassword = encrypterAES.encrypt(password);
 
-        if(encryptedPassword.equals(usersService.getPasswordByUserName(userName))){
+        if(encryptedPassword.equals(userService.getPasswordByUserName(userName))){
 
             RestTemplate restTemplate = new RestTemplate();
             TokenCreator tokenCreator = new TokenCreator();

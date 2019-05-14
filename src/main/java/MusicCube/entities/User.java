@@ -5,10 +5,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Users", uniqueConstraints = {
+@Table(name = "User", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"id"})
 })
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue
@@ -44,17 +44,17 @@ public class Users {
 
     //Constructors
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String userName, String password, String email, String userPermission) {
+    public User(String userName, String password, String email, String userPermission) {
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.userPermission = userPermission;
     }
 
-    public Users(String userName, String password, String email, String userPermission, String firstName, String lastName, Date birthDate, String aboutUser) {
+    public User(String userName, String password, String email, String userPermission, String firstName, String lastName, Date birthDate, String aboutUser) {
         this.userName = userName;
         this.password = password;
         this.email = email;

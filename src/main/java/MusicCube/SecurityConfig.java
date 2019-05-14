@@ -5,15 +5,15 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SecurityConfig
-        //extends WebSecurityConfigurerAdapter
+//extends WebSecurityConfigurerAdapter
 {
 /*
     @Override
     public void configure(final AuthenticationManagerBuilder auth)
             throws Exception
     {
-        auth.inMemoryAuthentication().withUser("user")
-                .password("user").roles("USER");
+        auth.inMemoryAuthentication().withUser("User")
+                .password("User").roles("USER");
     }
 */
 /*
