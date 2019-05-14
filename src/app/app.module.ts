@@ -43,6 +43,11 @@ import { EditConcertDetailsComponent } from './Components/Concert/edit-concert/e
 import { EditGenreDetailsComponent } from './Components/Genre/edit-genre/edit-genre-details/edit-genre-details.component';
 import { EditInstrumentDetailsComponent } from './Components/Instrument/edit-instrument/edit-instrument-details/edit-instrument-details.component';
 import { EditSongDetailsComponent } from './Components/Song/edit-song/edit-song-details/edit-song-details.component';
+import { SearchLocalizationComponent } from './Components/Localization/search-localization/search-localization.component';
+import { SearchAlbumComponent } from './Components/Album/search-album/search-album.component';
+import { SearchSongComponent } from './Components/Song/search-song/search-song.component';
+import { SearchBandComponent } from './Components/Band/search-band/search-band.component';
+import { SearchGenreComponent } from './Components/Genre/search-genre/search-genre.component';
 
 const ROUTES: Routes = [
 
@@ -218,6 +223,11 @@ const ROUTES: Routes = [
     EditGenreDetailsComponent,
     EditInstrumentDetailsComponent,
     EditSongDetailsComponent,
+    SearchLocalizationComponent,
+    SearchAlbumComponent,
+    SearchSongComponent,
+    SearchBandComponent,
+    SearchGenreComponent,
 
   ],
   imports: [

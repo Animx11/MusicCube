@@ -1,0 +1,11 @@
+<button (click)="toggleSearch()">Search in bands</button>
+<div *ngIf="searchOn">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
+  <div id="list">
+    <ul>
+      <li *ngFor="let band of (bands$ | async)" (click)="onSelect(band)">
+        {{ band.bandName }}
+      </li>
+    </ul>
+  </div>
+</div>

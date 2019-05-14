@@ -6,13 +6,16 @@
   /><br />
 
   <div *ngIf="song.band">Band: {{ song.band.bandName }}<br /></div>
-  <button (click)="selectBand()">Select band</button><br />
+  <app-search-band (bandEvent)="bandEventHander($event)"></app-search-band
+  ><br />
 
-  <div *ngIf="song.album">Band: {{ song.album.albumName }}<br /></div>
-  <button (click)="selectAlbum()">Select album</button><br />
+  <div *ngIf="song.album">Album: {{ song.album.albumName }}<br /></div>
+  <app-search-album (albumEvent)="albumEventHander($event)"></app-search-album
+  ><br />
 
   <div *ngIf="song.genre">Genre: {{ song.genre.genreName }}<br /></div>
-  <button (click)="selectGenre()">Select genre</button><br />
+  <app-search-genre (genreEvent)="genreEventHander($event)"></app-search-genre
+  ><br />
 
   <button (click)="addSong()">Add song</button>
 </div>

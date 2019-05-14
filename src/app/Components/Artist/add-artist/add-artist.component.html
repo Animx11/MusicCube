@@ -7,18 +7,9 @@
     Origin: {{ artist.origin.country }} {{ artist.origin.city }}
     {{ artist.origin.address }}<br />
   </div>
-  <button (click)="selectOrigin()">Select origin</button><br />
+  <app-search-localization
+    (localizationEvent)="localizationEventHander($event)"
+  ></app-search-localization
+  ><br />
   <button (click)="addArtist()">Add artist</button>
-</div>
-<div class="add">
-  <ul *ngIf="originSelected">
-    <li
-      *ngFor="let localization of localizationList"
-      (click)="addOrigin(localization)"
-    >
-      <h5>{{ localization.country }}</h5>
-      <h6 *ngIf="localization.city">{{ localization.city }}</h6>
-      <div *ngIf="localization.address">{{ localization.address }}</div>
-    </li>
-  </ul>
 </div>

@@ -1,0 +1,15 @@
+<button (click)="toggleSearch()">Search in localizations</button>
+<div *ngIf="searchOn">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
+  <div id="list">
+    <ul>
+      <li
+        *ngFor="let localization of (localizations$ | async)"
+        (click)="onSelect(localization)"
+      >
+        {{ localization.country }} {{ localization.city }}
+        {{ localization.address }}
+      </li>
+    </ul>
+  </div>
+</div>
