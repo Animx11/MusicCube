@@ -11,6 +11,7 @@ export class Song {
   private genre: Genre;
 
   constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
     this.songName = (obj && obj.songName) || "";
     this.songLengthSeconds = (obj && obj.songLengthSeconds) || 0;
     this.album = (obj && obj.album) || null;

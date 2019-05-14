@@ -7,6 +7,7 @@ export class Concert {
   private localization: Localization;
 
   constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
     this.startTime = (obj && obj.startTime) || null;
     this.concertName = (obj && obj.concertName) || "";
     this.localization = (obj && obj.localization) || null;

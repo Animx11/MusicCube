@@ -3,10 +3,11 @@ import { Observable, Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { LocalizationService } from "src/app/Services/localization.service";
 import { Localization } from "src/app/Class/Localization";
+
 @Component({
   selector: "app-edit-localization",
   templateUrl: "./edit-localization.component.html",
-  styleUrls: ["./edit-localization.component.css"]
+  styleUrls: ["./edit-localization.component.css"],
 })
 export class EditLocalizationComponent implements OnInit {
   localizations$: Observable<Localization[]>;

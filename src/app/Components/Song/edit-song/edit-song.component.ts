@@ -1,11 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable, Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+
 import { SongService } from "src/app/Services/song.service";
-import {
-  HttpClient,
-  HttpEvent,
-  HttpResponse,
-  HttpErrorResponse,
-} from "@angular/common/http";
+
 import { Song } from "src/app/Class/Song";
 
 @Component({
@@ -14,25 +12,38 @@ import { Song } from "src/app/Class/Song";
   styleUrls: ["./edit-song.component.css"],
 })
 export class EditSongComponent implements OnInit {
+  private songs$: Observable<Song[]>;
+  private searchTerms = new Subject<string>();
+  private selectedSong: Song;
+
   constructor(private songService: SongService) {}
 
-  songName: string;
-  songs: Song[];
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
+
+  onSelect(song: Song): void {
+    this.selectedSong = song;
+  }
 
   ngOnInit() {
-    this.songName = "";
+    this.songs$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.songService.getBySongName(term))
+    );
   }
 
-  findBySongName() {
-    this.songService.getBySongName(this.songName).subscribe(res => {
-      console.log(res);
-    });
-  }
+  // findBySongName() {
+  //   this.songService.getBySongName(this.songName).subscribe(res => {
+  //     console.log(res);
+  //   });
+  // }
 
-  findAllSongs() {
-    this.songService.list().subscribe(res => {
-      console.log(res);
-      this.songs = res.map(el => new Song(el));
-    });
-  }
+  // findAllSongs() {
+  //   this.songService.list().subscribe(res => {
+  //     console.log(res);
+  //     this.songs = res.map(el => new Song(el));
+  //   });
+  // }
 }

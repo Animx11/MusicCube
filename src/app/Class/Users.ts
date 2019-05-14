@@ -1,5 +1,4 @@
 export class Users {
-
   private id: number;
   private userName: string;
   private password: string;
@@ -10,12 +9,12 @@ export class Users {
   private birthDate: Date;
   private aboutUser: string;
 
-
   constructor(obj?: any) {
-    this.userName = (obj && obj.userName) || '';
-    this.password = (obj && obj.password) || '';
-    this.email = (obj && obj.email) || '';
-    this.userPermission = (obj && obj.userPermission) || '';
+    this.id = (obj && obj.id) || 0;
+    this.userName = (obj && obj.userName) || "";
+    this.password = (obj && obj.password) || "";
+    this.email = (obj && obj.email) || "";
+    this.userPermission = (obj && obj.userPermission) || "";
     this.birthDate = (obj && obj.birthDate) || null;
   }
 
@@ -90,5 +89,4 @@ export class Users {
   setAboutUser(value: string) {
     this.aboutUser = value;
   }
-
 }

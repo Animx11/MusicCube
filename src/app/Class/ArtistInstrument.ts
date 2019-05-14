@@ -1,39 +1,38 @@
-import { Artist } from './Artist';
-import { Instrument } from './Instrument';
+import { Artist } from "./Artist";
+import { Instrument } from "./Instrument";
 
 export class ArtistInstrument {
+  private id: number;
+  private artist: Artist;
+  private instrument: Instrument;
 
-    private id: number;
-    private artist: Artist;
-    private instrument: Instrument;
+  constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
+    this.artist = (obj && obj.artist) || null;
+    this.instrument = (obj && obj.instrument) || null;
+  }
 
-    constructor(obj?: any) {
-        this.artist = (obj && obj.artist) || null;
-        this.instrument = (obj && obj.instrument) || null;
-    }
+  // Getters
 
-    // Getters
+  getId(): number {
+    return this.id;
+  }
 
-    getId(): number {
-        return this.id;
-    }
+  getArtist(): Artist {
+    return this.artist;
+  }
 
-    getArtist(): Artist {
-        return this.artist;
-    }
+  getInstrument(): Instrument {
+    return this.instrument;
+  }
 
-    getInstrument(): Instrument {
-        return this.instrument;
-    }
+  // Setters
 
-    // Setters
+  setArtist(artist: Artist) {
+    this.artist = artist;
+  }
 
-    setArtist(artist: Artist) {
-        this.artist = artist;
-    }
-
-    setInstrument(instrument: Instrument) {
-        this.instrument = instrument;
-    }
-
+  setInstrument(instrument: Instrument) {
+    this.instrument = instrument;
+  }
 }

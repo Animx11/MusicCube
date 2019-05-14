@@ -1,9 +1,22 @@
-<div id = "CRUD">
-  Search by name:<input type="text" [(ngModel)]="songName">
-  <button (click)="findBySongName()">Search</button>
-  <button (click)="findAllSongs()">All</button>
+<div id="CRUD">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
+</div>
+<!-- <button (click)="findAllSongs()">All</button> -->
 
-  <div *ngFor="let song of songs">
-    Title: {{song.getSongName()}}
-  </div>
+<div id="list">
+  <ul>
+    <li
+      *ngFor="let song of (songs$ | async)"
+      (click)="onSelect(song)"
+    >
+      {{song.songName}}<br>
+      <div *ngIf="song.band">{{song.band.bandName}}<br></div>
+      <div *ngIf="song.album">{{song.album.albumName}}</div>
+    </li>
+  </ul>
+</div>
+<div id="editor">
+  <app-edit-song-details
+    [song]="selectedSong"
+  ></app-edit-song-details>
 </div>

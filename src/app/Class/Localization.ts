@@ -5,6 +5,7 @@ export class Localization {
   private address: string;
 
   constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
     this.country = (obj && obj.country) || "";
     this.city = (obj && obj.city) || "";
   }

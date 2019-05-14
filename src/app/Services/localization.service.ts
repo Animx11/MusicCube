@@ -3,11 +3,12 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 import { Localization } from "src/app/Class/Localization";
+import { api_url } from "./API_URL";
 
-const apiUrl = "http://localhost:8080/api";
+const apiUrl = api_url;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class LocalizationService {
   constructor(private http: HttpClient) {}

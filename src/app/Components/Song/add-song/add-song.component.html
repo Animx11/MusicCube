@@ -1,7 +1,41 @@
-<div id = "CRUD">
-  Song title
-  <input type="text" [(ngModel)]="songName"><br>
-  Length
-  <input type="text" [(ngModel)]="songLengthSeconds"><br>
+<div class="add_song">
+  <input [(ngModel)]="songName" placeholder="song name"><br>
+  <input [(ngModel)]="songLengthSeconds" placeholder="length in seconds"><br>
+
+  <div *ngIf="song.band">
+    Band: {{song.band.bandName}}<br>
+  </div>
+  <button (click)="selectBand()">Select band</button><br>
+
+  <div *ngIf="song.album">
+    Band: {{song.album.albumName}}<br>
+  </div>
+  <button (click)="selectAlbum()">Select album</button><br>
+
+  <div *ngIf="song.genre">
+    Genre: {{song.genre.genreName}}<br>
+  </div>
+  <button (click)="selectGenre()">Select genre</button><br>
+
   <button (click)="addSong()">Add song</button>
+</div>
+
+<div class="add_song">
+  <ul *ngIf="albumsSelected">
+    <li *ngFor="let album of albumList" (click)="addAlbum(album)">
+      {{album.albumName}}
+    </li>
+  </ul>
+
+  <ul *ngIf="bandsSelected">
+    <li *ngFor="let band of bandList" (click)="addBand(band)">
+      {{band.bandName}}
+    </li>
+  </ul>
+
+  <ul *ngIf="genresSelected">
+    <li *ngFor="let genre of genreList" (click)="addGenre(genre)">
+      {{genre.genreName}}
+    </li>
+  </ul>
 </div>

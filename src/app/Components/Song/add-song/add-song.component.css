@@ -1,6 +1,8 @@
-#CRUD {
-  width: 85%;
+.add_song {
+  width: auto;
   height: auto;
-  text-align: center;
   background: aliceblue;
+  position: relative;
+  top: 100px;
+  display: inline-block;
 }

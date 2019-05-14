@@ -5,7 +5,12 @@ import {
   HttpResponse,
   HttpErrorResponse,
 } from "@angular/common/http";
+
 import { SongService } from "src/app/Services/song.service";
+import { BandService } from "src/app/Services/band.service";
+import { AlbumService } from "src/app/Services/album.service";
+import { GenreService } from "src/app/Services/genre.service";
+
 import { Song } from "src/app/Class/Song";
 import { Band } from "src/app/Class/Band";
 import { Album } from "src/app/Class/Album";
@@ -17,33 +22,89 @@ import { Genre } from "src/app/Class/Genre";
   styleUrls: ["./add-song.component.css"],
 })
 export class AddSongComponent implements OnInit {
-  songName: string;
-  songLengthSeconds: number;
-  addNewSong: Song;
-  album: Album;
-  band: Band;
-  genre: Genre;
+  private songName: string;
+  private songLengthSeconds: number;
+  private song: Song;
+  private album: Album;
+  private band: Band;
+  private genre: Genre;
 
-  constructor(private songService: SongService) {}
+  private albumsSelected: boolean;
+  private bandsSelected: boolean;
+  private genresSelected: boolean;
+
+  private bandList: Band[];
+  private albumList: Album[];
+  private genreList: Genre[];
+
+  constructor(
+    private songService: SongService,
+    private bandService: BandService,
+    private albumService: AlbumService,
+    private genreService: GenreService
+  ) {}
 
   ngOnInit() {
     this.songName = "";
-    this.songLengthSeconds = 0;
     this.album = null;
     this.band = null;
     this.genre = null;
-    this.addNewSong = new Song();
+    this.song = new Song();
+
+    this.bandsSelected = this.albumsSelected = this.genresSelected = false;
   }
-  f;
+
+  selectBand() {
+    this.albumsSelected = this.genresSelected = false;
+    this.bandService.list().subscribe(res => {
+      console.log("add-sonng-component recieved:");
+      console.log(res);
+      this.bandList = res.map(el => new Band(el));
+    });
+    this.bandsSelected = true;
+  }
+  selectAlbum() {
+    this.bandsSelected = this.genresSelected = false;
+    this.albumService.list().subscribe(res => {
+      console.log("add-sonng-component recieved:");
+      console.log(res);
+      this.albumList = res.map(el => new Album(el));
+    });
+    this.albumsSelected = true;
+  }
+
+  selectGenre() {
+    this.albumsSelected = this.bandsSelected = false;
+    this.genreService.list().subscribe(res => {
+      console.log("add-sonng-component recieved:");
+      console.log(res);
+      this.genreList = res.map(el => new Genre(el));
+    });
+    this.genresSelected = true;
+  }
+
+  addBand(band: Band) {
+    this.song.setBand(band);
+    this.bandsSelected = this.albumsSelected = this.genresSelected = false;
+  }
+  addAlbum(album: Album) {
+    this.song.setAlbum(album);
+    this.bandsSelected = this.albumsSelected = this.genresSelected = false;
+  }
+
+  addGenre(genre: Genre) {
+    this.song.setGenre(genre);
+    this.bandsSelected = this.albumsSelected = this.genresSelected = false;
+  }
 
   addSong() {
-    if (this.songName == "") {
+    if (this.songName === "") {
       window.alert("Dane są niekompletne i/lub nieprawidłowe");
     } else {
-      this.addNewSong.setSongName(this.songName);
-      this.addNewSong.setSongLengthSeconds(this.songLengthSeconds);
+      this.song.setSongName(this.songName);
+      this.song.setSongLengthSeconds(this.songLengthSeconds);
 
-      this.songService.create(this.addNewSong).subscribe(
+      this.songService.create(this.song).subscribe(
         res => {
           console.log(res);
           window.alert("Dodano nową piosenke");

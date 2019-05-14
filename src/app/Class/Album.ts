@@ -6,6 +6,7 @@ export class Album {
   private company: string;
 
   constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
     this.albumName = (obj && obj.albumName) || "";
     this.albumLengthSeconds = (obj && obj.albumLengthSeconds) || 0;
     this.releaseDate = (obj && obj.releaseDate) || null;
