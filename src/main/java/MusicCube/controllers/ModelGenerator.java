@@ -57,7 +57,7 @@ public class ModelGenerator {
         Localization wolver = new Localization("England","Wolverhampton","");
         Band judas = new Band("Judas Priest",new Date(70,01,01),birmingham);
 
-        Album britishSteelAlbum = new Album("Brithis Steel",
+        Album britishSteelAlbum = new Album("British Steel",
                 2162,new Date(80,4,14),
                 "CBS");
 

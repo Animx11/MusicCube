@@ -23,7 +23,7 @@ public class ConcertController {
     @Autowired
     private ConcertService concertService;
 
-    @RequestMapping(value = "/concerts{id}",
+    @RequestMapping(value = "/concert{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<Concert> getById(int id) {
@@ -38,20 +38,20 @@ public class ConcertController {
     }
 
     // --- Get by concertName
-    @RequestMapping(value = "/Concerts{name}",
+    @RequestMapping(value = "/concerts{name}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Concert> getByConcertName(String concertName) {
         return concertService.getByConcertName(concertName);
     }
 
-    @RequestMapping(value = "/concerts",method = RequestMethod.POST)
+    @RequestMapping(value = "/concert",method = RequestMethod.POST)
     public ResponseEntity<Concert> create(@RequestBody @Valid @NotNull Concert concert) {
         concertService.save(concert);
         return ResponseEntity.ok().body(concert);
     }
 
-    @RequestMapping(value = "/concerts",method = RequestMethod.PUT)
+    @RequestMapping(value = "/concert",method = RequestMethod.PUT)
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Concert concert) {
         Optional<Concert> artist1 = concertService.getById(concert.getId());
         if (Objects.nonNull(artist1)) {
@@ -65,7 +65,7 @@ public class ConcertController {
         return concertService.getAll();
     }
 
-    @RequestMapping(value = "/concerts/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/concert/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable Integer id) {
         concertService.delete(id);
         return new RedirectView("/api/concerts",true);
