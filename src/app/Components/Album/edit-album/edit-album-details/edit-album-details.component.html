@@ -1,8 +1,6 @@
 <div *ngIf="album">
   <input [(ngModel)]="album.albumName" placeholder="{{album.albumName}}" />
   <br />
-  <input [(ngModel)]="album.city" placeholder="{{album.city}}" /> <br />
-  <input [(ngModel)]="album.address" placeholder="{{album.address}}" />
   <button (click)="save()">Save Changes</button>
   <button (click)="delete()">Delete</button>
 </div>

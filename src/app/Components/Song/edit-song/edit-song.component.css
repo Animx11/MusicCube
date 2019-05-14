@@ -1,10 +1,20 @@
-#CRUD{
-
-
+#CRUD {
   width: 85%;
   height: 30px;
-  text-align:center;
+  text-align: center;
   background: aliceblue;
+  position: relative;
+  top: 100px;
+}
 
+#list {
+  display: inline-block;
+  position: relative;
+  top: 110px;
+}
 
+#editor {
+  display: inline-block;
+  position: relative;
+  top: 110px;
 }

@@ -4,7 +4,9 @@
 <div id="list">
   <ul>
     <li *ngFor="let album of (albums$ | async)" (click)="onSelect(album)">
-      {{ album.country }} {{ album.city }} {{ album.address }}
+      <h3>{{ album.albumName }}</h3>
+      Released {{ album.releaseDate.slice(0, 10) }}<br />Company
+      {{ album.company }}
     </li>
   </ul>
 </div>

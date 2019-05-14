@@ -8,6 +8,7 @@ export class Localization {
     this.id = (obj && obj.id) || 0;
     this.country = (obj && obj.country) || "";
     this.city = (obj && obj.city) || "";
+    this.address = (obj && obj.address) || "";
   }
 
   // Getters

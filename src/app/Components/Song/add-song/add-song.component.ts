@@ -1,10 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import {
-  HttpClient,
-  HttpEvent,
-  HttpResponse,
-  HttpErrorResponse,
-} from "@angular/common/http";
 
 import { SongService } from "src/app/Services/song.service";
 import { BandService } from "src/app/Services/band.service";
@@ -19,7 +13,7 @@ import { Genre } from "src/app/Class/Genre";
 @Component({
   selector: "app-add-song",
   templateUrl: "./add-song.component.html",
-  styleUrls: ["./add-song.component.css"],
+  styleUrls: ["./add-song.component.css"]
 })
 export class AddSongComponent implements OnInit {
   private songName: string;
@@ -106,6 +100,7 @@ export class AddSongComponent implements OnInit {
 
       this.songService.create(this.song).subscribe(
         res => {
+          console.log("add-song-component recieved:");
           console.log(res);
           window.alert("Dodano nową piosenke");
         },

@@ -5,18 +5,13 @@
 
 <div id="list">
   <ul>
-    <li
-      *ngFor="let song of (songs$ | async)"
-      (click)="onSelect(song)"
-    >
-      {{song.songName}}<br>
-      <div *ngIf="song.band">{{song.band.bandName}}<br></div>
-      <div *ngIf="song.album">{{song.album.albumName}}</div>
+    <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
+      <h5>{{ song.songName }}</h5>
+      <div *ngIf="song.band">{{ song.band.bandName }}<br /></div>
+      <div *ngIf="song.album">{{ song.album.albumName }}</div>
     </li>
   </ul>
 </div>
 <div id="editor">
-  <app-edit-song-details
-    [song]="selectedSong"
-  ></app-edit-song-details>
+  <app-edit-song-details [song]="selectedSong"></app-edit-song-details>
 </div>

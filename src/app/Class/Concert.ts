@@ -37,7 +37,7 @@ export class Concert {
     this.startTime = startTime;
   }
 
-  setConcertname(concertName: string) {
+  setConcertName(concertName: string) {
     this.concertName = concertName;
   }
 
