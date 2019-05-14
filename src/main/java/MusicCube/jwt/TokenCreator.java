@@ -1,4 +1,4 @@
-package MusicCube.tockenCreator;
+package MusicCube.jwt;
 
 import MusicCube.cipher.EncrypterAES;
 import MusicCube.entities.AuthorisationToken;

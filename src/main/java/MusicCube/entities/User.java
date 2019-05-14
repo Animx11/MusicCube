@@ -2,7 +2,10 @@ package MusicCube.entities;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "User", uniqueConstraints = {
@@ -11,21 +14,26 @@ import java.util.Date;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
+    @Size(min = 3, max = 50)
     @Column(name = "userName", unique = true)
     private String userName;
 
+    @Size(min = 6, max = 100)
     @Column(name = "password")
     private String password;
 
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "userPermission")
-    private String userPermission;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "userRoles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "firstName")
     private String firstName;
@@ -47,18 +55,18 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String password, String email, String userPermission) {
+    public User(@Size(min = 3, max = 50) String userName, @Size(min = 6, max = 100) String password, String email, Set<Role> roles) {
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.userPermission = userPermission;
+        this.roles = roles;
     }
 
-    public User(String userName, String password, String email, String userPermission, String firstName, String lastName, Date birthDate, String aboutUser) {
+    public User(@Size(min = 3, max = 50) String userName, @Size(min = 6, max = 100) String password, String email, Set<Role> roles, String firstName, String lastName, Date birthDate, String aboutUser) {
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.userPermission = userPermission;
+        this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -83,10 +91,6 @@ public class User {
         return email;
     }
 
-    public String getUserPermission() {
-        return userPermission;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -103,6 +107,10 @@ public class User {
         return aboutUser;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     //Setters
 
     public void setUserName(String userName) {
@@ -115,10 +123,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setUserPermission(String userPermission) {
-        this.userPermission = userPermission;
     }
 
     public void setFirstName(String firstName) {
@@ -136,5 +140,10 @@ public class User {
     public void setAboutUser(String aboutUser) {
         this.aboutUser = aboutUser;
     }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
 
 }

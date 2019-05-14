@@ -1,13 +1,33 @@
-package MusicCube;
+package MusicCube.config;
 
+import MusicCube.services.user.UserServiceImpl;
+import com.google.common.collect.ImmutableList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
-public class SecurityConfig
-//extends WebSecurityConfigurerAdapter
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
+
+    @Autowired
+    UserServiceImpl userService;
+
+
 /*
+
+
     @Override
     public void configure(final AuthenticationManagerBuilder auth)
             throws Exception
@@ -15,21 +35,16 @@ public class SecurityConfig
         auth.inMemoryAuthentication().withUser("User")
                 .password("User").roles("USER");
     }
-*/
-/*
+
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception
     {
         http.cors();
 
         http.authorizeRequests()
-                .antMatchers("/signIn").permitAll()
-            .antMatchers("/**").access("hasRole('USER')")    // equivalent to <http auto-config="true">
-            .and().formLogin()
-            .and().httpBasic()
-            .and().logout()
-// CSRF is enabled by default (will discuss later)
-            .and().csrf().disable();
+                .antMatchers("/**").permitAll()
+                .and().csrf().disable();
 
 
     }
@@ -50,5 +65,8 @@ public class SecurityConfig
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-*/
+
+
+ */
+
 }

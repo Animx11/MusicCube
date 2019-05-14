@@ -5,7 +5,7 @@ import MusicCube.cipher.EncrypterAES;
 import MusicCube.entities.AuthorisationToken;
 import MusicCube.entities.User;
 import MusicCube.services.user.UserService;
-import MusicCube.tockenCreator.TokenCreator;
+import MusicCube.jwt.TokenCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -26,8 +27,9 @@ public class UserController {
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> create(@RequestBody @Valid @NotNull User user){
-
-        user.setUserPermission("User");
+        //Set<Role> roles = new HashSet<>();
+        //Role role = new Role(RoleName.ROLE_USER);
+        //user.setRoles();
         EncrypterAES encrypterAES = new EncrypterAES();
 
         String encryptedPassword;
@@ -51,7 +53,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<User> getByUserName(@RequestParam("userName") String userName){
+    public Optional<User> getByUserName(@RequestParam("userName") String userName){
         return userService.getByUserName(userName);
     }
 
