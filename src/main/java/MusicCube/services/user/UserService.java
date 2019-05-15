@@ -1,5 +1,7 @@
 package MusicCube.services.user;
 
+import MusicCube.entities.Role;
+import MusicCube.entities.RoleName;
 import MusicCube.entities.User;
 
 import java.util.Optional;
@@ -12,7 +14,10 @@ public interface UserService {
     User getById(int id);
     Optional<User> getByUserName(String userName);
     String getPasswordByUserName(String userName);
-    String getUserPermissionByUserName(String userName);
+    Optional<Role> getByName(RoleName roleName);
     Iterable<User> listUsers();
+
+    boolean existsByUserName(String userName);
+    boolean existsByEmail(String email);
 
 }

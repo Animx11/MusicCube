@@ -1,7 +1,10 @@
 package MusicCube.services.user;
 
 
+import MusicCube.entities.Role;
+import MusicCube.entities.RoleName;
 import MusicCube.entities.User;
+import MusicCube.repositories.RoleRepository;
 import MusicCube.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +20,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public User save(User user){
@@ -49,8 +55,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public String getUserPermissionByUserName(String userName){
-        return null;
+    public Optional<Role> getByName(RoleName roleName){
+        return roleRepository.findByName(roleName);
+    }
+
+    @Override
+    public boolean existsByUserName(String userName){
+        return userRepository.existsByUserName(userName);
+    }
+
+    @Override
+    public boolean existsByEmail(String email){
+        return userRepository.existsByEmail(email);
     }
 
     @Override
