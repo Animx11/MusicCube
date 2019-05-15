@@ -1,5 +1,6 @@
 package MusicCube.config;
 
+import MusicCube.jwt.JwtAuthEntryPoint;
 import MusicCube.services.user.UserServiceImpl;
 import com.google.common.collect.ImmutableList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 
     @Autowired
     UserServiceImpl userService;
+
+    @Autowired
+    private JwtAuthEntryPoint unauthorizationHandler
 
 
 /*
