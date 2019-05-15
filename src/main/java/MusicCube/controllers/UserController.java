@@ -1,8 +1,6 @@
 package MusicCube.controllers;
 
 
-import MusicCube.cipher.EncrypterAES;
-import MusicCube.entities.AuthorisationToken;
 import MusicCube.entities.Role;
 import MusicCube.entities.RoleName;
 import MusicCube.entities.User;
@@ -10,7 +8,6 @@ import MusicCube.jwt.JwtProvider;
 import MusicCube.jwt.JwtResponse;
 import MusicCube.repositories.RoleRepository;
 import MusicCube.services.user.UserService;
-import MusicCube.jwt.TokenCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -72,30 +68,6 @@ public class UserController {
     public Iterable<User> listUsers(){
         return userService.listUsers();
     }
-
-/*
-    @RequestMapping(value = "/signIn", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthorisationToken> signIn(@RequestParam("userName") String userName, @RequestParam("password") String password){
-
-        EncrypterAES encrypterAES = new EncrypterAES();
-
-        String encryptedPassword = encrypterAES.encrypt(password);
-
-        if(encryptedPassword.equals(userService.getPasswordByUserName(userName))){
-
-            RestTemplate restTemplate = new RestTemplate();
-            TokenCreator tokenCreator = new TokenCreator();
-
-            AuthorisationToken authorisationToken = tokenCreator.create(userName, getUserPermissionByUserName(userName));
-
-            return restTemplate.postForEntity("http://localhost:8080/api/token", authorisationToken, AuthorisationToken.class);
-
-        }
-        else{
-            return null;
-        }
-    }
-*/
 
     @RequestMapping(value = "/auth/signup", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUp(@RequestBody @Valid @NotNull User user){
