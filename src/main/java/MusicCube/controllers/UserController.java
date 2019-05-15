@@ -7,12 +7,19 @@ import MusicCube.entities.Role;
 import MusicCube.entities.RoleName;
 import MusicCube.entities.User;
 import MusicCube.jwt.JwtProvider;
+import MusicCube.jwt.JwtResponse;
+import MusicCube.repositories.RoleRepository;
 import MusicCube.services.user.UserService;
 import MusicCube.jwt.TokenCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -37,6 +44,11 @@ public class UserController {
     @Autowired
     private JwtProvider jwtProvider;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -95,34 +107,35 @@ public class UserController {
         if (userService.existsByEmail(user.getEmail())){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-/*
-        Role role = new Role();
-        role.setName(RoleName.ROLE_USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         Set<Role> roles = new HashSet<>();
+        Role role = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow(() -> new RuntimeException("Fail! -> User Role not found"));
+
         roles.add(role);
 
         user.setRoles(roles);
-*/
+
         userService.save(user);
 
         return ResponseEntity.ok().body(user);
     }
 
-    /*
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<User> create(@RequestBody @Valid @NotNull User user){
-        //Set<Role> roles = new HashSet<>();
-        //Role role = new Role(RoleName.ROLE_USER);
-        //user.setRoles();
-        EncrypterAES encrypterAES = new EncrypterAES();
+    @RequestMapping(value = "/auth/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> signIn(@RequestBody @Valid @NotNull User user){
 
-        String encryptedPassword;
-        encryptedPassword = encrypterAES.encrypt(user.getPassword());
-        user.setPassword(encryptedPassword);
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword())
+        );
 
-        userService.save(user);
-        return ResponseEntity.ok().body(user);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtProvider.generateJwt(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+
     }
-*/
+
 
 }

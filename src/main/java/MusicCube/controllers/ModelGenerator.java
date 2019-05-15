@@ -1,6 +1,7 @@
 package MusicCube.controllers;
 
 import MusicCube.entities.*;
+import MusicCube.repositories.RoleRepository;
 import MusicCube.services.album.AlbumService;
 import MusicCube.services.artist.ArtistService;
 import MusicCube.services.artistinband.ArtistInBandService;
@@ -12,6 +13,7 @@ import MusicCube.services.instrument.InstrumentService;
 import MusicCube.services.localization.LocalizationService;
 import MusicCube.services.song.SongService;
 import MusicCube.services.songauthorship.SongAuthorshipService;
+import MusicCube.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,6 +50,8 @@ public class ModelGenerator {
     private SongService songService;
     @Autowired
     private ArtistInstrumentService artistInstrumentService;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @RequestMapping(value = "generateModel", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String generateModel() {
@@ -126,6 +130,14 @@ public class ModelGenerator {
         SongAuthorship midnightA2 = new SongAuthorship(false,true,midnight,kk);
         SongAuthorship rageA2 = new SongAuthorship(false,true,rage,kk);
         SongAuthorship steelerA2 = new SongAuthorship(false,true,steeler,kk);
+
+        Role user = new Role(RoleName.ROLE_USER);
+        Role mod = new Role(RoleName.ROLE_MOD);
+        Role admin = new Role(RoleName.ROLE_ADMIN);
+
+        roleRepository.save(user);
+        roleRepository.save(mod);
+        roleRepository.save(admin);
 
         localizationService.save(birmingham);
         localizationService.save(uk);
