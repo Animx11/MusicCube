@@ -1,58 +1,57 @@
-import { Location } from './Location';
+import { Localization } from "./Localization";
 
 export class Person {
+  protected id: number;
+  protected origin: Localization;
+  protected firstNames: string;
+  protected lastName: string;
+  protected birthDate: Date;
 
-    protected id: number;
-    protected origin: Location;
-    protected firstNames: string;
-    protected lastName: string;
-    protected birthDate: Date;
+  constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
+    this.origin = (obj && obj.origin) || null;
+    this.firstNames = (obj && obj.firstNames) || "";
+    this.lastName = (obj && obj.lastName) || "";
+    this.birthDate = (obj && obj.birthDate) || null;
+  }
 
-    constructor(obj?: any) {
-        this.origin = (obj && obj.origin) || null;
-        this.firstNames = (obj && obj.firstNames) || '';
-        this.lastName = (obj && obj.lastName) || '';
-        this.birthDate = (obj && obj.birthDate) || null;
-    }
+  // Getters
 
-        // Getters
+  getId(): number {
+    return this.id;
+  }
 
-        getId(): number {
-            return this.id;
-        }
-    
-        getOrigin(): Location {
-            return this.origin;
-        }
+  getOrigin(): Localization {
+    return this.origin;
+  }
 
-        getFirstNames(): string {
-            return this.firstNames;
-        }   
+  getFirstNames(): string {
+    return this.firstNames;
+  }
 
-        getLastName(): string {
-            return this.lastName;
-        }
+  getLastName(): string {
+    return this.lastName;
+  }
 
-        getBirthDate(): Date {
-            return this.birthDate;
-        }
+  getBirthDate(): Date {
+    return this.birthDate;
+  }
 
-        // Setters
+  // Setters
 
-        setOrigin(origin: Location) {
-            this.origin = origin;
-        }
+  setOrigin(origin: Localization) {
+    this.origin = origin;
+  }
 
-        setFirstNames(firstNames: string) {
-            this.firstNames = firstNames;
-        }
+  setFirstNames(firstNames: string) {
+    this.firstNames = firstNames;
+  }
 
-        setLastName(lastName: string) {
-            this.lastName = lastName;
-        }
+  setLastName(lastName: string) {
+    this.lastName = lastName;
+  }
 
-        setBirthDate(birthDate: Date) {
-            this.birthDate = birthDate;
-        }
-
+  setBirthDate(birthDate: Date) {
+    this.birthDate = birthDate;
+  }
 }

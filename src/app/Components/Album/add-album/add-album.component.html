@@ -1,3 +1,7 @@
-<div id = "CRUD">
-  add-album works!
+<div id="CRUD">
+  <input [(ngModel)]="albumName" placeholder="Album Title" />
+  <input [(ngModel)]="length" placeholder="Length" />
+  <input [(ngModel)]="releaseDate" type="date" />
+  <input [(ngModel)]="company" placeholder="Record Company" />
+  <button (click)="save()">Add Album</button>
 </div>

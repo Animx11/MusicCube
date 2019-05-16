@@ -1,3 +1,4 @@
-<div id = "CRUD">
-  edit-album works!
+<app-search-album (albumEvent)="albumEventHander($event)"></app-search-album>
+<div id="editor">
+  <app-edit-album-details [album]="selectedAlbum"></app-edit-album-details>
 </div>

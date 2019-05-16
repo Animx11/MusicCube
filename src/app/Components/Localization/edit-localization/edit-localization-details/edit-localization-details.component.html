@@ -1,0 +1,7 @@
+<div *ngIf="localization">
+  <input [(ngModel)]="localization.country" placeholder="Country" /> <br />
+  <input [(ngModel)]="localization.city" placeholder="City" /> <br />
+  <input [(ngModel)]="localization.address" placeholder="Address" />
+  <button (click)="save()">Save Changes</button>
+  <button (click)="delete()">Delete</button>
+</div>

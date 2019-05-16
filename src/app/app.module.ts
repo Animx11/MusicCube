@@ -33,9 +33,22 @@ import { DeleteGenreComponent } from './Components/Genre/delete-genre/delete-gen
 import { AddInstrumentComponent } from './Components/Instrument/add-instrument/add-instrument.component';
 import { EditInstrumentComponent } from './Components/Instrument/edit-instrument/edit-instrument.component';
 import { DeleteInstrumentComponent } from './Components/Instrument/delete-instrument/delete-instrument.component';
-import { AddLocationComponent } from './Components/Location/add-location/add-location.component';
-import { EditLocationComponent } from './Components/Location/edit-location/edit-location.component';
-import { DeleteLocationComponent } from './Components/Location/delete-location/delete-location.component';
+import { AddLocalizationComponent } from './Components/Localization/add-localization/add-localization.component';
+import { EditLocalizationComponent } from './Components/Localization/edit-localization/edit-localization.component';
+import { DeleteLocalizationComponent } from './Components/Localization/delete-localization/delete-localization.component';
+import { EditLocalizationDetailsComponent } from './Components/Localization/edit-localization/edit-localization-details/edit-localization-details.component';
+import { EditAlbumDetailsComponent } from './Components/Album/edit-album/edit-album-details/edit-album-details.component';
+import { EditArtistDetailsComponent } from './Components/Artist/edit-artist/edit-artist-details/edit-artist-details.component';
+import { EditBandDetailsComponent } from './Components/Band/edit-band/edit-band-details/edit-band-details.component';
+import { EditConcertDetailsComponent } from './Components/Concert/edit-concert/edit-concert-details/edit-concert-details.component';
+import { EditGenreDetailsComponent } from './Components/Genre/edit-genre/edit-genre-details/edit-genre-details.component';
+import { EditInstrumentDetailsComponent } from './Components/Instrument/edit-instrument/edit-instrument-details/edit-instrument-details.component';
+import { EditSongDetailsComponent } from './Components/Song/edit-song/edit-song-details/edit-song-details.component';
+import { SearchLocalizationComponent } from './Components/Localization/search-localization/search-localization.component';
+import { SearchAlbumComponent } from './Components/Album/search-album/search-album.component';
+import { SearchSongComponent } from './Components/Song/search-song/search-song.component';
+import { SearchBandComponent } from './Components/Band/search-band/search-band.component';
+import { SearchGenreComponent } from './Components/Genre/search-genre/search-genre.component';
 
 const ROUTES: Routes = [
 
@@ -154,19 +167,19 @@ const ROUTES: Routes = [
     children: [{ path: 'DeleteInstrument', component: DeleteInstrumentComponent }]
   },
 
-  // Location
+  // Localization
 
   {
     path: 'AdminPanel', component: AdminPanelComponent,
-    children: [{ path: 'AddLocation', component: AddLocationComponent }]
+    children: [{ path: 'AddLocalization', component: AddLocalizationComponent }]
   },
   {
     path: 'AdminPanel', component: AdminPanelComponent,
-    children: [{ path: 'EditLocation', component: EditLocationComponent }]
+    children: [{ path: 'EditLocalization', component: EditLocalizationComponent }]
   },
   {
     path: 'AdminPanel', component: AdminPanelComponent,
-    children: [{ path: 'DeleteLocation', component: DeleteLocationComponent }]
+    children: [{ path: 'DeleteLocalization', component: DeleteLocalizationComponent }]
   },
 
   { path : '', redirectTo : '', pathMatch : 'full'}
@@ -200,9 +213,22 @@ const ROUTES: Routes = [
     AddInstrumentComponent,
     EditInstrumentComponent,
     DeleteInstrumentComponent,
-    AddLocationComponent,
-    EditLocationComponent,
-    DeleteLocationComponent,
+    AddLocalizationComponent,
+    EditLocalizationComponent,
+    DeleteLocalizationComponent,
+    EditLocalizationDetailsComponent,
+    EditAlbumDetailsComponent,
+    EditArtistDetailsComponent,
+    EditBandDetailsComponent,
+    EditConcertDetailsComponent,
+    EditGenreDetailsComponent,
+    EditInstrumentDetailsComponent,
+    EditSongDetailsComponent,
+    SearchLocalizationComponent,
+    SearchAlbumComponent,
+    SearchSongComponent,
+    SearchBandComponent,
+    SearchGenreComponent,
 
   ],
   imports: [

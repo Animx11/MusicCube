@@ -1,0 +1,6 @@
+<div *ngIf="album">
+  <input [(ngModel)]="album.albumName" placeholder="{{album.albumName}}" />
+  <br />
+  <button (click)="save()">Save Changes</button>
+  <button (click)="delete()">Delete</button>
+</div>

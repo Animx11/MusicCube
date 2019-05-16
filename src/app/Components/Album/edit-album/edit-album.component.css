@@ -1,10 +1,18 @@
-#CRUD{
-
-
+#CRUD {
   width: 85%;
   height: 30px;
-  text-align:center;
+  text-align: center;
   background: aliceblue;
+}
 
+#list {
+  display: inline-block;
+  background: aliceblue;
+  width: 35%;
+  margin: 20px;
+}
 
+#editor {
+  display: inline-block;
+  background: aliceblue;
 }

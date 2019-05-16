@@ -1,36 +1,35 @@
 export class Instrument {
+  private id: number;
+  private name: string;
+  private type: string;
 
-    private id: number;
-    private name: string;
-    private type: string;
+  constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
+    this.name = (obj && obj.name) || "";
+    this.type = (obj && obj.type) || "";
+  }
 
-    constructor(obj?: any ) {
-        this.name = (obj && obj.name) || '';
-        this.type = (obj && obj.type) || '';
-    }
+  // Getters
 
-    // Getters
+  getId(): number {
+    return this.id;
+  }
 
-    getId(): number {
-        return this.id;
-    }
+  getName(): string {
+    return this.name;
+  }
 
-    getName(): string {
-        return this.name;
-    }
+  getType(): string {
+    return this.type;
+  }
 
-    getType(): string {
-        return this.type;
-    }
+  // Setters
 
-    // Setters
+  setName(name: string) {
+    this.name = name;
+  }
 
-    setName(name: string) {
-        this.name = name;
-    }
-
-    setType(type: string) {
-        this.type = type;
-    }
-
+  setType(type: string) {
+    this.type = type;
+  }
 }

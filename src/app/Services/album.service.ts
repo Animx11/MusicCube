@@ -1,37 +1,38 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Album} from '../Class/Album'
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { Album } from "../Class/Album";
+import { api_url } from "./API_URL";
 
-
-const apiUrl = 'http://localhost:8080/api';
+const apiUrl = api_url;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
-
 export class AlbumService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getById(id: number): Observable<any>{
-      return this.http.get(`${apiUrl}/album${id}`);
+  getById(id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/album${id}`);
+  }
+  getByAlbumName(name: string): Observable<any> {
+    if (name === "") return new Observable<any>();
+    else return this.http.get(`${apiUrl}/albums{name}?albumName=${name}`);
   }
 
-  create(obj: Album): Observable<any>{
-      return this.http.post(`${apiUrl}/album`, obj);
+  create(obj: Album): Observable<any> {
+    return this.http.post(`${apiUrl}/album`, obj);
   }
 
-  list(): Observable<any>{
-      return this.http.get(`${apiUrl}/albums`);
+  list(): Observable<any> {
+    return this.http.get(`${apiUrl}/albums`);
   }
 
-  edit(obj: Album): Observable<any>{
-      return this.http.put(`${apiUrl}/album`, obj);
+  edit(obj: Album): Observable<any> {
+    return this.http.put(`${apiUrl}/album`, obj);
   }
 
-  delete(id: number): Observable<any>{
-      return this.http.delete(`${apiUrl}/album/${id}`);
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${apiUrl}/album/${id}`);
   }
-
 }

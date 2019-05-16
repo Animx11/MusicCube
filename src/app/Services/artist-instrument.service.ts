@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { ArtistInstrument } from '../Class/ArtistInstrument';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { ArtistInstrument } from "../Class/ArtistInstrument";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
-const apiUrl = 'http://localhost:8080/api';
+import { api_url } from "./API_URL";
+
+const apiUrl = api_url;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-
 export class ArtistInstrumentService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/artistInstrument${id}`);
@@ -32,5 +32,4 @@ export class ArtistInstrumentService {
   delete(id: number): Observable<any> {
     return this.http.delete(`${apiUrl}/artistInstrument/${id}`);
   }
-
 }

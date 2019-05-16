@@ -1,48 +1,47 @@
-import { Location } from './Location';
+import { Localization } from "./Localization";
 
 export class Band {
+  private id: number;
+  private bandName: string;
+  private creationDate: Date;
+  private formedIn: Localization;
 
-    private id: number;
-    private bandName: string;
-    private creationDate: Date;
-    private formedIn: Location;
+  constructor(obj?: any) {
+    this.id = (obj && obj.id) || 0;
+    this.bandName = (obj && obj.bandName) || "";
+    this.creationDate = (obj && obj.creationDate) || null;
+    this.formedIn = (obj && obj.formedIn) || null;
+  }
 
-    constructor(obj?: any) {
-        this.bandName = (obj && obj.bandName) || '';
-        this.creationDate = (obj && obj.creationDate) || null;
-        this.formedIn = (obj && obj.formedIn) || null;
-    }
+  // Getters
 
-    // Getters
+  getId(): number {
+    return this.id;
+  }
 
-    getId(): number {
-        return this.id;
-    }
+  getBandName(): string {
+    return this.bandName;
+  }
 
-    getBandName(): string {
-        return this.bandName;
-    }
+  getCreationDate(): Date {
+    return this.creationDate;
+  }
 
-    getCreationDate(): Date {
-        return this.creationDate;
-    }
+  getFormedIn(): Localization {
+    return this.formedIn;
+  }
 
-    getFormedIn(): Location {
-        return this.formedIn;
-    }
+  // Setters
 
-    // Setters
+  setBandName(bandName: string) {
+    this.bandName = bandName;
+  }
 
-    setBandName(bandName: string) {
-        this.bandName = bandName;
-    }
+  setCreationDate(creationDate: Date) {
+    this.creationDate = creationDate;
+  }
 
-    setCreationDate(creationDate: Date) {
-        this.creationDate = creationDate;
-    }
-
-    setFormedIn(formedIn: Location) {
-        this.formedIn = formedIn;
-    }
-
+  setFormedIn(formedIn: Localization) {
+    this.formedIn = formedIn;
+  }
 }

@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Artist } from '../Class/Artist';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { Artist } from "../Class/Artist";
 
-const apiUrl = 'http://localhost:8080/api';
+import { api_url } from "./API_URL";
+
+const apiUrl = api_url;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-
 export class ArtistService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/artist${id}`);
@@ -32,5 +32,4 @@ export class ArtistService {
   delete(id: number): Observable<any> {
     return this.http.delete(`${apiUrl}/artist/${id}`);
   }
-
 }
