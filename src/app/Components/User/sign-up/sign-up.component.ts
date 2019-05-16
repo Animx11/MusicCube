@@ -30,8 +30,6 @@ export class SignUpComponent implements OnInit {
     this.user.setUserName(this.userName);
     this.user.setPassword(this.password);
     this.user.setEmail(this.email);
-    this.user.setUserPermission('User');
-
     this.userService.signUp(this.user).subscribe();
 
   }
