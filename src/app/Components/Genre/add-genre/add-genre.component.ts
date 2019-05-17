@@ -23,7 +23,7 @@ export class AddGenreComponent implements OnInit {
     this.genre.setOrigin($event);
   }
   addGenre() {
-    if (this.getGenreNameame === "") window.alert("Incomplete input");
+    if (this.genreName === "") window.alert("Incomplete input");
     else {
       this.genre.setGenreName(this.genreName);
       this.genre.setCreationDate(new Date(`${this.yearOfCreation}-01-01`));

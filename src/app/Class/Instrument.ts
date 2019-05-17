@@ -15,8 +15,8 @@ export class Instrument {
     return this.id;
   }
 
-  getName(): string {
-    return this.instrumentname;
+  getInstrumentName(): string {
+    return this.instrumentName;
   }
 
   getType(): string {
@@ -25,7 +25,7 @@ export class Instrument {
 
   // Setters
 
-  setName(instrument: string) {
+  setInstrumentName(instrumentName: string) {
     this.instrumentName = instrumentName;
   }
 
