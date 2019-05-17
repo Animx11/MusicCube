@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {UserService} from '../../../Services/user.service';
-import { SimpleToken } from 'src/app/Class/SimpleToken';
+import { SignIn } from 'src/app/Class/SignIn';
+import { TokenStorageService } from 'src/app/Services/token-storage.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,9 +12,10 @@ export class SignInComponent implements OnInit {
 
   userName: string;
   password: string;
-  token: SimpleToken;
+  user: SignIn;
+  isLoginFailed = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private tokenStorage: TokenStorageService) {
    }
 
   ngOnInit() {
@@ -25,7 +27,25 @@ export class SignInComponent implements OnInit {
 
 
   signIn() {
-    this.userService.signIn(this.userName, this.password).subscribe();
+    this.user = new SignIn(this.userName, this.password);
+    this.userService.signIn(this.user).subscribe(
+      res => {
+        this.tokenStorage.saveToken(res.token);
+        this.tokenStorage.saveUsername(res.userName);
+        this.tokenStorage.saveAuthorities(res.authorities);
+        this.isLoginFailed = false;
+
+        this.reloadPage();
+      },
+      error => {
+        console.log(error);
+        this.isLoginFailed = true;
+      }
+    );
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 
 }

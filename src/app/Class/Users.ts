@@ -3,7 +3,7 @@ export class Users {
   private userName: string;
   private password: string;
   private email: string;
-  private userPermission: string;
+  private roles: string[];
   private firstName: string;
   private lastName: string;
   private birthDate: Date;
@@ -11,10 +11,10 @@ export class Users {
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
-    this.userName = (obj && obj.userName) || "";
-    this.password = (obj && obj.password) || "";
-    this.email = (obj && obj.email) || "";
-    this.userPermission = (obj && obj.userPermission) || "";
+    this.userName = (obj && obj.userName) || '';
+    this.password = (obj && obj.password) || '';
+    this.email = (obj && obj.email) || '';
+    this.roles = (obj && obj.roles) || null;
     this.birthDate = (obj && obj.birthDate) || null;
   }
 
@@ -36,8 +36,8 @@ export class Users {
     return this.email;
   }
 
-  getUserPermission(): string {
-    return this.userPermission;
+  getRoles(): string[] {
+    return this.roles;
   }
 
   getFirstName(): string {
@@ -70,8 +70,8 @@ export class Users {
     this.email = value;
   }
 
-  setUserPermission(value: string) {
-    this.userPermission = value;
+  setRoles(value: string[]) {
+    this.roles = value;
   }
 
   setFirstName(value: string) {

@@ -1,14 +1,13 @@
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
+
+
 import { SignInComponent } from './Components/User/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/User/sign-up/sign-up.component';
 import { AdminPanelComponent } from './Components/User/admin-panel/admin-panel.component';
@@ -49,6 +48,9 @@ import { SearchAlbumComponent } from './Components/Album/search-album/search-alb
 import { SearchSongComponent } from './Components/Song/search-song/search-song.component';
 import { SearchBandComponent } from './Components/Band/search-band/search-band.component';
 import { SearchGenreComponent } from './Components/Genre/search-genre/search-genre.component';
+
+import { httpInterceptorProviders } from './Class/authorisation/AuthInterceptor';
+
 
 const ROUTES: Routes = [
 
@@ -239,7 +241,7 @@ const ROUTES: Routes = [
     HttpClientModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

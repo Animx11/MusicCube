@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter } from '@angular/core';
+import { TokenStorageService } from './Services/token-storage.service';
 
 
 @Component({
@@ -8,10 +9,18 @@ import { Component, Input, EventEmitter } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'MusicCube';
+  private title = 'MusicCube';
+  private roles: string[];
+  private authority: string;
 
-  constructor() {
+  constructor(private tokenStorage: TokenStorageService) {}
+  
 
+  ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+    }
   }
+  
 
 }
