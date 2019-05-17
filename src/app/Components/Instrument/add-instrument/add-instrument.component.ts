@@ -9,12 +9,33 @@ import { Instrument } from "src/app/Class/Instrument";
 })
 export class AddInstrumentComponent implements OnInit {
   private instrument: Instrument;
+  private instrumentName: string;
+  private instrumentType: string;
 
   constructor(private instrumentService: InstrumentService) {}
 
   ngOnInit() {
     this.instrument = new Instrument();
+    this.instrumentName = this.instrumentType = "";
   }
 
-  save() {}
+  addInstrument() {
+    if (this.instrumentName === "" || this.instrumentType === "")
+      window.alert("Incomplete input");
+    else {
+      this.instrument.setInstrumentName(this.instrumentName);
+      this.instrument.setInstrumentType(this.instrumentType);
+      this.instrumentService.create(this.instrument).subscribe(
+        res => {
+          console.log("add-instrument-component recieved:");
+          console.log(res);
+          window.alert("Instrument added");
+        },
+        err => {
+          console.log(err);
+          window.alert("Error occured");
+        }
+      );
+    }
+  }
 }

@@ -1,3 +1,5 @@
-<div id = "CRUD">
-  add-instrument works!
+<div class="add">
+  <input [(ngModel)]="instrumentName" placeholder="Instrument name" />
+  <input [(ngModel)]="instrumentType" placeholder="Instrument type" />
+  <button (click)="addInstrument()">Add instrument</button>
 </div>

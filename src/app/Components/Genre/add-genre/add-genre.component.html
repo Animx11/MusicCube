@@ -1,3 +1,12 @@
-<div id = "CRUD">
-  add-genre works!
+<div class="add">
+  <input [(ngModel)]="genreName" placeholder="genreName" /><br />
+  <input [(ngModel)]="yearOfCreation" type="number" /><br />
+  <h6 *ngIf="genre.origin">
+    {{ genre.origin.country }} {{ genre.origin.city }}
+    {{ genre.origin.address }}
+  </h6>
+  <app-search-localization
+    (localizationEvent)="localizationEventHander($event)"
+  ></app-search-localization>
+  <button (click)="addGenre()">Add genre</button>
 </div>
