@@ -8,7 +8,7 @@ import MusicCube.services.artistinband.ArtistInBandService;
 import MusicCube.services.artistinstrument.ArtistInstrumentService;
 import MusicCube.services.band.BandService;
 import MusicCube.services.genre.GenreService;
-import MusicCube.services.genreinstrument.GenreInstrumentService;
+import MusicCube.services.songinstrument.SongInstrumentService;
 import MusicCube.services.instrument.InstrumentService;
 import MusicCube.services.localization.LocalizationService;
 import MusicCube.services.song.SongService;
@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -41,7 +43,7 @@ public class ModelGenerator {
     @Autowired
     private GenreService genreService;
     @Autowired
-    private GenreInstrumentService genreInstrumentService;
+    private SongInstrumentService songInstrumentService;
     @Autowired
     private InstrumentService instrumentService;
     @Autowired
@@ -87,9 +89,6 @@ public class ModelGenerator {
         ArtistInstrument hollIns = new ArtistInstrument(holland,drums);
 
         Genre heavy = new Genre(uk,"Heavy Metal",new Date(70,1,1));
-        GenreInstrument hmGuitar = new GenreInstrument(heavy,electricGuitar);
-        GenreInstrument hmBass = new GenreInstrument(heavy,bassGuitar);
-        GenreInstrument hmDrums = new GenreInstrument(heavy,drums);
 
         Song rapid = new Song("Rapid Fire",246,britishSteelAlbum,judas,heavy);
         Song mgods = new Song("Metal Gods",241,britishSteelAlbum,judas,heavy);
@@ -130,6 +129,43 @@ public class ModelGenerator {
         SongAuthorship midnightA2 = new SongAuthorship(false,true,midnight,kk);
         SongAuthorship rageA2 = new SongAuthorship(false,true,rage,kk);
         SongAuthorship steelerA2 = new SongAuthorship(false,true,steeler,kk);
+        
+        List<SongInstrument> siList=new ArrayList<>();
+        siList.add(new SongInstrument(rapid,electricGuitar));
+        siList.add(new SongInstrument(rapid,bassGuitar));
+        siList.add(new SongInstrument(rapid,drums));
+        
+        siList.add(new SongInstrument(mgods,electricGuitar));
+        siList.add(new SongInstrument(mgods,bassGuitar));
+        siList.add(new SongInstrument(mgods,drums));
+        
+        siList.add(new SongInstrument(breaking,electricGuitar));
+        siList.add(new SongInstrument(breaking,bassGuitar));
+        siList.add(new SongInstrument(breaking,drums));
+        
+        siList.add(new SongInstrument(grinder,electricGuitar));
+        siList.add(new SongInstrument(grinder,bassGuitar));
+        siList.add(new SongInstrument(grinder,drums));
+        
+        siList.add(new SongInstrument(united,electricGuitar));
+        siList.add(new SongInstrument(united,bassGuitar));
+        siList.add(new SongInstrument(united,drums));
+        
+        siList.add(new SongInstrument(wise,electricGuitar));
+        siList.add(new SongInstrument(wise,bassGuitar));
+        siList.add(new SongInstrument(wise,drums));
+        
+        siList.add(new SongInstrument(midnight,electricGuitar));
+        siList.add(new SongInstrument(midnight,bassGuitar));
+        siList.add(new SongInstrument(midnight,drums));
+        
+        siList.add(new SongInstrument(rage,electricGuitar));
+        siList.add(new SongInstrument(rage,bassGuitar));
+        siList.add(new SongInstrument(rage,drums));
+        
+        siList.add(new SongInstrument(steeler,electricGuitar));
+        siList.add(new SongInstrument(steeler,bassGuitar));
+        siList.add(new SongInstrument(steeler,drums));
 
         Role user = new Role(RoleName.ROLE_USER);
         Role mod = new Role(RoleName.ROLE_MOD);
@@ -169,10 +205,6 @@ public class ModelGenerator {
         artistInstrumentService.save(hollIns);
 
         genreService.save(heavy);
-
-        genreInstrumentService.save(hmBass);
-        genreInstrumentService.save(hmDrums);
-        genreInstrumentService.save(hmGuitar);
 
         songService.save(rage);
         songService.save(rapid);
@@ -214,6 +246,8 @@ public class ModelGenerator {
         songAuthorshipService.save(steelerA);
         songAuthorshipService.save(steelerA1);
         songAuthorshipService.save(steelerA2);
+        
+        siList.forEach(songInstrument -> songInstrumentService.save(songInstrument));
 
         return "Model generated.";
     }
