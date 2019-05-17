@@ -1,14 +1,14 @@
-import { Genre } from "./Genre";
+import { Song } from "./Song";
 import { Instrument } from "./Instrument";
 
-export class GenreInstrument {
+export class SongInstrument {
   private id: number;
-  private genre: Genre;
+  private song: Song;
   private instrument: Instrument;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
-    this.genre = (obj && obj.genre) || null;
+    this.song = (obj && obj.song) || null;
     this.instrument = (obj && obj.instrument) || null;
   }
 }

@@ -6,18 +6,8 @@
     Origin: {{ band.formedIn.country }} {{ band.formedIn.city }}
     {{ band.formedIn.address }}<br />
   </div>
-  <button (click)="selectFormedIn()">Select formedIn</button><br />
+  <app-search-localization
+    (localizationEvent)="localizationEventHander($event)"
+  ></app-search-localization>
   <button (click)="addBand()">Add band</button>
-</div>
-<div class="add">
-  <ul *ngIf="formedInSelected">
-    <li
-      *ngFor="let localization of localizationList"
-      (click)="addFormedIn(localization)"
-    >
-      <h5>{{ localization.country }}</h5>
-      <h6 *ngIf="localization.city">{{ localization.city }}</h6>
-      <div *ngIf="localization.address">{{ localization.address }}</div>
-    </li>
-  </ul>
 </div>

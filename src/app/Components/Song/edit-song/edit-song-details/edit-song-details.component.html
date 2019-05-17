@@ -1,10 +1,9 @@
 <div *ngIf="song">
+  <input [(ngModel)]="song.songName" placeholder="{{song.songName}}" /> <br />
   <input
-    [(ngModel)]="song.songName"
-    placeholder="{{song.songName}}"
+    [(ngModel)]="song.songLengthSeconds"
+    placeholder="{{song.songLengthSeconds}}"
   />
-  <br />
-  <input [(ngModel)]="song.lengthInSeconds" placeholder="{{song.lengthInSeconds}}" />
   <br />
   <button (click)="save()">Save Changes</button>
   <button (click)="delete()">Delete</button>
