@@ -1,5 +1,6 @@
 package MusicCube.config;
 
+import MusicCube.entities.RoleName;
 import MusicCube.jwt.JwtAuthEntryPoint;
 import MusicCube.jwt.JwtAuthFilter;
 import MusicCube.services.user.UserServiceImpl;
@@ -62,7 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/api/auth/**").anonymous()
+                .antMatchers("/generateModel").permitAll()
+                .antMatchers("/**").authenticated()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
