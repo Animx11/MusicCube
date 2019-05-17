@@ -3,7 +3,7 @@ package MusicCube.entities;
 import javax.persistence.*;
 
 @Entity
-public class GenreInstrument {
+public class SongInstrument{
 
     @Id
     @GeneratedValue
@@ -11,15 +11,15 @@ public class GenreInstrument {
     private int id;
 
     @ManyToOne
-    private Genre genre;
+    private Song song;
 
     @ManyToOne
     private Instrument instrument;
 
-    public GenreInstrument() {}
+    public SongInstrument() {}
 
-    public GenreInstrument(Genre genre, Instrument instrument) {
-        this.genre = genre;
+    public SongInstrument(Song song, Instrument instrument) {
+        this.song = song;
         this.instrument = instrument;
     }
 
@@ -31,12 +31,12 @@ public class GenreInstrument {
         this.id = id;
     }
 
-    public Genre getGenre() {
-        return genre;
+    public Song getSong() {
+        return song;
     }
 
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setSong(Song song) {
+        this.song = song;
     }
 
     public Instrument getInstrument() {
