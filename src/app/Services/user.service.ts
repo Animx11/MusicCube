@@ -5,7 +5,7 @@ import { JwtResponse } from '../Class/JwtResponse';
 import {Observable, from} from 'rxjs';
 import { SignIn } from '../Class/SignIn';
 
-const apiUrl = 'http://localhost:8080/api';
+import { api_url } from "./API_URL";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,11 +20,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   signUp(obj: Users): Observable<string> {
-    return this.http.post<string>(`${apiUrl}/auth/signup`, obj, httpOptions);
+    return this.http.post<string>(`${api_url}/auth/signup`, obj, httpOptions);
   }
 
   signIn(obj: SignIn): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(`${apiUrl}/auth/signin`, obj, httpOptions);
+    return this.http.post<JwtResponse>(`${api_url}/auth/signin`, obj, httpOptions);
   }
 
 }
