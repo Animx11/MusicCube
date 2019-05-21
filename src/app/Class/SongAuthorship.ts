@@ -1,7 +1,7 @@
 import { Song } from "./Song";
 import { Person } from "./Person";
 
-export class SongAuthor {
+export class SongAuthorship {
   private id: number;
   private wroteText: boolean;
   private wroteMusic: boolean;
@@ -34,7 +34,7 @@ export class SongAuthor {
     return this.song;
   }
 
-  getPerson(): Person {
+  getAuthor(): Person {
     return this.author;
   }
 
@@ -52,7 +52,7 @@ export class SongAuthor {
     this.song = song;
   }
 
-  setPerson(author: Person) {
+  setAuthor(author: Person) {
     this.author = author;
   }
 }

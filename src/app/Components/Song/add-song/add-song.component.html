@@ -19,23 +19,30 @@
 
   <button (click)="addSong()">Add song</button>
 </div>
-
 <div class="add">
-  <ul *ngIf="albumsSelected">
-    <li *ngFor="let album of albumList" (click)="addAlbum(album)">
-      {{ album.albumName }}
+  <h5>Authors</h5>
+  <ul *ngIf="authorList">
+    <li *ngFor="let authorship of authorList">
+      {{ authorship.author.lastName }} Text<input
+        type="checkbox"
+        (click)="toggleWroteText(authorship)"
+      />
+      Music<input type="checkbox" (click)="toggleWroteMusic(authorship)" />
+      <button (click)="removeAuthor(authorship)">X</button>
     </li>
   </ul>
-
-  <ul *ngIf="bandsSelected">
-    <li *ngFor="let band of bandList" (click)="addBand(band)">
-      {{ band.bandName }}
+  <app-search-person
+    (personEvent)="personEventHander($event)"
+  ></app-search-person>
+</div>
+<div class="add">
+  <h5>Instruments</h5>
+  <ul *ngIf="instrumentList">
+    <li *ngFor="let songInstrument of instrumentList">
+      {{ songInstrument.instrument.instrumentName }}
     </li>
   </ul>
-
-  <ul *ngIf="genresSelected">
-    <li *ngFor="let genre of genreList" (click)="addGenre(genre)">
-      {{ genre.genreName }}
-    </li>
-  </ul>
+  <app-search-instrument
+    (instrumentEvent)="instrumentEventHander($event)"
+  ></app-search-instrument>
 </div>
