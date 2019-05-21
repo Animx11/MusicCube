@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 import { SongService } from "src/app/Services/song.service";
 import { SongAuthorshipService } from "src/app/Services/song-authorship.service";
+import { SongInstrumentService } from "src/app/Services/song-instrument.service";
 
 import { Song } from "src/app/Class/Song";
 import { Band } from "src/app/Class/Band";
@@ -11,6 +12,9 @@ import { Person } from "src/app/Class/Person";
 import { SongAuthorship } from "src/app/Class/SongAuthorship";
 import { Instrument } from "src/app/Class/Instrument";
 import { SongInstrument } from "src/app/Class/SongInstrument";
+
+// import { this_url } from "src/app/Services/API_URL";
+// const thisURL = this_url;
 
 @Component({
   selector: "app-add-song",
@@ -28,7 +32,8 @@ export class AddSongComponent implements OnInit {
 
   constructor(
     private songService: SongService,
-    private songAuthorshipService: SongAuthorshipService
+    private songAuthorshipService: SongAuthorshipService,
+    private songInstrumentService: SongInstrumentService
   ) {}
 
   ngOnInit() {
@@ -85,7 +90,19 @@ export class AddSongComponent implements OnInit {
               }
             );
           });
+          // DODAWANIE INSTRUMENTÓW
+          this.instrumentList.forEach(el => {
+            el.setSong(this.song);
+            this.songInstrumentService.create(el).subscribe(
+              res => {
+                console.log("add-song-component recieved:");
+                console.log(res);
+              },
+              err => console.log(err)
+            );
+          });
           window.alert("Dodano nową piosenke");
+          //window.location.assign(`${thisURL}AdminPanel`);
         },
         err => {
           if (err.status == 409) {
@@ -96,12 +113,6 @@ export class AddSongComponent implements OnInit {
         }
       );
     }
-  }
-  toggleWroteText(authorship: SongAuthorship) {
-    authorship.setWroteText(!authorship.getWroteText());
-  }
-  toggleWroteMusic(authorship: SongAuthorship) {
-    authorship.setWroteMusic(!authorship.getWroteMusic());
   }
   removeAuthor(authorship: SongAuthorship) {
     let index = this.authorList.indexOf(authorship);

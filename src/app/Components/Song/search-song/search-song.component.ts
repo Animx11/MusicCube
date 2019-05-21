@@ -11,6 +11,7 @@ import { Song } from "src/app/Class/Song";
 })
 export class SearchSongComponent implements OnInit {
   private searchOn: boolean;
+  private listOn: boolean;
 
   songs$: Observable<Song[]>;
   private searchTerms = new Subject<string>();
@@ -19,6 +20,7 @@ export class SearchSongComponent implements OnInit {
 
   constructor(private songService: SongService) {
     this.searchOn = false;
+    this.listOn = true;
   }
 
   ngOnInit(): void {
@@ -30,7 +32,13 @@ export class SearchSongComponent implements OnInit {
   }
 
   toggleSearch() {
+    this.songs$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.songService.getBySongName(term))
+    );
     this.searchOn = !this.searchOn;
+    this.listOn = true;
   }
 
   search(term: string): void {
@@ -38,7 +46,14 @@ export class SearchSongComponent implements OnInit {
   }
 
   onSelect(song: Song) {
-    this.toggleSearch();
+    this.searchOn = false;
+    this.listOn = false;
     this.songEvent.emit(song);
+  }
+
+  getAll() {
+    this.searchOn = false;
+    this.listOn = true;
+    this.songs$ = this.songService.list();
   }
 }

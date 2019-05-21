@@ -1,11 +1,12 @@
-<button (click)="toggleSearch()">Search in songs</button>
+<button (click)="toggleSearch()">Search in songs</button
+><button (click)="getAll()">Get all songs</button>
 <div *ngIf="searchOn">
   <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
-  <div id="list">
-    <ul>
-      <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
-        {{ song.songName }}
-      </li>
-    </ul>
-  </div>
+</div>
+<div *ngIf="listOn">
+  <ul>
+    <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
+      {{ song.songName }}
+    </li>
+  </ul>
 </div>

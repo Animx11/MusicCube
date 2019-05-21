@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SongAuthorship } from "../Class/SongAuthorship";
+import { Person } from "src/app/Class/Person";
+import { Song } from "src/app/Class/Song";
 
 import { api_url } from "./API_URL";
 
@@ -15,6 +17,12 @@ export class SongAuthorshipService {
 
   getById(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/songAuthorship${id}`);
+  }
+  getBySongId(id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/songAuthorships{songId}?id=${id}`);
+  }
+  getByAuthorId(id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/songAuthorships{authorId}?id=${id}`);
   }
 
   list(): Observable<any> {

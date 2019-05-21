@@ -1,9 +1,55 @@
 <div *ngIf="song">
-  <input [(ngModel)]="song.songName" placeholder="{{song.songName}}" /> <br />
-  <input
-    [(ngModel)]="song.songLengthSeconds"
-    placeholder="{{song.songLengthSeconds}}"
-  />
+  <h6>Edit {{ song.songName }}</h6>
+  <button (click)="loadAuthorsAndInstruments()">Sigh...</button>
+  <div class="add">
+    Title <input [(ngModel)]="song.songName" placeholder="{{song.songName}}" />
+    <br />
+    Length
+    <input
+      [(ngModel)]="song.songLengthSeconds"
+      placeholder="{{song.songLengthSeconds}}"
+    />
+    <br />
+    <div *ngIf="song.band">Band: {{ song.band.bandName }}<br /></div>
+    <app-search-band (bandEvent)="bandEventHander($event)"></app-search-band
+    ><br />
+
+    <div *ngIf="song.album">Album: {{ song.album.albumName }}<br /></div>
+    <app-search-album (albumEvent)="albumEventHander($event)"></app-search-album
+    ><br />
+
+    <div *ngIf="song.genre">Genre: {{ song.genre.genreName }}<br /></div>
+    <app-search-genre
+      (genreEvent)="genreEventHander($event)"
+    ></app-search-genre>
+  </div>
+  <div class="add">
+    <h5>Authors</h5>
+    <ul *ngIf="authorList">
+      <li *ngFor="let authorship of authorList">
+        {{ authorship.author.lastName }} Text<input
+          type="checkbox"
+          [(ngModel)]="authorship.wroteText"
+        />
+        Music<input type="checkbox" [(ngModel)]="authorship.wroteMusic" />
+        <button (click)="removeAuthor(authorship)">X</button>
+      </li>
+    </ul>
+    <app-search-person
+      (personEvent)="personEventHander($event)"
+    ></app-search-person>
+  </div>
+  <div class="add">
+    <h5>Instruments</h5>
+    <ul *ngIf="instrumentList">
+      <li *ngFor="let songInstrument of instrumentList">
+        {{ songInstrument.instrument.instrumentName }}
+      </li>
+    </ul>
+    <app-search-instrument
+      (instrumentEvent)="instrumentEventHander($event)"
+    ></app-search-instrument>
+  </div>
   <br />
   <button (click)="save()">Save Changes</button>
   <button (click)="delete()">Delete</button>

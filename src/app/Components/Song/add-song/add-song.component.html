@@ -23,11 +23,9 @@
   <h5>Authors</h5>
   <ul *ngIf="authorList">
     <li *ngFor="let authorship of authorList">
-      {{ authorship.author.lastName }} Text<input
-        type="checkbox"
-        (click)="toggleWroteText(authorship)"
-      />
-      Music<input type="checkbox" (click)="toggleWroteMusic(authorship)" />
+      {{ authorship.author.lastName }} Text
+      <input type="checkbox" [(ngModel)]="authorship.wroteText" /> Music
+      <input type="checkbox" [(ngModel)]="authorship.wroteMusic" />
       <button (click)="removeAuthor(authorship)">X</button>
     </li>
   </ul>

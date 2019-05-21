@@ -31,6 +31,11 @@ export class SearchAlbumComponent implements OnInit {
 
   toggleSearch() {
     this.searchOn = !this.searchOn;
+    this.albums$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.albumService.getByAlbumName(term))
+    );
   }
 
   search(term: string): void {
@@ -38,7 +43,12 @@ export class SearchAlbumComponent implements OnInit {
   }
 
   onSelect(album: Album) {
-    this.toggleSearch();
+    this.searchOn = false;
     this.albumEvent.emit(album);
+  }
+
+  getAll() {
+    this.searchOn = false;
+    this.albums$ = this.albumService.list();
   }
 }

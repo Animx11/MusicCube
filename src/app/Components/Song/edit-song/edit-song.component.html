@@ -1,17 +1,4 @@
-<div id="CRUD">
-  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
-</div>
-<!-- <button (click)="findAllSongs()">All</button> -->
-
-<div id="list">
-  <ul>
-    <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
-      <h5>{{ song.songName }}</h5>
-      <div *ngIf="song.band">{{ song.band.bandName }}<br /></div>
-      <div *ngIf="song.album">{{ song.album.albumName }}</div>
-    </li>
-  </ul>
-</div>
-<div id="editor">
+<div class="down70px">
+  <app-search-song (songEvent)="songEventHander($event)"></app-search-song>
   <app-edit-song-details [song]="selectedSong"></app-edit-song-details>
 </div>

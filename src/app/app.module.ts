@@ -13,28 +13,20 @@ import { SignUpComponent } from "./Components/User/sign-up/sign-up.component";
 import { AdminPanelComponent } from "./Components/User/admin-panel/admin-panel.component";
 import { AddSongComponent } from "./Components/Song/add-song/add-song.component";
 import { EditSongComponent } from "./Components/Song/edit-song/edit-song.component";
-import { DeleteSongComponent } from "./Components/Song/delete-song/delete-song.component";
 import { AddBandComponent } from "./Components/Band/add-band/add-band.component";
 import { EditBandComponent } from "./Components/Band/edit-band/edit-band.component";
-import { DeleteBandComponent } from "./Components/Band/delete-band/delete-band.component";
 import { AddAlbumComponent } from "./Components/Album/add-album/add-album.component";
 import { EditAlbumComponent } from "./Components/Album/edit-album/edit-album.component";
-import { DeleteAlbumComponent } from "./Components/Album/delete-album/delete-album.component";
 import { AddArtistComponent } from "./Components/Artist/add-artist/add-artist.component";
 import { EditArtistComponent } from "./Components/Artist/edit-artist/edit-artist.component";
-import { DeleteArtistComponent } from "./Components/Artist/delete-artist/delete-artist.component";
 import { AddConcertComponent } from "./Components/Concert/add-concert/add-concert.component";
 import { EditConcertComponent } from "./Components/Concert/edit-concert/edit-concert.component";
-import { DeleteConcertComponent } from "./Components/Concert/delete-concert/delete-concert.component";
 import { AddGenreComponent } from "./Components/Genre/add-genre/add-genre.component";
 import { EditGenreComponent } from "./Components/Genre/edit-genre/edit-genre.component";
-import { DeleteGenreComponent } from "./Components/Genre/delete-genre/delete-genre.component";
 import { AddInstrumentComponent } from "./Components/Instrument/add-instrument/add-instrument.component";
 import { EditInstrumentComponent } from "./Components/Instrument/edit-instrument/edit-instrument.component";
-import { DeleteInstrumentComponent } from "./Components/Instrument/delete-instrument/delete-instrument.component";
 import { AddLocalizationComponent } from "./Components/Localization/add-localization/add-localization.component";
 import { EditLocalizationComponent } from "./Components/Localization/edit-localization/edit-localization.component";
-import { DeleteLocalizationComponent } from "./Components/Localization/delete-localization/delete-localization.component";
 import { EditLocalizationDetailsComponent } from "./Components/Localization/edit-localization/edit-localization-details/edit-localization-details.component";
 import { EditAlbumDetailsComponent } from "./Components/Album/edit-album/edit-album-details/edit-album-details.component";
 import { EditArtistDetailsComponent } from "./Components/Artist/edit-artist/edit-artist-details/edit-artist-details.component";
@@ -74,11 +66,6 @@ const ROUTES: Routes = [
     component: AdminPanelComponent,
     children: [{ path: "EditSong", component: EditSongComponent }]
   },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [{ path: "DeleteSong", component: DeleteSongComponent }]
-  },
 
   // Band
 
@@ -91,11 +78,6 @@ const ROUTES: Routes = [
     path: "AdminPanel",
     component: AdminPanelComponent,
     children: [{ path: "EditBand", component: EditBandComponent }]
-  },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [{ path: "DeleteBand", component: DeleteBandComponent }]
   },
 
   // Album
@@ -110,11 +92,6 @@ const ROUTES: Routes = [
     component: AdminPanelComponent,
     children: [{ path: "EditAlbum", component: EditAlbumComponent }]
   },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [{ path: "DeleteAlbum", component: DeleteAlbumComponent }]
-  },
 
   // Artist
 
@@ -127,11 +104,6 @@ const ROUTES: Routes = [
     path: "AdminPanel",
     component: AdminPanelComponent,
     children: [{ path: "EditArtist", component: EditArtistComponent }]
-  },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [{ path: "DeleteArtist", component: DeleteArtistComponent }]
   },
 
   // Concert
@@ -146,11 +118,6 @@ const ROUTES: Routes = [
     component: AdminPanelComponent,
     children: [{ path: "EditConcert", component: EditConcertComponent }]
   },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [{ path: "DeleteConcert", component: DeleteConcertComponent }]
-  },
 
   // Genre
 
@@ -164,11 +131,6 @@ const ROUTES: Routes = [
     component: AdminPanelComponent,
     children: [{ path: "EditGenre", component: EditGenreComponent }]
   },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [{ path: "DeleteGenre", component: DeleteGenreComponent }]
-  },
 
   // Instrument
 
@@ -181,13 +143,6 @@ const ROUTES: Routes = [
     path: "AdminPanel",
     component: AdminPanelComponent,
     children: [{ path: "EditInstrument", component: EditInstrumentComponent }]
-  },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [
-      { path: "DeleteInstrument", component: DeleteInstrumentComponent }
-    ]
   },
 
   // Localization
@@ -204,13 +159,6 @@ const ROUTES: Routes = [
       { path: "EditLocalization", component: EditLocalizationComponent }
     ]
   },
-  {
-    path: "AdminPanel",
-    component: AdminPanelComponent,
-    children: [
-      { path: "DeleteLocalization", component: DeleteLocalizationComponent }
-    ]
-  },
 
   { path: "", redirectTo: "", pathMatch: "full" }
 ];
@@ -223,28 +171,20 @@ const ROUTES: Routes = [
     AdminPanelComponent,
     AddSongComponent,
     EditSongComponent,
-    DeleteSongComponent,
     AddBandComponent,
     EditBandComponent,
-    DeleteBandComponent,
     AddAlbumComponent,
     EditAlbumComponent,
-    DeleteAlbumComponent,
     AddArtistComponent,
     EditArtistComponent,
-    DeleteArtistComponent,
     AddConcertComponent,
     EditConcertComponent,
-    DeleteConcertComponent,
     AddGenreComponent,
     EditGenreComponent,
-    DeleteGenreComponent,
     AddInstrumentComponent,
     EditInstrumentComponent,
-    DeleteInstrumentComponent,
     AddLocalizationComponent,
     EditLocalizationComponent,
-    DeleteLocalizationComponent,
     EditLocalizationDetailsComponent,
     EditAlbumDetailsComponent,
     EditArtistDetailsComponent,
