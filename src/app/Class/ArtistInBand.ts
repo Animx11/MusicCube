@@ -2,7 +2,7 @@ import { Artist } from "./Artist";
 import { Band } from "./Band";
 
 export class ArtistInBand {
-  private id: number;
+  id: number;
   private artist: Artist;
   private band: Band;
   private yearsActive: string;

@@ -2,7 +2,7 @@ import { Song } from "./Song";
 import { Instrument } from "./Instrument";
 
 export class SongInstrument {
-  private id: number;
+  id: number;
   private song: Song;
   private instrument: Instrument;
 

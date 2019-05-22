@@ -1,7 +1,7 @@
 import { Localization } from "src/app/Class/Localization";
 
 export class Concert {
-  private id: number;
+  id: number;
   private startTime: Date;
   private concertName: string;
   private localization: Localization;

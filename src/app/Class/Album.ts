@@ -1,5 +1,5 @@
 export class Album {
-  private id: number;
+  id: number;
   private albumName: string;
   private albumLengthSeconds: number;
   private releaseDate: Date;

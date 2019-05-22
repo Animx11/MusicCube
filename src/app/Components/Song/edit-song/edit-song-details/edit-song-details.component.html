@@ -1,6 +1,7 @@
 <div *ngIf="song">
+
   <h6>Edit {{ song.songName }}</h6>
-  <button (click)="loadAuthorsAndInstruments()">Sigh...</button>
+
   <div class="add">
     Title <input [(ngModel)]="song.songName" placeholder="{{song.songName}}" />
     <br />
@@ -23,6 +24,7 @@
       (genreEvent)="genreEventHander($event)"
     ></app-search-genre>
   </div>
+
   <div class="add">
     <h5>Authors</h5>
     <ul *ngIf="authorList">
@@ -39,11 +41,12 @@
       (personEvent)="personEventHander($event)"
     ></app-search-person>
   </div>
+
   <div class="add">
     <h5>Instruments</h5>
     <ul *ngIf="instrumentList">
       <li *ngFor="let songInstrument of instrumentList">
-        {{ songInstrument.instrument.instrumentName }}
+        {{ songInstrument.instrument.instrumentName }}<button (click)="removeInstrument(songInstrument)">X</button>
       </li>
     </ul>
     <app-search-instrument
@@ -52,5 +55,5 @@
   </div>
   <br />
   <button (click)="save()">Save Changes</button>
-  <button (click)="delete()">Delete</button>
+  <button (click)="delete()">Delete this song</button>
 </div>

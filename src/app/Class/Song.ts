@@ -3,7 +3,7 @@ import { Band } from "./Band";
 import { Genre } from "./Genre";
 
 export class Song {
-  private id: number;
+  id: number;
   private songName: string;
   private songLengthSeconds: number;
   private album: Album;

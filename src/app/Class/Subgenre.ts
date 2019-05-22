@@ -1,7 +1,7 @@
 import { Genre } from "./Genre";
 
 export class Subgenre {
-  private id: number;
+  id: number;
   private parentGenre: Genre;
   private childGenre: Genre;
 

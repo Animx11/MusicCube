@@ -2,7 +2,7 @@ import { Band } from "./Band";
 //import { Concert } from './Concert';
 
 export class BandConcert {
-  private id: number;
+  id: number;
   private band: Band;
   // private concert: Concert;
 

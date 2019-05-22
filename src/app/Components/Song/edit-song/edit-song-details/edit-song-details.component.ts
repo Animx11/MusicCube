@@ -9,12 +9,17 @@ import { SongInstrumentService } from "src/app/Services/song-instrument.service"
 @Component({
   selector: "app-edit-song-details",
   templateUrl: "./edit-song-details.component.html",
-  styleUrls: ["./edit-song-details.component.css"]
+  styleUrls: ["./edit-song-details.component.css"],
 })
 export class EditSongDetailsComponent implements OnInit {
-  @Input() song: Song;
-  authorList: SongAuthorship[];
-  instrumentList: SongInstrument[];
+  @Input() private song: Song;
+  private authorList: SongAuthorship[];
+  private instrumentList: SongInstrument[];
+  private removedAuthors: SongAuthorship[];
+  private removedSongIns: SongInstrument[];
+  private newAuthors: SongAuthorship[];
+  private newSongIns: SongInstrument[];
+  private oldAuthors: SongAuthorship[];
 
   constructor(
     private songService: SongService,
@@ -22,19 +27,53 @@ export class EditSongDetailsComponent implements OnInit {
     private songInstrumentService: SongInstrumentService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.removedAuthors = [];
+    this.removedSongIns = [];
+    this.newAuthors = [];
+    this.newSongIns = [];
+    this.oldAuthors = [];
+  }
+  ngOnChanges() {
+    if (this.song) this.loadAuthorsAndInstruments();
+  }
 
   save(): void {
+    //ZAPISZ AUTORÓW
+    this.removedAuthors.forEach(el => {
+      if (el.id !== 0) this.songAuthorshipService.delete(el.id).subscribe();
+    });
+    this.newAuthors.forEach(el => {
+      this.songAuthorshipService.create(el).subscribe();
+    });
+    this.oldAuthors.forEach(el => {
+      this.songAuthorshipService.edit(el).subscribe();
+    });
+    //ZAPISZ INSTRUMENTY
+    this.removedSongIns.forEach(el => {
+      if (el.id !== 0) this.songInstrumentService.delete(el.id).subscribe();
+    });
+    this.newSongIns.forEach(el => {
+      this.songInstrumentService.create(el).subscribe();
+    });
+    //ZAPISZ PIOSENKĘ
     this.songService.edit(this.song).subscribe(res => console.log(res));
-    this.song = null;
+    this.reset();
   }
 
   delete(): void {
+    this.instrumentList.forEach(el => {
+      if (el.id !== 0) this.songInstrumentService.delete(el.id).subscribe();
+    });
+    this.authorList.forEach(el => {
+      if (el.id !== 0) this.songAuthorshipService.delete(el.id).subscribe();
+    });
     this.songService.delete(this.song.id).subscribe(res => {
       console.log(res);
-      this.song = null;
+      this.reset();
     });
   }
+
   loadAuthorsAndInstruments() {
     this.songAuthorshipService.getBySongId(this.song.id).subscribe(
       res => {
@@ -50,5 +89,87 @@ export class EditSongDetailsComponent implements OnInit {
       },
       err => console.log(err)
     );
+  }
+  removeAuthor(authorship: SongAuthorship) {
+    let index = this.authorList.indexOf(authorship);
+    if (index > -1) {
+      this.authorList.splice(index, 1);
+      this.removedAuthors.push(authorship);
+    }
+  }
+  removeInstrument(songInstrument: SongInstrument) {
+    let index = this.instrumentList.indexOf(songInstrument);
+    if (index > -1) {
+      this.instrumentList.splice(index, 1);
+      this.removedSongIns.push(songInstrument);
+    }
+  }
+  instrumentEventHander($event) {
+    let exists = false;
+    let removed = false;
+    let index = -1;
+
+    this.instrumentList.forEach(el => {
+      if (el.getInstrument().id === $event.id) exists = true;
+    });
+    this.removedSongIns.forEach(el => {
+      if (el.getInstrument().id === $event.id) {
+        removed = true;
+        index = this.removedSongIns.indexOf(el);
+      }
+    });
+
+    if (exists) {
+      window.alert("This instrument is alredy included.");
+    } else if (removed) {
+      this.instrumentList = this.instrumentList.concat(
+        this.removedSongIns.splice(index, 1)
+      );
+    } else {
+      let newIns: SongInstrument;
+      newIns = new SongInstrument();
+      newIns.setSong(this.song);
+      newIns.setInstrument($event);
+      this.instrumentList.push(newIns);
+      this.newSongIns.push(newIns);
+    }
+  }
+  personEventHander($event) {
+    let exists = false;
+    let removed = false;
+    let index = -1;
+
+    this.authorList.forEach(el => {
+      if (el.getAuthor().id === $event.id) exists = true;
+    });
+    this.removedAuthors.forEach(el => {
+      if (el.getAuthor().id === $event.id) {
+        removed = true;
+        index = this.removedAuthors.indexOf(el);
+      }
+    });
+
+    if (exists) {
+      window.alert("This author is alredy included.");
+    } else if (removed) {
+      this.authorList = this.authorList.concat(
+        this.removedAuthors.splice(index, 1)
+      );
+    } else {
+      let newAuth: SongAuthorship;
+      newAuth = new SongAuthorship();
+      newAuth.setSong(this.song);
+      newAuth.setAuthor($event);
+      this.authorList.push(newAuth);
+      this.newAuthors.push(newAuth);
+    }
+  }
+  reset(): void {
+    this.song = null;
+    this.removedAuthors = [];
+    this.removedSongIns = [];
+    this.newAuthors = [];
+    this.newSongIns = [];
+    this.oldAuthors = [];
   }
 }

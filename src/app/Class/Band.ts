@@ -1,7 +1,7 @@
 import { Localization } from "./Localization";
 
 export class Band {
-  private id: number;
+  id: number;
   private bandName: string;
   private creationDate: Date;
   private formedIn: Localization;

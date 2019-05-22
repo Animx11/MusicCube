@@ -2,7 +2,7 @@ import { Song } from "./Song";
 import { Person } from "./Person";
 
 export class SongAuthorship {
-  private id: number;
+  id: number;
   private wroteText: boolean;
   private wroteMusic: boolean;
   private song: Song;
