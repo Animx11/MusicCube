@@ -50,6 +50,7 @@ import { SearchBandComponent } from './Components/Band/search-band/search-band.c
 import { SearchGenreComponent } from './Components/Genre/search-genre/search-genre.component';
 
 import { httpInterceptorProviders } from './Class/authorisation/AuthInterceptor';
+import { UserPanelComponent } from './Components/User/user-panel/user-panel.component';
 
 
 const ROUTES: Routes = [
@@ -58,6 +59,7 @@ const ROUTES: Routes = [
 
   { path: 'app', component: AppComponent },
   { path : 'AdminPanel', component : AdminPanelComponent},
+  { path : 'UserPanel', component : UserPanelComponent},
 
   // User
 
@@ -231,6 +233,7 @@ const ROUTES: Routes = [
     SearchSongComponent,
     SearchBandComponent,
     SearchGenreComponent,
+    UserPanelComponent,
 
   ],
   imports: [
