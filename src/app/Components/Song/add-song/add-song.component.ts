@@ -43,21 +43,21 @@ export class AddSongComponent implements OnInit {
     this.instrumentList = [];
   }
 
-  bandEventHander($event: any) {
+  bandEventHandler($event: any) {
     this.song.setBand($event);
   }
-  albumEventHander($event: any) {
+  albumEventHandler($event: any) {
     this.song.setAlbum($event);
   }
-  genreEventHander($event: any) {
+  genreEventHandler($event: any) {
     this.song.setGenre($event);
   }
-  personEventHander($event: any) {
+  personEventHandler($event: any) {
     this.authorship = new SongAuthorship();
     this.authorship.setAuthor($event);
     this.authorList.push(this.authorship);
   }
-  instrumentEventHander($event: any) {
+  instrumentEventHandler($event: any) {
     this.songInstrument = new SongInstrument();
     this.songInstrument.setInstrument($event);
     this.instrumentList.push(this.songInstrument);

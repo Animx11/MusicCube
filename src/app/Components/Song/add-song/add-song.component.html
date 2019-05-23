@@ -6,15 +6,15 @@
   /><br />
 
   <div *ngIf="song.band">Band: {{ song.band.bandName }}<br /></div>
-  <app-search-band (bandEvent)="bandEventHander($event)"></app-search-band
+  <app-search-band (bandEvent)="bandEventHandler($event)"></app-search-band
   ><br />
 
   <div *ngIf="song.album">Album: {{ song.album.albumName }}<br /></div>
-  <app-search-album (albumEvent)="albumEventHander($event)"></app-search-album
+  <app-search-album (albumEvent)="albumEventHandler($event)"></app-search-album
   ><br />
 
   <div *ngIf="song.genre">Genre: {{ song.genre.genreName }}<br /></div>
-  <app-search-genre (genreEvent)="genreEventHander($event)"></app-search-genre
+  <app-search-genre (genreEvent)="genreEventHandler($event)"></app-search-genre
   ><br />
 
   <button (click)="addSong()">Add song</button>
@@ -30,7 +30,7 @@
     </li>
   </ul>
   <app-search-person
-    (personEvent)="personEventHander($event)"
+    (personEvent)="personEventHandler($event)"
   ></app-search-person>
 </div>
 <div class="add">
@@ -41,6 +41,6 @@
     </li>
   </ul>
   <app-search-instrument
-    (instrumentEvent)="instrumentEventHander($event)"
+    (instrumentEvent)="instrumentEventHandler($event)"
   ></app-search-instrument>
 </div>

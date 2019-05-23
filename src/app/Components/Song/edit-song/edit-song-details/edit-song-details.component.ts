@@ -9,7 +9,7 @@ import { SongInstrumentService } from "src/app/Services/song-instrument.service"
 @Component({
   selector: "app-edit-song-details",
   templateUrl: "./edit-song-details.component.html",
-  styleUrls: ["./edit-song-details.component.css"],
+  styleUrls: ["./edit-song-details.component.css"]
 })
 export class EditSongDetailsComponent implements OnInit {
   @Input() private song: Song;
@@ -46,8 +46,9 @@ export class EditSongDetailsComponent implements OnInit {
     this.newAuthors.forEach(el => {
       this.songAuthorshipService.create(el).subscribe();
     });
-    this.oldAuthors.forEach(el => {
-      this.songAuthorshipService.edit(el).subscribe();
+    this.authorList.forEach(el => {
+      if (this.newAuthors.indexOf(el) === -1)
+        this.songAuthorshipService.edit(el).subscribe();
     });
     //ZAPISZ INSTRUMENTY
     this.removedSongIns.forEach(el => {
@@ -78,33 +79,40 @@ export class EditSongDetailsComponent implements OnInit {
     this.songAuthorshipService.getBySongId(this.song.id).subscribe(
       res => {
         this.authorList = res.map(el => new SongAuthorship(el));
-        console.log("edit-song-details-component recieved song authorships");
+        console.log('edit-song-details-component recieved song authorships');
       },
       err => console.log(err)
     );
     this.songInstrumentService.getBySongId(this.song.id).subscribe(
       res => {
         this.instrumentList = res.map(el => new SongInstrument(el));
-        console.log("edit-song-details-component recieved song instruments");
+        console.log('edit-song-details-component recieved song instruments');
       },
       err => console.log(err)
     );
   }
+
   removeAuthor(authorship: SongAuthorship) {
-    let index = this.authorList.indexOf(authorship);
-    if (index > -1) {
+    const index = this.authorList.indexOf(authorship);
+    if (index === -1) {
+      return;
+    }
+    if (this.newAuthors.indexOf(authorship) === -1) {
       this.authorList.splice(index, 1);
       this.removedAuthors.push(authorship);
+    } else {
+      this.newAuthors.splice(this.newAuthors.indexOf(authorship), 1);
+      this.authorList.splice(index, 1);
     }
   }
   removeInstrument(songInstrument: SongInstrument) {
-    let index = this.instrumentList.indexOf(songInstrument);
+    const index = this.instrumentList.indexOf(songInstrument);
     if (index > -1) {
       this.instrumentList.splice(index, 1);
       this.removedSongIns.push(songInstrument);
     }
   }
-  instrumentEventHander($event) {
+  instrumentEventHandler($event) {
     let exists = false;
     let removed = false;
     let index = -1;
@@ -134,7 +142,7 @@ export class EditSongDetailsComponent implements OnInit {
       this.newSongIns.push(newIns);
     }
   }
-  personEventHander($event) {
+  personEventHandler($event) {
     let exists = false;
     let removed = false;
     let index = -1;

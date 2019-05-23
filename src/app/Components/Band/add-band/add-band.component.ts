@@ -24,7 +24,7 @@ export class AddBandComponent implements OnInit {
     this.creationYear = 0;
   }
 
-  localizationEventHander($event: any) {
+  localizationEventHandler($event: any) {
     this.band.setFormedIn($event);
     console.log(this.band);
   }

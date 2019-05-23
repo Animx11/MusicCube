@@ -24,7 +24,7 @@ export class AddArtistComponent implements OnInit {
     this.birthDate = null;
   }
 
-  localizationEventHander($event: any) {
+  localizationEventHandler($event: any) {
     this.artist.setOrigin($event);
   }
 

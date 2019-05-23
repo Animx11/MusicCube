@@ -16,7 +16,7 @@ export class EditSongComponent implements OnInit {
 
   ngOnInit() {}
 
-  songEventHander($event) {
+  songEventHandler($event) {
     this.selectedSong = $event;
   }
 }

@@ -19,7 +19,7 @@ export class AddGenreComponent implements OnInit {
     this.yearOfCreation = 0;
     this.genre = new Genre();
   }
-  localizationEventHander($event) {
+  localizationEventHandler($event) {
     this.genre.setOrigin($event);
   }
   addGenre() {

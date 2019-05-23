@@ -14,7 +14,7 @@ export class EditAlbumComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  albumEventHander($event) {
+  albumEventHandler($event) {
     this.selectedAlbum = $event;
   }
 }
