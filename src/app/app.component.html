@@ -18,11 +18,8 @@
     <a routerLink = "SignIn" routerLinkActive = "active"><div class = "signNavigator" *ngIf="isLogged === false">Sign in</div></a>
     <a routerLink = "SignUp" routerLinkActive = "active"><div class = "signNavigator" *ngIf="isLogged === false">Sign up</div></a>
     <div class="signNavigator" *ngIf="isLogged === true" (click)="signOut()">Sign Out</div>
-    <a routerLink = "UserPanel" routerLinkActive = "active"><div class="signNavigator" *ngIf="authority === 'user'">Panel Użytkownika</div></a>
-    <a routerLink = "AdminPanel" routerLinkActive = "active"> <div class="signNavigator" *ngIf="authority === 'admin'">Panel Administratorski</div></a>
+    <a routerLink = "UserPanel" routerLinkActive = "active"><div class="signNavigator" *ngIf="authority === 'user'">User Panel</div></a>
+    <a routerLink = "AdminPanel" routerLinkActive = "active"> <div class="signNavigator" *ngIf="authority === 'admin'">Admin Panel</div></a>
   </div>
-  <br><br><br>
-  <div>{{authority}}</div>
-
 
 <router-outlet></router-outlet>

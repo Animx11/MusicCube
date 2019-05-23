@@ -30,10 +30,10 @@ export class AppComponent implements OnInit {
         if(role === 'ROLE_ADMIN'){
           this.authority = 'admin';
         }
-        else if(role === 'ROLE_MOD' && this.authority != 'admin'){
+        else if(role === 'ROLE_MOD' && this.authority !== 'admin'){
           this.authority = 'mod';
         }
-        else if(role === 'ROLE_USER' && this.authority != 'admin' && this.authority != 'mod'){
+        else if(role === 'ROLE_USER' && this.authority !== 'admin' && this.authority !== 'mod'){
           this.authority = 'user';
         }
       });

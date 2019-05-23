@@ -51,6 +51,7 @@ import { SearchGenreComponent } from './Components/Genre/search-genre/search-gen
 
 import { httpInterceptorProviders } from './Class/authorisation/AuthInterceptor';
 import { UserPanelComponent } from './Components/User/user-panel/user-panel.component';
+import { ProfileComponent } from './Components/User/user-panel/profile/profile.component';
 
 
 const ROUTES: Routes = [
@@ -61,6 +62,13 @@ const ROUTES: Routes = [
   { path : 'AdminPanel', component : AdminPanelComponent},
   { path : 'UserPanel', component : UserPanelComponent},
 
+  // User Panel Profile
+
+  {path : 'profile', component : ProfileComponent},
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'prof', component: ProfileComponent }]
+  },
   // User
 
   { path : 'SignIn', component : SignInComponent },
@@ -234,6 +242,7 @@ const ROUTES: Routes = [
     SearchBandComponent,
     SearchGenreComponent,
     UserPanelComponent,
+    ProfileComponent,
 
   ],
   imports: [
