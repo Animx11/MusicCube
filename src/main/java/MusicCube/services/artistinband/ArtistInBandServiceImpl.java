@@ -33,7 +33,21 @@ public class ArtistInBandServiceImpl implements ArtistInBandService {
     }
 
     @Override
-    public Iterable<ArtistInBand> getByArtist(Artist artist) { return artistInBandRepository.findByArtist(artist); }
+    public Iterable<ArtistInBand> getByArtistId(int artistId) {
+        return artistInBandRepository.findByArtistId(artistId);
+    }
     @Override
-    public  Iterable<ArtistInBand> getByBand(Band band) { return artistInBandRepository.findByBand(band); }
+    public Iterable<ArtistInBand> getByBandId(int bandId) {
+        return artistInBandRepository.findByBandId(bandId);
+    }
+
+    @Override
+    public Iterable<ArtistInBand> getByArtistIdIsActive(int artistId, boolean active) {
+        return artistInBandRepository.findByArtistIdIsActive(artistId,active);
+    }
+
+    @Override
+    public Iterable<ArtistInBand> getByBandIdIsActive(int bandId, boolean active) {
+        return artistInBandRepository.findByBandIdIsActive(bandId,active);
+    }
 }

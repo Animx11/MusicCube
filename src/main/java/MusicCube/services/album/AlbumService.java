@@ -1,6 +1,8 @@
 package MusicCube.services.album;
 
 import MusicCube.entities.Album;
+import MusicCube.entities.Band;
+import MusicCube.entities.Song;
 
 import java.util.Optional;
 
@@ -12,5 +14,7 @@ public interface AlbumService {
     void delete(int id);
 
     Iterable<Album> getByAlbumName(String albumName);
+    Iterable<Band> getAlbumBands(int albumId);
+    Iterable<Song> getAlbumSongs(int albumId);
 
 }

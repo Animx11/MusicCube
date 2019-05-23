@@ -69,11 +69,11 @@ public class ModelGenerator {
         Artist hill = new Artist(birmingham,"Ian Frank","Hill",new Date(51,1,20),"Ian Hill");
         Artist holland = new Artist(wolver,"David","Holland",new Date(48,5,4),"Dave Holland");
 
-        ArtistInBand halfordPriest = new ArtistInBand(halford,judas,"273-292, 2003-present",true,"Vocals");
-        ArtistInBand kkPriest = new ArtistInBand(kk,judas,"270-2011",false,"Guitars");
-        ArtistInBand glenPriest = new ArtistInBand(glen,judas,"274-present",true,"Guitars");
-        ArtistInBand hillPriest = new ArtistInBand(hill,judas,"270-present",true,"Bass");
-        ArtistInBand hollandPriest = new ArtistInBand(holland,judas,"279-289",false,"Drums");
+        ArtistInBand halfordPriest = new ArtistInBand(halford,judas,"1973-1992, 2003-present",true,"Vocals");
+        ArtistInBand kkPriest = new ArtistInBand(kk,judas,"1970-2011",false,"Guitars");
+        ArtistInBand glenPriest = new ArtistInBand(glen,judas,"1974-present",true,"Guitars");
+        ArtistInBand hillPriest = new ArtistInBand(hill,judas,"1970-present",true,"Bass");
+        ArtistInBand hollandPriest = new ArtistInBand(holland,judas,"1979-1989",false,"Drums");
 
         Instrument electricGuitar = new Instrument("Electric Guitar","String");
         Instrument bassGuitar = new Instrument("Bass guitar","String");
@@ -86,15 +86,15 @@ public class ModelGenerator {
 
         Genre heavy = new Genre(uk,"Heavy Metal",new Date(70,1,1));
 
-        Song rapid = new Song("Rapid Fire",246,britishSteelAlbum,judas,heavy);
-        Song mgods = new Song("Metal Gods",241,britishSteelAlbum,judas,heavy);
-        Song breaking = new Song("Breaking The Law",155,britishSteelAlbum,judas,heavy);
-        Song grinder = new Song("Grinder",237,britishSteelAlbum,judas,heavy);
-        Song united = new Song("United",214,britishSteelAlbum,judas,heavy);
-        Song wise = new Song("You Don't Have to Be Old to Be Wise",304,britishSteelAlbum,judas,heavy);
-        Song midnight = new Song("Living After Midnight",211,britishSteelAlbum,judas,heavy);
-        Song rage = new Song("The Rage",285,britishSteelAlbum,judas,heavy);
-        Song steeler = new Song("Steeler",269,britishSteelAlbum,judas,heavy);
+        Song rapid = new Song("Rapid Fire",1,246,britishSteelAlbum,judas,heavy);
+        Song mgods = new Song("Metal Gods",2,241,britishSteelAlbum,judas,heavy);
+        Song breaking = new Song("Breaking The Law",3,155,britishSteelAlbum,judas,heavy);
+        Song grinder = new Song("Grinder",4,237,britishSteelAlbum,judas,heavy);
+        Song united = new Song("United",5,214,britishSteelAlbum,judas,heavy);
+        Song wise = new Song("You Don't Have to Be Old to Be Wise",6,304,britishSteelAlbum,judas,heavy);
+        Song midnight = new Song("Living After Midnight",7,211,britishSteelAlbum,judas,heavy);
+        Song rage = new Song("The Rage",8,285,britishSteelAlbum,judas,heavy);
+        Song steeler = new Song("Steeler",9,269,britishSteelAlbum,judas,heavy);
         
         SongAuthorship rapidA = new SongAuthorship(true,false,rapid,halford);
         SongAuthorship mgodsA = new SongAuthorship(true,false,mgods,halford);

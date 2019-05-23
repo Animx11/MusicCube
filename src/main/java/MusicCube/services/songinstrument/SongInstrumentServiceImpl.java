@@ -33,7 +33,7 @@ public class SongInstrumentServiceImpl implements SongInstrumentService {
     }
 
     @Override
-    public Iterable<SongInstrument> getBySong(Song song) { return songInstrumentRepository.findBySong(song); }
+    public Iterable<SongInstrument> getBySongId(int id) { return songInstrumentRepository.findBySongId(id); }
     @Override
-    public Iterable<SongInstrument> getByInstrument(Instrument instrument) { return songInstrumentRepository.findByInstrument(instrument); }
+    public Iterable<SongInstrument> getByInstrumentId(int id) { return songInstrumentRepository.findByInstrumentId(id); }
 }

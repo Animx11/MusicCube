@@ -1,6 +1,8 @@
 package MusicCube.controllers;
 
+import MusicCube.entities.Album;
 import MusicCube.entities.Band;
+import MusicCube.entities.Genre;
 import MusicCube.services.band.BandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,8 @@ public class BandController {
     @Autowired
     private BandService bandService;
 
+/******************************** GET ***************************************/
+
     @RequestMapping(value = "/band{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,7 +43,6 @@ public class BandController {
         return bandService.getAll();
     }
 
-    // --- Get by band name ---
     @RequestMapping(value = "/bands{name}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,6 +50,22 @@ public class BandController {
         return bandService.getByBandName(bandName);
     }
 
+
+    @RequestMapping(value = "/band/genres",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Genre> getBandGenres(int bandId) {
+        return bandService.getBandGenres(bandId);
+    }
+
+    @RequestMapping(value = "/band/albums",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Album> getBandAlbums(int bandId) {
+        return bandService.getBandAlbums(bandId);
+    }
+
+/*******************************************************************************/
 
     @RequestMapping(value = "/band",method = RequestMethod.POST)
     public ResponseEntity<Band> create(@RequestBody @Valid @NotNull Band band) {

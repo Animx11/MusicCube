@@ -1,6 +1,8 @@
 package MusicCube.services.band;
 
+import MusicCube.entities.Album;
 import MusicCube.entities.Band;
+import MusicCube.entities.Genre;
 import MusicCube.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +35,15 @@ public class BandServiceImpl implements BandService {
     @Override
     public Iterable<Band> getByBandName(String bandName) {
         return bandRepository.findByBandName(bandName);
+    }
+
+    @Override
+    public Iterable<Genre> getBandGenres(int bandId) {
+        return bandRepository.findBandGenres(bandId);
+    }
+
+    @Override
+    public Iterable<Album> getBandAlbums(int bandId) {
+        return bandRepository.findBandAlbums(bandId);
     }
 }

@@ -26,6 +26,7 @@ public class ArtistInBandController {
     @Autowired
     private ArtistInBandService artistInBandService;
 
+/*************************** GET ***********************************/
     @RequestMapping(value = "/artistInBand{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,11 +43,21 @@ public class ArtistInBandController {
 
     // --- Get by Artist ---
     @RequestMapping(value = "/artistInBands{artist}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<ArtistInBand> getByArtist(Artist artist) { return artistInBandService.getByArtist(artist); }
+    public Iterable<ArtistInBand> getByArtist(int artistId) { return artistInBandService.getByArtistId(artistId); }
 
     // --- Get by Band ---
     @RequestMapping(value = "/artistInBands{band}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<ArtistInBand> getByBand(Band band) { return artistInBandService.getByBand(band); }
+    public Iterable<ArtistInBand> getByBand(int bandId) { return artistInBandService.getByBandId(bandId); }
+
+    @RequestMapping(value = "/artistInBands{artist,active}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<ArtistInBand> getByArtistIdIsActive(int artistId, boolean active) {
+        return artistInBandService.getByArtistIdIsActive(artistId,active);
+    }
+    @RequestMapping(value = "/artistInBands{band,active}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<ArtistInBand> getByBandIdIsActive(int bandId, boolean active) {
+        return artistInBandService.getByBandIdIsActive(bandId,active);
+    }
+/************************************************************************************/
 
     @RequestMapping(value = "/artistInBand",method = RequestMethod.POST)
     public ResponseEntity<ArtistInBand> create(@RequestBody @Valid @NotNull ArtistInBand artistInBand) {

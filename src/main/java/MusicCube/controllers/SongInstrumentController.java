@@ -41,12 +41,12 @@ public class SongInstrumentController {
     }
 
     // --- Get by Song ---
-    @RequestMapping(value = "/songInstruments{song}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<SongInstrument> getBySong(Song song) { return songInstrumentService.getBySong(song); }
+    @RequestMapping(value = "/songInstruments{songId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<SongInstrument> getBySong(int id) { return songInstrumentService.getBySongId(id); }
 
     // --- Get by Instrument ---
-    @RequestMapping(value = "/songInstruments{instrument}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<SongInstrument> getByInstrument(Instrument instrument) { return songInstrumentService.getByInstrument(instrument); }
+    @RequestMapping(value = "/songInstruments{instrumentId}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<SongInstrument> getByInstrument(int id) { return songInstrumentService.getByInstrumentId(id); }
 
 
     @RequestMapping(value = "/songInstrument",method = RequestMethod.POST)

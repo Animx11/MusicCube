@@ -1,5 +1,7 @@
 package MusicCube.controllers;
 
+import MusicCube.entities.Band;
+import MusicCube.entities.Song;
 import MusicCube.services.album.AlbumService;
 import MusicCube.entities.Album;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ public class AlbumController {
     @Autowired
     private AlbumService albumService;
 
+    /************************ GET ********************************/
     @RequestMapping(value = "/album{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,13 +41,29 @@ public class AlbumController {
         return albumService.getAll();
     }
 
-    // --- Get by name ---
+    @RequestMapping(value = "/album/bands",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Band> getAlbumBands(int albumId) {
+        return albumService.getAlbumBands(albumId);
+    }
+
     @RequestMapping(value = "/albums{name}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Album> getByAlbumName(String albumName) {
         return albumService.getByAlbumName(albumName);
     }
+
+    @RequestMapping(value = "/album/songs",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Song> getAlbumSongs(int albumId) {
+        return albumService.getAlbumSongs(albumId);
+    }
+
+    /*************************************************************/
+
 
     @RequestMapping(value = "/album",method = RequestMethod.POST)
     public ResponseEntity<Album> create(@RequestBody @Valid @NotNull Album album) {

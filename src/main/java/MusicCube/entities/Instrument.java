@@ -34,11 +34,11 @@ public class Instrument {
         this.id = id;
     }
 
-    public String getName() {
+    public String getInstrumentName() {
         return instrumentName;
     }
 
-    public void setName(String instrumentName) {
+    public void setInstrumentName(String instrumentName) {
         this.instrumentName = instrumentName;
     }
 
