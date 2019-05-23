@@ -41,13 +41,13 @@ export class AddBandComponent implements OnInit {
 
       this.bandService.create(this.band).subscribe(
         res => {
-          console.log("add-band-component recieved:");
+          console.log("add-band-component received:");
           console.log(res);
           window.alert("Band added");
         },
         err => {
           window.alert("Error occured");
-          console.log(err);
+          console.error(err);
         }
       );
     }

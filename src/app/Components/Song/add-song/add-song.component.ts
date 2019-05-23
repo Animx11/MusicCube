@@ -1,25 +1,25 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
-import { SongService } from "src/app/Services/song.service";
-import { SongAuthorshipService } from "src/app/Services/song-authorship.service";
-import { SongInstrumentService } from "src/app/Services/song-instrument.service";
+import { SongService } from 'src/app/Services/song.service';
+import { SongAuthorshipService } from 'src/app/Services/song-authorship.service';
+import { SongInstrumentService } from 'src/app/Services/song-instrument.service';
 
-import { Song } from "src/app/Class/Song";
-import { Band } from "src/app/Class/Band";
-import { Album } from "src/app/Class/Album";
-import { Genre } from "src/app/Class/Genre";
-import { Person } from "src/app/Class/Person";
-import { SongAuthorship } from "src/app/Class/SongAuthorship";
-import { Instrument } from "src/app/Class/Instrument";
-import { SongInstrument } from "src/app/Class/SongInstrument";
+import { Song } from 'src/app/Class/Song';
+import { Band } from 'src/app/Class/Band';
+import { Album } from 'src/app/Class/Album';
+import { Genre } from 'src/app/Class/Genre';
+import { Person } from 'src/app/Class/Person';
+import { SongAuthorship } from 'src/app/Class/SongAuthorship';
+import { Instrument } from 'src/app/Class/Instrument';
+import { SongInstrument } from 'src/app/Class/SongInstrument';
 
 // import { this_url } from "src/app/Services/API_URL";
 // const thisURL = this_url;
 
 @Component({
-  selector: "app-add-song",
-  templateUrl: "./add-song.component.html",
-  styleUrls: ["./add-song.component.css"]
+  selector: 'app-add-song',
+  templateUrl: './add-song.component.html',
+  styleUrls: ['./add-song.component.css']
 })
 export class AddSongComponent implements OnInit {
   private songName: string;
@@ -37,7 +37,7 @@ export class AddSongComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.songName = "";
+    this.songName = '';
     this.song = new Song();
     this.authorList = [];
     this.instrumentList = [];
@@ -66,15 +66,15 @@ export class AddSongComponent implements OnInit {
   }
 
   addSong() {
-    if (this.songName === "" || this.songLengthSeconds === 0) {
-      window.alert("Dane są niekompletne i/lub nieprawidłowe");
+    if (this.songName === '' || this.songLengthSeconds === 0) {
+      window.alert('Dane są niekompletne i/lub nieprawidłowe');
     } else {
       this.song.setSongName(this.songName);
       this.song.setSongLengthSeconds(this.songLengthSeconds);
 
       this.songService.create(this.song).subscribe(
         res => {
-          console.log("add-song-component recieved:");
+          console.log('add-song-component received:');
           console.log(res);
           this.song = new Song(res);
           // DODAWANIE AUTORÓW
@@ -82,11 +82,11 @@ export class AddSongComponent implements OnInit {
             el.setSong(this.song);
             this.songAuthorshipService.create(el).subscribe(
               res => {
-                console.log("add-song-component recieved:");
+                console.log('add-song-component received:');
                 console.log(res);
               },
               err => {
-                console.log(err);
+                console.error(err);
               }
             );
           });
@@ -95,27 +95,27 @@ export class AddSongComponent implements OnInit {
             el.setSong(this.song);
             this.songInstrumentService.create(el).subscribe(
               res => {
-                console.log("add-song-component recieved:");
+                console.log('add-song-component received:');
                 console.log(res);
               },
-              err => console.log(err)
+              err => console.error(err)
             );
           });
-          window.alert("Dodano nową piosenke");
-          //window.location.assign(`${thisURL}AdminPanel`);
+          window.alert('Dodano nową piosenke');
+          // window.location.assign(`${thisURL}AdminPanel`);
         },
         err => {
-          if (err.status == 409) {
-            window.alert("Podana piosenkam istnieje w bazie danych");
+          if (err.status === 409) {
+            window.alert('Podana piosenkam istnieje w bazie danych');
           } else {
-            window.alert("Nie udało połączyć się z serwerem");
+            window.alert('Nie udało połączyć się z serwerem');
           }
         }
       );
     }
   }
   removeAuthor(authorship: SongAuthorship) {
-    let index = this.authorList.indexOf(authorship);
-    if (index > -1) this.authorList.splice(index, 1);
+    const index = this.authorList.indexOf(authorship);
+    if (index > -1) { this.authorList.splice(index, 1); }
   }
 }

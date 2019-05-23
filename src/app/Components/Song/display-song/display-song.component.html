@@ -1,0 +1,5 @@
+<div *ngIf="song" class="contentDisplay">
+  <h4>{{song.songName}}</h4>
+  <h5>Song by <a routerLink="/band/{{song.band.id}}">{{song.band.bandName}}</a></h5>
+  Album: {{song.album.albumName}}
+</div>

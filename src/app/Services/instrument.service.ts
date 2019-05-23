@@ -14,7 +14,7 @@ export class InstrumentService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/instrument${id}`);
+    return this.http.get(`${apiUrl}/instrument{id}?id=${id}`);
   }
   getByInstrumentName(term: string): Observable<any> {
     return this.http.get(`${apiUrl}/instruments{name}?instrumentName=${term}`);

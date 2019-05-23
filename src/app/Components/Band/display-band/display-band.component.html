@@ -1,0 +1,23 @@
+<div *ngIf="band" class="contentDisplay">
+  <h4>{{band.bandName}}</h4>
+  <h5>Band from {{band.formedIn.city}}, {{band.formedIn.country}}</h5>
+  Formed in {{band.creationDate | date: 'yyyy'}}
+  <h5>Current lineup</h5>
+  <ul>
+    <li *ngFor="let artist of currentLnp">
+      <a routerLink="/artist/{{artist.artist.id}}">{{artist.artist.stageName}}</a> active {{artist.yearsActive}}
+    </li>
+  </ul>
+  <h5>Past members</h5>
+  <ul>
+    <li *ngFor="let artist of pastLnp">
+      <a routerLink="/artist/{{artist.artist.id}}">{{artist.artist.stageName}}</a> active {{artist.yearsActive}}
+    </li>
+  </ul>
+  <h5>Discography</h5>
+  <ul>
+    <li *ngFor="let album of albums">
+      <a routerLink="/album/{{album.id}}">{{album.albumName}}</a> {{album.releaseDate | date:'yyyy'}}
+    </li>
+  </ul>
+</div>

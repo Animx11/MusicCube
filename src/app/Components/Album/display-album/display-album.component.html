@@ -1,0 +1,10 @@
+<div *ngIf="album" class="contentDisplay">
+  <h4>{{album.albumName}}</h4>
+  <h5>Album by <a *ngFor="let band of bands" routerLink="/band/{{band.id}}">{{band.bandName}} </a></h5>
+  <h5>Tracks:</h5>
+  <ul>
+    <li *ngFor="let song of songs">
+      <a routerLink="/song/{{song.id}}">{{song.songName}}</a>
+    </li>
+  </ul>
+</div>

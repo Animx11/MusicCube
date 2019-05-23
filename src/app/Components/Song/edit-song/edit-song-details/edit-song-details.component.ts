@@ -79,16 +79,16 @@ export class EditSongDetailsComponent implements OnInit {
     this.songAuthorshipService.getBySongId(this.song.id).subscribe(
       res => {
         this.authorList = res.map(el => new SongAuthorship(el));
-        console.log('edit-song-details-component recieved song authorships');
+        console.log('edit-song-details-component received song authorships');
       },
-      err => console.log(err)
+      err => console.error(err)
     );
     this.songInstrumentService.getBySongId(this.song.id).subscribe(
       res => {
         this.instrumentList = res.map(el => new SongInstrument(el));
-        console.log('edit-song-details-component recieved song instruments');
+        console.log('edit-song-details-component received song instruments');
       },
-      err => console.log(err)
+      err => console.error(err)
     );
   }
 

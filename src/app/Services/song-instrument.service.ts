@@ -16,7 +16,7 @@ export class SongInstrumentService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/songInstrument${id}`);
+    return this.http.get(`${apiUrl}/songInstrument{id}?id=${id}`);
   }
   getBySongId(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/songInstruments{songId}?id=${id}`);

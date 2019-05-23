@@ -16,7 +16,7 @@ export class SongAuthorshipService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/songAuthorship${id}`);
+    return this.http.get(`${apiUrl}/songAuthorship{id}?id=${id}`);
   }
   getBySongId(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/songAuthorships{songId}?id=${id}`);

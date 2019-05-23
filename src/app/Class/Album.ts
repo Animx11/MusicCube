@@ -7,10 +7,10 @@ export class Album {
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
-    this.albumName = (obj && obj.albumName) || "";
+    this.albumName = (obj && obj.albumName) || '';
     this.albumLengthSeconds = (obj && obj.albumLengthSeconds) || 0;
     this.releaseDate = (obj && obj.releaseDate) || null;
-    this.company = (obj && obj.company) || "";
+    this.company = (obj && obj.company) || '';
   }
 
   // Getters

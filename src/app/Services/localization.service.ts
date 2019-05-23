@@ -1,28 +1,28 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import { Localization } from "src/app/Class/Localization";
-import { api_url } from "./API_URL";
+import { Localization } from 'src/app/Class/Localization';
+import { api_url } from './API_URL';
 
 const apiUrl = api_url;
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class LocalizationService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/localization${id}`);
+    return this.http.get(`${apiUrl}/localization{id}?id=${id}`);
   }
 
   getByCountry(country: string): Observable<any> {
-    if (country === "") return new Observable<any>();
-    else
+    if (country === '') { return new Observable<any>(); } else {
       return this.http.get(
         `${apiUrl}/localization{country}?country=${country}`
       );
+    }
   }
   getByCity(city: string): Observable<any> {
     return this.http.get(`${apiUrl}/localization{city}?city=${city}`);
@@ -31,9 +31,9 @@ export class LocalizationService {
     return this.http.get(`${apiUrl}/localization{address}?address=${address}`);
   }
   getByAnything(input: string): Observable<any> {
-    if (input === "") return new Observable<any>();
-    else
+    if (input === '') { return new Observable<any>(); } else {
       return this.http.get(`${apiUrl}/localization{anything}?input=${input}`);
+    }
   }
 
   list(): Observable<any> {
