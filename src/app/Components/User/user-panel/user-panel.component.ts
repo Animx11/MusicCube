@@ -7,23 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPanelComponent implements OnInit {
 
-  userName: string;
-  password: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  birthDate: Date;
-
   constructor() { }
 
   ngOnInit() {
-
-    this.userName = '';
-    this.password = '';
-    this.email = '';
-    this.firstName = '';
-    this.lastName = '';
-    this.birthDate = null;
 
   }
 

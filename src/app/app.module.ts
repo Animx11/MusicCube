@@ -63,11 +63,9 @@ const ROUTES: Routes = [
   { path : 'UserPanel', component : UserPanelComponent},
 
   // User Panel Profile
-
-  {path : 'profile', component : ProfileComponent},
   {
     path: 'UserPanel', component: UserPanelComponent,
-    children: [{ path: 'prof', component: ProfileComponent }]
+    children: [{ path: 'Profile', component: ProfileComponent }]
   },
   // User
 

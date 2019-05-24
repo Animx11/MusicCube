@@ -48,7 +48,7 @@ export class AddSongComponent implements OnInit {
           window.alert("Dodano nową piosenke");
         },
         err => {
-          if (err.status == 409) {
+          if (err.status === 409) {
             window.alert("Podana piosenkam istnieje w bazie danych");
           } else {
             window.alert("Nie udało połączyć się z serwerem");
