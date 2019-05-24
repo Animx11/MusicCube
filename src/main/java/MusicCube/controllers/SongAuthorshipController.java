@@ -42,12 +42,12 @@ public class SongAuthorshipController {
 
 
     // --- Get by Song ---
-    @RequestMapping(value = "/songAuthors{song}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<SongAuthorship> getBySong(Song song) { return songAuthorshipService.getBySong(song); }
+    @RequestMapping(value = "/songAuthorships{songId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<SongAuthorship> getBySong(int id) { return songAuthorshipService.getBySongId(id); }
 
     // --- Get by Author ---
-    @RequestMapping(value = "/songAuthors{author}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<SongAuthorship> getByAuthor(Person author) { return songAuthorshipService.getByAuthor(author); }
+    @RequestMapping(value = "/songAuthorships{authorId}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<SongAuthorship> getByAuthor(int id) { return songAuthorshipService.getByAuthorId(id); }
 
 
     @RequestMapping(value = "/songAuthorship",method = RequestMethod.POST)

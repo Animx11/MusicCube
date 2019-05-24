@@ -13,7 +13,7 @@ public interface SongInstrumentService {
     SongInstrument save(SongInstrument songInstrument);
     void delete(int id);
 
-    Iterable<SongInstrument> getBySong(Song song);
-    Iterable<SongInstrument> getByInstrument(Instrument instrument);
+    Iterable<SongInstrument> getBySongId(int id);
+    Iterable<SongInstrument> getByInstrumentId(int id);
 
 }

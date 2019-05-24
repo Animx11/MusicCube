@@ -33,7 +33,8 @@ public class SongAuthorshipServiceImpl implements SongAuthorshipService {
     }
 
     @Override
-    public Iterable<SongAuthorship> getBySong(Song song) { return songAuthorshipRepository.findBySong(song); }
+    public Iterable<SongAuthorship> getBySongId(int id) { return songAuthorshipRepository.findBySongId(id); }
     @Override
-    public Iterable<SongAuthorship> getByAuthor(Person author) { return songAuthorshipRepository.findByAuthor(author); }
+    public Iterable<SongAuthorship> getByAuthorId(int id) { return songAuthorshipRepository.findByAuthorId(id); }
 }
+

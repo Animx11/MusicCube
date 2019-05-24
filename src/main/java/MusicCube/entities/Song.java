@@ -14,6 +14,9 @@ public class Song {
     private String songName;
 
     @Column
+    private int trackNumber;
+
+    @Column
     private int songLengthSeconds;
 
     @ManyToOne
@@ -27,8 +30,9 @@ public class Song {
 
     public Song() {}
 
-    public Song(String songName, int songLengthSeconds, Album album, Band band, Genre genre) {
+    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre) {
         this.songName = songName;
+        this.trackNumber = trackNumber;
         this.songLengthSeconds = songLengthSeconds;
         this.album = album;
         this.band = band;
@@ -49,6 +53,14 @@ public class Song {
 
     public void setSongName(String songName) {
         this.songName = songName;
+    }
+
+    public int getTrackNumber() {
+        return trackNumber;
+    }
+
+    public void setTrackNumber(int trackNumber) {
+        this.trackNumber = trackNumber;
     }
 
     public int getSongLengthSeconds() {

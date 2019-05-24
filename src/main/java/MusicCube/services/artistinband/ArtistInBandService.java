@@ -13,7 +13,9 @@ public interface ArtistInBandService {
     ArtistInBand save(ArtistInBand artistInBand);
     void delete(int id);
 
-    Iterable<ArtistInBand> getByArtist(Artist artist);
-    Iterable<ArtistInBand> getByBand(Band band);
+    Iterable<ArtistInBand> getByArtistId(int artistId);
+    Iterable<ArtistInBand> getByBandId(int bandId);
+    Iterable<ArtistInBand> getByArtistIdIsActive(int artistId, boolean active);
+    Iterable<ArtistInBand> getByBandIdIsActive(int bandId, boolean active);
 
 }
