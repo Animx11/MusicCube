@@ -51,6 +51,7 @@ import { DisplayLocalizationComponent } from './Components/Localization/display-
 import { DisplayPersonComponent } from './Components/Person/display-person/display-person.component';
 import { DisplayAlbumComponent } from './Components/Album/display-album/display-album.component';
 import { DisplayInstrumentComponent } from './Components/Instrument/display-instrument/display-instrument.component';
+import { SearchEngineMainComponent } from './Components/Search/search-engine-main/search-engine-main.component';
 
 const ROUTES: Routes = [
   // Main Routes
@@ -201,6 +202,13 @@ const ROUTES: Routes = [
     component: DisplayLocalizationComponent
   },
 
+  // Search
+
+  {
+    path: 'search',
+    component: SearchEngineMainComponent
+  },
+
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -249,7 +257,8 @@ const ROUTES: Routes = [
     DisplayLocalizationComponent,
     DisplayPersonComponent,
     DisplayAlbumComponent,
-    DisplayInstrumentComponent
+    DisplayInstrumentComponent,
+    SearchEngineMainComponent
   ],
   imports: [
     NgbModule,
