@@ -1,5 +1,6 @@
 package MusicCube.takingData;
 
+import MusicCube.entities.Album;
 import MusicCube.entities.Country;
 import MusicCube.entities.Genre;
 import MusicCube.entities.Instrument;
@@ -22,6 +23,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @RestController
 public class RestClientForMusicBrainzApi {
@@ -42,7 +49,7 @@ public class RestClientForMusicBrainzApi {
 
     private final String INSTRUMENTS = "instrument/?query=*";
     //private final String[] INSTRUMENT_TYPE = {"\"Wind instrument\"", "\"String instrument\"", "\"Percussion instrumen\"", "\"Electronic instrument\"", "\"Other instrument\""};
-    private final String ALBUMS = "release/?query*:";
+    private final String ALBUMS = "release/?query=*";
 
     private final int LIMIT_INT = 100;
     private final String LIMIT_URL = "&limit=100";
@@ -54,25 +61,31 @@ public class RestClientForMusicBrainzApi {
     
     private RestTemplate restTemplate = new RestTemplate();
     private JSONParser jsonParser = new JSONParser();
+    private List<SimpleDateFormat> knownPatterns = new ArrayList<SimpleDateFormat>();
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ResponseEntity<Void> takeData(){
 
+        initDataPatterns();
         //takeCountries();
         //takeGenres();
+
         try {
             takeInstruments();
+            takeAlbums();
         }
         catch (InterruptedException e){
             e.printStackTrace();
         }
+
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     private void takeInstruments() throws InterruptedException{
         String instrumentName;
         String type;
-        int i = 942;
+        int i = 0;
 
         boolean notEmpty = true;
 
@@ -85,17 +98,16 @@ public class RestClientForMusicBrainzApi {
                 JSONObject responseJsonBodyToJsonObj = (JSONObject) responseJsonBody;
                 JSONArray takingInstrumentJsonArray = (JSONArray) responseJsonBodyToJsonObj.get("instruments");
                 Object[] converteToObjectArray = takingInstrumentJsonArray.toArray();
-                JSONObject jsonObject;
+                JSONObject jsonObjectInstrument;
 
                 if(converteToObjectArray.length == 0){
                     notEmpty = false;
                 }
 
                 for(int j = 0; j < converteToObjectArray.length; j++){
-                    jsonObject = (JSONObject) converteToObjectArray[j];
-                    instrumentName = (String) jsonObject.get("name");
-                    type = (String) jsonObject.get("type");
-                    System.out.println(instrumentName);
+                    jsonObjectInstrument = (JSONObject) converteToObjectArray[j];
+                    instrumentName = (String) jsonObjectInstrument.get("name");
+                    type = (String) jsonObjectInstrument.get("type");
                     if(!instrumentService.existsByInstrumentName(instrumentName)) {
                         Instrument instrument = new Instrument(instrumentName, type);
                         instrumentService.save(instrument);
@@ -105,14 +117,67 @@ public class RestClientForMusicBrainzApi {
                 e.printStackTrace();
             }
             i++;
-            System.out.println(i);
         }
     }
 
+    private void takeAlbums() throws InterruptedException{
+        String albumName = "";
+        Date releaseDate = new Date();
+        String company = "";
+        int i = 0;
 
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy");
 
-    private void takeAlbums(){
-        String albumName;
+        boolean notEmpty = true;
+
+        while (notEmpty) {
+            Thread.sleep(750);
+            String offsetNum = Integer.toString(i);
+            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + ALBUMS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
+
+            try{
+                Object responseJsonBody = jsonParser.parse(takeResponseFromApi.getBody());
+                JSONObject responseJsonBodyToJsonObj = (JSONObject) responseJsonBody;
+                JSONArray takingReleasesJsonArray = (JSONArray) responseJsonBodyToJsonObj.get("releases");
+                Object[] converteToObjectArray = takingReleasesJsonArray.toArray();
+                JSONObject jsonObjectReleases;
+
+                if(converteToObjectArray.length == 0){
+                    notEmpty = false;
+                }
+
+                for(int j = 0; j < converteToObjectArray.length; j++){
+                    jsonObjectReleases = (JSONObject) converteToObjectArray[j];
+                    albumName = (String) jsonObjectReleases.get("title");
+
+                    for (SimpleDateFormat pattern : knownPatterns) {
+                        try {
+                            releaseDate = pattern.parse((String) jsonObjectReleases.get("date"));
+                        }catch (ParseException e){}
+                    }
+
+                    JSONArray takingLabelInfoJsonArray = (JSONArray) jsonObjectReleases.get("label-info");
+                    if(takingLabelInfoJsonArray != null) {
+
+                        Object[] convertLabelInfoJsonArrayToObjectArray = takingLabelInfoJsonArray.toArray();
+                        JSONObject jsonObjectLabelInfo = (JSONObject) convertLabelInfoJsonArrayToObjectArray[0];
+
+                        if(jsonObjectLabelInfo.get("label")!= null) {
+                            JSONObject takingLabelJsonObject = (JSONObject) jsonObjectLabelInfo.get("label");
+                            company = (String) takingLabelJsonObject.get("name");
+                        }
+                    }
+                    if(!albumService.existsByAlbumName(albumName)) {
+                        Album album = new Album(albumName, 0, releaseDate, company);
+                        albumService.save(album);
+                    }
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            i++;
+        }
 
     }
 
@@ -163,6 +228,13 @@ public class RestClientForMusicBrainzApi {
             }
         }
         return line;
+    }
+
+    private void initDataPatterns(){
+        knownPatterns.add(new SimpleDateFormat(""));
+        knownPatterns.add(new SimpleDateFormat("yyyy"));
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM"));
+        knownPatterns.add(new SimpleDateFormat("yyyy-MM-dd"));
     }
 
 

@@ -34,4 +34,9 @@ public class AlbumServiceImpl implements AlbumService {
     public Iterable<Album> getByAlbumName(String albumName) {
         return albumRepository.findByAlbumName(albumName);
     }
+
+    @Override
+    public boolean existsByAlbumName(String albumName){
+        return albumRepository.existsByAlbumName(albumName);
+    }
 }

@@ -12,5 +12,6 @@ public interface AlbumService {
     void delete(int id);
 
     Iterable<Album> getByAlbumName(String albumName);
+    boolean existsByAlbumName(String albumName);
 
 }

@@ -8,4 +8,6 @@ public interface AlbumRepository extends CrudRepository<Album,Integer> {
 
     @Query("SELECT a FROM Album a WHERE a.albumName LIKE CONCAT('%',?1,'%')")
     Iterable<Album> findByAlbumName(String albumName);
+
+    boolean existsByAlbumName(String albumName);
 }
