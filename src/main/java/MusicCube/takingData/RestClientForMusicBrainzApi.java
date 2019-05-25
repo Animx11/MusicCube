@@ -3,6 +3,7 @@ package MusicCube.takingData;
 import MusicCube.entities.Country;
 import MusicCube.entities.Genre;
 import MusicCube.entities.Instrument;
+import MusicCube.services.album.AlbumService;
 import MusicCube.services.country.CountryService;
 import MusicCube.services.genre.GenreService;
 import MusicCube.services.instrument.InstrumentService;
@@ -34,15 +35,19 @@ public class RestClientForMusicBrainzApi {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private AlbumService albumService;
+
     private final String URL = "https://musicbrainz.org/ws/2/";
 
-    private final String INSTRUMENTS = "instrument/?query=type:";
-    private final String[] INSTRUMENT_TYPE = {"\"Wind instrument\"", "\"String instrument\"", "\"Percussion instrumen\"", "\"Electronic instrument\"", "\"Other instrument\""};
-
+    private final String INSTRUMENTS = "instrument/?query=*";
+    //private final String[] INSTRUMENT_TYPE = {"\"Wind instrument\"", "\"String instrument\"", "\"Percussion instrumen\"", "\"Electronic instrument\"", "\"Other instrument\""};
+    private final String ALBUMS = "release/?query*:";
 
     private final int LIMIT_INT = 100;
     private final String LIMIT_URL = "&limit=100";
     private final String JSON_TYPE_URL = "&fmt=json";
+    private final String OFFSET = "&offset=";
 
     private final String GENRES_FILE = ".\\src\\main\\java\\MusicCube\\takingData\\genres.txt";
     private final String COUNTRIES_FILE = ".\\src\\main\\java\\MusicCube\\takingData\\countries.txt";
@@ -53,19 +58,28 @@ public class RestClientForMusicBrainzApi {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ResponseEntity<Void> takeData(){
 
-        takeCountries();
+        //takeCountries();
         //takeGenres();
-        //takeInstruments();
-
+        try {
+            takeInstruments();
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private void takeInstruments(){
+    private void takeInstruments() throws InterruptedException{
         String instrumentName;
         String type;
+        int i = 942;
 
-        for(int i = 0; i < INSTRUMENT_TYPE.length; i++) {
-            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + INSTRUMENTS + INSTRUMENT_TYPE[i] + LIMIT_URL + JSON_TYPE_URL, String.class);
+        boolean notEmpty = true;
+
+        while (notEmpty) {
+            Thread.sleep(750);
+            String offsetNum = Integer.toString(i);
+            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + INSTRUMENTS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
             try{
                 Object responseJsonBody = jsonParser.parse(takeResponseFromApi.getBody());
                 JSONObject responseJsonBodyToJsonObj = (JSONObject) responseJsonBody;
@@ -73,12 +87,15 @@ public class RestClientForMusicBrainzApi {
                 Object[] converteToObjectArray = takingInstrumentJsonArray.toArray();
                 JSONObject jsonObject;
 
+                if(converteToObjectArray.length == 0){
+                    notEmpty = false;
+                }
+
                 for(int j = 0; j < converteToObjectArray.length; j++){
                     jsonObject = (JSONObject) converteToObjectArray[j];
-
                     instrumentName = (String) jsonObject.get("name");
                     type = (String) jsonObject.get("type");
-
+                    System.out.println(instrumentName);
                     if(!instrumentService.existsByInstrumentName(instrumentName)) {
                         Instrument instrument = new Instrument(instrumentName, type);
                         instrumentService.save(instrument);
@@ -87,8 +104,16 @@ public class RestClientForMusicBrainzApi {
             }catch (Exception e){
                 e.printStackTrace();
             }
-
+            i++;
+            System.out.println(i);
         }
+    }
+
+
+
+    private void takeAlbums(){
+        String albumName;
+
     }
 
     private void takeGenres(){
