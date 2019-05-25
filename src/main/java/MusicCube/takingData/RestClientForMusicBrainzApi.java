@@ -1,7 +1,9 @@
 package MusicCube.takingData;
 
+import MusicCube.entities.Country;
 import MusicCube.entities.Genre;
 import MusicCube.entities.Instrument;
+import MusicCube.services.country.CountryService;
 import MusicCube.services.genre.GenreService;
 import MusicCube.services.instrument.InstrumentService;
 import org.json.simple.JSONArray;
@@ -29,6 +31,9 @@ public class RestClientForMusicBrainzApi {
     @Autowired
     private GenreService genreService;
 
+    @Autowired
+    private CountryService countryService;
+
     private final String URL = "https://musicbrainz.org/ws/2/";
 
     private final String INSTRUMENTS = "instrument/?query=type:";
@@ -40,6 +45,7 @@ public class RestClientForMusicBrainzApi {
     private final String JSON_TYPE_URL = "&fmt=json";
 
     private final String GENRES_FILE = ".\\src\\main\\java\\MusicCube\\takingData\\genres.txt";
+    private final String COUNTRIES_FILE = ".\\src\\main\\java\\MusicCube\\takingData\\countries.txt";
     
     private RestTemplate restTemplate = new RestTemplate();
     private JSONParser jsonParser = new JSONParser();
@@ -47,8 +53,8 @@ public class RestClientForMusicBrainzApi {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ResponseEntity<Void> takeData(){
 
-
-        takeGenres();
+        takeCountries();
+        //takeGenres();
         //takeInstruments();
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -87,41 +93,52 @@ public class RestClientForMusicBrainzApi {
 
     private void takeGenres(){
 
-        String genreName;
-        String[] textFile = loadTextFile(GENRES_FILE);
+        String[] genreName = loadTextFile(GENRES_FILE);
 
         int i = 0;
-        while(textFile[i] != null) {
+        while(genreName[i] != null) {
             Genre genre = new Genre();
-            genre.setGenreName(textFile[i]);
+            genre.setGenreName(genreName[i]);
             genreService.save(genre);
             i++;
         }
     }
 
+    private void takeCountries(){
+        String[] loadedData = loadTextFile(COUNTRIES_FILE);
 
-        private String[] loadTextFile(String fileName) {
-            BufferedReader bufferedReader = null;
-            int i = 0;
-            String[] line = new String[1024];
-            try {
-                bufferedReader = new BufferedReader(new FileReader(fileName));
-                while ((line[i] = bufferedReader.readLine()) != null) {
-                    i++;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (bufferedReader != null) {
-                        bufferedReader.close();
-                    }
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
-            return line;
+        int i = 0;
+        while(loadedData[i] != null) {
+            String countryData = loadedData[i];
+            String[] splitedCountryData = countryData.split(",");
+            Country country = new Country(splitedCountryData[3], splitedCountryData[0]);
+            countryService.save(country);
+            i++;
         }
+    }
+
+    private String[] loadTextFile(String fileName) {
+        BufferedReader bufferedReader = null;
+        int i = 0;
+        String[] line = new String[1024];
+        try {
+            bufferedReader = new BufferedReader(new FileReader(fileName));
+            while ((line[i] = bufferedReader.readLine()) != null) {
+                i++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return line;
+    }
 
 
 }
