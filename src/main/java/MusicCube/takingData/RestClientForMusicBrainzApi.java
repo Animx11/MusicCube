@@ -1,6 +1,8 @@
 package MusicCube.takingData;
 
+import MusicCube.entities.Genre;
 import MusicCube.entities.Instrument;
+import MusicCube.services.genre.GenreService;
 import MusicCube.services.instrument.InstrumentService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,11 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Array;
+
 @RestController
 public class RestClientForMusicBrainzApi {
 
     @Autowired
     private InstrumentService instrumentService;
+
+    @Autowired
+    private GenreService genreService;
 
     private final String URL = "https://musicbrainz.org/ws/2/";
 
@@ -28,6 +38,8 @@ public class RestClientForMusicBrainzApi {
     private final int LIMIT_INT = 100;
     private final String LIMIT_URL = "&limit=100";
     private final String JSON_TYPE_URL = "&fmt=json";
+
+    private final String GENRES_FILE = ".\\src\\main\\java\\MusicCube\\takingData\\genres.txt";
     
     private RestTemplate restTemplate = new RestTemplate();
     private JSONParser jsonParser = new JSONParser();
@@ -35,7 +47,9 @@ public class RestClientForMusicBrainzApi {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public ResponseEntity<Void> takeData(){
 
-        takeInstruments();
+
+        takeGenres();
+        //takeInstruments();
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -46,8 +60,6 @@ public class RestClientForMusicBrainzApi {
 
         for(int i = 0; i < INSTRUMENT_TYPE.length; i++) {
             ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + INSTRUMENTS + INSTRUMENT_TYPE[i] + LIMIT_URL + JSON_TYPE_URL, String.class);
-
-
             try{
                 Object responseJsonBody = jsonParser.parse(takeResponseFromApi.getBody());
                 JSONObject responseJsonBodyToJsonObj = (JSONObject) responseJsonBody;
@@ -72,6 +84,44 @@ public class RestClientForMusicBrainzApi {
 
         }
     }
+
+    private void takeGenres(){
+
+        String genreName;
+        String[] textFile = loadTextFile(GENRES_FILE);
+
+        int i = 0;
+        while(textFile[i] != null) {
+            Genre genre = new Genre();
+            genre.setGenreName(textFile[i]);
+            genreService.save(genre);
+            i++;
+        }
+    }
+
+
+        private String[] loadTextFile(String fileName) {
+            BufferedReader bufferedReader = null;
+            int i = 0;
+            String[] line = new String[1024];
+            try {
+                bufferedReader = new BufferedReader(new FileReader(fileName));
+                while ((line[i] = bufferedReader.readLine()) != null) {
+                    i++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (bufferedReader != null) {
+                        bufferedReader.close();
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            return line;
+        }
 
 
 }
