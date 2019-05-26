@@ -13,10 +13,10 @@ public class Country {
     @GeneratedValue
     private int id;
 
-    @Column
+    @Column(unique = true)
     private String countryName;
 
-    @Column
+    @Column(unique = true)
     private String code;
 
     public Country() {

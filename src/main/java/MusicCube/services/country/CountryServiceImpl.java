@@ -35,4 +35,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Iterable<Country> getByCode(String code) { return countryRepository.findByCode(code); }
 
+    @Override
+    public boolean existsByCountryName(String countryName){
+        return countryRepository.existsByCountryName(countryName);
+    }
+
 }

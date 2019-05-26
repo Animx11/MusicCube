@@ -61,10 +61,11 @@ public class ModelGenerator {
 
     @RequestMapping(value = "generateModel", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String generateModel() {
-
+/*
         Localization birmingham = new Localization("England","Birmingham","");
         Localization uk = new Localization("United Kingdom","","");
         Localization wolver = new Localization("England","Wolverhampton","");
+
         Band judas = new Band("Judas Priest",new Date(70,01,01),birmingham);
 
         Album britishSteelAlbum = new Album("British Steel",
@@ -272,7 +273,7 @@ public class ModelGenerator {
         songAuthorshipService.save(steelerA2);
         
         siList.forEach(songInstrument -> songInstrumentService.save(songInstrument));
-
+*/
         return "Model generated.";
     }
 }

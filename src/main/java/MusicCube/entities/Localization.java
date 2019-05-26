@@ -2,10 +2,7 @@ package MusicCube.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -15,6 +12,9 @@ public class Localization {
     @GeneratedValue
     @Column
     private int id;
+
+    // TODO Zmienienie bazy danych i tego entity by było połączone z entity country, też uważam, że ta klasa powinna już tylko konkretne miejscówki naprzykład areny muzyczne
+    // TODO więc powinniśmy też zrobić odzielne entity dla miast, a tu dodać nazwę miejscówy.
 
     @Column
     private String country;
@@ -26,6 +26,11 @@ public class Localization {
     private String address;
 
     public Localization() {}
+
+    public Localization(String country, String city) {
+        this.country = country;
+        this.city = city;
+    }
 
     public Localization(String country, String city, String address) {
         this.country = country;
