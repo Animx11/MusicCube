@@ -1,10 +1,8 @@
 package MusicCube.takingData;
 
-import MusicCube.entities.Album;
-import MusicCube.entities.Country;
-import MusicCube.entities.Genre;
-import MusicCube.entities.Instrument;
+import MusicCube.entities.*;
 import MusicCube.services.album.AlbumService;
+import MusicCube.services.artist.ArtistService;
 import MusicCube.services.country.CountryService;
 import MusicCube.services.genre.GenreService;
 import MusicCube.services.instrument.InstrumentService;
@@ -44,12 +42,16 @@ public class RestClientForMusicBrainzApi {
     @Autowired
     private AlbumService albumService;
 
+    @Autowired
+    private ArtistService artistService;
+
     private final String URL = "https://musicbrainz.org/ws/2/";
 
     private final String INSTRUMENTS = "instrument/?query=*";
     private final String ALBUMS = "release/?query=*";
     private final String COUNTRY = "area/?query=type:Country";
     private final String CITIES = "area/?query=type:City";
+    private final String ARTIST = "artist/?query=type:Person";
     //private final String[] INSTRUMENT_TYPE = {"\"Wind instrument\"", "\"String instrument\"", "\"Percussion instrumen\"", "\"Electronic instrument\"", "\"Other instrument\""};
 
 
@@ -74,9 +76,10 @@ public class RestClientForMusicBrainzApi {
         //takeGenres();
 
         try {
+            takeArtists();
             //takeCountries();
             //takeInstruments();
-            takeAlbums();
+            ///takeAlbums();
         }
         catch (InterruptedException e){
             e.printStackTrace();
@@ -86,6 +89,104 @@ public class RestClientForMusicBrainzApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    private void takeArtists() throws InterruptedException{
+        boolean notEmpty = true;
+        String stageName = "";
+        String firstNames = "";
+        String lastName = "";
+        Date birthDate = null;
+        int i = 0;
+
+        while(notEmpty){
+            Thread.sleep(WAIT_BETWEEN_REQUESTS);
+            String offsetNum = Integer.toString(i);
+            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + ARTIST + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
+
+            try{
+
+                JSONObject responseJson = new JSONObject(takeResponseFromApi.getBody());
+                JSONArray takingArtistsJsonArray = responseJson.getJSONArray("artists");
+
+                if(takingArtistsJsonArray.length() == 0){
+                    notEmpty = false;
+                }
+
+                for(int j = 0; j < takingArtistsJsonArray.length(); j++) {
+                    String fullName = takingArtistsJsonArray.getJSONObject(j)
+                            .getString("name");
+                    String[] splitedFullName = fullName.split(" ");
+                    if(splitedFullName.length > 1) {
+                        for (int k = 0; k < splitedFullName.length - 1; k++) {
+                            if (k != splitedFullName.length - 2) {
+                                firstNames = firstNames + splitedFullName[k] + " ";
+                            } else {
+                                firstNames = firstNames + splitedFullName[k];
+                            }
+                        }
+                        lastName = splitedFullName[splitedFullName.length-1];
+                    }
+
+                    else{
+                        stageName = fullName;
+                        try {
+                            for (int k = 0; k < takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(0).length(); k++) {
+
+                                try {
+                                    if (takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(k).get("type").toString().equals("Legal name") ||
+                                            takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(k).get("type").toString().equals("Artist name")) {
+                                        fullName = takingArtistsJsonArray.getJSONObject(j)
+                                                .getJSONArray("aliases").getJSONObject(k)
+                                                .getString("name");
+                                    }
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                            splitedFullName = fullName.split(" ");
+
+                            for (int k = 0; k < splitedFullName.length - 1; k++) {
+                                if (k != splitedFullName.length - 2) {
+                                    firstNames = firstNames + splitedFullName[k] + " ";
+                                } else {
+                                    firstNames = firstNames + splitedFullName[k];
+                                }
+                            }
+                        lastName = splitedFullName[splitedFullName.length-1];
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+
+                    for (SimpleDateFormat pattern : knownPatterns) {
+                        try {
+                            try {
+                                birthDate = pattern.parse(takingArtistsJsonArray.getJSONObject(j)
+                                        .getJSONObject("life-span").getString("begin"));
+                            } catch (ParseException e) {
+                            }
+                        } catch (Exception e){ }
+                    }
+
+                    if(!artistService.existsArtistByArtistFirstNamesAndLastName(firstNames, lastName) || !artistService.existsArtistByStageName(stageName)) {
+                        Artist artist = new Artist(null, firstNames, lastName, birthDate, stageName);
+                        artistService.save(artist);
+                    }
+
+                    firstNames = "";
+                    lastName = "";
+                    stageName = "";
+                    birthDate = null;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            i = i + OFFSET_JUMP;
+        }
+    }
 
     private void takeInstruments() throws InterruptedException{
         String instrumentName;

@@ -13,4 +13,7 @@ public interface ArtistService {
 
     Iterable<Artist> getByStageName(String stageName);
 
+    boolean existsArtistByArtistFirstNamesAndLastName(String firstNames, String lastNames);
+    boolean existsArtistByStageName(String stageName);
+
 }
