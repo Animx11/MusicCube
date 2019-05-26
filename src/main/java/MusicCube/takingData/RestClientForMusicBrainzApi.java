@@ -90,7 +90,7 @@ public class RestClientForMusicBrainzApi {
         boolean notEmpty = true;
 
         while (notEmpty) {
-            Thread.sleep(750);
+            Thread.sleep(600);
             String offsetNum = Integer.toString(i);
             ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + INSTRUMENTS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
             try{
@@ -105,6 +105,7 @@ public class RestClientForMusicBrainzApi {
                 }
 
                 for(int j = 0; j < converteToObjectArray.length; j++){
+
                     jsonObjectInstrument = (JSONObject) converteToObjectArray[j];
                     instrumentName = (String) jsonObjectInstrument.get("name");
                     type = (String) jsonObjectInstrument.get("type");
@@ -116,7 +117,7 @@ public class RestClientForMusicBrainzApi {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            i++;
+            i = i+80;
         }
     }
 
@@ -153,7 +154,8 @@ public class RestClientForMusicBrainzApi {
                     for (SimpleDateFormat pattern : knownPatterns) {
                         try {
                             releaseDate = pattern.parse((String) jsonObjectReleases.get("date"));
-                        }catch (ParseException e){}
+                        }catch (ParseException e){
+                        }
                     }
 
                     JSONArray takingLabelInfoJsonArray = (JSONArray) jsonObjectReleases.get("label-info");
@@ -168,7 +170,13 @@ public class RestClientForMusicBrainzApi {
                         }
                     }
                     if(!albumService.existsByAlbumName(albumName)) {
-                        Album album = new Album(albumName, 0, releaseDate, company);
+                        Album album;
+                        if(releaseDate != null) {
+                            album = new Album(albumName, 0, releaseDate, company);
+                        }
+                        else {
+                            album = new Album(albumName, 0, company);
+                        }
                         albumService.save(album);
                     }
                 }
@@ -176,7 +184,7 @@ public class RestClientForMusicBrainzApi {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            i++;
+            i=i+80;
         }
 
     }
