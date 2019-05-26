@@ -106,34 +106,27 @@ public class RestClientForMusicBrainzApi {
 
                 JSONObject responseJson = new JSONObject(takeResponseFromApi.getBody());
                 JSONArray takingArtistsJsonArray = responseJson.getJSONArray("artists");
-
                 if(takingArtistsJsonArray.length() == 0){
                     notEmpty = false;
                 }
 
                 for(int j = 0; j < takingArtistsJsonArray.length(); j++) {
                     String fullName = takingArtistsJsonArray.getJSONObject(j)
-                            .getString("name");
-                    String[] splitedFullName = fullName.split(" ");
+                            .getString("sort-name");
+                    String[] splitedFullName = fullName.split(", ");
                     if(splitedFullName.length > 1) {
-                        for (int k = 0; k < splitedFullName.length - 1; k++) {
-                            if (k != splitedFullName.length - 2) {
-                                firstNames = firstNames + splitedFullName[k] + " ";
-                            } else {
-                                firstNames = firstNames + splitedFullName[k];
-                            }
-                        }
-                        lastName = splitedFullName[splitedFullName.length-1];
+                        firstNames = splitedFullName[1];
+                        lastName = splitedFullName[0];
                     }
-
                     else{
                         stageName = fullName;
                         try {
-                            for (int k = 0; k < takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(0).length(); k++) {
+                            for (int k = 0; k < takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").length(); k++) {
 
                                 try {
                                     if (takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(k).get("type").toString().equals("Legal name") ||
-                                            takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(k).get("type").toString().equals("Artist name")) {
+                                            (takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(k).get("type").toString().equals("Artist name") &&
+                                                    takingArtistsJsonArray.getJSONObject(j).getJSONArray("aliases").getJSONObject(k).get("locale").toString().equals("en"))) {
                                         fullName = takingArtistsJsonArray.getJSONObject(j)
                                                 .getJSONArray("aliases").getJSONObject(k)
                                                 .getString("name");
