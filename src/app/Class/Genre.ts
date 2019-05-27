@@ -1,7 +1,7 @@
 import { Localization } from "./Localization";
 
 export class Genre {
-  private id: number;
+  id: number;
   private origin: Localization;
   private genreName: string;
   private creationDate: Date;

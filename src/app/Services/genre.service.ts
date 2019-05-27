@@ -14,7 +14,7 @@ export class GenreService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/genre${id}`);
+    return this.http.get(`${apiUrl}/genre{id}?id=${id}`);
   }
   getByGenreName(term: string): Observable<any> {
     return this.http.get(`${apiUrl}/genres{name}?genreName=${term}`);

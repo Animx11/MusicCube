@@ -1,23 +1,28 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Album } from "../Class/Album";
-import { api_url } from "./API_URL";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Album } from '../Class/Album';
+import { api_url } from './API_URL';
 
 const apiUrl = api_url;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AlbumService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/album${id}`);
+    return this.http.get(`${apiUrl}/album{id}?id=${id}`);
   }
   getByAlbumName(name: string): Observable<any> {
-    if (name === "") return new Observable<any>();
-    else return this.http.get(`${apiUrl}/albums{name}?albumName=${name}`);
+    if (name === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/albums{name}?albumName=${name}`); }
+  }
+  getAlbumBands(albumId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/album/bands?albumId=${albumId}`);
+  }
+  getAlbumSongs(albumId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/album/songs?albumId=${albumId}`);
   }
 
   create(obj: Album): Observable<any> {

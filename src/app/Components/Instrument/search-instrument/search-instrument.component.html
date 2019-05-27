@@ -1,0 +1,14 @@
+<button (click)="toggleSearch()">Search in instruments</button>
+<div *ngIf="searchOn">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
+  <div id="list">
+    <ul>
+      <li
+        *ngFor="let instrument of (instruments$ | async)"
+        (click)="onSelect(instrument)"
+      >
+        {{ instrument.instrumentName }}
+      </li>
+    </ul>
+  </div>
+</div>

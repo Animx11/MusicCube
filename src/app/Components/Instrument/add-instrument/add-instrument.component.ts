@@ -27,12 +27,12 @@ export class AddInstrumentComponent implements OnInit {
       this.instrument.setType(this.type);
       this.instrumentService.create(this.instrument).subscribe(
         res => {
-          console.log("add-instrument-component recieved:");
+          console.log("add-instrument-component received:");
           console.log(res);
           window.alert("Instrument added");
         },
         err => {
-          console.log(err);
+          console.error(err);
           window.alert("Error occured");
         }
       );

@@ -1,0 +1,21 @@
+<div class="contentDisplay">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)"/>
+  <ul>
+    <li *ngFor="let person of (persons$ | async)">[Person] <a>{{person.lastName}}</a></li>
+  </ul>
+  <ul>
+    <li *ngFor="let band of (bands$ | async)">[Band] <a routerLink="/band/{{band.id}}">{{band.bandName}}</a></li>
+  </ul>
+  <ul>
+    <li *ngFor="let album of (albums$ | async)">[Album] <a routerLink="/album/{{album.id}}">{{album.albumName}}</a></li>
+  </ul>
+  <ul>
+    <li *ngFor="let song of (songs$ | async)">[Song] <a routerLink="/song/{{song.id}}">{{song.songName}}</a></li>
+  </ul>
+  <ul>
+    <li *ngFor="let genre of (genres$ | async)">[Genre] <a routerLink="/genre/{{genre.id}}">{{genre.GenreName}}</a></li>
+  </ul>
+  <ul>
+    <li *ngFor="let instrument of (instruments$ | async)">[Instrument] <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a></li>
+  </ul>
+</div>

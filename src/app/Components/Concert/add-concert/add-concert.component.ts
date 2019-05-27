@@ -36,7 +36,7 @@ export class AddConcertComponent implements OnInit {
 
   selectLocalization() {
     this.localizationService.list().subscribe(res => {
-      console.log("add-concert-component recieved:");
+      console.log("add-concert-component received:");
       console.log(res);
       this.localizationList = res.map(el => new Localization(el));
     });
@@ -62,13 +62,13 @@ export class AddConcertComponent implements OnInit {
 
       this.concertService.create(this.concert).subscribe(
         res => {
-          console.log("add-concert-component recieved:");
+          console.log("add-concert-component received:");
           console.log(res);
           window.alert("Concert added");
         },
         err => {
           window.alert("Error occured");
-          console.log(err);
+          console.error(err);
         }
       );
     }

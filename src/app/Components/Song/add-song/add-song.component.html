@@ -6,36 +6,41 @@
   /><br />
 
   <div *ngIf="song.band">Band: {{ song.band.bandName }}<br /></div>
-  <app-search-band (bandEvent)="bandEventHander($event)"></app-search-band
+  <app-search-band (bandEvent)="bandEventHandler($event)"></app-search-band
   ><br />
 
   <div *ngIf="song.album">Album: {{ song.album.albumName }}<br /></div>
-  <app-search-album (albumEvent)="albumEventHander($event)"></app-search-album
+  <app-search-album (albumEvent)="albumEventHandler($event)"></app-search-album
   ><br />
 
   <div *ngIf="song.genre">Genre: {{ song.genre.genreName }}<br /></div>
-  <app-search-genre (genreEvent)="genreEventHander($event)"></app-search-genre
+  <app-search-genre (genreEvent)="genreEventHandler($event)"></app-search-genre
   ><br />
 
   <button (click)="addSong()">Add song</button>
 </div>
-
 <div class="add">
-  <ul *ngIf="albumsSelected">
-    <li *ngFor="let album of albumList" (click)="addAlbum(album)">
-      {{ album.albumName }}
+  <h5>Authors</h5>
+  <ul *ngIf="authorList">
+    <li *ngFor="let authorship of authorList">
+      {{ authorship.author.lastName }} Text
+      <input type="checkbox" [(ngModel)]="authorship.wroteText" /> Music
+      <input type="checkbox" [(ngModel)]="authorship.wroteMusic" />
+      <button (click)="removeAuthor(authorship)">X</button>
     </li>
   </ul>
-
-  <ul *ngIf="bandsSelected">
-    <li *ngFor="let band of bandList" (click)="addBand(band)">
-      {{ band.bandName }}
+  <app-search-person
+    (personEvent)="personEventHandler($event)"
+  ></app-search-person>
+</div>
+<div class="add">
+  <h5>Instruments</h5>
+  <ul *ngIf="instrumentList">
+    <li *ngFor="let songInstrument of instrumentList">
+      {{ songInstrument.instrument.instrumentName }}
     </li>
   </ul>
-
-  <ul *ngIf="genresSelected">
-    <li *ngFor="let genre of genreList" (click)="addGenre(genre)">
-      {{ genre.genreName }}
-    </li>
-  </ul>
+  <app-search-instrument
+    (instrumentEvent)="instrumentEventHandler($event)"
+  ></app-search-instrument>
 </div>

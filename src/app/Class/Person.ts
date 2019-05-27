@@ -1,7 +1,7 @@
 import { Localization } from "./Localization";
 
 export class Person {
-  protected id: number;
+  id: number;
   protected origin: Localization;
   protected firstNames: string;
   protected lastName: string;

@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.down70px {
+  position: relative;
+  top: 70px;
+}
+.contentDisplay {
+  position: relative;
+  top: 50px;
+}

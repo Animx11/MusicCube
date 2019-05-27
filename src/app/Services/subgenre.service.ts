@@ -14,7 +14,7 @@ export class SubgenreService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/subgenre${id}`);
+    return this.http.get(`${apiUrl}/subgenre{id}?id=${id}`);
   }
 
   list(): Observable<any> {

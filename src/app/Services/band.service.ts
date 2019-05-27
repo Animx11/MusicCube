@@ -1,23 +1,29 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Band } from "../Class/Band";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Band } from '../Class/Band';
 
-import { api_url } from "./API_URL";
+import { api_url } from './API_URL';
 
 const apiUrl = api_url;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class BandService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/band${id}`);
+    return this.http.get(`${apiUrl}/band{id}?id=${id}`);
   }
   getByBandName(term: string): Observable<any> {
     return this.http.get(`${apiUrl}/bands{name}?bandName=${term}`);
+  }
+  getBandGenres(id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/band/genres?bandId=${id}`)
+  }
+  getBandAlbums(id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/band/albums?bandId=${id}`)
   }
 
   list(): Observable<any> {

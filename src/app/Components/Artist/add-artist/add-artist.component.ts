@@ -24,7 +24,7 @@ export class AddArtistComponent implements OnInit {
     this.birthDate = null;
   }
 
-  localizationEventHander($event: any) {
+  localizationEventHandler($event: any) {
     this.artist.setOrigin($event);
   }
 
@@ -44,13 +44,13 @@ export class AddArtistComponent implements OnInit {
 
       this.artistService.create(this.artist).subscribe(
         res => {
-          console.log("add-artist-component recieved:");
+          console.log("add-artist-component received:");
           console.log(res);
           window.alert("Artist added");
         },
         err => {
           window.alert("Error occured");
-          console.log(err);
+          console.error(err);
         }
       );
     }

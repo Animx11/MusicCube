@@ -1,5 +1,5 @@
 export class Localization {
-  private id: number;
+  id: number;
   private country: string;
   private city: string;
   private address: string;

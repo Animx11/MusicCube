@@ -1,5 +1,5 @@
 export class Instrument {
-  private id: number;
+  id: number;
   private instrumentName: string;
   private type: string;
 

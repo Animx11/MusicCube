@@ -15,7 +15,7 @@ export class ConcertService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/concert${id}`);
+    return this.http.get(`${apiUrl}/concert{id}?id=${id}`);
   }
 
   list(): Observable<any> {

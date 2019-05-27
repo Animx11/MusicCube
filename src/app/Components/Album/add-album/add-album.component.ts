@@ -38,13 +38,13 @@ export class AddAlbumComponent implements OnInit {
       this.album.setCompany(this.company);
       this.albumService.create(this.album).subscribe(
         res => {
-          console.log("add-album-component recieved:");
+          console.log("add-album-component received:");
           console.log(res);
           window.alert("Album added");
         },
         err => {
           window.alert("Error occured");
-          console.log(err);
+          console.error(err);
         }
       );
     }

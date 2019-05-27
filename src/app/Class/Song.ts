@@ -1,9 +1,9 @@
-import { Album } from "./Album";
-import { Band } from "./Band";
-import { Genre } from "./Genre";
+import { Album } from './Album';
+import { Band } from './Band';
+import { Genre } from './Genre';
 
 export class Song {
-  private id: number;
+  id: number;
   private songName: string;
   private songLengthSeconds: number;
   private album: Album;
@@ -12,7 +12,7 @@ export class Song {
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
-    this.songName = (obj && obj.songName) || "";
+    this.songName = (obj && obj.songName) || '';
     this.songLengthSeconds = (obj && obj.songLengthSeconds) || 0;
     this.album = (obj && obj.album) || null;
     this.band = (obj && obj.band) || null;
