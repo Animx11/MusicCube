@@ -1,5 +1,7 @@
 package MusicCube.services.song;
 
+import MusicCube.entities.Album;
+import MusicCube.entities.Band;
 import MusicCube.entities.Song;
 import MusicCube.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +36,18 @@ public class SongServiceImpl implements SongService {
     public Iterable<Song> getBySongName(String songName) {
         return songRepository.findBySongName(songName);
     }
+
+    @Override
+    public boolean existsBySongName(String songName){
+        return songRepository.existsBySongName(songName);
+    }
+    @Override
+    public boolean existsByAlbum(Album album){
+        return songRepository.existsByAlbum(album);
+    }
+    @Override
+    public boolean existsByBand(Band band){
+        return songRepository.existsByBand(band);
+    }
+
 }

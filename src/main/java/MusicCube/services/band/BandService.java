@@ -12,4 +12,5 @@ public interface BandService {
     void delete(int id);
 
     Iterable<Band> getByBandName(String bandName);
+    boolean existsByBandName(String bandName);
 }

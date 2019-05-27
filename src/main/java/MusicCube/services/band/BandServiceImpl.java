@@ -34,4 +34,9 @@ public class BandServiceImpl implements BandService {
     public Iterable<Band> getByBandName(String bandName) {
         return bandRepository.findByBandName(bandName);
     }
+
+    @Override
+    public boolean existsByBandName(String bandName){
+        return bandRepository.existsByBandName(bandName);
+    }
 }

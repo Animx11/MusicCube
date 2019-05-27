@@ -27,6 +27,13 @@ public class Song {
 
     public Song() {}
 
+    public Song(String songName, int songLengthSeconds, Album album, Band band) {
+        this.songName = songName;
+        this.songLengthSeconds = songLengthSeconds;
+        this.album = album;
+        this.band = band;
+    }
+
     public Song(String songName, int songLengthSeconds, Album album, Band band, Genre genre) {
         this.songName = songName;
         this.songLengthSeconds = songLengthSeconds;

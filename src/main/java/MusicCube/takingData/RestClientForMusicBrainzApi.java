@@ -3,9 +3,11 @@ package MusicCube.takingData;
 import MusicCube.entities.*;
 import MusicCube.services.album.AlbumService;
 import MusicCube.services.artist.ArtistService;
+import MusicCube.services.band.BandService;
 import MusicCube.services.country.CountryService;
 import MusicCube.services.genre.GenreService;
 import MusicCube.services.instrument.InstrumentService;
+import MusicCube.services.song.SongService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -45,18 +48,27 @@ public class RestClientForMusicBrainzApi {
     @Autowired
     private ArtistService artistService;
 
+    @Autowired
+    private BandService bandService;
+
+    @Autowired
+    private SongService songService;
+
     private final String URL = "https://musicbrainz.org/ws/2/";
 
     private final String INSTRUMENTS = "instrument/?query=*";
     private final String ALBUMS = "release/?query=*";
     private final String COUNTRY = "area/?query=type:Country";
     private final String CITIES = "area/?query=type:City";
-    private final String ARTIST = "artist/?query=type:Person";
+    private final String ARTISTS = "artist/?query=type:Person";
+    private final String BANDS = "artist/?query=type:Group";
+    private final String SONGS = "recording/?query=*";
     //private final String[] INSTRUMENT_TYPE = {"\"Wind instrument\"", "\"String instrument\"", "\"Percussion instrumen\"", "\"Electronic instrument\"", "\"Other instrument\""};
 
 
     private final int OFFSET_JUMP = 80;
     private final int WAIT_BETWEEN_REQUESTS = 650;
+    private final int COUNT_OF_TEASTED_OBJECTS = 1000;
 
     private final String LIMIT_URL = "&limit=100";
     private final String JSON_TYPE_URL = "&fmt=json";
@@ -69,17 +81,19 @@ public class RestClientForMusicBrainzApi {
     private List<SimpleDateFormat> knownPatterns = new ArrayList<SimpleDateFormat>();
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public ResponseEntity<Void> takeData(){
+    public ResponseEntity<Void> takeData() throws InterruptedException{
 
         initDataPatterns();
 
-        //takeGenres();
+        takeGenres();
 
         try {
             takeArtists();
-            //takeCountries();
-            //takeInstruments();
-            ///takeAlbums();
+            takeCountries();
+            takeInstruments();
+            takeAlbums();
+            takeBands();
+            takeSongs();
         }
         catch (InterruptedException e){
             e.printStackTrace();
@@ -89,6 +103,7 @@ public class RestClientForMusicBrainzApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // Must refactor
     private void takeArtists() throws InterruptedException{
         boolean notEmpty = true;
         String stageName = "";
@@ -97,10 +112,10 @@ public class RestClientForMusicBrainzApi {
         Date birthDate = null;
         int i = 0;
 
-        while(notEmpty){
+        while(notEmpty && i < COUNT_OF_TEASTED_OBJECTS){
             Thread.sleep(WAIT_BETWEEN_REQUESTS);
             String offsetNum = Integer.toString(i);
-            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + ARTIST + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
+            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + ARTISTS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
 
             try{
 
@@ -181,6 +196,130 @@ public class RestClientForMusicBrainzApi {
         }
     }
 
+    private void takeBands() throws InterruptedException{
+        boolean notEmpty = true;
+        String bandName;
+        Date creationDate = null;
+        int i = 0;
+
+        while(notEmpty && i < COUNT_OF_TEASTED_OBJECTS){
+            Thread.sleep(WAIT_BETWEEN_REQUESTS);
+            String offsetNum = Integer.toString(i);
+            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + BANDS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
+
+            try{
+
+                JSONObject responseJson = new JSONObject(takeResponseFromApi.getBody());
+                JSONArray takingBandsJsonArray = responseJson.getJSONArray("artists");
+
+                if(takingBandsJsonArray.length() == 0){
+                    notEmpty = false;
+                }
+
+                for(int j = 0; j < takingBandsJsonArray.length(); j++) {
+                    bandName = takingBandsJsonArray.getJSONObject(j)
+                            .getString("name");
+
+                    for (SimpleDateFormat pattern : knownPatterns) {
+                        try {
+                            try {
+                                creationDate = pattern.parse(takingBandsJsonArray.getJSONObject(j).getJSONObject("life-span").getString("begin"));
+                            } catch (ParseException e) {
+                            }
+                        } catch (Exception e){
+                            creationDate = null;
+                        }
+                    }
+
+
+                    if (!bandService.existsByBandName(bandName)) {
+                        Band band = new Band(bandName, creationDate);
+                        bandService.save(band);
+                    }
+                }
+
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+            i = i + OFFSET_JUMP;
+        }
+
+    }
+
+    private void takeSongs() throws InterruptedException{
+        int songLengthSeconds;
+        String songName;
+        Album album = null;
+        Band band = null;
+        String bandToFind;
+        String albumToFind;
+
+        boolean notEmpty = true;
+        int i = 0;
+
+        while (notEmpty && i < COUNT_OF_TEASTED_OBJECTS){
+            Thread.sleep(WAIT_BETWEEN_REQUESTS);
+            String offsetNum = Integer.toString(i);
+            ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + SONGS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
+
+            try{
+                JSONObject responseJson = new JSONObject(takeResponseFromApi.getBody());
+                JSONArray takingSongsJsonArray = responseJson.getJSONArray("recordings");
+
+                if(takingSongsJsonArray.length() == 0){
+                    notEmpty = false;
+                }
+                for(int j = 0; j < takingSongsJsonArray.length(); j++) {
+                    songName = takingSongsJsonArray.getJSONObject(j)
+                            .getString("title");
+                    try {
+                        songLengthSeconds = takingSongsJsonArray.getJSONObject(j)
+                                .getInt("length");
+                    }catch (Exception e){
+                        songLengthSeconds = 0;
+                    }
+                    try {
+                        bandToFind = takingSongsJsonArray.getJSONObject(j)
+                                .getJSONArray("artist-credit").getJSONObject(0)
+                                .getJSONObject("artist").getString("name");
+                        Iterable<Band> bands = bandService.getByBandName(bandToFind);
+                        if(bands.iterator().hasNext()){
+                            band = bands.iterator().next();
+                        }
+                    }catch (Exception e){
+                        band = null;
+                    }
+
+                    try{
+                        albumToFind = takingSongsJsonArray.getJSONObject(j)
+                                .getJSONArray("releases").getJSONObject(0)
+                                .getString("title");
+                        Iterable<Album> albums = albumService.getByAlbumName(albumToFind);
+                        if(albums.iterator().hasNext()){
+                            album = albums.iterator().next();
+                        }
+                    }catch (Exception e){
+                        album = null;
+                    }
+
+                    if (!songService.existsBySongName(songName) && !songService.existsByBand(band)) {
+                        Song song = new Song(songName, songLengthSeconds, album, band);
+                        songService.save(song);
+                    }
+
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+            i = i + OFFSET_JUMP;
+        }
+
+    }
+
     private void takeInstruments() throws InterruptedException{
         String instrumentName;
         String type;
@@ -188,7 +327,7 @@ public class RestClientForMusicBrainzApi {
 
         boolean notEmpty = true;
 
-        while (notEmpty) {
+        while (notEmpty && i < COUNT_OF_TEASTED_OBJECTS) {
             Thread.sleep(WAIT_BETWEEN_REQUESTS);
             String offsetNum = Integer.toString(i);
             ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + INSTRUMENTS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
@@ -231,7 +370,7 @@ public class RestClientForMusicBrainzApi {
 
         boolean notEmpty = true;
 
-        while (notEmpty) {
+        while (notEmpty && i < COUNT_OF_TEASTED_OBJECTS) {
             Thread.sleep(WAIT_BETWEEN_REQUESTS);
             String offsetNum = Integer.toString(i);
             ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + ALBUMS + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
@@ -287,8 +426,8 @@ public class RestClientForMusicBrainzApi {
         String code;
         int i = 0;
 
-        while(notEmpty){
-            Thread.sleep(WAIT_BETWEEN_REQUESTS);
+        while(notEmpty && i < COUNT_OF_TEASTED_OBJECTS){
+            Thread.sleep(WAIT_BETWEEN_REQUESTS );
             String offsetNum = Integer.toString(i);
             ResponseEntity<String> takeResponseFromApi = restTemplate.getForEntity(URL + COUNTRY + LIMIT_URL + OFFSET + offsetNum + JSON_TYPE_URL, String.class);
 

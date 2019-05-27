@@ -25,6 +25,11 @@ public class Band {
 
     public Band() {}
 
+    public Band(String bandName, Date creationDate) {
+        this.bandName = bandName;
+        this.creationDate = creationDate;
+    }
+
     public Band(String bandName, Date creationDate, Localization formedIn) {
         this.bandName = bandName;
         this.creationDate = creationDate;
