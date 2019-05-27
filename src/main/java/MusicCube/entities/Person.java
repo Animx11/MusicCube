@@ -30,6 +30,12 @@ public class Person {
 
     public Person() {}
 
+    public Person(String firstNames, String lastName, Date birthDate) {
+        this.firstNames = firstNames;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+    }
+
     public Person(Localization origin, String firstNames, String lastName, Date birthDate) {
         this.origin = origin;
         this.firstNames = firstNames;

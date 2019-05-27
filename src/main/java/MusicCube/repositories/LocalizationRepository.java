@@ -10,7 +10,7 @@ public interface LocalizationRepository extends CrudRepository<Localization,Inte
     @Query("SELECT l FROM Localization l WHERE l.country LIKE CONCAT('%',?1,'%') OR l.city LIKE CONCAT('%',?1,'%') OR l.address LIKE CONCAT('%',?1,'%')")
     Iterable<Localization> findByAny(String input);
 
-    Iterable<Localization> findByCountry( String country);
+    Iterable<Localization> findByCountry(String country);
     Iterable<Localization> findByCity(String city);
     Iterable<Localization> findByAddress(String address);
 

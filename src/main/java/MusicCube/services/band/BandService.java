@@ -21,4 +21,6 @@ public interface BandService {
     Iterable<Genre> getBandGenres(int bandId);
 
     Iterable<Album> getBandAlbums(int bandId);
+
+    boolean existsByBandName(String bandName);
 }

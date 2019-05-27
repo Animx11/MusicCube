@@ -46,4 +46,9 @@ public class AlbumServiceImpl implements AlbumService {
     public Iterable<Song> getAlbumSongs(int albumId) {
         return albumRepository.findAlbumSongs(albumId);
     }
+
+    @Override
+    public boolean existsByAlbumName(String albumName){
+        return albumRepository.existsByAlbumName(albumName);
+    }
 }

@@ -15,4 +15,7 @@ public interface BandRepository extends CrudRepository<Band,Integer> {
     Iterable<Genre> findBandGenres(int bandId);
     @Query("SELECT DISTINCT s.album FROM Song s WHERE s.band.id=?1 ORDER BY s.album.releaseDate")
     Iterable<Album> findBandAlbums(int bandId);
+
+    boolean existsByBandName(String bandName);
+
 }

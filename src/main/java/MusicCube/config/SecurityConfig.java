@@ -64,8 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").anonymous()
+                .antMatchers("/test").anonymous()
                 .antMatchers("/generateModel").permitAll()
-                .antMatchers("/**").authenticated()
+                .antMatchers("/**").anonymous()
+                //.antMatchers("/**").authenticated()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

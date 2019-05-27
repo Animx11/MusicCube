@@ -8,4 +8,8 @@ public interface ArtistRepository extends CrudRepository<Artist,Integer> {
 
     @Query("SELECT a from Artist a WHERE a.stageName LIKE CONCAT('%',?1,'%')")
     Iterable<Artist> findByStageName(String stageName);
+
+    boolean existsByFirstNamesAndLastName(String firstNames, String lastNames);
+    boolean existsArtistByStageName(String stageName);
+
 }

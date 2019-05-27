@@ -28,6 +28,12 @@ public class Album {
 
     public Album() {}
 
+    public Album(String albumName, int albumLengthSeconds, String company) {
+        this.albumName = albumName;
+        this.albumLengthSeconds = albumLengthSeconds;
+        this.company = company;
+    }
+
     public Album(String albumName, int albumLengthSeconds, Date releaseDate, String company) {
         this.albumName = albumName;
         this.albumLengthSeconds = albumLengthSeconds;

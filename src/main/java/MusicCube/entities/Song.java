@@ -39,6 +39,14 @@ public class Song {
         this.genre = genre;
     }
 
+    public Song(String songName, int songLengthSeconds, Album album, Band band) {
+        this.songName = songName;
+        this.songLengthSeconds = songLengthSeconds;
+        this.album = album;
+        this.band = band;
+    }
+
+
     public int getId() {
         return id;
     }

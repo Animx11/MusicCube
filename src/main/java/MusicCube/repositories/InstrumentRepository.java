@@ -8,4 +8,6 @@ public interface InstrumentRepository extends CrudRepository<Instrument,Integer>
 
     @Query("SELECT i FROM Instrument i WHERE i.instrumentName LIKE CONCAT('%',?1,'%')")
     Iterable<Instrument> findByInstrumentName(String instrumentName);
+
+    boolean existsByInstrumentName(String instrumentName);
 }

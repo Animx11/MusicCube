@@ -14,4 +14,6 @@ public interface AlbumRepository extends CrudRepository<Album,Integer> {
     Iterable<Band> findAlbumBands(int albumId);
     @Query("SELECT s FROM Song s WHERE s.album.id=?1 ORDER BY s.trackNumber")
     Iterable<Song> findAlbumSongs(int albumId);
+
+    boolean existsByAlbumName(String albumName);
 }

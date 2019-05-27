@@ -16,5 +16,6 @@ public interface AlbumService {
     Iterable<Album> getByAlbumName(String albumName);
     Iterable<Band> getAlbumBands(int albumId);
     Iterable<Song> getAlbumSongs(int albumId);
+    boolean existsByAlbumName(String albumName);
 
 }
