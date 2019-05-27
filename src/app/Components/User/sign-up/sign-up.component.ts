@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Users} from '../../../Class/Users';
 import {UserService} from '../../../Services/user.service';
+import { this_url } from 'src/app/Services/API_URL';
+
+const thisURL = this_url;
 
 @Component({
   selector: 'app-sign-up',
@@ -30,7 +33,10 @@ export class SignUpComponent implements OnInit {
     this.user.setUserName(this.userName);
     this.user.setPassword(this.password);
     this.user.setEmail(this.email);
-    this.userService.signUp(this.user).subscribe();
+    this.userService.signUp(this.user).subscribe(
+      r => {window.location.assign(thisURL);},
+      e => {console.log(e);}
+    );
 
   }
 

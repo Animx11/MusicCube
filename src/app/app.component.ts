@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   private roles: string[];
   private authority: string;
   private isLogged: boolean;
+
  
   constructor(private tokenStorage: TokenStorageService) { }
  
@@ -25,23 +26,23 @@ export class AppComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLogged = true;
       this.roles = this.tokenStorage.getAuthorities();
-      this.roles.every(role =>{
+      this.roles.forEach(role => {
         if(role === 'ROLE_ADMIN'){
           this.authority = 'admin';
-          return false;
         }
-        else if(role === 'ROLE_MOD'){
+        else if(role === 'ROLE_MOD' && this.authority !== 'admin'){
           this.authority = 'mod';
-          return false;
         }
-        else{
+        else if(role === 'ROLE_USER' && this.authority !== 'admin' && this.authority !== 'mod'){
           this.authority = 'user';
-          return true;
         }
       });
+ 
     }
   }
-  signOut()  {
+
+  signOut() {
+    this.isLogged = false;
     window.sessionStorage.clear();
     window.location.assign(thisURL);
 

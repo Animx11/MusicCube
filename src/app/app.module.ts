@@ -55,13 +55,29 @@ import { DisplayInstrumentComponent } from './Components/Instrument/display-inst
 import { SearchEngineMainComponent } from './Components/Search/search-engine-main/search-engine-main.component';
 
 import { httpInterceptorProviders } from './Class/authorisation/AuthInterceptor';
+import { UserPanelComponent } from './Components/User/user-panel/user-panel.component';
+import { ProfileComponent } from './Components/User/user-panel/profile/profile.component';
+import { ReportBugComponent } from './Components/User/user-panel/report-bug/report-bug.component';
 
 
 const ROUTES: Routes = [
   // Main Routes
 
   { path: 'app', component: AppComponent },
-  { path: 'AdminPanel', component: AdminPanelComponent },
+  { path : 'AdminPanel', component : AdminPanelComponent},
+  { path : 'UserPanel', component : UserPanelComponent},
+
+  // User Panel Profile
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'Profile', component: ProfileComponent }]
+  },
+
+  // User Panel Report Bug
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'ReportBug', component: ReportBugComponent }]
+  },
 
   // User
 
@@ -262,7 +278,11 @@ const ROUTES: Routes = [
     DisplayPersonComponent,
     DisplayAlbumComponent,
     DisplayInstrumentComponent,
-    SearchEngineMainComponent
+    SearchEngineMainComponent,
+    UserPanelComponent,
+    ProfileComponent,
+    ReportBugComponent,
+
   ],
   imports: [
     NgbModule,
