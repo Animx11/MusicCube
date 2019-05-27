@@ -12,6 +12,7 @@ public interface ArtistService {
     void delete(int id);
 
     Iterable<Artist> getByStageName(String stageName);
+    Iterable<Artist> getByAnything(String input);
 
     boolean existsArtistByArtistFirstNamesAndLastName(String firstNames, String lastNames);
     boolean existsArtistByStageName(String stageName);

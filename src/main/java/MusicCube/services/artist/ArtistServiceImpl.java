@@ -34,6 +34,12 @@ public class ArtistServiceImpl implements ArtistService{
     public Iterable<Artist> getByStageName(String stageName) {
         return artistRepository.findByStageName(stageName);
     }
+
+    @Override
+    public Iterable<Artist> getByAnything(String input) {
+        return artistRepository.findByAnything(input);
+    }
+
     @Override
     public boolean existsArtistByArtistFirstNamesAndLastName(String firstNames, String lastNames){
         return artistRepository.existsByFirstNamesAndLastName(firstNames, lastNames);

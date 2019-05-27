@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface SongRepository extends CrudRepository<Song,Integer> {
 
-    @Query("SELECT s FROM Song s where s.songName LIKE CONCAT('%',?1,'%')")
+    @Query("SELECT s FROM Song s where LOWER(s.songName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Song> findBySongName(String songName);
 
     boolean existsBySongName(String songName);

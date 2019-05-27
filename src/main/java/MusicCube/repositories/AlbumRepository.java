@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface AlbumRepository extends CrudRepository<Album,Integer> {
 
-    @Query("SELECT a FROM Album a WHERE a.albumName LIKE CONCAT('%',?1,'%')")
+    @Query("SELECT a FROM Album a WHERE LOWER(a.albumName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Album> findByAlbumName(String albumName);
     @Query("SELECT DISTINCT s.band FROM Song s WHERE s.album.id=?1")
     Iterable<Band> findAlbumBands(int albumId);

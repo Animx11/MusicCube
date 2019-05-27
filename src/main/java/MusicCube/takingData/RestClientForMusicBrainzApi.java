@@ -304,7 +304,7 @@ public class RestClientForMusicBrainzApi {
                         album = null;
                     }
 
-                    if (!songService.existsBySongName(songName) && !songService.existsByBand(band)) {
+                    if (!songService.existsBySongName(songName)) {
                         Song song = new Song(songName, songLengthSeconds, album, band);
                         songService.save(song);
                     }

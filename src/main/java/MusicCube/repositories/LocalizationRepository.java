@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface LocalizationRepository extends CrudRepository<Localization,Integer> {
 
-    @Query("SELECT l FROM Localization l WHERE l.country LIKE CONCAT('%',?1,'%') OR l.city LIKE CONCAT('%',?1,'%') OR l.address LIKE CONCAT('%',?1,'%')")
+    @Query("SELECT l FROM Localization l WHERE LOWER(l.country) LIKE LOWER(CONCAT('%',?1,'%')) OR LOWER(l.city) LIKE LOWER(CONCAT('%',?1,'%')) OR LOWER(l.address) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Localization> findByAny(String input);
 
     Iterable<Localization> findByCountry(String country);

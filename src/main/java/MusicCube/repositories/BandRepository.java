@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface BandRepository extends CrudRepository<Band,Integer> {
 
-    @Query("SELECT b FROM Band b WHERE b.bandName LIKE CONCAT ('%',?1,'%')")
+    @Query("SELECT b FROM Band b WHERE LOWER(b.bandName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Band> findByBandName(String bandName);
     @Query("SELECT DISTINCT s.genre FROM Song s WHERE s.band.id=?1")
     Iterable<Genre> findBandGenres(int bandId);

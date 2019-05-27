@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PersonRepository extends CrudRepository<Person,Integer> {
 
-    @Query("SELECT p FROM Person p WHERE p.lastName LIKE CONCAT('%',?1,'%')")
+    @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Person> findByLastName(String lastName);
 }

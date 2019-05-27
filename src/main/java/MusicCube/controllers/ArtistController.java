@@ -65,6 +65,13 @@ public class ArtistController {
         });
         return artists;
     }
+    // --- GET BY ANYTHING ---
+    @RequestMapping(value = "/artists{anything}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Artist> getByAnything(String input) {
+        return artistService.getByAnything(input);
+    }
 
     @RequestMapping(value = "/artist",method = RequestMethod.POST)
     public ResponseEntity<Artist> create(@RequestBody @Valid @NotNull Artist artist) {
