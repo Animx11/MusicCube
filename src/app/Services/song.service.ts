@@ -24,6 +24,9 @@ export class SongService {
   list(): Observable<any> {
     return this.http.get(`${apiUrl}/songs`);
   }
+  listPaging(pageNr: number, pageSize?: number): Observable<any> {
+    return  pageSize ? this.http.get(`${apiUrl}/songs/${pageNr}`) : this.http.get(`${apiUrl}/songs/${pageNr}?size=${pageSize}`);
+  }
 
   create(song: Song): Observable<any> {
     return this.http.post(`${apiUrl}/song`, song);
