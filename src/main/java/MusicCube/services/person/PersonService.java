@@ -7,6 +7,7 @@ public interface PersonService {
     
     Optional<Person> getById(int id);
     Iterable<Person> getAll();
+    Iterable<Person> getAllPaging(Integer pageNr, Integer perPage);
     Person save(Person person);
     void delete(int id);
 

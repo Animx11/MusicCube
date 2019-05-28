@@ -5,6 +5,7 @@ import MusicCube.entities.Band;
 import MusicCube.entities.Genre;
 import MusicCube.repositories.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,6 +24,12 @@ public class BandServiceImpl implements BandService {
     public Iterable<Band> getAll() {
         return bandRepository.findAll();
     }
+
+    @Override
+    public Iterable<Band> getAllPaging(Integer pageNr, Integer perPage) {
+        return bandRepository.findAll(new PageRequest(pageNr,perPage));
+    }
+
     @Override
     public Band save(Band band) {
         return bandRepository.save(band);

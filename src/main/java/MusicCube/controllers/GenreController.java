@@ -38,6 +38,14 @@ public class GenreController {
         return genreService.getAll();
     }
 
+    // --- Get all genres with paging ---
+    @RequestMapping(value = "genres/{page}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Genre> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
+        return genreService.getAllPaging(pageNr,perPage.orElse(10));
+    }
+
     @RequestMapping(value = "/genres{name}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)

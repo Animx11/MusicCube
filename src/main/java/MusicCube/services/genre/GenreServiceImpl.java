@@ -3,6 +3,7 @@ package MusicCube.services.genre;
 import MusicCube.entities.Genre;
 import MusicCube.repositories.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,12 @@ public class GenreServiceImpl implements GenreService {
     public Iterable<Genre> getAll() {
         return genreRepository.findAll();
     }
+
+    @Override
+    public Iterable<Genre> getAllPaging(Integer pageNr, Integer perPage) {
+        return genreRepository.findAll(new PageRequest(pageNr,perPage));
+    }
+
     @Override
     public Genre save(Genre genre) {
         return genreRepository.save(genre);

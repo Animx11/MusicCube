@@ -41,6 +41,14 @@ public class AlbumController {
         return albumService.getAll();
     }
 
+    // --- Get all albums with paging ---
+    @RequestMapping(value = "albums/{page}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Album> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
+        return albumService.getAllPaging(pageNr,perPage.orElse(10));
+    }
+
     @RequestMapping(value = "/album/bands",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)

@@ -3,8 +3,9 @@ package MusicCube.repositories;
 import MusicCube.entities.Artist;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ArtistRepository extends CrudRepository<Artist,Integer> {
+public interface ArtistRepository extends CrudRepository<Artist,Integer>, PagingAndSortingRepository<Artist,Integer> {
 
     @Query("SELECT a from Artist a WHERE LOWER(a.stageName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Artist> findByStageName(String stageName);

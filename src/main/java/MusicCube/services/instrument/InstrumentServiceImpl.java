@@ -3,6 +3,7 @@ package MusicCube.services.instrument;
 import MusicCube.entities.Instrument;
 import MusicCube.repositories.InstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,12 @@ public class InstrumentServiceImpl implements InstrumentService {
     public Iterable<Instrument> getAll() {
         return instrumentRepository.findAll();
     }
+
+    @Override
+    public Iterable<Instrument> getAllPaging(Integer pageNr, Integer perPage) {
+        return instrumentRepository.findAll(new PageRequest(pageNr,perPage));
+    }
+
     @Override
     public Instrument save(Instrument instrument) {
         return instrumentRepository.save(instrument);

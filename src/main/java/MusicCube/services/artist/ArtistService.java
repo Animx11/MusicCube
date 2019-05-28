@@ -8,6 +8,7 @@ public interface ArtistService {
 
     Optional<Artist> getById(int id);
     Iterable<Artist> getAll();
+    Iterable<Artist> getAllPaging(Integer pageNr, Integer perPage);
     Artist save(Artist artist);
     void delete(int id);
 

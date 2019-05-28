@@ -12,6 +12,8 @@ public interface BandService {
 
     Iterable<Band> getAll();
 
+    Iterable<Band> getAllPaging(Integer pageNr, Integer perPage);
+
     Band save(Band band);
 
     void delete(int id);

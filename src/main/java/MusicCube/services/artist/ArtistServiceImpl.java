@@ -3,6 +3,7 @@ package MusicCube.services.artist;
 import MusicCube.entities.Artist;
 import MusicCube.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,12 @@ public class ArtistServiceImpl implements ArtistService{
     public Iterable<Artist> getAll() {
         return artistRepository.findAll();
     }
+
+    @Override
+    public Iterable<Artist> getAllPaging(Integer pageNr, Integer perPage) {
+        return artistRepository.findAll(new PageRequest(pageNr,perPage));
+    }
+
     @Override
     public Artist save(Artist artist) {
         return artistRepository.save(artist);

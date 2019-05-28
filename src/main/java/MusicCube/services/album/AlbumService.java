@@ -10,6 +10,7 @@ public interface AlbumService {
 
     Optional<Album> getById(int id);
     Iterable<Album> getAll();
+    Iterable<Album> getAllPaging(Integer pageNr,Integer perPage);
     Album save(Album album);
     void delete(int id);
 
