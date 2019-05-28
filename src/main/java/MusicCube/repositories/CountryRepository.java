@@ -12,6 +12,10 @@ public interface CountryRepository extends CrudRepository<Country, Integer> {
     @Query("SELECT c from Country c WHERE c.code LIKE ?1")
     Iterable<Country> findByCode(String code);
 
+    @Query("SELECT c from Country c WHERE c.code=?1")
+    Country findOneByCode(String code);
+
     boolean existsByCountryName(String countryName);
+    boolean existsByCode(String Code);
 
 }

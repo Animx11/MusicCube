@@ -9,4 +9,7 @@ public interface CityService {
     Iterable<City> getAll();
     City save(City city);
     void delete(int id);
+
+    boolean exists(String cityName);
+    City getByCityName(String cityName);
 }

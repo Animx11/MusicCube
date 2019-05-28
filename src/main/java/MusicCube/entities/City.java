@@ -1,15 +1,13 @@
 package MusicCube.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class City {
     @Id
     @GeneratedValue
     private int id;
+    @Column(unique = true)
     private String cityName;
     @ManyToOne
     private Country country;

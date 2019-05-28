@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -19,6 +16,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CityController {
     @Autowired
     private CityService cityService;
@@ -30,7 +30,7 @@ public class CityController {
         return cityService.getById(id);
     }
 
-    @RequestMapping(value = "/countries",
+    @RequestMapping(value = "/cities",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<City> getAll() {
@@ -53,7 +53,7 @@ public class CityController {
     }
 
     @ApiIgnore
-    @RequestMapping(value = "/countries",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/cities",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<City> redirect(Model model) {
         return cityService.getAll();
     }
@@ -61,7 +61,7 @@ public class CityController {
     @RequestMapping(value = "/city/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable Integer id) {
         cityService.delete(id);
-        return new RedirectView("/api/genres",true);
+        return new RedirectView("/api/cities",true);
     }
 
 

@@ -7,6 +7,8 @@ import MusicCube.services.artist.ArtistService;
 import MusicCube.services.artistinband.ArtistInBandService;
 import MusicCube.services.artistinstrument.ArtistInstrumentService;
 import MusicCube.services.band.BandService;
+import MusicCube.services.city.CityService;
+import MusicCube.services.country.CountryService;
 import MusicCube.services.genre.GenreService;
 import MusicCube.services.songinstrument.SongInstrumentService;
 import MusicCube.services.instrument.InstrumentService;
@@ -57,14 +59,18 @@ public class ModelGenerator {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CityService cityService;
+    @Autowired
+    private CountryService countryService;
 
 
     @RequestMapping(value = "generateModel", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String generateModel() {
 
-        Localization birmingham = new Localization("England","Birmingham","");
-        Localization uk = new Localization("United Kingdom","","");
-        Localization wolver = new Localization("England","Wolverhampton","");
+        Country uk = new Country("United Kingdom","GB");
+        City birmingham = new City("Birmingham",uk);
+        City wolver = new City("Wolverhampton",uk);
 
         //Band judas = new Band("Judas Priest",new Date(70,01,01),birmingham);
         Calendar cal = Calendar.getInstance();
@@ -209,9 +215,9 @@ public class ModelGenerator {
         userService.save(userUser);
         userService.save(modUser);
 
-        localizationService.save(birmingham);
-        localizationService.save(uk);
-        localizationService.save(wolver);
+        countryService.save(uk);
+        cityService.save(birmingham);
+        cityService.save(wolver);
 
         bandService.save(judas);
 

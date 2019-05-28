@@ -77,7 +77,7 @@ public class CountryController {
     @RequestMapping(value = "/country/{id}", method = RequestMethod.DELETE)
     public RedirectView delete(@PathVariable Integer id) {
         countryService.delete(id);
-        return new RedirectView("/api/genres",true);
+        return new RedirectView("/api/countries",true);
     }
 
 
