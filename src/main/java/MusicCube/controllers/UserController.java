@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -48,20 +49,35 @@ public class UserController {
 
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "/users", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/user", method = RequestMethod.DELETE)
     public ResponseEntity<User> delete(@RequestParam("id") Integer id){
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/users_by_id", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User getById(@RequestParam("id") int id){
+    @RequestMapping(value = "/user_by_id", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<User> getById(@RequestParam("id") int id){
         return userService.getById(id);
     }
 
-    @RequestMapping(value = "/users_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/user_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getByUserName(@RequestParam("userName") String userName){
         return userService.getByUserName(userName);
+    }
+
+    @RequestMapping(value = "/edit_user_profile",method = RequestMethod.PUT)
+    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull User user) {
+
+        User takeUser = userService.getById(user.getId()).orElse(takeUser = null);
+
+        if(takeUser != null){
+            userService.save(user);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

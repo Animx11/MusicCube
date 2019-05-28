@@ -192,6 +192,10 @@ public class ModelGenerator {
         User modUser = new User("mod",passwordEncoder.encode("mod123"), "mod", rolesMod);
         User adminUser = new User("admin",passwordEncoder.encode("admin1"), "admin", rolesAdmin);
 
+        userUser.setFirstName("Dawid");
+        userUser.setLastName("Buczyński");
+        userUser.setAboutUser("Just a normal user");
+
         roleRepository.save(user);
         roleRepository.save(mod);
         roleRepository.save(admin);
