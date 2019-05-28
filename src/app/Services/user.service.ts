@@ -27,4 +27,12 @@ export class UserService {
     return this.http.post<JwtResponse>(`${api_url}/auth/signin`, obj, httpOptions);
   }
 
+  takeUserInfo(userName: string): Observable<Users> {
+    return this.http.get<Users>(`${api_url}/user_by_userName?userName=${userName}`);
+  }
+
+  changeUserProfile(obj: Users): Observable<Users> {
+    return this.http.put<Users>(`${api_url}/edit_user_profile`, obj);
+  }
+
 }

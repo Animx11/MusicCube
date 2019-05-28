@@ -12,10 +12,12 @@ export class Users {
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.userName = (obj && obj.userName) || '';
-    this.password = (obj && obj.password) || '';
     this.email = (obj && obj.email) || '';
     this.roles = (obj && obj.roles) || null;
     this.birthDate = (obj && obj.birthDate) || null;
+    this.firstName = (obj && obj.firstName) || '';
+    this.lastName = (obj && obj.lastName) || '';
+    this.aboutUser = (obj && obj.aboutUser) || '';
   }
 
   /** Getters */
@@ -26,10 +28,6 @@ export class Users {
 
   getUserName(): string {
     return this.userName;
-  }
-
-  getPassword(): string {
-    return this.password;
   }
 
   getEmail(): string {

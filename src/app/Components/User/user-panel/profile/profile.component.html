@@ -3,23 +3,23 @@
     <br>
     <form id = "profileForm">
       <div class = "separateDiv">
-        <div class = "textSeparateDiv">First Name<br></div>
-        <input type = "text" class = "inputText">
+        <div class = "textSeparateDiv"><i>First Name</i><br></div>
+        <input type = "text" name = "firstName" [(ngModel)]="firstName" class = "inputText" >
       </div><br>
       <div class = "separateDiv">
-          <div class = "textSeparateDiv">Last Name<br></div>
-        <input type = "text" class = "inputText">
+          <div class = "textSeparateDiv"><i>Last Name</i><br></div>
+        <input type = "text" name = "lastName" class = "inputText" [(ngModel)]="lastName">
       </div><br>
       <div class = "separateDiv">
-          <div class = "textSeparateDiv">Birthdate<br></div>
-        <input type = "date" class = "inputDate">
+          <div class = "textSeparateDiv"><i>Birthdate:</i> {{birthDate | date:'dd.MM.yyyy'}}<br></div>
+        <input type = "date" name = "birthDate" class = "inputDate" [(ngModel)]="birthDate">
     </div><br>
     <div class = "separateDiv">
-        <div class = "textSeparateDiv">About You<br></div>
-        <textarea type="text" id = "inputAbout"></textarea>
+        <div class = "textSeparateDiv"><i>About You</i><br></div>
+        <textarea type="text" name = "aboutUser" id = "inputAbout" [(ngModel)]="aboutUser"></textarea>
       </div><br>
     <div class = "separateDiv">
-      <button id = "submitButton">Update Profil</button>
+      <button (click)="updateProfile()">Update Profil</button>
     </div>
     </form>
   </div>

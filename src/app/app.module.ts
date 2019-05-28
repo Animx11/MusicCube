@@ -1,7 +1,9 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -58,6 +60,7 @@ import { httpInterceptorProviders } from './Class/authorisation/AuthInterceptor'
 import { UserPanelComponent } from './Components/User/user-panel/user-panel.component';
 import { ProfileComponent } from './Components/User/user-panel/profile/profile.component';
 import { ReportBugComponent } from './Components/User/user-panel/report-bug/report-bug.component';
+import { AccountComponent } from './Components/User/user-panel/account/account.component';
 
 
 const ROUTES: Routes = [
@@ -282,6 +285,7 @@ const ROUTES: Routes = [
     UserPanelComponent,
     ProfileComponent,
     ReportBugComponent,
+    AccountComponent,
 
   ],
   imports: [
