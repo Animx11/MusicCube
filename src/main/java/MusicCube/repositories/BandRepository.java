@@ -5,9 +5,10 @@ import MusicCube.entities.Band;
 import MusicCube.entities.Genre;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 
-public interface BandRepository extends CrudRepository<Band,Integer> {
+public interface BandRepository extends CrudRepository<Band,Integer>, PagingAndSortingRepository<Band,Integer> {
 
     @Query("SELECT b FROM Band b WHERE LOWER(b.bandName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Band> findByBandName(String bandName);

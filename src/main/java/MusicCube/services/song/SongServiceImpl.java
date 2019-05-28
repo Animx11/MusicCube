@@ -5,6 +5,7 @@ import MusicCube.entities.Band;
 import MusicCube.entities.Song;
 import MusicCube.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,9 +20,15 @@ public class SongServiceImpl implements SongService {
     public Optional<Song> getById(int id) {
         return songRepository.findById(id);
     }
+
     @Override
     public Iterable<Song> getAll() {
         return songRepository.findAll();
+    }
+
+    @Override
+    public Iterable<Song> getAllPaging(Integer pageNr, Integer perPage) {
+        return songRepository.findAll(new PageRequest(pageNr,perPage));
     }
     @Override
     public Song save(Song song) {

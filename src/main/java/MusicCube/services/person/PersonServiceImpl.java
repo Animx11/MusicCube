@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Optional;
 import MusicCube.entities.Person;
 import MusicCube.repositories.PersonRepository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +22,12 @@ public class PersonServiceImpl implements PersonService{
     public Iterable<Person> getAll() {
         return personRepository.findAll();
     }
+
+    @Override
+    public Iterable<Person> getAllPaging(Integer pageNr, Integer perPage) {
+        return personRepository.findAll(new PageRequest(pageNr,perPage));
+    }
+
     @Override
     public Person save(Person person) {
         return personRepository.save(person);

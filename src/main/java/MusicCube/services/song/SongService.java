@@ -10,6 +10,7 @@ public interface SongService {
 
     Optional<Song> getById(int id);
     Iterable<Song> getAll();
+    Iterable<Song> getAllPaging(Integer pageNr, Integer perPage);
     Song save(Song song);
     void delete(int id);
 

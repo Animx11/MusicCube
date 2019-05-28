@@ -36,6 +36,14 @@ public class InstrumentController {
     public Iterable<Instrument> getAll() {
         return instrumentService.getAll();
     }
+    
+    // --- Get all instruments with paging ---
+    @RequestMapping(value = "instruments/{page}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Instrument> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
+        return instrumentService.getAllPaging(pageNr,perPage.orElse(10));
+    }
 
     // --- Get by instrument name ---
     @RequestMapping(value = "/instruments{name}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)

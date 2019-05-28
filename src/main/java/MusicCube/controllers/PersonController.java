@@ -38,6 +38,14 @@ public class PersonController {
     public Iterable<Person> getAll() {
         return personService.getAll();
     }
+    
+    // --- Get all persons with paging ---
+    @RequestMapping(value = "persons/{page}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Person> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
+        return personService.getAllPaging(pageNr,perPage.orElse(10));
+    }
 
     // --- GET BY LAST NAME ---
     @RequestMapping(value = "/persons{lastname}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)

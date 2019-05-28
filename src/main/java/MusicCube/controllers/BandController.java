@@ -43,6 +43,14 @@ public class BandController {
         return bandService.getAll();
     }
 
+    // --- Get all bands with paging ---
+    @RequestMapping(value = "bands/{page}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Band> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
+        return bandService.getAllPaging(pageNr,perPage.orElse(10));
+    }
+
     @RequestMapping(value = "/bands{name}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)

@@ -24,6 +24,7 @@ public class SongController {
     @Autowired
     private SongService songService;
 
+    // --- Get by id ---
     @RequestMapping(value = "/song{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,11 +32,20 @@ public class SongController {
         return songService.getById(id);
     }
 
+    // --- Get all songs ---
     @RequestMapping(value = "/songs",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Song> getAll() {
         return songService.getAll();
+    }
+
+    // --- Get all songs with paging ---
+    @RequestMapping(value = "songs/{page}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Song> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
+        return songService.getAllPaging(pageNr,perPage.orElse(10));
     }
 
     // --- Get by song name ---
@@ -45,6 +55,8 @@ public class SongController {
     public Iterable<Song> getBySongName(String songName) {
         return songService.getBySongName(songName);
     }
+
+/**********************************************************************************/
 
     @RequestMapping(value = "/song",method = RequestMethod.POST)
     public ResponseEntity<Song> create(@RequestBody @Valid @NotNull Song song) {

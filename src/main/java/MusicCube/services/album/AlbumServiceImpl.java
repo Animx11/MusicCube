@@ -5,6 +5,7 @@ import MusicCube.entities.Band;
 import MusicCube.entities.Song;
 import MusicCube.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,6 +24,12 @@ public class AlbumServiceImpl implements AlbumService {
     public Iterable<Album> getAll() {
         return albumRepository.findAll();
     }
+
+    @Override
+    public Iterable<Album> getAllPaging(Integer pageNr, Integer perPage) {
+        return albumRepository.findAll(new PageRequest(pageNr,perPage));
+    }
+
     @Override
     public Album save(Album album) {
         return albumRepository.save(album);

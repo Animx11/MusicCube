@@ -43,6 +43,14 @@ public class ArtistController {
         return artistService.getAll();
     }
 
+    // --- Get all artists with paging ---
+    @RequestMapping(value = "artists/{page}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Artist> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
+        return artistService.getAllPaging(pageNr,perPage.orElse(10));
+    }
+
     // --- GET BY STAGE NAME ---
     @RequestMapping(value = "/artists{stagename}",
             method = RequestMethod.GET,
