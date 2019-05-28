@@ -82,6 +82,12 @@ const ROUTES: Routes = [
     children: [{ path: 'ReportBug', component: ReportBugComponent }]
   },
 
+  // User Panel Account
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'Account', component: AccountComponent }]
+  },
+
   // User
 
   { path: 'SignIn', component: SignInComponent },

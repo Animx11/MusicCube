@@ -43,13 +43,13 @@ export class ProfileComponent implements OnInit {
       this.user.setAboutUser(this.aboutUser);
       this.user.setBirthDate(this.birthDate);
 
-      this.userService.changeUserProfile(this.user).subscribe(
+      this.userService.changeUser(this.user).subscribe(
         res => {
           window.location.reload();
 
         },
         err => {
-          window.alert("Nie udało połączyć się z serwerem");
+          window.alert("Cannot connect with server");
         }
       );
   }

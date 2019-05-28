@@ -31,8 +31,11 @@ export class UserService {
     return this.http.get<Users>(`${api_url}/user_by_userName?userName=${userName}`);
   }
 
-  changeUserProfile(obj: Users): Observable<Users> {
-    return this.http.put<Users>(`${api_url}/edit_user_profile`, obj);
+  changeUser(obj: Users): Observable<Users> {
+    return this.http.put<Users>(`${api_url}/edit`, obj);
+  }
+  changeUserPassword(obj: Users, oldPassword: string): Observable<Users> {
+    return this.http.put<Users>(`${api_url}/changePassword?oldPassword=${oldPassword}`, obj);
   }
 
 }

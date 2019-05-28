@@ -1,5 +1,5 @@
 <div id = "centerDiv">
-    <div id = "head">Public Profile</div>
+    <div id = "head">Account Settings</div>
     <br>
     <form id = "profileForm">
       <div class = "separateDiv">
@@ -7,16 +7,26 @@
         <input type = "text" name = "userName" [(ngModel)]="userName" class = "inputText" >
       </div><br>
       <div class = "separateDiv">
+          <button (click)="changeUsername()">Change Username</button>
+      </div><br>
+      <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Email</i><br></div>
+          <input type = "text" name = "newEmail" [(ngModel)]="newEmail" class = "inputText" >
+        </div><br>
+        <div class = "separateDiv">
+            <button (click)="changeEmail()">Change Email</button>
+        </div><br>
+      <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Old Password</i><br></div>
-        <input type = "text" name = "oldPassword" class = "oldPassword" [(ngModel)]="oldPassword">
+        <input type = "password" name = "oldPassword" class = "inputText" [(ngModel)]="oldPassword">
       </div><br>
       <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>New Password</i><br></div>
-        <input type = "text" name = "newPassword" class = "newPassword" [(ngModel)]="newPassword">
+        <input type = "password" name = "newPassword" class = "inputText" [(ngModel)]="newPassword">
       </div><br>
       <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Repeat Password</i><br></div>
-        <input type = "date" name = "repeatPassword" class = "repeatPassword" [(ngModel)]="repeatPassword">
+        <input type = "password" name = "repeatPassword" class = "inputText" [(ngModel)]="repeatPassword">
     </div><br>
     <div class = "separateDiv">
       <button (click)="changePassword()">Change Password</button>
