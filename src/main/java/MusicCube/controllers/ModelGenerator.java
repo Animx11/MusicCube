@@ -66,7 +66,12 @@ public class ModelGenerator {
         Localization uk = new Localization("United Kingdom","","");
         Localization wolver = new Localization("England","Wolverhampton","");
 
-        Band judas = new Band("Judas Priest",new Date(70,01,01),birmingham);
+        //Band judas = new Band("Judas Priest",new Date(70,01,01),birmingham);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR,1970);
+        Date date = cal.getTime();
+        System.out.println(date);
+        Band judas = new Band("Judas Priest",date,birmingham);
 
         Album britishSteelAlbum = new Album("British Steel",
                 2162,new Date(80,4,14),
