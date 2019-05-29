@@ -1,5 +1,7 @@
 <div *ngIf="song" class="contentDisplay">
   <h4>{{song.songName}}</h4>
-  <h5>Song by <a routerLink="/band/{{song.band.id}}">{{song.band.bandName}}</a></h5>
-  Album: {{song.album.albumName}}
+  <h5>Song<span *ngIf="song.band"> by <a routerLink="/band/{{song.band.id}}">{{song.band.bandName}}</a></span></h5>
+  <div *ngIf="song.album">Album: {{song.album.albumName}}</div>
+  <div *ngIf="song.songLengthSeconds">Length: {{song.songLengthSeconds}}</div>
+
 </div>

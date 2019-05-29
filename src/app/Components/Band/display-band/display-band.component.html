@@ -1,7 +1,7 @@
 <div *ngIf="band" class="contentDisplay">
   <h4>{{band.bandName}}</h4>
-  <h5>Band from {{band.formedIn.city}}, {{band.formedIn.country}}</h5>
-  Formed in {{band.creationDate | date: 'yyyy'}}
+  <h5>Band<span *ngIf="band.formedIn"> from {{band.formedIn.cityName}}, {{band.formedIn.country.countryName}}</span></h5>
+  <span *ngIf="band.creationDate">Formed in {{band.creationDate | date: 'yyyy'}}</span>
   <h5>Current lineup</h5>
   <ul>
     <li *ngFor="let artist of currentLnp">
