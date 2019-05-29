@@ -72,7 +72,7 @@ public class MusicbrainzDataLoader {
                 countryService.save(country);
             }
 
-            cityName = bandJSON.getJSONObject("begin-area").getString("name");
+            cityName = bandJSON.getJSONObject("begin-area").getString("name"); // miasta na tych samych zasadach
             if (cityService.exists(cityName)) {
                 city = cityService.getByCityName(cityName);
             } else {
@@ -80,8 +80,7 @@ public class MusicbrainzDataLoader {
                 cityService.save(city);
             }
 
-
-            band = new Band(bandName, bandCreation, city);
+            band = new Band(bandName, bandCreation, city);// mamy już wszyskto, czego potrzeba do zapisania zespołu
             bandService.save(band);
 
             Thread.sleep(WAIT_BETWEEN_REQUESTS);
