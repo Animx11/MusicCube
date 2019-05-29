@@ -65,7 +65,7 @@ public class UserController {
         return userService.getByUserName(userName);
     }
 
-    @RequestMapping(value = "/edit_user_profile",method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit",method = RequestMethod.PUT)
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull User user) {
 
         User takeUser = userService.getById(user.getId()).orElse(takeUser = null);
@@ -73,6 +73,31 @@ public class UserController {
         if(takeUser != null){
             userService.save(user);
             return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.PUT)
+    public ResponseEntity<Void> changePassword(@RequestBody @Valid @NotNull User user, @RequestParam("oldPassword") String oldPassword) {
+
+        User takeUser = userService.getById(user.getId()).orElse(takeUser = null);
+        String pass1 = passwordEncoder.encode(oldPassword);
+        String pass2 = passwordEncoder.encode(oldPassword);
+        String pass3 = passwordEncoder.encode("user12");
+
+        if(takeUser != null){
+            if(takeUser.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                userService.save(user);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
         }
         else{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
