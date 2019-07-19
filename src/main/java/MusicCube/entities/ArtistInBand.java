@@ -3,6 +3,7 @@ package MusicCube.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -20,7 +21,10 @@ public class ArtistInBand {
     private Band band;
 
     @Column
-    private String yearsActive;
+    private Date activityStart;
+
+    @Column
+    private Date activityEnd;
 
     @Column
     private boolean isActive;
@@ -30,10 +34,11 @@ public class ArtistInBand {
 
     public ArtistInBand() {}
 
-    public ArtistInBand(Artist artist, Band band, String yearsActive, boolean isActive, String roles) {
+    public ArtistInBand(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String roles) {
         this.artist = artist;
         this.band = band;
-        this.yearsActive = yearsActive;
+        this.activityStart = activityStart;
+        this.activityEnd = activityEnd;
         this.isActive = isActive;
         this.roles = roles;
     }
@@ -70,12 +75,20 @@ public class ArtistInBand {
         this.band = band;
     }
 
-    public String getYearsActive() {
-        return yearsActive;
+    public Date getActivityStart() {
+        return activityStart;
     }
 
-    public void setYearsActive(String yearsActive) {
-        this.yearsActive = yearsActive;
+    public void setActivityStart(Date activityStart) {
+        this.activityStart = activityStart;
+    }
+
+    public Date getActivityEnd() {
+        return activityEnd;
+    }
+
+    public void setActivityEnd(Date activityEnd) {
+        this.activityEnd = activityEnd;
     }
 
     public String getRoles() {

@@ -39,5 +39,13 @@ public class CountryServiceImpl implements CountryService {
     public boolean existsByCountryName(String countryName){
         return countryRepository.existsByCountryName(countryName);
     }
+    @Override
+    public boolean existsByCode(String countryCode){
+        return countryRepository.existsByCode(countryCode);
+    }
 
+    @Override
+    public Country getOneByCode(String code) {
+        return countryRepository.findOneByCode(code);
+    }
 }

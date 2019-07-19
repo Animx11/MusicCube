@@ -14,7 +14,10 @@ public interface CountryService {
     Iterable<Country> getByCountryName(String countryName);
     Iterable<Country> getByCode(String code);
 
+    Country getOneByCode(String code);
+
     boolean existsByCountryName(String countryName);
+    boolean existsByCode(String countryCode);
 
 
 }
