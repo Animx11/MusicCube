@@ -3,7 +3,7 @@ import { Users } from 'src/app/Class/Users';
 import { UserService } from 'src/app/Services/user.service';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { userInfo } from 'os';
-import { SignIn } from 'src/app/Class/SignIn';
+import { SignIn } from 'src/app/Class/user/SignIn';
 import { this_url } from 'src/app/Services/API_URL';
 
 const thisUrl = this_url;
@@ -82,7 +82,6 @@ export class AccountComponent implements OnInit {
                 window.location.replace(thisUrl);
               },
               err => {
-                window.alert(err == 409);
                 if(err == 409){
                  window.alert('Old password doesnt match');
                }

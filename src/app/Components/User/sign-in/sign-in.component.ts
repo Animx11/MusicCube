@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {UserService} from '../../../Services/user.service';
-import { SignIn } from 'src/app/Class/SignIn';
+import { UserService } from '../../../Services/user.service';
+import { SignIn } from 'src/app/Class/user/SignIn';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { this_url } from 'src/app/Services/API_URL';
 
-const thisURL = this_url
+const thisURL = this_url;
 
 @Component({
   selector: 'app-sign-in',

@@ -30,7 +30,7 @@ export class Users {
   getUserName(): string {
     return this.userName;
   }
-  
+
   getPassword(): string {
     return this.password;
   }

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Users } from '../Class/Users';
 import { JwtResponse } from '../Class/JwtResponse';
 import {Observable, from} from 'rxjs';
-import { SignIn } from '../Class/SignIn';
+import { SignIn } from '../Class/user/SignIn';
 
 import { api_url } from "./API_URL";
 
