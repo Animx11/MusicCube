@@ -31,8 +31,13 @@ public class DataLoader {
     private RestTemplate restTemplate = new RestTemplate();
     private ResponseEntity<String> response;
     private ObjectMapper mapper = new ObjectMapper();
-    private static final String SAVED = " successfully saved.";
+
     private static final int ITERATIONS = 3;
+    private static final String SAVED = " successfully saved.";
+    private static final String BGN_AREA = "begin_area";
+    private static final String LF_SPAN = "life-span";
+    private static final String FMT = "?fmt=json";
+
     @Autowired
     private BandService bandService;
     @Autowired
@@ -72,7 +77,7 @@ public class DataLoader {
         return obj.has("area") &&
                 obj.has("begin-area") &&
                 obj.has("name") &&
-                obj.has("life-span");
+                obj.has(LF_SPAN);
 
     }
 
@@ -105,7 +110,7 @@ public class DataLoader {
      */
     private City getCity(String countryId, String areaId) throws IOException, InterruptedException {
         Thread.sleep(600);
-        response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/area/"+countryId+"?fmt=json",String.class);
+        response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/area/"+countryId+FMT,String.class);
         JSONObject obj = new JSONObject(response.getBody());
         String code = obj.getJSONArray("iso-3166-1-codes").getString(0);
         Country country;
@@ -120,7 +125,7 @@ public class DataLoader {
         }
 
         Thread.sleep(600);
-        response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/area/"+areaId+"?fmt=json",String.class);
+        response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/area/"+areaId+FMT,String.class);
         obj = new JSONObject(response.getBody());
         String name = obj.getString("name");
         City city;
@@ -170,13 +175,13 @@ public class DataLoader {
         else {
             try {
                 Thread.sleep(600);
-                response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/" + mbid + "?fmt=json", String.class);
+                response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/" + mbid + FMT, String.class);
                 JSONObject obj = new JSONObject(response.getBody());
                 if (checkArtist(obj)) {
                     artist = mapper.readValue(obj.toString(), Artist.class);
                     artist.setOrigin(getCity(
                             obj.getJSONObject("area").getString("id"),
-                            obj.getJSONObject("begin_area").getString("id")
+                            obj.getJSONObject(BGN_AREA).getString("id")
                     ));
                     artistService.save(artist);
                     logger.info("Artist " + artist.getStageName() + SAVED);
@@ -197,11 +202,11 @@ public class DataLoader {
      */
     private boolean checkArtist(JSONObject obj) {
         return obj.has("name") &&
-                obj.has("life-span") &&
+                obj.has(LF_SPAN) &&
                 obj.has("area") &&
-                obj.has("begin_area") &&
-                ! obj.isNull("begin_area") &&
-                ! obj.getJSONObject("life-span").isNull("begin");
+                obj.has(BGN_AREA) &&
+                ! obj.isNull(BGN_AREA) &&
+                ! obj.getJSONObject(LF_SPAN).isNull("begin");
     }
 
     /*

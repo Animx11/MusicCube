@@ -1,7 +1,6 @@
 package musiccube.deserializers;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,7 +14,7 @@ public class CountryDeserializer extends StdDeserializer<Country> {
     public CountryDeserializer(Class<?> vc) { super(vc); }
 
     @Override
-    public Country deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public Country deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         Country country = new Country();
         ObjectCodec objectCodec = jsonParser.getCodec();
         JsonNode jsonNode = objectCodec.readTree(jsonParser);
