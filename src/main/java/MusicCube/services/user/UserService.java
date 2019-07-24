@@ -3,6 +3,7 @@ package MusicCube.services.user;
 import MusicCube.entities.Role;
 import MusicCube.entities.RoleName;
 import MusicCube.entities.User;
+import MusicCube.user.UserProfile;
 
 import java.util.Optional;
 

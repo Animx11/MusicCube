@@ -6,6 +6,7 @@ import MusicCube.entities.RoleName;
 import MusicCube.entities.User;
 import MusicCube.repositories.RoleRepository;
 import MusicCube.repositories.UserRepository;
+import MusicCube.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -4,8 +4,9 @@ import MusicCube.entities.User;
 
 import java.util.Date;
 
-public class userProfile {
+public class UserProfile {
 
+    private int id;
     private String userName;
     private String email;
     private String firstName;
@@ -15,10 +16,11 @@ public class userProfile {
 
     // Constructors
 
-    public userProfile() {
+    public UserProfile() {
     }
 
-    public userProfile(User user) {
+    public UserProfile(User user) {
+        this.id = user.getId();
         this.userName = user.getUserName();
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
@@ -27,7 +29,8 @@ public class userProfile {
         this.aboutUser = user.getAboutUser();
     }
 
-    public userProfile(String userName, String email, String firstName, String lastName, Date birthDate, String aboutUser) {
+    public UserProfile(int id, String userName, String email, String firstName, String lastName, Date birthDate, String aboutUser) {
+        this.id = id;
         this.userName = userName;
         this.email = email;
         this.firstName = firstName;
@@ -36,7 +39,11 @@ public class userProfile {
         this.aboutUser = aboutUser;
     }
 
-    // Getters and Setters
+// Getters and Setters
+
+    public int getId() {
+        return id;
+    }
 
     public String getUserName() {
         return userName;

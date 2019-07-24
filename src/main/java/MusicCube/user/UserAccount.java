@@ -2,30 +2,38 @@ package MusicCube.user;
 
 import MusicCube.entities.User;
 
-public class userAccount {
+public class UserAccount {
 
+    private int id;
     private String userName;
     private String password;
     private String email;
 
     // Constructors
 
-    public userAccount() {
+    public UserAccount() {
     }
 
-    public userAccount(User user) {
+    public UserAccount(User user) {
+        this.id = user.getId();
         this.userName = user.getUserName();
         this.password = user.getPassword();
         this.email = user.getEmail();
     }
 
-    public userAccount(String userName, String password, String email) {
+    public UserAccount(int id, String userName, String password, String email) {
+        this.id = id;
         this.userName = userName;
         this.password = password;
         this.email = email;
     }
 
-    // Getters and Setters
+// Getters and Setters
+
+
+    public int getId() {
+        return id;
+    }
 
     public String getUserName() {
         return userName;
