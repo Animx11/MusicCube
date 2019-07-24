@@ -1,0 +1,151 @@
+package musiccube.controllers;
+
+
+import musiccube.entities.Role;
+import musiccube.entities.RoleName;
+import musiccube.entities.User;
+import musiccube.jwt.JwtProvider;
+import musiccube.jwt.JwtResponse;
+import musiccube.repositories.RoleRepository;
+import musiccube.services.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtProvider jwtProvider;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @RequestMapping(value = "/user", method = RequestMethod.DELETE)
+    public ResponseEntity<User> delete(@RequestParam("id") Integer id){
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user_by_id", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<User> getById(@RequestParam("id") int id){
+        return userService.getById(id);
+    }
+
+    @RequestMapping(value = "/user_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<User> getByUserName(@RequestParam("userName") String userName){
+        return userService.getByUserName(userName);
+    }
+
+    @RequestMapping(value = "/edit",method = RequestMethod.PUT)
+    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull User user) {
+
+        User takeUser = userService.getById(user.getId()).orElse(takeUser = null);
+
+        if(takeUser != null){
+            userService.save(user);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @RequestMapping(value = "/changePassword", method = RequestMethod.PUT)
+    public ResponseEntity<Void> changePassword(@RequestBody @Valid @NotNull User user, @RequestParam("oldPassword") String oldPassword) {
+
+        User takeUser = userService.getById(user.getId()).orElse(takeUser = null);
+
+
+        if(takeUser != null){
+           // if(takeUser.getPassword().equals(passwordEncoder.encode(oldPassword))) {
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+                userService.save(user);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            //}
+            //else{
+              //  return new ResponseEntity<>(HttpStatus.CONFLICT);
+            //}
+
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<User> listUsers(){
+        return userService.listUsers();
+    }
+
+    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> signUp(@RequestBody @Valid @NotNull User user){
+
+        if(userService.existsByUserName(user.getUserName())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if (userService.existsByEmail(user.getEmail())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        Set<Role> roles = new HashSet<>();
+        Role role = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow(() -> new RuntimeException("Fail! -> User Role not found"));
+
+        roles.add(role);
+
+        user.setRoles(roles);
+
+        userService.save(user);
+
+        return ResponseEntity.ok().body(user);
+    }
+
+    @RequestMapping(value = "/auth/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> signIn(@RequestBody @Valid @NotNull User user){
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword())
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtProvider.generateJwt(authentication);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+
+    }
+
+
+}
