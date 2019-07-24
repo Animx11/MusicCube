@@ -1,16 +1,22 @@
 export class UserAccount {
 
+    id: number;
     private userName: string;
     private password: string;
     private email: string;
 
     constructor(obj?: any) {
+      this.id = (obj && obj.id) || 0;
       this.userName = (obj && obj.userName) || '';
       this.password = (obj && obj.password) || '';
       this.email = (obj && obj.email) || '';
     }
 
     // Getters
+
+    getId(): number {
+      return this.id;
+    }
 
     getUserName(): string {
       return this.userName;

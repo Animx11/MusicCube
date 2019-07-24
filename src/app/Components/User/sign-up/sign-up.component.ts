@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Users} from '../../../Class/Users';
-import {UserService} from '../../../Services/user.service';
+import { UserAccount } from '../../../Class/UserAccount'
+import { UserService } from '../../../Services/user.service';
 import { this_url } from 'src/app/Services/API_URL';
 
 const thisURL = this_url;
@@ -15,7 +15,7 @@ export class SignUpComponent implements OnInit {
   userName: string;
   password: string;
   email: string;
-  user: Users;
+  user: UserAccount;
 
   constructor(private userService: UserService) { }
 
@@ -24,7 +24,7 @@ export class SignUpComponent implements OnInit {
     this.userName = '';
     this.password = '';
     this.email = '';
-    this.user = new Users();
+    this.user = new UserAccount();
 
   }
 
@@ -45,7 +45,7 @@ export class SignUpComponent implements OnInit {
     this.userName = '';
     this.password = '';
     this.email = '';
-    this.user = new Users();
+    this.user = new UserAccount();
 
   }
 

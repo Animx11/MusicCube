@@ -1,5 +1,6 @@
 export class UserProfile {
 
+    id: number;
     private userName: string;
     private email: string;
     private firstName: string;
@@ -9,6 +10,7 @@ export class UserProfile {
 
 
   constructor(obj?: any) {
+      this.id = (obj && obj.id) || 0;
       this.userName = (obj && obj.userName) || '';
       this.email = (obj && obj.email) || '';
       this.firstName = (obj && obj.firstName) || '';
@@ -18,6 +20,10 @@ export class UserProfile {
   }
 
   // Getters
+
+  getId(): number {
+    return this.id;
+  }
 
   getUserName(): string {
     return this.userName;
