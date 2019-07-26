@@ -14,8 +14,6 @@ public interface UserService {
 
     Optional<User> getById(int id);
     Optional<User> getByUserName(String userName);
-    String getPasswordByUserName(String userName);
-    Optional<Role> getByName(RoleName roleName);
     Iterable<User> listUsers();
 
     boolean existsByUserName(String userName);

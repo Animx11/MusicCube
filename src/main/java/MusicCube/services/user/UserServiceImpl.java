@@ -51,16 +51,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public String getPasswordByUserName(String userName){
-        return userRepository.findPasswordByUserName(userName);
-    }
-
-    @Override
-    public Optional<Role> getByName(RoleName roleName){
-        return roleRepository.findByName(roleName);
-    }
-
-    @Override
     public boolean existsByUserName(String userName){
         return userRepository.existsByUserName(userName);
     }

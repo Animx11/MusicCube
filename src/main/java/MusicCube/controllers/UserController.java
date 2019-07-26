@@ -7,9 +7,11 @@ import MusicCube.entities.User;
 import MusicCube.jwt.JwtProvider;
 import MusicCube.jwt.JwtResponse;
 import MusicCube.repositories.RoleRepository;
+import MusicCube.services.user.UserPrinciple;
 import MusicCube.services.user.UserService;
 import MusicCube.user.UserAccount;
 import MusicCube.user.UserProfile;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -48,6 +51,21 @@ public class UserController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private HttpServletRequest HttpRequest;
+
+    private String getJwt(HttpServletRequest HttpRequest){
+
+        String authHeader = HttpRequest.getHeader("Authorization");
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.replace("Bearer ", "");
+        }
+
+        return null;
+
+    }
 
     // Delete User
 
@@ -89,6 +107,7 @@ public class UserController {
 
     // User Profile
 
+
     @RequestMapping(value = "/userProfile_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<UserProfile> getProfileByUserName(@RequestParam("userName") String userName){
         User user = userService.getByUserName(userName).orElse(new User());
@@ -99,112 +118,89 @@ public class UserController {
     @RequestMapping(value = "/edit_userProfile",method = RequestMethod.PUT)
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull UserProfile userProfile) {
 
-        User takeUser = userService.getById(userProfile.getId()).orElse(null);
+            User takeUser = userService.getById(userProfile.getId()).orElse(null);
+            if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+                if (takeUser != null) {
 
-        if(takeUser != null){
-            takeUser.setFirstName(userProfile.getFirstName());
-            takeUser.setLastName(userProfile.getLastName());
-            takeUser.setBirthDate(userProfile.getBirthDate());
-            takeUser.setAboutUser(userProfile.getAboutUser());
-            userService.save(takeUser);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+                        takeUser.setFirstName(userProfile.getFirstName());
+                        takeUser.setLastName(userProfile.getLastName());
+                        takeUser.setBirthDate(userProfile.getBirthDate());
+                        takeUser.setAboutUser(userProfile.getAboutUser());
+                        userService.save(takeUser);
+                        return new ResponseEntity<>(HttpStatus.CREATED);
+                    }
 
+                else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
     }
 
     // User Account
-/*
-    @RequestMapping(value = "/changePassword", method = RequestMethod.PUT)
-    public ResponseEntity<Void> changePassword(@RequestBody @Valid @NotNull User user, @RequestParam("oldPassword") String oldPassword) {
-
-        User takeUser = userService.getById(user.getId()).orElse(takeUser = null);
-
-
-        if(takeUser != null){
-           // if(takeUser.getPassword().equals(passwordEncoder.encode(oldPassword))) {
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-                userService.save(user);
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            //}
-            //else{
-              //  return new ResponseEntity<>(HttpStatus.CONFLICT);
-            //}
-
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-    }
-*/
 
     @RequestMapping(value = "/edit_userName", method = RequestMethod.PUT)
     public ResponseEntity<?> editUserName(@RequestParam("newUserName") String newUserName, @RequestBody @Valid @NotNull UserAccount userAccount){
         User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
-
-        if(takeUser != null){
-            if(!userService.existsByUserName(newUserName)){
-                if(passwordEncoder.matches(userAccount.getPassword(), takeUser.getPassword())) {
+        if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+            if (takeUser != null) {
+                if (!userService.existsByUserName(newUserName)) {
                     takeUser.setUserName(newUserName);
                     userService.save(takeUser);
                     return new ResponseEntity<>(HttpStatus.CREATED);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.CONFLICT);
                 }
-                else{
-                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-                }
-            }
-            else{
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
-            }
 
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
-        else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @RequestMapping(value = "edit_email", method = RequestMethod.PUT)
     public ResponseEntity<?> editEmail(@RequestBody @Valid @NotNull UserAccount userAccount){
         User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
-        if(takeUser != null) {
-            if(!userService.existsByEmail(userAccount.getEmail())){
-                if(passwordEncoder.matches(userAccount.getPassword(), takeUser.getPassword())){
+        if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+            if(takeUser != null) {
+                if(!userService.existsByEmail(userAccount.getEmail())){
                     takeUser.setEmail(userAccount.getEmail());
                     userService.save(takeUser);
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 }
                 else{
-                    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+                    return new ResponseEntity<>(HttpStatus.CONFLICT);
                 }
             }
-            else{
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
     @RequestMapping(value = "/edit_password", method = RequestMethod.PUT)
     public ResponseEntity<?> editPassword(@RequestParam("newPassword") String newPassword, @RequestBody @Valid @NotNull UserAccount userAccount){
         User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
-
-        if(takeUser != null){
-            if(passwordEncoder.matches(userAccount.getPassword(), takeUser.getPassword())){
-                takeUser.setPassword(passwordEncoder.encode(newPassword));
-                userService.save(takeUser);
-                return new ResponseEntity<>(HttpStatus.CREATED);
+        if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+            if (takeUser != null) {
+                if (passwordEncoder.matches(userAccount.getPassword(), takeUser.getPassword())) {
+                    takeUser.setPassword(passwordEncoder.encode(newPassword));
+                    userService.save(takeUser);
+                    return new ResponseEntity<>(HttpStatus.CREATED);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.CONFLICT);
+                }
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            else{
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
-            }
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -223,11 +219,11 @@ public class UserController {
         User user = new User();
 
         if(userService.existsByUserName(userAccount.getUserName())){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         if (userService.existsByEmail(userAccount.getEmail())){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
 

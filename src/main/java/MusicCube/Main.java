@@ -1,5 +1,7 @@
 package MusicCube;
 
+import MusicCube.controllers.ModelGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -15,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableJpaRepositories("MusicCube.repositories")
 public class Main extends SpringBootServletInitializer {
-
+    
     @Bean
     public Docket mcApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -27,6 +29,9 @@ public class Main extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Main.class);
     }
+
+
+
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
