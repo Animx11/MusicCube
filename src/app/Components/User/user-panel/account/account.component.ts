@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
   user: Users;
   userAccount: UserAccount;
 
-  
+
   constructor(private userService: UserService, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit() {
@@ -38,43 +38,40 @@ export class AccountComponent implements OnInit {
   }
 
   changeUsername() {
-    if(this.tokenStorageService.getUsername() === this.userName){
+    if (this.tokenStorageService.getUsername() === this.userName) {
       window.alert('New username must be different from old one');
-    }
-    else if(this.userName === ''){
+    } else if (this.userName === '') {
       window.alert(`Username cannot be blank`);
-    }
-    else{
+    } else {
       this.userAccount = new UserAccount();
       this.userAccount.setUserName(this.tokenStorageService.getUsername());
       this.userService.changeUserName(this.userName, this.userAccount).subscribe(
-        res => {
-          this.tokenStorageService.signOut();
-          window.location.replace(thisUrl);
-        },
-        err => {
-          console.log(err.status);
-          if (err.status === 401) {
-            window.alert('Session is expired, try to sign in again');
-          } else if (err.status === 409) {
-            window.alert(`This username is taken`);
-          } else if (err.status === 400) {
-            window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
-          } else {
-            window.alert(`Connection with server failed`);
+          res => {
+            this.tokenStorageService.signOut();
+            window.location.replace(thisUrl);
+          },
+          err => {
+            console.log(err.status);
+            if (err.status === 401) {
+              window.alert('Session is expired, try to sign in again');
+            } else if (err.status === 409) {
+              window.alert(`This username is taken`);
+            } else if (err.status === 400) {
+              window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
+            } else {
+              window.alert(`Connection with server failed`);
+            }
           }
-        }
-      )
+        );
     }
 
   }
   changeEmail() {
 
           this.userAccount = new UserAccount();
-          if(this.newEmail === ''){
+          if (this.newEmail === '') {
             window.alert('Email cannot be blank');
-          }
-          else{
+          } else {
             this.userAccount.setEmail(this.newEmail);
             this.userAccount.setUserName(this.tokenStorageService.getUsername());
             this.userService.changeEmail(this.userAccount).subscribe(
@@ -99,26 +96,22 @@ export class AccountComponent implements OnInit {
 
   changePassword() {
 
-    if(this.oldPassword == '' || this.newPassword == '' || this.repeatPassword == ''){
+    if (this.oldPassword === '' || this.newPassword === '' || this.repeatPassword === '') {
       window.alert('None of password entity cannot by blanc');
-    }
-    else if(this.oldPassword == this.newPassword){
+    } else if (this.oldPassword === this.newPassword) {
       window.alert('New and old password must be different');
-    }
-    else if(this.newPassword != this.repeatPassword){
+    } else if (this.newPassword !== this.repeatPassword) {
       window.alert('New and repeated password are different');
-    }
-    else if(this.newPassword.length < 6){
+    } else if (this.newPassword.length < 6) {
       window.alert('Password is too short');
-    }
-    else{
+    } else {
       this.userAccount = new UserAccount();
       this.userAccount.setUserName(this.tokenStorageService.getUsername());
       this.userAccount.setPassword(this.oldPassword);
       this.userService.changePassword(this.userAccount, this.newPassword).subscribe(
         res => {
           this.tokenStorageService.signOut();
-          window.location.replace(thisUrl);    
+          window.location.replace(thisUrl);
         },
         err => {
           console.log(err.status);

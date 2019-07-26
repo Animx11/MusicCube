@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
           console.log(err.status);
           if (err.status === 400) {
             window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
-          } else if (err.status === 401){
+          } else if (err.status === 401) {
             window.alert('Session expired, try sign in again');
           } else {
             window.alert('Connection with server failed');
