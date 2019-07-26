@@ -16,13 +16,17 @@ public class DataLoader {
     private LineupHandler lineupHandler;
     @Autowired
     private BandHandler bandHandler;
+    @Autowired
+    private DiscographyHandler discographyHandler;
 
     @PostConstruct
     public void generate() throws IOException, InterruptedException {
         for (int i=0;i<Constants.ITERATIONS;i++) {
             Band band = bandHandler.getBand(i);
-            if (band != null)
+            if (band != null) {
                 lineupHandler.getLineup(band);
+                discographyHandler.getAlbums(band);
+            }
             else
                 logger.warn("Band json lacking important fields, ignoring.");
         }

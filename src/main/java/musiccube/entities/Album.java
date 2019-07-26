@@ -26,19 +26,21 @@ public class Album {
     @Column
     private String company;
 
+    @Column
+    private String coverArtLink;
+
+    @Column
+    private String type;
+
     public Album() {}
 
-    public Album(String albumName, int albumLengthSeconds, String company) {
-        this.albumName = albumName;
-        this.albumLengthSeconds = albumLengthSeconds;
-        this.company = company;
-    }
-
-    public Album(String albumName, int albumLengthSeconds, Date releaseDate, String company) {
+    public Album(String albumName, int albumLengthSeconds, Date releaseDate, String company, String coverArtLink, String type) {
         this.albumName = albumName;
         this.albumLengthSeconds = albumLengthSeconds;
         this.releaseDate = releaseDate;
         this.company = company;
+        this.coverArtLink = coverArtLink;
+        this.type = type;
     }
 
     public int getId() {
@@ -79,5 +81,21 @@ public class Album {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public String getCoverArtLink() {
+        return coverArtLink;
+    }
+
+    public void setCoverArtLink(String coverArtLink) {
+        this.coverArtLink = coverArtLink;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

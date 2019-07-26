@@ -14,7 +14,7 @@ public class Song {
     private String songName;
 
     @Column
-    private int trackNumber;
+    private String trackNumber;
 
     @Column
     private int songLengthSeconds;
@@ -30,7 +30,7 @@ public class Song {
 
     public Song() {}
 
-    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre) {
+    public Song(String songName, String trackNumber, int songLengthSeconds, Album album, Band band, Genre genre) {
         this.songName = songName;
         this.trackNumber = trackNumber;
         this.songLengthSeconds = songLengthSeconds;
@@ -38,14 +38,6 @@ public class Song {
         this.band = band;
         this.genre = genre;
     }
-
-    public Song(String songName, int songLengthSeconds, Album album, Band band) {
-        this.songName = songName;
-        this.songLengthSeconds = songLengthSeconds;
-        this.album = album;
-        this.band = band;
-    }
-
 
     public int getId() {
         return id;
@@ -63,11 +55,11 @@ public class Song {
         this.songName = songName;
     }
 
-    public int getTrackNumber() {
+    public String getTrackNumber() {
         return trackNumber;
     }
 
-    public void setTrackNumber(int trackNumber) {
+    public void setTrackNumber(String trackNumber) {
         this.trackNumber = trackNumber;
     }
 
