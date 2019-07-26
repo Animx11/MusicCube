@@ -8,7 +8,7 @@ import { SELECT_VALUE_ACCESSOR } from '@angular/forms/src/directives/select_cont
 import { browser } from 'protractor';
 import { UserProfile } from 'src/app/Class/UserProfile';
 
-const thisURL = this_url
+const thisURL = this_url;
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -50,7 +50,14 @@ export class ProfileComponent implements OnInit {
           window.location.reload();
         },
         err => {
-          window.alert("Cannot connect with server");
+          console.log(err.status);
+          if (err.status === 400) {
+            window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
+          } else if (err.status === 401){
+            window.alert('Session expired, try sign in again');
+          } else {
+            window.alert('Connection with server failed');
+          }
         }
       );
   }

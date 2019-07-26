@@ -47,15 +47,22 @@ export class AccountComponent implements OnInit {
     else{
       this.userAccount = new UserAccount();
       this.userAccount.setUserName(this.tokenStorageService.getUsername());
-      this.password = window.prompt("Podaj hasło");
-      this.userAccount.setPassword(this.password);
       this.userService.changeUserName(this.userName, this.userAccount).subscribe(
         res => {
           this.tokenStorageService.signOut();
           window.location.replace(thisUrl);
         },
         err => {
-          window.alert(`This username is taken`);
+          console.log(err.status);
+          if (err.status === 401) {
+            window.alert('Session is expired, try to sign in again');
+          } else if (err.status === 409) {
+            window.alert(`This username is taken`);
+          } else if (err.status === 400) {
+            window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
+          } else {
+            window.alert(`Connection with server failed`);
+          }
         }
       )
     }
@@ -70,52 +77,28 @@ export class AccountComponent implements OnInit {
           else{
             this.userAccount.setEmail(this.newEmail);
             this.userAccount.setUserName(this.tokenStorageService.getUsername());
-            this.password = window.prompt("Podaj hasło");
-            this.userAccount.setPassword(this.password);
             this.userService.changeEmail(this.userAccount).subscribe(
               res => {
                 window.location.reload();
               },
               err => {
                 console.log(err.status);
+                if (err.status === 409) {
+                  window.alert(`This email is taken`);
+                } else if (err.status === 401) {
+                  window.alert('Session is expired, try to sign in again');
+                } else if (err.status === 400) {
+                  window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
+                } else {
+                  window.alert(`Connection with server failed`);
+                }
               }
             );
           }
         }
 
   changePassword() {
-    /*
-      if(this.oldPassword == '' || this.newPassword == '' || this.repeatPassword == ''){
-        window.alert('None of password entity cannot by blanc');
-      }
-      else if(this.oldPassword == this.newPassword){
-        window.alert('New and old password must be different');
-      }
-      else if(this.newPassword != this.repeatPassword){
-        window.alert('New and repeated password are different');
-      }
-      else if(this.newPassword.length < 6){
-        window.alert('Password is too short');
-      }
-      else{
-        this.userService.takeUserInfo(this.tokenStorageService.getUsername()).subscribe(
-          res => {
-            this.user = new Users(res);
-            this.user.setPassword(this.newPassword);
-            this.userService.changeUserPassword(this.user, this.oldPassword).subscribe(res =>
-              {
-                this.tokenStorageService.signOut();
-                window.location.replace(thisUrl);
-              },
-              err => {
-                if(err == 409){
-                 window.alert('Old password doesnt match');
-               }
-              })
-  
-        });
-      }
-  */
+
     if(this.oldPassword == '' || this.newPassword == '' || this.repeatPassword == ''){
       window.alert('None of password entity cannot by blanc');
     }
@@ -138,7 +121,16 @@ export class AccountComponent implements OnInit {
           window.location.replace(thisUrl);    
         },
         err => {
-
+          console.log(err.status);
+          if (err.status === 409) {
+            window.alert(`Old password is incorrect`);
+          } else if (err.status === 401) {
+            window.alert('Session is expired, try to sign in again');
+          } else if (err.status === 400) {
+            window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
+          } else {
+            window.alert(`Connection with server failed`);
+          }
         }
       );
     }

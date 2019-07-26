@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserAccount } from '../../../Class/UserAccount'
+import { UserAccount } from '../../../Class/UserAccount';
 import { UserService } from '../../../Services/user.service';
 import { this_url } from 'src/app/Services/API_URL';
 
@@ -34,8 +34,15 @@ export class SignUpComponent implements OnInit {
     this.user.setPassword(this.password);
     this.user.setEmail(this.email);
     this.userService.signUp(this.user).subscribe(
-      r => {window.location.assign(thisURL);},
-      e => {console.log(e);}
+      res => {window.location.assign(thisURL); },
+      err => {
+        console.log(err);
+        if (err.status === 409) {
+          window.alert('Username and/or email is taken');
+        } else {
+          window.alert('Connection with server failed');
+        }
+      }
     );
 
   }
