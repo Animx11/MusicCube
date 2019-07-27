@@ -21,7 +21,6 @@ public class SongDeserializer extends StdDeserializer<Song> {
 
         song.setSongName(jsonNode.get("title").asText());
         song.setSongLengthSeconds(jsonNode.get("length").asInt() / 1000);
-        song.setTrackNumber(jsonNode.get("number").asText());
 
         return song;
     }

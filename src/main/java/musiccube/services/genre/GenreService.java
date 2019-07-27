@@ -13,4 +13,6 @@ public interface GenreService {
     void delete(int id);
 
     Iterable<Genre> getByGenreName(String genreName);
+    Genre getOneByGenreName(String genreName);
+    boolean existsByName(String name);
 }

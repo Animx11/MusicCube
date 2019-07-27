@@ -14,7 +14,7 @@ public class Song {
     private String songName;
 
     @Column
-    private String trackNumber;
+    private int trackNumber;
 
     @Column
     private int songLengthSeconds;
@@ -30,7 +30,7 @@ public class Song {
 
     public Song() {}
 
-    public Song(String songName, String trackNumber, int songLengthSeconds, Album album, Band band, Genre genre) {
+    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre) {
         this.songName = songName;
         this.trackNumber = trackNumber;
         this.songLengthSeconds = songLengthSeconds;
@@ -55,11 +55,11 @@ public class Song {
         this.songName = songName;
     }
 
-    public String getTrackNumber() {
+    public int getTrackNumber() {
         return trackNumber;
     }
 
-    public void setTrackNumber(String trackNumber) {
+    public void setTrackNumber(int trackNumber) {
         this.trackNumber = trackNumber;
     }
 
