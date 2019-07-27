@@ -35,6 +35,7 @@ public class SongHandler {
                                 Song song = mapper.readValue(track.toString(), Song.class);
                                 song.setBand(band);
                                 song.setAlbum(album);
+
                                 songService.save(song);
                                 logger.info("Song "+song.getSongName()+" by "+band.getBandName()+Constants.SAVED);
                             }

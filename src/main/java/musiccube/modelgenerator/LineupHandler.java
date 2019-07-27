@@ -93,11 +93,11 @@ public class LineupHandler {
                     logger.info("Artist " + artist.getStageName() + Constants.SAVED);
                     return artist;
                 } else {
-                    logger.warn("Artist json incomplete, ignoring.");
+                    logger.warn("Artist "+mbid+" json incomplete, ignoring.");
                 }
 
             } catch (JSONException je) {
-                logger.warn("Artist causing problems, ignoring",je);
+                logger.warn("Artist "+mbid+" causing problems, ignoring");
             }
         }
         return null;

@@ -21,14 +21,15 @@ public class DataLoader {
 
     @PostConstruct
     public void generate() throws IOException, InterruptedException {
-        for (int i=0;i<Constants.ITERATIONS;i++) {
+        int iterations = Constants.ITERATIONS + Constants.OFFSET;
+        for (int i=Constants.OFFSET;i < iterations;i++) {
             Band band = bandHandler.getBand(i);
             if (band != null) {
                 lineupHandler.getLineup(band);
                 discographyHandler.getAlbums(band);
             }
             else
-                logger.warn("Band json lacking important fields, ignoring.");
+                logger.warn("Band (offset: "+i+") json lacking important fields, ignoring.");
         }
     }
 }

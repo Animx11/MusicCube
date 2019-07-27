@@ -41,7 +41,7 @@ public class DiscographyHandler {
     }
 
     /*
-    TODO: This will get albums
+    This will get albums
      */
     public void getAlbums(Band band) throws InterruptedException {
         String mbid = band.getMbId();
@@ -89,7 +89,7 @@ public class DiscographyHandler {
      */
     private JSONObject getReleaseDetails(String relId) throws InterruptedException {
         Thread.sleep(600);
-        ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/release/"+relId+"?fmt=json&inc=recordings",String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/release/"+relId+"?fmt=json&inc=recordings labels genres",String.class);
         return new JSONObject(response.getBody());
     }
     /*

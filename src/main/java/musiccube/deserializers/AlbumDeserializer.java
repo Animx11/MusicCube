@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import musiccube.entities.Album;
 
 import java.io.IOException;
+import java.util.stream.StreamSupport;
 
 public class AlbumDeserializer extends StdDeserializer<Album> {
     public AlbumDeserializer() { this(null); }
@@ -22,12 +23,23 @@ public class AlbumDeserializer extends StdDeserializer<Album> {
         album.setAlbumName(jsonNode.get("title").asText());
         album.setReleaseDate(DateParser.parseDate(jsonNode.get("date").asText()));
 
-        int lengthInMs = 0;
-        //TODO zebrać i zsumować media.track.length
+        int lengthInMs = StreamSupport.stream(jsonNode.get("media").spliterator(), false)
+                                .mapToInt(medium -> StreamSupport.stream(medium.get("tracks").spliterator(),false)
+                                        .mapToInt(track -> track.get("length").asInt())
+                                        .sum())
+                                .sum();
+        album.setAlbumLengthSeconds(lengthInMs/1000);
 
-        //TODO album.setCoverArtLink();
+        if (jsonNode.get("cover-art-archive").get("front").asBoolean()) {
+            album.setCoverArtLink("https://coverartarchive.org/release/"+jsonNode.get("id").asText()+"/front");
+        }
 
-        //TODO album.setCompany();
+        int trackCount = StreamSupport.stream(jsonNode.get("media").spliterator(),false)
+                .mapToInt(medium -> medium.get("track-count").asInt())
+                .sum();
+        album.setTrackCount(trackCount);
+
+        album.setCompany(jsonNode.get("label-info").get(0).get("name").asText());
         return album;
     }
 }

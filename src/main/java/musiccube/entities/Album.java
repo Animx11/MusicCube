@@ -32,16 +32,10 @@ public class Album {
     @Column
     private String type;
 
-    public Album() {}
+    @Column
+    private int trackCount;
 
-    public Album(String albumName, int albumLengthSeconds, Date releaseDate, String company, String coverArtLink, String type) {
-        this.albumName = albumName;
-        this.albumLengthSeconds = albumLengthSeconds;
-        this.releaseDate = releaseDate;
-        this.company = company;
-        this.coverArtLink = coverArtLink;
-        this.type = type;
-    }
+    public Album() {}
 
     public int getId() {
         return id;
@@ -97,5 +91,13 @@ public class Album {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getTrackCount() {
+        return trackCount;
+    }
+
+    public void setTrackCount(int trackCount) {
+        this.trackCount = trackCount;
     }
 }
