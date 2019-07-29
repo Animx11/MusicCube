@@ -1,8 +1,8 @@
-import { Localization } from "./Localization";
+import { City } from './City';
 
 export class Person {
   id: number;
-  protected origin: Localization;
+  protected origin: City;
   protected firstNames: string;
   protected lastName: string;
   protected birthDate: Date;
@@ -10,8 +10,8 @@ export class Person {
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.origin = (obj && obj.origin) || null;
-    this.firstNames = (obj && obj.firstNames) || "";
-    this.lastName = (obj && obj.lastName) || "";
+    this.firstNames = (obj && obj.firstNames) || '';
+    this.lastName = (obj && obj.lastName) || '';
     this.birthDate = (obj && obj.birthDate) || null;
   }
 
@@ -21,7 +21,7 @@ export class Person {
     return this.id;
   }
 
-  getOrigin(): Localization {
+  getOrigin(): City {
     return this.origin;
   }
 
@@ -39,7 +39,7 @@ export class Person {
 
   // Setters
 
-  setOrigin(origin: Localization) {
+  setOrigin(origin: City) {
     this.origin = origin;
   }
 
