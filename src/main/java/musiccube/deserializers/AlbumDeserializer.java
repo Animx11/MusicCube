@@ -40,7 +40,10 @@ public class AlbumDeserializer extends StdDeserializer<Album> {
         album.setTrackCount(trackCount);
 
         System.out.println("\n\n"+jsonNode.get("label-info").toString()+"\n\n");
-        if ( !jsonNode.get("label-info").toString().equals("[]") )
+        if (
+                ! jsonNode.get("label-info").toString().equals("[]") &&
+                jsonNode.get("label-info").get(0).hasNonNull("label")
+        )
             album.setCompany(jsonNode.get("label-info").get(0).get("label").get("name").asText());
         return album;
     }

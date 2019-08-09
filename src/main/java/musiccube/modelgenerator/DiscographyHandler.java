@@ -29,6 +29,8 @@ public class DiscographyHandler {
     @Autowired
     private SongHandler songHandler;
 
+    private static String albumType;
+
     private DiscographyHandler() {
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addDeserializer(Album.class,new AlbumDeserializer());
@@ -51,6 +53,7 @@ public class DiscographyHandler {
                 if (firstRelease.isPresent()) {
                     JSONObject albumJSON = getReleaseDetails(firstRelease.get().getString("id"));
                     Album album = mapper.readValue(albumJSON.toString(),Album.class);
+                    album.setType(albumType);
                     albumService.save(album);
                     logger.info("Album "+album.getAlbumName()+Constants.SAVED);
                     songHandler.getSongs(albumJSON.getJSONArray("media"), album, band);
@@ -106,6 +109,9 @@ public class DiscographyHandler {
         Returns first release of album.
      */
     private Optional<JSONObject> findFirstRelease(JSONObject release) {
+        if (release.has("primary-type")) {
+            albumType = release.getString("primary-type");
+        }
         return Constants.arrayToStream(release.getJSONArray("releases"))
                 .map(JSONObject.class::cast)
                 .filter(jsonObject -> jsonObject.has("date") && !jsonObject.getString("date").isEmpty())
