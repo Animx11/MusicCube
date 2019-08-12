@@ -4,11 +4,11 @@ import { Genre } from './Genre';
 
 export class Song {
   id: number;
-  private songName: string;
-  private songLengthSeconds: number;
-  private album: Album;
-  private band: Band;
-  private genre: Genre;
+  songName: string;
+  songLengthSeconds: number;
+  album: Album;
+  band: Band;
+  genre: Genre;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;

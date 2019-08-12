@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './Services/token-storage.service';
-import { this_url } from './Services/API_URL';
+import { this_url } from './Utils/API_URL';
 
 
 const thisURL = this_url;

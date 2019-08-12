@@ -5,7 +5,7 @@ import { JwtResponse } from '../Class/JwtResponse';
 import {Observable, from} from 'rxjs';
 import { SignIn } from '../Class/SignIn';
 
-import { api_url } from "./API_URL";
+import { api_url } from "../Utils/API_URL";
 import { UserAccount } from '../Class/UserAccount';
 import { UserProfile } from '../Class/UserProfile';
 

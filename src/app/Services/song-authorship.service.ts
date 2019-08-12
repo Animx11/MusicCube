@@ -5,7 +5,7 @@ import { SongAuthorship } from "../Class/SongAuthorship";
 import { Person } from "src/app/Class/Person";
 import { Song } from "src/app/Class/Song";
 
-import { api_url } from "./API_URL";
+import { api_url } from "../Utils/API_URL";
 
 const apiUrl = api_url;
 

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, SystemJsNgModuleLoader } from 
 import { UserService } from '../../../Services/user.service';
 import { SignIn } from 'src/app/Class/SignIn';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
-import { this_url } from 'src/app/Services/API_URL';
+import { this_url } from 'src/app/Utils/API_URL';
 
 const thisURL = this_url;
 

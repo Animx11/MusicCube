@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
-import { this_url } from 'src/app/Services/API_URL';
+import { this_url } from 'src/app/Utils/API_URL';
 import { Users } from 'src/app/Class/Users';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { formatDate, DatePipe } from '@angular/common';

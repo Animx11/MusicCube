@@ -1,9 +1,9 @@
 export class Album {
   id: number;
-  private albumName: string;
-  private albumLengthSeconds: number;
-  private releaseDate: Date;
-  private company: string;
+  albumName: string;
+  albumLengthSeconds: number;
+  releaseDate: Date;
+  company: string;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;

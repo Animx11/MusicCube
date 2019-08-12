@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAccount } from '../../../Class/UserAccount';
 import { UserService } from '../../../Services/user.service';
-import { this_url } from 'src/app/Services/API_URL';
+import { this_url } from 'src/app/Utils/API_URL';
 
 const thisURL = this_url;
 

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Band } from '../Class/Band';
 
-import { api_url } from './API_URL';
+import { api_url } from '../Utils/API_URL';
 
 const apiUrl = api_url;
 

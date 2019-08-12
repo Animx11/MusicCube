@@ -1,15 +1,15 @@
-import { Country } from "./Country";
+import { Country } from './Country';
 
 export class Genre {
   id: number;
-  private origin: Country;
-  private genreName: string;
-  private creationDate: Date;
+  origin: Country;
+  genreName: string;
+  creationDate: Date;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.origin = (obj && obj.origin) || null;
-    this.genreName = (obj && obj.genreName) || "";
+    this.genreName = (obj && obj.genreName) || '';
     this.creationDate = (obj && obj.creationDate) || null;
   }
 

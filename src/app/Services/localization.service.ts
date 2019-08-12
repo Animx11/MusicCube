@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Localization } from 'src/app/Class/Localization';
-import { api_url } from './API_URL';
+import { api_url } from '../Utils/API_URL';
 
 const apiUrl = api_url;
 
