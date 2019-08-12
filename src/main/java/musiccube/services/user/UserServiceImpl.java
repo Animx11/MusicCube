@@ -1,8 +1,6 @@
 package musiccube.services.user;
 
 
-import musiccube.entities.Role;
-import musiccube.entities.RoleName;
 import musiccube.entities.User;
 import musiccube.repositories.RoleRepository;
 import musiccube.repositories.UserRepository;
@@ -47,16 +45,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Iterable<User> listUsers(){
         return userRepository.findAll();
-    }
-
-    @Override
-    public String getPasswordByUserName(String userName){
-        return userRepository.findPasswordByUserName(userName);
-    }
-
-    @Override
-    public Optional<Role> getByName(RoleName roleName){
-        return roleRepository.findByName(roleName);
     }
 
     @Override

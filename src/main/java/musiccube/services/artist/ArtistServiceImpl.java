@@ -48,15 +48,6 @@ public class ArtistServiceImpl implements ArtistService{
     }
 
     @Override
-    public boolean existsArtistByArtistFirstNamesAndLastName(String firstNames, String lastNames){
-        return artistRepository.existsByFirstNamesAndLastName(firstNames, lastNames);
-    }
-    @Override
-    public boolean existsArtistByStageName(String stageName){
-        return artistRepository.existsArtistByStageName(stageName);
-    }
-
-    @Override
     public Artist getByMbId(String mbId) {
         return artistRepository.findByMbId(mbId);
     }
