@@ -54,7 +54,7 @@ public class Album {
     }
 
     public int getAlbumLengthSeconds() {
-            return albumLengthSeconds;
+        return albumLengthSeconds;
     }
 
     public void setAlbumLengthSeconds(int albumLengthSeconds) {
