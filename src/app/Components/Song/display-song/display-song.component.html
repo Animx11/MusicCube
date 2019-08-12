@@ -3,6 +3,6 @@
   <h5>Song<span *ngIf="song.band"> by <a routerLink="/band/{{song.band.id}}">{{song.band.bandName}}</a></span></h5>
   <div *ngIf="song.album">Album: <a routerLink="/album/{{song.album.id}}">{{song.album.albumName}}</a></div>
   <div *ngIf="song.genre">Genre: <a routerLink="/genre/{{song.genre.id}}">{{song.genre.genreName | titlecase}}</a></div>
-  <div *ngIf="song.songLengthSeconds">Length: {{length}} </div>
+  <div *ngIf="song.songLengthSeconds">Length: {{song.songLengthSeconds | secondsToString}} </div>
 
 </div>
