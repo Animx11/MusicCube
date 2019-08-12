@@ -115,24 +115,24 @@ public class UserController {
     @PutMapping(value = "/edit_userProfile")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull UserProfile userProfile) {
 
-            User takeUser = userService.getById(userProfile.getId()).orElse(null);
-            if(jwtProvider.validateJwt(getJwt(httpRequest))) {
-                if (takeUser != null) {
+        User takeUser = userService.getById(userProfile.getId()).orElse(null);
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
+            if (takeUser != null) {
 
-                        takeUser.setFirstName(userProfile.getFirstName());
-                        takeUser.setLastName(userProfile.getLastName());
-                        takeUser.setBirthDate(userProfile.getBirthDate());
-                        takeUser.setAboutUser(userProfile.getAboutUser());
-                        userService.save(takeUser);
-                        return new ResponseEntity<>(HttpStatus.CREATED);
-                    }
-
-                else {
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                    takeUser.setFirstName(userProfile.getFirstName());
+                    takeUser.setLastName(userProfile.getLastName());
+                    takeUser.setBirthDate(userProfile.getBirthDate());
+                    takeUser.setAboutUser(userProfile.getAboutUser());
+                    userService.save(takeUser);
+                    return new ResponseEntity<>(HttpStatus.CREATED);
                 }
-            } else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+            else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     // User Account
