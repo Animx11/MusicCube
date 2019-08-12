@@ -26,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -51,11 +50,11 @@ public class UserController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private HttpServletRequest HttpRequest;
+    private HttpServletRequest httpRequest;
 
-    private String getJwt(HttpServletRequest HttpRequest){
+    private String getJwt(HttpServletRequest httpRequest){
 
-        String authHeader = HttpRequest.getHeader("Authorization");
+        String authHeader = httpRequest.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.replace("Bearer ", "");
@@ -68,7 +67,7 @@ public class UserController {
     // Delete User
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "/user", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/user")
     public ResponseEntity<User> delete(@RequestParam("id") Integer id){
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -76,19 +75,19 @@ public class UserController {
 
     // Finding User
 
-    @RequestMapping(value = "/user_by_id", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/user_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getById(@RequestParam("id") int id){
         return userService.getById(id);
     }
 
-    @RequestMapping(value = "/user_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/user_by_userName", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getByUserName(@RequestParam("userName") String userName){
         return userService.getByUserName(userName);
     }
 
     // Edit User
 
-    @RequestMapping(value = "/edit",method = RequestMethod.PUT)
+    @PutMapping(value = "/edit")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull User user) {
 
         User takeUser = userService.getById(user.getId()).orElse(null);
@@ -106,18 +105,18 @@ public class UserController {
     // User Profile
 
 
-    @RequestMapping(value = "/userProfile_by_userName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/userProfile_by_userName", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<UserProfile> getProfileByUserName(@RequestParam("userName") String userName){
         User user = userService.getByUserName(userName).orElse(new User());
         UserProfile userProfile = new UserProfile(user);
         return Optional.of(userProfile);
     }
 
-    @RequestMapping(value = "/edit_userProfile",method = RequestMethod.PUT)
+    @PutMapping(value = "/edit_userProfile")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull UserProfile userProfile) {
 
             User takeUser = userService.getById(userProfile.getId()).orElse(null);
-            if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+            if(jwtProvider.validateJwt(getJwt(httpRequest))) {
                 if (takeUser != null) {
 
                         takeUser.setFirstName(userProfile.getFirstName());
@@ -138,10 +137,10 @@ public class UserController {
 
     // User Account
 
-    @RequestMapping(value = "/edit_userName", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit_userName")
     public ResponseEntity<?> editUserName(@RequestParam("newUserName") String newUserName, @RequestBody @Valid @NotNull UserAccount userAccount){
         User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
-        if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
             if (takeUser != null) {
                 if (!userService.existsByUserName(newUserName)) {
                     takeUser.setUserName(newUserName);
@@ -160,10 +159,10 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "edit_email", method = RequestMethod.PUT)
+    @PutMapping(value = "edit_email")
     public ResponseEntity<?> editEmail(@RequestBody @Valid @NotNull UserAccount userAccount){
         User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
-        if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
             if(takeUser != null) {
                 if(!userService.existsByEmail(userAccount.getEmail())){
                     takeUser.setEmail(userAccount.getEmail());
@@ -182,10 +181,10 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/edit_password", method = RequestMethod.PUT)
+    @PutMapping(value = "/edit_password")
     public ResponseEntity<?> editPassword(@RequestParam("newPassword") String newPassword, @RequestBody @Valid @NotNull UserAccount userAccount){
         User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
-        if(jwtProvider.validateJwt(getJwt(HttpRequest))) {
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
             if (takeUser != null) {
                 if (passwordEncoder.matches(userAccount.getPassword(), takeUser.getPassword())) {
                     takeUser.setPassword(passwordEncoder.encode(newPassword));
@@ -204,14 +203,14 @@ public class UserController {
 
     // User List
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<User> listUsers(){
         return userService.listUsers();
     }
 
     // User sign in/out
 
-    @RequestMapping(value = "/auth/signup", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/auth/signup", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUp(@RequestBody @Valid @NotNull UserAccount userAccount){
 
         User user = new User();
@@ -240,7 +239,7 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-    @RequestMapping(value = "/auth/signin", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/auth/signin", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signIn(@RequestBody @Valid @NotNull UserAccount userAccount){
 
         Authentication authentication = authenticationManager.authenticate(

@@ -26,20 +26,16 @@ public class Album {
     @Column
     private String company;
 
+    @Column
+    private String coverArtLink;
+
+    @Column
+    private String type;
+
+    @Column
+    private int trackCount;
+
     public Album() {}
-
-    public Album(String albumName, int albumLengthSeconds, String company) {
-        this.albumName = albumName;
-        this.albumLengthSeconds = albumLengthSeconds;
-        this.company = company;
-    }
-
-    public Album(String albumName, int albumLengthSeconds, Date releaseDate, String company) {
-        this.albumName = albumName;
-        this.albumLengthSeconds = albumLengthSeconds;
-        this.releaseDate = releaseDate;
-        this.company = company;
-    }
 
     public int getId() {
         return id;
@@ -58,7 +54,7 @@ public class Album {
     }
 
     public int getAlbumLengthSeconds() {
-            return albumLengthSeconds;
+        return albumLengthSeconds;
     }
 
     public void setAlbumLengthSeconds(int albumLengthSeconds) {
@@ -79,5 +75,29 @@ public class Album {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public String getCoverArtLink() {
+        return coverArtLink;
+    }
+
+    public void setCoverArtLink(String coverArtLink) {
+        this.coverArtLink = coverArtLink;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getTrackCount() {
+        return trackCount;
+    }
+
+    public void setTrackCount(int trackCount) {
+        this.trackCount = trackCount;
     }
 }

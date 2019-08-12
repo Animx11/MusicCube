@@ -20,6 +20,9 @@ public class Band {
     @Column
     private Date creationDate;
 
+    @Column
+    private String mbId;
+
     @ManyToOne
     private City formedIn;
 
@@ -66,5 +69,13 @@ public class Band {
 
     public void setFormedIn(City formedIn) {
         this.formedIn = formedIn;
+    }
+
+    public String getMbId() {
+        return mbId;
+    }
+
+    public void setMbId(String mbId) {
+        this.mbId = mbId;
     }
 }
