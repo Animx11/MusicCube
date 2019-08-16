@@ -41,4 +41,14 @@ public class GenreServiceImpl implements GenreService {
     public Iterable<Genre> getByGenreName(String genreName) {
         return genreRepository.findByGenreName(genreName);
     }
+
+    @Override
+    public Genre getOneByGenreName(String genreName) {
+        return genreRepository.findOneByGenreName(genreName);
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return genreRepository.existsByGenreName(name);
+    }
 }

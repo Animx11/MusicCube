@@ -27,6 +27,9 @@ public class Person {
     @Column
     protected Date birthDate;
 
+    @Column
+    protected Date deathDate;
+
     public Person() {}
 
     public Person(String firstNames, String lastName, Date birthDate) {
@@ -35,11 +38,12 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public Person(City origin, String firstNames, String lastName, Date birthDate) {
+    public Person(City origin, String firstNames, String lastName, Date birthDate, Date deathDate) {
         this.origin = origin;
         this.firstNames = firstNames;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.deathDate = deathDate;
     }
 
     public int getId() {
@@ -80,5 +84,13 @@ public class Person {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public Date getDeathDate() {
+        return deathDate;
+    }
+
+    public void setDeathDate(Date deathDate) {
+        this.deathDate = deathDate;
     }
 }

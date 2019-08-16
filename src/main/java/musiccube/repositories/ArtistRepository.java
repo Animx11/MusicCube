@@ -11,8 +11,10 @@ public interface ArtistRepository extends CrudRepository<Artist,Integer>, Paging
     Iterable<Artist> findByStageName(String stageName);
     @Query("SELECT a FROM Artist a WHERE LOWER(a.stageName) LIKE LOWER(CONCAT('%',?1,'%')) OR LOWER(a.firstNames) LIKE LOWER(CONCAT('%',?1,'%')) OR LOWER(a.lastName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Artist> findByAnything(String input);
+    Artist findByMbId(String mbId);
 
     boolean existsByFirstNamesAndLastName(String firstNames, String lastNames);
     boolean existsArtistByStageName(String stageName);
+    boolean existsByMbId(String mbId);
 
 }
