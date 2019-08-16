@@ -28,9 +28,6 @@ import { AddGenreComponent } from './Components/Genre/add-genre/add-genre.compon
 import { EditGenreComponent } from './Components/Genre/edit-genre/edit-genre.component';
 import { AddInstrumentComponent } from './Components/Instrument/add-instrument/add-instrument.component';
 import { EditInstrumentComponent } from './Components/Instrument/edit-instrument/edit-instrument.component';
-import { AddLocalizationComponent } from './Components/Localization/add-localization/add-localization.component';
-import { EditLocalizationComponent } from './Components/Localization/edit-localization/edit-localization.component';
-import { EditLocalizationDetailsComponent } from './Components/Localization/edit-localization/edit-localization-details/edit-localization-details.component';
 import { EditAlbumDetailsComponent } from './Components/Album/edit-album/edit-album-details/edit-album-details.component';
 import { EditArtistDetailsComponent } from './Components/Artist/edit-artist/edit-artist-details/edit-artist-details.component';
 import { EditBandDetailsComponent } from './Components/Band/edit-band/edit-band-details/edit-band-details.component';
@@ -38,7 +35,6 @@ import { EditConcertDetailsComponent } from './Components/Concert/edit-concert/e
 import { EditGenreDetailsComponent } from './Components/Genre/edit-genre/edit-genre-details/edit-genre-details.component';
 import { EditInstrumentDetailsComponent } from './Components/Instrument/edit-instrument/edit-instrument-details/edit-instrument-details.component';
 import { EditSongDetailsComponent } from './Components/Song/edit-song/edit-song-details/edit-song-details.component';
-import { SearchLocalizationComponent } from './Components/Localization/search-localization/search-localization.component';
 import { SearchAlbumComponent } from './Components/Album/search-album/search-album.component';
 import { SearchSongComponent } from './Components/Song/search-song/search-song.component';
 import { SearchBandComponent } from './Components/Band/search-band/search-band.component';
@@ -50,7 +46,6 @@ import { DisplayArtistComponent } from './Components/Artist/display-artist/displ
 import { DisplayBandComponent } from './Components/Band/display-band/display-band.component';
 import { DisplayConcertComponent } from './Components/Concert/display-concert/display-concert.component';
 import { DisplayGenreComponent } from './Components/Genre/display-genre/display-genre.component';
-import { DisplayLocalizationComponent } from './Components/Localization/display-localization/display-localization.component';
 import { DisplayPersonComponent } from './Components/Person/display-person/display-person.component';
 import { DisplayAlbumComponent } from './Components/Album/display-album/display-album.component';
 import { DisplayInstrumentComponent } from './Components/Instrument/display-instrument/display-instrument.component';
@@ -213,25 +208,6 @@ const ROUTES: Routes = [
     component: DisplayInstrumentComponent
   },
 
-  // Localization
-
-  {
-    path: 'AdminPanel',
-    component: AdminPanelComponent,
-    children: [{ path: 'AddLocalization', component: AddLocalizationComponent }]
-  },
-  {
-    path: 'AdminPanel',
-    component: AdminPanelComponent,
-    children: [
-      { path: 'EditLocalization', component: EditLocalizationComponent }
-    ]
-  },
-  {
-    path: 'localization/:id',
-    component: DisplayLocalizationComponent
-  },
-
   // Search
 
   {
@@ -262,9 +238,6 @@ const ROUTES: Routes = [
     EditGenreComponent,
     AddInstrumentComponent,
     EditInstrumentComponent,
-    AddLocalizationComponent,
-    EditLocalizationComponent,
-    EditLocalizationDetailsComponent,
     EditAlbumDetailsComponent,
     EditArtistDetailsComponent,
     EditBandDetailsComponent,
@@ -272,7 +245,6 @@ const ROUTES: Routes = [
     EditGenreDetailsComponent,
     EditInstrumentDetailsComponent,
     EditSongDetailsComponent,
-    SearchLocalizationComponent,
     SearchAlbumComponent,
     SearchSongComponent,
     SearchBandComponent,
@@ -284,7 +256,6 @@ const ROUTES: Routes = [
     DisplayBandComponent,
     DisplayConcertComponent,
     DisplayGenreComponent,
-    DisplayLocalizationComponent,
     DisplayPersonComponent,
     DisplayAlbumComponent,
     DisplayInstrumentComponent,
