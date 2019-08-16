@@ -53,6 +53,7 @@ public class DataLoader {
         logger.info("Fetching bands from "+offset+" to "+iterations);
 
         for (int i=offset;i < iterations;i++) {
+            logger.info("\nProcessing band "+i);
             Band band = bandHandler.getBand(i);
             if (band != null) {
                 lineupHandler.getLineup(band);

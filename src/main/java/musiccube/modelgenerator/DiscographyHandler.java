@@ -30,6 +30,7 @@ public class DiscographyHandler {
     private SongHandler songHandler;
 
     private static String albumType;
+    private static final String PRIMARY = "primary-type";
 
     private DiscographyHandler() {
         SimpleModule simpleModule = new SimpleModule();
@@ -101,6 +102,7 @@ public class DiscographyHandler {
     private List<String> filterReleaseGroups(JSONObject relGrps) {
         return Constants.arrayToStream(relGrps.getJSONArray("release-groups"))
                 .map(JSONObject.class::cast)
+                .filter(jsonObject -> jsonObject.has(PRIMARY) && !jsonObject.isNull(PRIMARY))
                 .filter(jsonObject -> jsonObject.getJSONArray("secondary-types").length() == 0)
                 .map(jsonObject -> jsonObject.getString("id"))
                 .collect(Collectors.toList());
@@ -109,9 +111,7 @@ public class DiscographyHandler {
         Returns first release of album.
      */
     private Optional<JSONObject> findFirstRelease(JSONObject release) {
-        if (release.has("primary-type")) {
-            albumType = release.getString("primary-type");
-        }
+        albumType = release.getString(PRIMARY);
         return Constants.arrayToStream(release.getJSONArray("releases"))
                 .map(JSONObject.class::cast)
                 .filter(jsonObject -> jsonObject.has("date") && !jsonObject.getString("date").isEmpty())
