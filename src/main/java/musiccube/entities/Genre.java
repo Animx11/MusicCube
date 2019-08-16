@@ -1,7 +1,6 @@
 package musiccube.entities;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Genre {
@@ -18,11 +17,11 @@ public class Genre {
     private String genreName;
 
     @Column
-    private Date creationDate;
+    private String creationDate;
 
     public Genre() {}
 
-    public Genre(Country origin, String genreName, Date creationDate) {
+    public Genre(Country origin, String genreName, String creationDate) {
         this.origin = origin;
         this.genreName = genreName;
         this.creationDate = creationDate;
@@ -52,11 +51,11 @@ public class Genre {
         this.genreName = genreName;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 }
