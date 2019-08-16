@@ -16,14 +16,11 @@ public class Concert {
     @Column
     private String concertName;
 
-    @ManyToOne
-    private Localization localization;
 
     public Concert() {}
 
-    public Concert(Date startTime, Localization localization, String concertName) {
+    public Concert(Date startTime, String concertName) {
         this.startTime = startTime;
-        this.localization = localization;
         this.concertName = concertName;
     }
 
@@ -41,14 +38,6 @@ public class Concert {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
-    }
-
-    public Localization getLocalization() {
-        return localization;
-    }
-
-    public void setLocalization(Localization localization) {
-        this.localization = localization;
     }
 
     public String getConcertName() {
