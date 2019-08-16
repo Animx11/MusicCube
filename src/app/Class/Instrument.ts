@@ -5,8 +5,8 @@ export class Instrument {
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
-    this.instrumentName = (obj && obj.instrumentName) || "";
-    this.type = (obj && obj.type) || "";
+    this.instrumentName = (obj && obj.instrumentName) || '';
+    this.type = (obj && obj.type) || '';
   }
 
   // Getters
