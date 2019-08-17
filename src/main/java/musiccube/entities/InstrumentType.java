@@ -15,7 +15,7 @@ public class InstrumentType {
     private int id;
 
     @Column
-    private String typeName;
+    private String instrumentTypeName;
 
     @Column
     private String aboutType;
@@ -24,23 +24,23 @@ public class InstrumentType {
     }
 
     public InstrumentType(String typeName) {
-        this.typeName = typeName;
+        this.instrumentTypeName = typeName;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getInstrumentTypeName() {
+        return instrumentTypeName;
     }
 
     public String getAboutType() {
         return aboutType;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setInstrumentTypeName(String instrumentTypeName) {
+        this.instrumentTypeName = instrumentTypeName;
     }
 
     public void setAboutType(String aboutType) {
