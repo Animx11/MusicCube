@@ -28,7 +28,7 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/")
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins="${serverAddress}")
 public class ModelGenerator {
 
     @Autowired
