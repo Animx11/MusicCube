@@ -25,15 +25,13 @@ public class ArtistInBandController {
     private ArtistInBandService artistInBandService;
 
 /*************************** GET ***********************************/
-    @RequestMapping(value = "/artistInBand{id}",
-            method = RequestMethod.GET,
+    @GetMapping(value = "/artistInBand{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<ArtistInBand> getById(int id) {
         return artistInBandService.getById(id);
     }
 
-    @RequestMapping(value = "/artistInBands",
-            method = RequestMethod.GET,
+    @GetMapping(value = "/artistInBands",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<ArtistInBand> getAll() {
         return artistInBandService.getAll();
@@ -57,13 +55,13 @@ public class ArtistInBandController {
     }
 /************************************************************************************/
 
-    @RequestMapping(value = "/artistInBand",method = RequestMethod.POST)
+    @PostMapping(value = "/artistInBand")
     public ResponseEntity<ArtistInBand> create(@RequestBody @Valid @NotNull ArtistInBand artistInBand) {
         artistInBandService.save(artistInBand);
         return ResponseEntity.ok().body(artistInBand);
     }
 
-    @RequestMapping(value = "/artistInBand",method = RequestMethod.PUT)
+    @PutMapping(value = "/artistInBand")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull ArtistInBand artistInBand) {
         Optional<ArtistInBand> artistInBand1 = artistInBandService.getById(artistInBand.getId());
         if (Objects.nonNull(artistInBand1)) {
@@ -73,12 +71,12 @@ public class ArtistInBandController {
     }
 
     @ApiIgnore
-    @RequestMapping(value = "/artistInBands",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/artistInBands",produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<ArtistInBand> redirect(Model model) {
         return artistInBandService.getAll();
     }
 
-    @RequestMapping(value = "/artistInBand/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/artistInBand/{id}")
     public RedirectView delete(@PathVariable Integer id) {
         artistInBandService.delete(id);
         return new RedirectView("/api/artistInBands",true);

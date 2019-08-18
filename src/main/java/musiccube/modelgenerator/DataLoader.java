@@ -50,17 +50,17 @@ public class DataLoader {
         }
 
         iterations += offset;
-        logger.info("Fetching bands from "+offset+" to "+iterations);
+        logger.info("Fetching bands from "+offset+" to "+(iterations-1));
 
-        for (int i=offset;i < iterations;i++) {
-            logger.info("\nProcessing band "+i);
-            Band band = bandHandler.getBand(i);
+        for (;offset < iterations;offset++) {
+            logger.info("\nProcessing band "+offset);
+            Band band = bandHandler.getBand(offset);
             if (band != null) {
                 lineupHandler.getLineup(band);
                 discographyHandler.getAlbums(band);
             }
             else
-                logger.warn("Band (offset: "+i+") json lacking important fields, ignoring.");
+                logger.warn("Band (offset: "+offset+") json lacking important fields, ignoring.");
         }
         return ResponseEntity.ok("Model generated.");
     }
