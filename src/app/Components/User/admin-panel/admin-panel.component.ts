@@ -15,6 +15,7 @@ export class AdminPanelComponent implements OnInit {
   isGenreClicked: boolean;
   isInstrumentClicked: boolean;
   isLocalizationClicked: boolean;
+  showHead: boolean;
 
   constructor() { }
 
@@ -27,11 +28,13 @@ export class AdminPanelComponent implements OnInit {
     this.isGenreClicked = false;
     this.isInstrumentClicked = false;
     this.isLocalizationClicked = false;
+    this.showHead = false;
   }
 
 
   switchValue(clicked: boolean): boolean {
     this.resetValue();
+    this.showHead = true;
     return !clicked;
   }
 
@@ -44,6 +47,7 @@ export class AdminPanelComponent implements OnInit {
     this.isGenreClicked = false;
     this.isInstrumentClicked = false;
     this.isLocalizationClicked = false;
+    this.showHead = false;
   }
 
 }
