@@ -6,22 +6,6 @@
     min="0"
     max="23"
   /><input [(ngModel)]="minute" type="number" min="0" max="59" /><br />
-  <div *ngIf="concert.localization">
-    Localization: {{ concert.localization.country }}
-    {{ concert.localization.city }} {{ concert.localization.address }}<br />
-  </div>
-  <button (click)="selectLocalization()">Select localization</button><br />
+
   <button (click)="addConcert()">Add concert</button>
-</div>
-<div class="add">
-  <ul *ngIf="localizationSelected">
-    <li
-      *ngFor="let localization of localizationList"
-      (click)="addLocalization(localization)"
-    >
-      <h5>{{ localization.country }}</h5>
-      <h6 *ngIf="localization.city">{{ localization.city }}</h6>
-      <div *ngIf="localization.address">{{ localization.address }}</div>
-    </li>
-  </ul>
 </div>

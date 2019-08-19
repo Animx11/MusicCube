@@ -11,7 +11,7 @@
     <div class = 'navigator' (click)="isConcertClicked = switchValue(isConcertClicked)">Concert</div>
     <div class = 'navigator' (click)="isGenreClicked = switchValue(isGenreClicked)">Genre</div>
     <div class = 'navigator' (click)="isInstrumentClicked = switchValue(isInstrumentClicked)">Instrument</div>
-    <div class = 'navigator' (click)="isLocalizationClicked = switchValue(isLocalizationClicked)">City</div>
+    <div class = 'navigator' (click)="isCityClicked = switchValue(isCityClicked)">City</div>
 
   </div>
     <div id = 'routerOutlet'>
@@ -52,9 +52,8 @@
                   <a routerLink="EditInstrument" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Instrument</div></a>
               </div>
 
-              <div class="adminComponentPanel" *ngIf="isLocalizationClicked">
-                  <a routerLink="AddLocalization" routerLinkActive="active"><div class="adminComponentNavigator">Add New Localization</div></a>
-                  <a routerLink="EditLocalization" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Localization</div></a>
+              <div class="adminComponentPanel" *ngIf="isCityClicked">
+                  <!--Miejsce na city i country-->
               </div>
         </div>
       <router-outlet></router-outlet>
