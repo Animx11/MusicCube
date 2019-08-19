@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 
 import { Artist } from "src/app/Class/Artist";
-import { Localization } from "src/app/Class/Localization";
 import { ArtistService } from "src/app/Services/artist.service";
 
 @Component({
@@ -24,9 +23,6 @@ export class AddArtistComponent implements OnInit {
     this.birthDate = null;
   }
 
-  localizationEventHandler($event: any) {
-    this.artist.setOrigin($event);
-  }
 
   addArtist() {
     if (

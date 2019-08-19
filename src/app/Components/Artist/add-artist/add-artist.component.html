@@ -3,13 +3,5 @@
   <input [(ngModel)]="lastName" placeholder="last name" /><br />
   <input [(ngModel)]="stageName" placeholder="stage name" /><br />
   Select birthday <input [(ngModel)]="birthDate" type="date" /><br />
-  <div *ngIf="artist.origin">
-    Origin: {{ artist.origin.country }} {{ artist.origin.city }}
-    {{ artist.origin.address }}<br />
-  </div>
-  <app-search-localization
-    (localizationEvent)="localizationEventHandler($event)"
-  ></app-search-localization
-  ><br />
   <button (click)="addArtist()">Add artist</button>
 </div>

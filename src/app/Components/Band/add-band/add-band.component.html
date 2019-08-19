@@ -2,12 +2,5 @@
   <input [(ngModel)]="bandName" placeholder="Band name" /><br />
   Year of creation:<br />
   <input [(ngModel)]="creationYear" type="number" min="1900" max="2019" /><br />
-  <div *ngIf="band.formedIn">
-    Origin: {{ band.formedIn.country }} {{ band.formedIn.city }}
-    {{ band.formedIn.address }}<br />
-  </div>
-  <app-search-localization
-    (localizationEvent)="localizationEventHandler($event)"
-  ></app-search-localization>
   <button (click)="addBand()">Add band</button>
 </div>

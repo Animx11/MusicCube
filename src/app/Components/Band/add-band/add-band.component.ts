@@ -24,15 +24,10 @@ export class AddBandComponent implements OnInit {
     this.creationYear = 0;
   }
 
-  localizationEventHandler($event: any) {
-    this.band.setFormedIn($event);
-    console.log(this.band);
-  }
   addBand() {
     if (
       this.bandName === "" ||
-      this.creationYear === 0 ||
-      this.band.getFormedIn() == null
+      this.creationYear === 0
     )
       window.alert("Incomplete input");
     else {
