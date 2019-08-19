@@ -1,1 +1,1 @@
-# MusicCube
+# musiccube
