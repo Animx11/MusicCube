@@ -1,6 +1,6 @@
 export class Instrument {
   id: number;
-  private instrumentName: string;
+  instrumentName: string;
   private type: string;
 
   constructor(obj?: any) {

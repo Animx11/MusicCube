@@ -32,4 +32,8 @@ export class ArtistService {
   delete(id: number): Observable<any> {
     return this.http.delete(`${apiUrl}/artist/${id}`);
   }
+
+  getByStageName(stageName: string): Observable<any> {
+    return this.http.get(`${apiUrl}/artists{stagename}?name=${stageName}`);
+  }
 }

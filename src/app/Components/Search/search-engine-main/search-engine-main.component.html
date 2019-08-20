@@ -1,21 +1,31 @@
 <div class="contentDisplay">
-  <input #searchBox id="searchBox" (input)="search(searchBox.value)"/>
-  <ul>
-    <li *ngFor="let person of (people$ | async)">[Person] <a>{{person.lastName}}</a></li>
+  <input [(ngModel)]="switches[0]" (click)="switchAll()" type="checkbox" class="hidden" id="all-check"><label for="all-check" id="all-check-lbl">Disable all</label>
+  <input [(ngModel)]="switches[1]" (click)="switchCheck(1)" type="checkbox" class="hidden" id="band-check"><label for="band-check">Bands</label>
+  <input [(ngModel)]="switches[2]" (click)="switchCheck(2)" type="checkbox" class="hidden" id="artist-check"><label for="artist-check">Artists</label>
+  <input [(ngModel)]="switches[3]" (click)="switchCheck(3)" type="checkbox" class="hidden" id="album-check"><label for="album-check">Albums</label>
+  <input [(ngModel)]="switches[4]" (click)="switchCheck(4)" type="checkbox" class="hidden" id="song-check"><label for="song-check">Songs</label>
+  <input [(ngModel)]="switches[5]" (click)="switchCheck(5)" type="checkbox" class="hidden" id="instrument-check"><label for="instrument-check">Instruments</label>
+  <input [(ngModel)]="switches[6]" (click)="switchCheck(6)" type="checkbox" class="hidden" id="genre-check"><label for="genre-check">Genres</label>
+  <br/>
+
+  <input #searchBox id="searchBox"/>
+  <button (click)="search(searchBox.value)">Search</button>
+  <ul *ngIf="switches[1]">
+    <li *ngFor="let band of bands">[Band] <a routerLink="/band/{{band.id}}">{{band.bandName}}</a></li>
   </ul>
-  <ul>
-    <li *ngFor="let band of (bands$ | async)">[Band] <a routerLink="/band/{{band.id}}">{{band.bandName}}</a></li>
+  <ul *ngIf="switches[2]">
+    <li *ngFor="let artist of artists">[Artist] <a routerLink="/artist/{{artist.id}}">{{artist.stageName}}</a></li>
   </ul>
-  <ul>
-    <li *ngFor="let album of (albums$ | async)">[Album] <a routerLink="/album/{{album.id}}">{{album.albumName}}</a></li>
+  <ul *ngIf="switches[3]">
+    <li *ngFor="let album of albums">[Album] <a routerLink="/album/{{album.id}}">{{album.albumName}}</a></li>
   </ul>
-  <ul>
-    <li *ngFor="let song of (songs$ | async)">[Song] <a routerLink="/song/{{song.id}}">{{song.songName}}</a></li>
+  <ul *ngIf="switches[4]">
+    <li *ngFor="let song of songs">[Song] <a routerLink="/song/{{song.id}}">{{song.songName}}</a></li>
   </ul>
-  <ul>
-    <li *ngFor="let genre of (genres$ | async)">[Genre] <a routerLink="/genre/{{genre.id}}">{{genre.GenreName}}</a></li>
+  <ul *ngIf="switches[5]">
+    <li *ngFor="let instrument of instruments">[Instrument] <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a></li>
   </ul>
-  <ul>
-    <li *ngFor="let instrument of (instruments$ | async)">[Instrument] <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a></li>
+  <ul *ngIf="switches[6]">
+    <li *ngFor="let genre of genres">[Genre] <a routerLink="/genre/{{genre.id}}">{{genre.genreName}}</a></li>
   </ul>
 </div>
