@@ -23,10 +23,6 @@ export class AddArtistComponent implements OnInit {
     this.birthDate = null;
   }
 
-  localizationEventHandler($event: any) {
-    this.artist.setOrigin($event);
-  }
-
   addArtist() {
     if (
       this.firstNames === '' ||

@@ -3,9 +3,9 @@ import { City } from './City';
 export class Person {
   id: number;
   protected origin: City;
-  protected firstNames: string;
-  protected lastName: string;
-  protected birthDate: Date;
+  firstNames: string;
+  lastName: string;
+  birthDate: Date;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;

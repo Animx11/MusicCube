@@ -1,7 +1,7 @@
 <div class="contentDisplay">
   <input #searchBox id="searchBox" (input)="search(searchBox.value)"/>
   <ul>
-    <li *ngFor="let person of (persons$ | async)">[Person] <a>{{person.lastName}}</a></li>
+    <li *ngFor="let person of (people$ | async)">[Person] <a>{{person.lastName}}</a></li>
   </ul>
   <ul>
     <li *ngFor="let band of (bands$ | async)">[Band] <a routerLink="/band/{{band.id}}">{{band.bandName}}</a></li>
