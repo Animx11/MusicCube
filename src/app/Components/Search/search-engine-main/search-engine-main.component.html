@@ -10,6 +10,7 @@
 
   <input #searchBox id="searchBox"/>
   <button (click)="search(searchBox.value)">Search</button>
+  <div *ngIf="message">{{message}}</div>
   <ul *ngIf="switches[1]">
     <li *ngFor="let band of bands">[Band] <a routerLink="/band/{{band.id}}">{{band.bandName}}</a></li>
   </ul>
