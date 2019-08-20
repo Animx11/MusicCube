@@ -4,8 +4,8 @@
   Born {{artist.birthDate | date:'d MMMM yyyy'}}
   <h5>Bands:</h5>
   <ul>
-    <li *ngFor="let band of bands" >
-      <a routerLink="/band/{{band.band.id}}">{{band.band.bandName}}</a> {{band.yearsActive}}
+    <li *ngFor="let display of displays">
+      <a routerLink="/band/{{display.bandId}}">{{display.bandName}}</a> {{display.getActivity()}}
     </li>
   </ul>
 </div>
