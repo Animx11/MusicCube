@@ -76,7 +76,7 @@ public class DiscographyHandler {
     Gets first 100 release-groups of given artist.
      */
     private JSONObject getReleaseGroups(String mbid) throws InterruptedException {
-        Thread.sleep(600);
+        Thread.sleep(Constants.WAIT);
         ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/release-group/?artist="+mbid+"&fmt=json&limit=100",String.class);
         return new JSONObject(response.getBody());
     }
@@ -84,7 +84,7 @@ public class DiscographyHandler {
     Gets all releases of given album
      */
     private JSONObject getReleases(String groupId) throws InterruptedException {
-        Thread.sleep(600);
+        Thread.sleep(Constants.WAIT);
         ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/release-group/"+groupId+"?fmt=json&inc=releases",String.class);
         return new JSONObject(response.getBody());
     }
@@ -92,7 +92,7 @@ public class DiscographyHandler {
         Gets details and track list of given release
      */
     private JSONObject getReleaseDetails(String relId) throws InterruptedException {
-        Thread.sleep(600);
+        Thread.sleep(Constants.WAIT);
         ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/release/"+relId+"?fmt=json&inc=recordings labels genres",String.class);
         return new JSONObject(response.getBody());
     }

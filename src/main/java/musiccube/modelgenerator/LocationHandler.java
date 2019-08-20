@@ -44,7 +44,7 @@ public class LocationHandler {
     Returns existing localization, or creates new one
      */
     public City getCity(String countryId, String areaId) throws IOException, InterruptedException {
-        Thread.sleep(600);
+        Thread.sleep(Constants.WAIT);
         ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/area/"+countryId+Constants.FMT,String.class);
         JSONObject obj = new JSONObject(response.getBody());
         String code = obj.getJSONArray("iso-3166-1-codes").getString(0);
@@ -59,7 +59,7 @@ public class LocationHandler {
             logger.info("Country "+country.getCountryName()+Constants.SAVED);
         }
 
-        Thread.sleep(600);
+        Thread.sleep(Constants.WAIT);
         response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/area/"+areaId+Constants.FMT,String.class);
         obj = new JSONObject(response.getBody());
         String name = obj.getString("name");

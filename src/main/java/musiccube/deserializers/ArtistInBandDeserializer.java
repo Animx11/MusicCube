@@ -8,7 +8,10 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import musiccube.entities.ArtistInBand;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class ArtistInBandDeserializer extends StdDeserializer<ArtistInBand> {
     public ArtistInBandDeserializer () { this(null); }
@@ -20,22 +23,21 @@ public class ArtistInBandDeserializer extends StdDeserializer<ArtistInBand> {
         ObjectCodec objectCodec = jsonParser.getCodec();
         JsonNode jsonNode = objectCodec.readTree(jsonParser);
 
-        artistInBand.setActive(jsonNode.get("ended").asBoolean());
+        artistInBand.setActive(!jsonNode.get("ended").asBoolean());
         if (jsonNode.hasNonNull("begin"))
             artistInBand.setActivityStart(DateParser.parseDate(jsonNode.get("begin").asText()));
         if (jsonNode.hasNonNull("end")) {
             artistInBand.setActivityEnd(DateParser.parseDate(jsonNode.get("end").asText()));
         }
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> roles = new ArrayList<>();
         Iterator<JsonNode> jsonNodeIterator = jsonNode.get("attributes").elements();
         while (jsonNodeIterator.hasNext()) {
             String role = jsonNodeIterator.next().asText();
             if ( !role.equals("original") ) {
-                stringBuilder.append(role);
-                stringBuilder.append(",");
+                roles.add(role);
             }
         }
-        artistInBand.setRoles(stringBuilder.toString());
+        artistInBand.setRoles(roles.stream().toArray(String[]::new));
 
         return artistInBand;
     }

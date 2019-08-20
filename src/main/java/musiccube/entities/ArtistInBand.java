@@ -29,12 +29,12 @@ public class ArtistInBand {
     @Column
     private boolean isActive;
 
-    @Column
-    private String roles;
+    @Column(length = 1024)
+    private String[] roles;
 
     public ArtistInBand() {}
 
-    public ArtistInBand(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String roles) {
+    public ArtistInBand(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String[] roles) {
         this.artist = artist;
         this.band = band;
         this.activityStart = activityStart;
@@ -91,11 +91,11 @@ public class ArtistInBand {
         this.activityEnd = activityEnd;
     }
 
-    public String getRoles() {
+    public String[] getRoles() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRoles(String[] roles) {
         this.roles = roles;
     }
 }
