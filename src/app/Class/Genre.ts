@@ -5,12 +5,14 @@ export class Genre {
   origin: Country;
   genreName: string;
   creationDate: string;
+  aboutGenre: string;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.origin = (obj && obj.origin) || null;
     this.genreName = (obj && obj.genreName) || '';
     this.creationDate = (obj && obj.creationDate) || '';
+    this.aboutGenre = (obj && obj.aboutGenre) || '';
   }
 
   // Getters
@@ -31,6 +33,10 @@ export class Genre {
     return this.creationDate;
   }
 
+  getAboutGenre(): string {
+    return this.aboutGenre;
+  }
+
   // Setters
 
   setOrigin(origin: Country) {
@@ -43,5 +49,9 @@ export class Genre {
 
   setCreationDate(creationDate: string) {
     this.creationDate = creationDate;
+  }
+
+  setAboutGenre(aboutGenre: string) {
+    this.aboutGenre = aboutGenre;
   }
 }
