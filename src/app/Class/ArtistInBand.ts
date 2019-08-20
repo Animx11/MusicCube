@@ -1,21 +1,23 @@
-import { Artist } from "./Artist";
-import { Band } from "./Band";
+import { Artist } from './Artist';
+import { Band } from './Band';
 
 export class ArtistInBand {
   id: number;
-  private artist: Artist;
-  private band: Band;
-  private yearsActive: string;
-  private isActive: boolean;
-  private roles: string;
+  artist: Artist;
+  band: Band;
+  activityStart: Date;
+  activityEnd: Date;
+  isActive: boolean;
+  roles: string[];
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.artist = (obj && obj.artist) || null;
     this.band = (obj && obj.band) || null;
-    this.yearsActive = (obj && obj.yearsActive) || "";
-    this.isActive = (obj && obj.isActive) || null;
-    this.roles = (obj && obj.roles) || "";
+    this.activityStart = (obj && obj.activityStart) || null;
+    this.activityEnd = (obj && obj.activityEnd) || null;
+    this.isActive = (obj && obj.active) || null;
+    this.roles = (obj && obj.roles) || [];
   }
 
   // Getters
@@ -32,15 +34,18 @@ export class ArtistInBand {
     return this.band;
   }
 
-  getYearsActive(): string {
-    return this.yearsActive;
+  getActivityStart(): Date {
+    return this.activityStart;
+  }
+  getActivityEnd(): Date {
+    return this.activityEnd;
   }
 
   getIsActive(): boolean {
     return this.isActive;
   }
 
-  getRoles(): string {
+  getRoles(): string[] {
     return this.roles;
   }
 }

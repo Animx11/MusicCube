@@ -1,21 +1,21 @@
-import { Component, OnInit, EventEmitter } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
-import { PersonService } from "src/app/Services/person.service";
-import { BandService } from "src/app/Services/band.service";
-import { AlbumService } from "src/app/Services/album.service";
-import { SongService } from "src/app/Services/song.service";
-import { GenreService } from "src/app/Services/genre.service";
-import { InstrumentService } from "src/app/Services/instrument.service";
+import { PersonService } from 'src/app/Services/person.service';
+import { BandService } from 'src/app/Services/band.service';
+import { AlbumService } from 'src/app/Services/album.service';
+import { SongService } from 'src/app/Services/song.service';
+import { GenreService } from 'src/app/Services/genre.service';
+import { InstrumentService } from 'src/app/Services/instrument.service';
 
 
-import { Person } from "src/app/Class/Person";
-import { Band } from "src/app/Class/Band";
-import { Album } from "src/app/Class/Album";
-import { Song } from "src/app/Class/Song";
-import { Genre } from "src/app/Class/Genre";
-import { Instrument } from "src/app/Class/Instrument";
+import { Person } from 'src/app/Class/Person';
+import { Band } from 'src/app/Class/Band';
+import { Album } from 'src/app/Class/Album';
+import { Song } from 'src/app/Class/Song';
+import { Genre } from 'src/app/Class/Genre';
+import { Instrument } from 'src/app/Class/Instrument';
 
 
 @Component({
@@ -53,7 +53,7 @@ export class SearchEngineMainComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((term: string) => this.bandService.getByBandName(term))
     );
-    this.albums$= this.searchTerms.pipe(
+    this.albums$ = this.searchTerms.pipe(
       debounceTime(1000),
       distinctUntilChanged(),
       switchMap((term: string) => this.albumService.getByAlbumName(term))
@@ -68,7 +68,7 @@ export class SearchEngineMainComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((term: string) => this.genreService.getByGenreName(term))
     );
-    this.instruments$= this.searchTerms.pipe(
+    this.instruments$ = this.searchTerms.pipe(
       debounceTime(1000),
       distinctUntilChanged(),
       switchMap((term: string) => this.instrumentService.getByInstrumentName(term))

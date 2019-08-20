@@ -1,13 +1,12 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
-import { Artist } from "src/app/Class/Artist";
-import { Localization } from "src/app/Class/Localization";
-import { ArtistService } from "src/app/Services/artist.service";
+import { Artist } from 'src/app/Class/Artist';
+import { ArtistService } from 'src/app/Services/artist.service';
 
 @Component({
-  selector: "app-add-artist",
-  templateUrl: "./add-artist.component.html",
-  styleUrls: ["./add-artist.component.css"]
+  selector: 'app-add-artist',
+  templateUrl: './add-artist.component.html',
+  styleUrls: ['./add-artist.component.css']
 })
 export class AddArtistComponent implements OnInit {
   private artist: Artist;
@@ -19,24 +18,20 @@ export class AddArtistComponent implements OnInit {
   constructor(private artistService: ArtistService) {}
 
   ngOnInit() {
-    this.firstNames = this.lastName = this.stageName = "";
+    this.firstNames = this.lastName = this.stageName = '';
     this.artist = new Artist();
     this.birthDate = null;
   }
 
-  localizationEventHandler($event: any) {
-    this.artist.setOrigin($event);
-  }
-
   addArtist() {
     if (
-      this.firstNames === "" ||
-      this.lastName === "" ||
-      this.stageName === "" ||
+      this.firstNames === '' ||
+      this.lastName === '' ||
+      this.stageName === '' ||
       this.birthDate == null
-    )
-      window.alert("Incomplete input");
-    else {
+    ) {
+      window.alert('Incomplete input');
+    } else {
       this.artist.setFirstNames(this.firstNames);
       this.artist.setLastName(this.lastName);
       this.artist.setStageName(this.stageName);
@@ -44,12 +39,12 @@ export class AddArtistComponent implements OnInit {
 
       this.artistService.create(this.artist).subscribe(
         res => {
-          console.log("add-artist-component received:");
+          console.log('add-artist-component received:');
           console.log(res);
-          window.alert("Artist added");
+          window.alert('Artist added');
         },
         err => {
-          window.alert("Error occured");
+          window.alert('Error occured');
           console.error(err);
         }
       );

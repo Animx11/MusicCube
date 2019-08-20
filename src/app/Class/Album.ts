@@ -4,6 +4,9 @@ export class Album {
   albumLengthSeconds: number;
   releaseDate: Date;
   company: string;
+  coverArtLink: string;
+  type: string;
+  trackCount: number;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
@@ -11,6 +14,9 @@ export class Album {
     this.albumLengthSeconds = (obj && obj.albumLengthSeconds) || 0;
     this.releaseDate = (obj && obj.releaseDate) || null;
     this.company = (obj && obj.company) || '';
+    this.coverArtLink = (obj && obj.coverArtLink) || '';
+    this.type = (obj && obj.type) || '';
+    this.trackCount = (obj && obj.trackCount) || 0;
   }
 
   // Getters
@@ -34,6 +40,7 @@ export class Album {
   public getCompany(): string {
     return this.company;
   }
+
 
   // Setters
 
