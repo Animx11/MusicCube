@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { InstrumentService } from "src/app/Services/instrument.service";
 import { Instrument } from "src/app/Class/Instrument";
+import { InstrumentType } from "src/app/Class/InstrumentType";
+
 
 @Component({
   selector: "app-add-instrument",
@@ -10,21 +12,21 @@ import { Instrument } from "src/app/Class/Instrument";
 export class AddInstrumentComponent implements OnInit {
   private instrument: Instrument;
   private instrumentName: string;
-  private type: string;
+  private instrumentTypeName: InstrumentType;
 
   constructor(private instrumentService: InstrumentService) {}
 
   ngOnInit() {
     this.instrument = new Instrument();
-    this.instrumentName = this.type = "";
+    this.instrumentName = this.instrumentTypeName = null;
   }
 
   addInstrument() {
-    if (this.instrumentName === "" || this.type === "")
+    if (this.instrumentName === "")
       window.alert("Incomplete input");
     else {
       this.instrument.setInstrumentName(this.instrumentName);
-      this.instrument.setType(this.type);
+      this.instrument.setInstrumentTypeName(this.instrumentTypeName);
       this.instrumentService.create(this.instrument).subscribe(
         res => {
           console.log("add-instrument-component received:");

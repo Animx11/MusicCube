@@ -6,6 +6,7 @@ export class Person {
   firstNames: string;
   lastName: string;
   birthDate: Date;
+  deathDate: Date;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
@@ -13,6 +14,7 @@ export class Person {
     this.firstNames = (obj && obj.firstNames) || '';
     this.lastName = (obj && obj.lastName) || '';
     this.birthDate = (obj && obj.birthDate) || null;
+    this.deathDate = (obj && obj.deathDate) || null;
   }
 
   // Getters
@@ -37,6 +39,10 @@ export class Person {
     return this.birthDate;
   }
 
+  getDeathDate(): Date {
+    return this.deathDate;
+  }
+
   // Setters
 
   setOrigin(origin: City) {
@@ -53,5 +59,9 @@ export class Person {
 
   setBirthDate(birthDate: Date) {
     this.birthDate = birthDate;
+  }
+
+  setDeathDate(deathDate: Date) {
+    this.deathDate = deathDate;
   }
 }

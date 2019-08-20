@@ -1,17 +1,17 @@
 import { Band } from "./Band";
-//import { Concert } from './Concert';
+import { Concert } from './Concert';
 
 export class BandConcert {
   id: number;
   private band: Band;
-  // private concert: Concert;
+  private concert: Concert;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.band = (obj && obj.band) || null;
-    //this.concert = (obj && obj.concert) || null;
+    this.concert = (obj && obj.concert) || null;
   }
-  /*
+  
     // Getters
 
     getId(): number {
@@ -35,5 +35,5 @@ export class BandConcert {
     setConcert(concert: Concert) {
         this.concert = concert;
     }
-*/
+
 }
