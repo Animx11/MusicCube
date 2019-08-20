@@ -5,7 +5,8 @@ export class ArtistInBand {
   id: number;
   private artist: Artist;
   private band: Band;
-  private yearsActive: string;
+  private activityStart: Date;
+  private activityEnd: Date;
   private isActive: boolean;
   private roles: string;
 
@@ -13,7 +14,8 @@ export class ArtistInBand {
     this.id = (obj && obj.id) || 0;
     this.artist = (obj && obj.artist) || null;
     this.band = (obj && obj.band) || null;
-    this.yearsActive = (obj && obj.yearsActive) || "";
+    this.activityStart = (obj && obj.activityStart) || null;
+    this.activityEnd = (obj && obj.activityEnd) || null;
     this.isActive = (obj && obj.isActive) || null;
     this.roles = (obj && obj.roles) || "";
   }
@@ -32,8 +34,12 @@ export class ArtistInBand {
     return this.band;
   }
 
-  getYearsActive(): string {
-    return this.yearsActive;
+  getActivityStart(): Date {
+    return this.activityStart;
+  }
+
+  getActivityEnd(): Date {
+    return this.activityEnd;
   }
 
   getIsActive(): boolean {
@@ -43,4 +49,5 @@ export class ArtistInBand {
   getRoles(): string {
     return this.roles;
   }
+
 }

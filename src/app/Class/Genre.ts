@@ -4,13 +4,13 @@ export class Genre {
   id: number;
   private origin: Country;
   private genreName: string;
-  private creationDate: Date;
+  private creationDate: string;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.origin = (obj && obj.origin) || null;
-    this.genreName = (obj && obj.genreName) || "";
-    this.creationDate = (obj && obj.creationDate) || null;
+    this.genreName = (obj && obj.genreName) || '';
+    this.creationDate = (obj && obj.creationDate) || '';
   }
 
   // Getters
@@ -27,7 +27,7 @@ export class Genre {
     return this.genreName;
   }
 
-  getCreationDate(): Date {
+  getCreationDate(): string {
     return this.creationDate;
   }
 
@@ -41,7 +41,7 @@ export class Genre {
     this.genreName = genreName;
   }
 
-  setCreationDate(creationDate: Date) {
+  setCreationDate(creationDate: string) {
     this.creationDate = creationDate;
   }
 }

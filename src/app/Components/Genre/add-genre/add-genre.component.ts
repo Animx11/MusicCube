@@ -10,20 +10,20 @@ import { Genre } from "src/app/Class/Genre";
 export class AddGenreComponent implements OnInit {
   private genre: Genre;
   private genreName: string;
-  private yearOfCreation: number;
+  private yearOfCreation: string;
 
   constructor(private genreService: GenreService) {}
 
   ngOnInit() {
     this.genreName = "";
-    this.yearOfCreation = 0;
+    this.yearOfCreation = "";
     this.genre = new Genre();
   }
   addGenre() {
     if (this.genreName === "") window.alert("Incomplete input");
     else {
       this.genre.setGenreName(this.genreName);
-      this.genre.setCreationDate(new Date(`${this.yearOfCreation}-01-01`));
+      this.genre.setCreationDate(this.yearOfCreation);
       this.genreService.create(this.genre).subscribe(
         res => {
           console.log("add-genre-component received:");

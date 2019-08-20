@@ -1,12 +1,14 @@
+import { InstrumentType } from './InstrumentType';
+
 export class Instrument {
   id: number;
   private instrumentName: string;
-  private type: string;
+  private instrumentType: InstrumentType;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.instrumentName = (obj && obj.instrumentName) || "";
-    this.type = (obj && obj.type) || "";
+    this.instrumentType = (obj && obj.type) || "";
   }
 
   // Getters
@@ -19,8 +21,8 @@ export class Instrument {
     return this.instrumentName;
   }
 
-  getType(): string {
-    return this.type;
+  getInstrumentType(): InstrumentType {
+    return this.instrumentType;
   }
 
   // Setters
@@ -29,7 +31,7 @@ export class Instrument {
     this.instrumentName = instrumentName;
   }
 
-  setType(type: string) {
-    this.type = type;
+  setInstrumentType(type: InstrumentType) {
+    this.instrumentType = type;
   }
 }

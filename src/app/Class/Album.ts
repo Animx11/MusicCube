@@ -4,6 +4,10 @@ export class Album {
   private albumLengthSeconds: number;
   private releaseDate: Date;
   private company: string;
+  private coverArtLink: string;
+  private type: string;
+  private trackCount: number;
+
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
@@ -11,6 +15,9 @@ export class Album {
     this.albumLengthSeconds = (obj && obj.albumLengthSeconds) || 0;
     this.releaseDate = (obj && obj.releaseDate) || null;
     this.company = (obj && obj.company) || '';
+    this.coverArtLink = (obj && obj.coverArtLink) || '';
+    this.type = (obj && obj.type) || '';
+    this.trackCount = (obj && obj.trackCount) || 0;
   }
 
   // Getters
@@ -35,6 +42,18 @@ export class Album {
     return this.company;
   }
 
+  public getCoverArtLink(): string {
+    return this.coverArtLink;
+  }
+
+  public getType(): string {
+    return this.type;
+  }
+
+  public getTrackCount(): number {
+    return this.trackCount;
+  }
+
   // Setters
 
   public setAlbumName(albumName: string) {
@@ -51,5 +70,17 @@ export class Album {
 
   public setCompany(company: string) {
     return (this.company = company);
+  }
+
+  public setCoverArtLink(coverArtLink: string) {
+    return this.coverArtLink = coverArtLink;
+  }
+
+  public setType(type: string) {
+    return this.type = type;
+  }
+
+  public setTrackCount(trackCount: number) {
+    return this.trackCount = trackCount;
   }
 }
