@@ -54,7 +54,7 @@ public class LineupHandler {
     Gets members of band, calls getArtist for each of them
      */
     public void getLineup(Band band) throws IOException, InterruptedException {
-        Thread.sleep(600);
+        Thread.sleep(Constants.WAIT);
         response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/"+band.getMbId()+"?inc=artist-rels&fmt=json",String.class);
         JSONObject obj = new JSONObject(response.getBody());
         JSONArray relations = obj.getJSONArray("relations");
@@ -80,7 +80,7 @@ public class LineupHandler {
         }
         else {
             try {
-                Thread.sleep(600);
+                Thread.sleep(Constants.WAIT);
                 response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/" + mbid + Constants.FMT, String.class);
                 JSONObject obj = new JSONObject(response.getBody());
                 if (checkArtist(obj)) {
@@ -132,5 +132,6 @@ public class LineupHandler {
                 .append(".")
                 .toString()
         );
+
     }
 }

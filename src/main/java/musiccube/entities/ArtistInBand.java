@@ -29,7 +29,7 @@ public class ArtistInBand {
     @Column
     private boolean isActive;
 
-    @Column
+    @Column(length = 1024)
     private String[] roles;
 
     public ArtistInBand() {}

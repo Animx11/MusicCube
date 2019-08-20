@@ -23,7 +23,7 @@ public class ArtistInBandDeserializer extends StdDeserializer<ArtistInBand> {
         ObjectCodec objectCodec = jsonParser.getCodec();
         JsonNode jsonNode = objectCodec.readTree(jsonParser);
 
-        artistInBand.setActive(jsonNode.get("ended").asBoolean());
+        artistInBand.setActive(!jsonNode.get("ended").asBoolean());
         if (jsonNode.hasNonNull("begin"))
             artistInBand.setActivityStart(DateParser.parseDate(jsonNode.get("begin").asText()));
         if (jsonNode.hasNonNull("end")) {

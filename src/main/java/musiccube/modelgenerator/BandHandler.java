@@ -46,7 +46,7 @@ public class BandHandler {
         RestTemplate restTemplate = new RestTemplate();
         Logger logger = Logger.getLogger(BandHandler.class);
         try {
-            Thread.sleep(600);
+            Thread.sleep(Constants.WAIT);
             ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/?query=type:group&limit=1&offset="+Integer.toString(offset)+"&fmt=json", String.class);
             JSONObject obj = new JSONObject(response.getBody()).getJSONArray("artists").getJSONObject(0);
             if (checkBand(obj)) {
