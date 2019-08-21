@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GenreService } from "src/app/Services/genre.service";
 import { Genre } from "src/app/Class/Genre";
+import { Country } from "src/app/Class/Country";
 
 @Component({
   selector: "app-add-genre",
@@ -8,22 +9,33 @@ import { Genre } from "src/app/Class/Genre";
   styleUrls: ["./add-genre.component.css"]
 })
 export class AddGenreComponent implements OnInit {
+
   private genre: Genre;
+
+  private origin: Country;
   private genreName: string;
-  private yearOfCreation: string;
+  private creationDate: string;
+
+  private isOriginClicked: boolean;
 
   constructor(private genreService: GenreService) {}
 
   ngOnInit() {
     this.genreName = "";
-    this.yearOfCreation = "";
+    this.creationDate = "";
+    this.isOriginClicked = false;
     this.genre = new Genre();
   }
+
+  searchOrigin(){
+    this.isOriginClicked = true;
+  }
+
   addGenre() {
     if (this.genreName === "") window.alert("Incomplete input");
     else {
       this.genre.setGenreName(this.genreName);
-      this.genre.setCreationDate(this.yearOfCreation);
+      this.genre.setCreationDate(this.creationDate);
       this.genreService.create(this.genre).subscribe(
         res => {
           console.log("add-genre-component received:");

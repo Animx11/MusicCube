@@ -21,29 +21,29 @@
     <div id = 'routerOutlet'>
         <div id = "head" *ngIf="showHead">
 
-          <div class="adminComponentPanel" *ngIf="isSongClicked">
-              <a routerLink="AddSong" routerLinkActive="active"><div class="adminComponentNavigator">Add New Song</div></a>
-              <a routerLink="EditSong" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Song</div></a>
+            <div class="adminComponentPanel" *ngIf="isSongClicked">
+              <div class="adminComponentNavigator" (click) = "isSongAddClicked = switchOptionValue(isSongAddClicked)">Add New Song</div>
+              <div class="adminComponentNavigator" (click) = "isSongEditClicked = switchOptionValue(isSongEditClicked)">Edit/Delete Song</div>
             </div>
 
-            <div class="adminComponentPanel" *ngIf="isBandClicked">
-                <a routerLink="AddBand" routerLinkActive="active"><div class="adminComponentNavigator">Add New Band</div></a>
-                <a routerLink="EditBand" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Band</div></a>
+              <div class="adminComponentPanel" *ngIf="isBandClicked">
+                <div class="adminComponentNavigator" (click) = "isBandAddClicked = switchOptionValue(isBandAddClicked)">Add New Band</div>
+                <div class="adminComponentNavigator" (click) = "isBandEditClicked = switchOptionValue(isBandEditClicked)">Edit/Delete Band</div>
               </div>
 
               <div class="adminComponentPanel" *ngIf="isAlbumClicked">
-                  <a routerLink="AddAlbum" routerLinkActive="active"><div class="adminComponentNavigator">Add New Album</div></a>
-                  <a routerLink="EditAlbum" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Album</div></a>
+                <div class="adminComponentNavigator" (click) = "isAlbumAddClicked = switchOptionValue(isAlbumAddClicked)">Add New Album</div>
+                <div class="adminComponentNavigator" (click) = "isAlbumEditClicked = switchOptionValue(isAlbumEditClicked)">Edit/Delete Album</div>
               </div>
 
               <div class="adminComponentPanel" *ngIf="isPersonClicked">
-                  <a routerLink="AddPerson" routerLinkActive="active"><div class="adminComponentNavigator">Add New Person</div></a>
-                  <a routerLink="EditPerson" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Person</div></a>
+                <div class="adminComponentNavigator" (click) = "isPersonAddClicked = switchOptionValue(isPersonAddClicked)">Add New Person</div>
+                <div class="adminComponentNavigator" (click) = "isPersonEditClicked = switchOptionValue(isPersonEditClicked)">Edit/Delete Person</div>
               </div>
 
               <div class="adminComponentPanel" *ngIf="isConcertClicked">
-                  <a routerLink="AddConcert" routerLinkActive="active"><div class="adminComponentNavigator">Add New Concert</div></a>
-                  <a routerLink="EditConcert" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Concert</div></a>
+                <div class="adminComponentNavigator" (click) = "isConcertAddClicked = switchOptionValue(isConcertAddClicked)">Add New Concert</div>
+                <div class="adminComponentNavigator" (click) = "isConcertEditClicked = switchOptionValue(isConcertEditClicked)">Edit/Delete Concert</div>
               </div>
 
               <div class="adminComponentPanel" *ngIf="isGenreClicked">
@@ -52,16 +52,36 @@
               </div>
 
               <div class="adminComponentPanel" *ngIf="isInstrumentClicked">
-                  <a routerLink="AddInstrument" routerLinkActive="active"><div class="adminComponentNavigator">Add New Instrument</div></a>
-                  <a routerLink="EditInstrument" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Instrument</div></a>
-              </div>
+                <div class="adminComponentNavigator" (click) = "isInstrumentAddClicked = switchOptionValue(isInstrumentAddClicked)">Add New Instrument</div>
+                <div class="adminComponentNavigator" (click) = "isInstrumentEditClicked = switchOptionValue(iInstrumentEditClicked)">Edit/Delete Instrument</div>
+            </div>
 
               <div class="adminComponentPanel" *ngIf="isCityClicked">
-                  <!--Miejsce na city i country-->
+                  <!--TODO Miejsce na city i country-->
               </div>
         </div>
+
+        <app-add-song *ngIf = "isSongAddClicked"></app-add-song>
+        <app-edit-song *ngIf = "isSongEditClicked"></app-edit-song>
+
+        <app-add-band *ngIf = "isBandAddClicked"></app-add-band>
+        <app-edit-band *ngIf = "isBandEditClicked"></app-edit-band>
+
+        <app-add-album *ngIf = "isAlbumAddClicked"></app-add-album>
+        <app-edit-album *ngIf = "isAlbumEditClicked"></app-edit-album>
+
+        <!--TODO Zamiast artist zrób tu person-->
+        <app-add-genre *ngIf = "isPersonAddClicked"></app-add-genre>
+        <app-edit-genre *ngIf = "isPersonEditClicked"></app-edit-genre>
+
+        <app-add-concert *ngIf = "isConcertAddClicked"></app-add-concert>
+        <app-edit-concert *ngIf = "isConcertEditClicked"></app-edit-concert>
+
         <app-add-genre *ngIf = "isGenreAddClicked"></app-add-genre>
         <app-edit-genre *ngIf = "isGenreEditClicked"></app-edit-genre>
+        
+        <app-add-instrument *ngIf = "isInstrumentAddClicked"></app-add-instrument>
+        <app-edit-instrument *ngIf = "isInstrumentEditClicked"></app-edit-instrument>
       <router-outlet></router-outlet>
     </div>
 
