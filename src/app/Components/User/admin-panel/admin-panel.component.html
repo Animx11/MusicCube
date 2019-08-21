@@ -4,14 +4,18 @@
 
   <div id = 'adminPanel'>
     <div class = 'navigator' id = 'notClickable'>Admin Panel</div>
-    <div class = 'navigator' (click)="isSongClicked = switchValue(isSongClicked)">Song</div>
-    <div class = 'navigator' (click)="isBandClicked = switchValue(isBandClicked)">Band</div>
-    <div class = 'navigator' (click)="isAlbumClicked = switchValue(isAlbumClicked)">Album</div>
-    <div class = 'navigator' (click)="isArtistClicked = switchValue(isArtistClicked)">Artist</div>
-    <div class = 'navigator' (click)="isConcertClicked = switchValue(isConcertClicked)">Concert</div>
-    <div class = 'navigator' (click)="isGenreClicked = switchValue(isGenreClicked)">Genre</div>
-    <div class = 'navigator' (click)="isInstrumentClicked = switchValue(isInstrumentClicked)">Instrument</div>
-    <div class = 'navigator' (click)="isCityClicked = switchValue(isCityClicked)">City</div>
+    <div class = 'navigator' *ngIf="!isShowRecordClicked">Manage Users</div>
+    <div class = 'navigator' (click)="isShowRecordClicked = swichMainValue(isShowRecordClicked)" *ngIf="!isShowRecordClicked">Manage Records</div>
+    <div class = 'navigator' (click)="userPanel()" *ngIf="!isShowRecordClicked">Manage Your Account</div>  
+    <div class = 'navigator' (click)="resetValues()" *ngIf="isShowRecordClicked">Back</div>
+    <div class = 'navigator' (click)="isSongClicked = switchRecordValue(isSongClicked)" *ngIf="isShowRecordClicked">Song</div>
+    <div class = 'navigator' (click)="isBandClicked = switchRecordValue(isBandClicked)" *ngIf="isShowRecordClicked">Band</div>
+    <div class = 'navigator' (click)="isAlbumClicked = switchRecordValue(isAlbumClicked)" *ngIf="isShowRecordClicked">Album</div>
+    <div class = 'navigator' (click)="isPersonClicked = switchRecordValue(isPersonClicked)" *ngIf="isShowRecordClicked">Person</div>
+    <div class = 'navigator' (click)="isConcertClicked = switchRecordValue(isConcertClicked)" *ngIf="isShowRecordClicked">Concert</div>
+    <div class = 'navigator' (click)="isGenreClicked = switchRecordValue(isGenreClicked)" *ngIf="isShowRecordClicked">Genre</div>
+    <div class = 'navigator' (click)="isInstrumentClicked = switchRecordValue(isInstrumentClicked)" *ngIf="isShowRecordClicked">Instrument</div>
+    <div class = 'navigator' (click)="isCityClicked = switchRecordValue(isCityClicked)" *ngIf="isShowRecordClicked">City</div>
 
   </div>
     <div id = 'routerOutlet'>
@@ -32,9 +36,9 @@
                   <a routerLink="EditAlbum" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Album</div></a>
               </div>
 
-              <div class="adminComponentPanel" *ngIf="isArtistClicked">
-                  <a routerLink="AddArtist" routerLinkActive="active"><div class="adminComponentNavigator">Add New Artist</div></a>
-                  <a routerLink="EditArtist" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Artist</div></a>
+              <div class="adminComponentPanel" *ngIf="isPersonClicked">
+                  <a routerLink="AddPerson" routerLinkActive="active"><div class="adminComponentNavigator">Add New Person</div></a>
+                  <a routerLink="EditPerson" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Person</div></a>
               </div>
 
               <div class="adminComponentPanel" *ngIf="isConcertClicked">
@@ -43,8 +47,8 @@
               </div>
 
               <div class="adminComponentPanel" *ngIf="isGenreClicked">
-                  <a routerLink="AddGenre" routerLinkActive="active"><div class="adminComponentNavigator">Add New Genre</div></a>
-                  <a routerLink="EditGenre" routerLinkActive="active"><div class="adminComponentNavigator">Edit/Delete Genre</div></a>
+                  <div class="adminComponentNavigator" (click) = "isGenreAddClicked = switchOptionValue(isGenreAddClicked)">Add New Genre</div>
+                  <div class="adminComponentNavigator" (click) = "isGenreEditClicked = switchOptionValue(isGenreEditClicked)">Edit/Delete Genre</div>
               </div>
 
               <div class="adminComponentPanel" *ngIf="isInstrumentClicked">
@@ -56,6 +60,8 @@
                   <!--Miejsce na city i country-->
               </div>
         </div>
+        <app-add-genre *ngIf = "isGenreAddClicked"></app-add-genre>
+        <app-edit-genre *ngIf = "isGenreEditClicked"></app-edit-genre>
       <router-outlet></router-outlet>
     </div>
 
