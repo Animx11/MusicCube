@@ -14,5 +14,6 @@ public interface InstrumentService {
 
     Iterable<Instrument> getByInstrumentName(String instrumentName);
     boolean existsByInstrumentName(String instrumentName);
+    Instrument getOneByName(String name);
 
 }

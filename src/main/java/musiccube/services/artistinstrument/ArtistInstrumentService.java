@@ -15,5 +15,6 @@ public interface ArtistInstrumentService {
 
     Iterable<ArtistInstrument> getByArtist(Artist artist);
     Iterable<ArtistInstrument> getByInstrument(Instrument instrument);
+    boolean existsByArtistIdAndInstrumentId(int artistId, int instrumentId);
 
 }

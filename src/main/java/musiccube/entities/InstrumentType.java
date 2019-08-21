@@ -14,10 +14,10 @@ public class InstrumentType {
     @GeneratedValue
     private int id;
 
-    @Column
+    @Column(unique = true)
     private String instrumentTypeName;
 
-    @Column
+    @Column(length = 1024)
     private String aboutType;
 
     public InstrumentType() {

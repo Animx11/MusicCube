@@ -34,6 +34,8 @@ public class LineupHandler {
     private ArtistService artistService;
     @Autowired
     private ArtistInBandService artistInBandService;
+    @Autowired
+    private InstrumentHandler instrumentHandler;
 
     @Autowired
     private LocationHandler locationHandler;
@@ -122,7 +124,6 @@ public class LineupHandler {
         ArtistInBand artistInBand = mapper.readValue(relation.toString(),ArtistInBand.class);
         artistInBand.setArtist(artist);
         artistInBand.setBand(band);
-
         artistInBandService.save(artistInBand);
         logger.info((new StringBuilder())
                 .append("Artist ")
@@ -133,5 +134,17 @@ public class LineupHandler {
                 .toString()
         );
 
+        if (relation.has("attributes") && relation.getJSONArray("attributes").length() > 0) {
+            Constants.arrayToStream(relation.getJSONArray("attributes"))
+                    .map(String.class::cast)
+                    .filter(s -> ! (
+                                    s.equals("original") ||
+                                    s.equals("lead vocals") ||
+                                    s.equals("background vocals")
+                            ))
+                    .forEach(s -> {
+                        instrumentHandler.handleInstrument(s,artist);
+                    });
+        }
     }
 }

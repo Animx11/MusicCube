@@ -9,13 +9,14 @@ import musiccube.entities.ArtistInBand;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 public class ArtistInBandDeserializer extends StdDeserializer<ArtistInBand> {
     public ArtistInBandDeserializer () { this(null); }
-    public ArtistInBandDeserializer(Class<?> vc) { super(vc); }
+    public ArtistInBandDeserializer(Class<?> vc) {
+        super(vc);
+    }
 
     @Override
     public ArtistInBand deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
@@ -33,9 +34,7 @@ public class ArtistInBandDeserializer extends StdDeserializer<ArtistInBand> {
         Iterator<JsonNode> jsonNodeIterator = jsonNode.get("attributes").elements();
         while (jsonNodeIterator.hasNext()) {
             String role = jsonNodeIterator.next().asText();
-            if ( !role.equals("original") ) {
-                roles.add(role);
-            }
+            roles.add(role);
         }
         artistInBand.setRoles(roles.stream().toArray(String[]::new));
 

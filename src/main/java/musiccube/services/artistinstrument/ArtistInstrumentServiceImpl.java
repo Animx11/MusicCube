@@ -36,4 +36,9 @@ public class ArtistInstrumentServiceImpl implements ArtistInstrumentService {
     public Iterable<ArtistInstrument> getByArtist(Artist artist) { return artistInstrumentRepository.findByArtist(artist); }
     @Override
     public Iterable<ArtistInstrument> getByInstrument(Instrument instrument) { return artistInstrumentRepository.findByInstrument(instrument); }
+
+    @Override
+    public boolean existsByArtistIdAndInstrumentId(int artistId, int instrumentId) {
+        return artistInstrumentRepository.existsByArtistIdAndInstrumentId(artistId,instrumentId);
+    }
 }
