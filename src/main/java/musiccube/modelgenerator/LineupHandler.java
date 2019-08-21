@@ -29,6 +29,8 @@ public class LineupHandler {
     private ResponseEntity<String> response;
     private RestTemplate restTemplate = new RestTemplate();
     private ObjectMapper mapper = new ObjectMapper();
+    
+    private static final String ARTIST = "Artist ";
 
     @Autowired
     private ArtistService artistService;
@@ -36,7 +38,6 @@ public class LineupHandler {
     private ArtistInBandService artistInBandService;
     @Autowired
     private InstrumentHandler instrumentHandler;
-
     @Autowired
     private LocationHandler locationHandler;
 
@@ -67,7 +68,6 @@ public class LineupHandler {
                 if ( (artist = getArtist(obj.getJSONObject("artist").getString("id"))) != null) {
                     signToBand(artist, band, obj);
                 }
-
             }
         }
     }
@@ -92,14 +92,14 @@ public class LineupHandler {
                             obj.getJSONObject(Constants.BGN_AREA).getString("id")
                     ));
                     artistService.save(artist);
-                    logger.info("Artist " + artist.getStageName() + Constants.SAVED);
+                    logger.info(ARTIST + artist.getStageName() + Constants.SAVED);
                     return artist;
                 } else {
-                    logger.warn("Artist "+mbid+" json incomplete, ignoring.");
+                    logger.warn(ARTIST+mbid+" json incomplete, ignoring.");
                 }
 
             } catch (JSONException je) {
-                logger.warn("Artist "+mbid+" causing problems, ignoring");
+                logger.warn(ARTIST+mbid+" causing problems, ignoring");
             }
         }
         return null;
@@ -126,7 +126,7 @@ public class LineupHandler {
         artistInBand.setBand(band);
         artistInBandService.save(artistInBand);
         logger.info((new StringBuilder())
-                .append("Artist ")
+                .append(ARTIST)
                 .append(artist.getStageName())
                 .append(" added to band ")
                 .append(band.getBandName())

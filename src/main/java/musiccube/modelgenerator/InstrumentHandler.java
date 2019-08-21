@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Component
@@ -32,6 +31,8 @@ public class InstrumentHandler {
     private ArtistInstrumentService artistInstrumentService;
     @Autowired
     private InstrumentTypeHandler instrumentTypeHandler;
+
+    private static final String DESCRIPTION = "description";
 
     public void handleInstrument(String name, Artist artist) {
         Instrument instrument;
@@ -62,6 +63,9 @@ public class InstrumentHandler {
                     type = instrumentTypeHandler.handleType(instrJson.getString("type"));
                 }
                 instrument = new Instrument(name,type);
+                if (instrJson.has(DESCRIPTION) && ! instrJson.isNull(DESCRIPTION)) {
+                    instrument.setAboutInstrument(instrJson.getString(DESCRIPTION));
+                }
                 instrumentService.save(instrument);
                 saveArtistInstrument(artist,instrument);
             } else {
@@ -78,12 +82,11 @@ public class InstrumentHandler {
                 "https://musicbrainz.org/ws/2/instrument?fmt=json&query=\""+name+"\"",
                 String.class
         );
-        System.out.println(new JSONObject(response.getBody()));
         return new JSONObject(response.getBody()).getJSONArray("instruments");
     }
 
     private JSONObject findCorrectJson(JSONArray instrArr, String name) {
-        System.out.println(name+'\n'+instrArr.toString());
+        
         Optional<JSONObject> opt = Constants.arrayToStream(instrArr)
                                         .map(JSONObject.class::cast)
                                         .filter(jsonObject -> jsonObject.getString("name").equals(name))
