@@ -1,5 +1,7 @@
 package musiccube.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Album {
 
     @Id

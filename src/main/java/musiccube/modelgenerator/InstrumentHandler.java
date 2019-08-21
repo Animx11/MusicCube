@@ -68,6 +68,7 @@ public class InstrumentHandler {
                 }
                 instrumentService.save(instrument);
                 saveArtistInstrument(artist,instrument);
+                logger.info("Instrument "+instrument.getInstrumentName()+Constants.SAVED);
             } else {
                 logger.warn("Couldn't find instrument "+name);
             }
