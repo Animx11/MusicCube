@@ -27,59 +27,58 @@ public class AlbumController {
     private AlbumService albumService;
 
     /************************ GET ********************************/
-    @RequestMapping(value = "/album{id}",
-            method = RequestMethod.GET,
+    @GetMapping(path = "/album/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Album> getById(int id) {
-        return albumService.getById(id);
+    public ResponseEntity<Album> getById(@PathVariable("id") int id) {
+        Optional<Album> album = albumService.getById(id);
+        if (album.isPresent()) {
+            return ResponseEntity.ok(album.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @RequestMapping(value = "/albums",
-            method = RequestMethod.GET,
+    @GetMapping(path = "/album/all",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Album> getAll() {
         return albumService.getAll();
     }
 
     // --- Get all albums with paging ---
-    @RequestMapping(value = "albums/{page}",
-            method = RequestMethod.GET,
+    @GetMapping(path = "album/page/{page}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Album> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
         return albumService.getAllPaging(pageNr,perPage.orElse(10));
     }
 
-    @RequestMapping(value = "/album/bands",
-            method = RequestMethod.GET,
+    @GetMapping(path = "/album/{id}/bands",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Band> getAlbumBands(int albumId) {
+    public Iterable<Band> getAlbumBands(@PathVariable("id") int albumId) {
         return albumService.getAlbumBands(albumId);
     }
 
-    @RequestMapping(value = "/albums{name}",
-            method = RequestMethod.GET,
+    @GetMapping(path = "/album/name/{name}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Album> getByAlbumName(String albumName) {
+    public Iterable<Album> getByAlbumName(@PathVariable("name") String albumName) {
         return albumService.getByAlbumName(albumName);
     }
 
-    @RequestMapping(value = "/album/songs",
-            method = RequestMethod.GET,
+    @GetMapping(path = "/album/{id}/songs",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Song> getAlbumSongs(int albumId) {
+    public Iterable<Song> getAlbumSongs(@PathVariable("id") int albumId) {
         return albumService.getAlbumSongs(albumId);
     }
 
     /*************************************************************/
 
 
-    @RequestMapping(value = "/album",method = RequestMethod.POST)
+    @PostMapping("/album")
     public ResponseEntity<Album> create(@RequestBody @Valid @NotNull Album album) {
         albumService.save(album);
         return ResponseEntity.ok().body(album);
     }
 
-    @RequestMapping(value = "/album",method = RequestMethod.PUT)
+    @PutMapping("/album")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Album album) {
         Optional<Album> album1 = albumService.getById(album.getId());
         if (Objects.nonNull(album1)) {
@@ -89,12 +88,12 @@ public class AlbumController {
     }
 
     @ApiIgnore
-    @RequestMapping(value = "/albums",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/albums",produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Album> redirect(Model model) {
         return albumService.getAll();
     }
 
-    @RequestMapping(value = "/album/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/album/{id}")
     public RedirectView delete(@PathVariable Integer id) {
         albumService.delete(id);
         return new RedirectView("/api/albums",true);
