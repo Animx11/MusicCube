@@ -16,6 +16,7 @@
     <div class = 'navigator' (click)="isGenreClicked = switchRecordValue(isGenreClicked)" *ngIf="isShowRecordClicked">Genre</div>
     <div class = 'navigator' (click)="isInstrumentClicked = switchRecordValue(isInstrumentClicked)" *ngIf="isShowRecordClicked">Instrument</div>
     <div class = 'navigator' (click)="isCityClicked = switchRecordValue(isCityClicked)" *ngIf="isShowRecordClicked">City</div>
+    <div class = 'navigator' (click)="isCountryClicked = switchRecordValue(isCountryClicked)" *ngIf="isShowRecordClicked">Country</div>
 
   </div>
     <div id = 'routerOutlet'>
@@ -53,11 +54,16 @@
 
               <div class="adminComponentPanel" *ngIf="isInstrumentClicked">
                 <div class="adminComponentNavigator" (click) = "isInstrumentAddClicked = switchOptionValue(isInstrumentAddClicked)">Add New Instrument</div>
-                <div class="adminComponentNavigator" (click) = "isInstrumentEditClicked = switchOptionValue(iInstrumentEditClicked)">Edit/Delete Instrument</div>
+                <div class="adminComponentNavigator" (click) = "isInstrumentEditClicked = switchOptionValue(isInstrumentEditClicked)">Edit/Delete Instrument</div>
             </div>
 
               <div class="adminComponentPanel" *ngIf="isCityClicked">
                   <!--TODO Miejsce na city i country-->
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isCountryClicked">
+                  <div class="adminComponentNavigator" (click) = "isCountryAddClicked = switchOptionValue(isCountryAddClicked)">Add New Country</div>
+                  <div class="adminComponentNavigator" (click) = "isCountryEditClicked = switchOptionValue(isCountryEditClicked)">Edit/Delete Country</div>
               </div>
         </div>
 
@@ -82,6 +88,10 @@
         
         <app-add-instrument *ngIf = "isInstrumentAddClicked"></app-add-instrument>
         <app-edit-instrument *ngIf = "isInstrumentEditClicked"></app-edit-instrument>
+
+        <app-add-country *ngIf = "isCountryAddClicked"></app-add-country>
+        <!--<app-edit-country *ngIf = "isCountryEditClicked"></app-edit-country>-->
+
       <router-outlet></router-outlet>
     </div>
 

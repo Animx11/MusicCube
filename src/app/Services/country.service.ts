@@ -13,11 +13,18 @@ const apiUrl = api_url;
 export class CountryService {
 
   constructor(private http: HttpClient) { }
+
   getById(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/country{id}?id=${id}`);
   }
+
+  getByCountryName(countryName: string): Observable<any> {
+    return this.http.get(`${apiUrl}/country_name{countryName}?countryName=${countryName}`);
+  }
+  
+
   list(): Observable<any> {
-    return this.http.get(`${apiUrl}/cities`);
+    return this.http.get(`${apiUrl}/countries`);
   }
 
   create(country: Country): Observable<any> {

@@ -15,6 +15,7 @@ export class AddGenreComponent implements OnInit {
   private origin: Country;
   private genreName: string;
   private creationTime: string;
+  private aboutGenre: string;
 
   private isOriginClicked: boolean;
 
@@ -29,6 +30,10 @@ export class AddGenreComponent implements OnInit {
 
   searchOrigin(){
     this.isOriginClicked = true;
+  }
+
+  countryEventHandler($event: any) {
+    this.genre.setOrigin($event);
   }
 
   addGenre() {

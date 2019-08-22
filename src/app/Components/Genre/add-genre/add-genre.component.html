@@ -10,7 +10,7 @@
             <input type = "text" name = "creationTime" [(ngModel)]="creationTime" class = "inputText" >
         </div><br>
         <div class = "separateDiv">
-            <div class = "textSeparateDiv"><i>Origin</i><br></div>
+            <div class = "textSeparateDiv"><i>Origin: {{ genre.origin.countryName }}</i><br></div>
             <button (click)="searchOrigin()">Set Origin</button>
         </div><br>
         <div class = "separateDiv">
@@ -21,7 +21,7 @@
   <div id = "searchPlace" *ngIf = "isOriginClicked">
       <div class = "separateDiv">
         <div class = "textSeparateDiv"><i>Search Origin Place</i><br></div>
-        <!--Dodaj tutaj country search component-->
+        <app-search-country (countryEvent)="countryEventHandler($event)"></app-search-country>
       </div><br>
   </div>
 

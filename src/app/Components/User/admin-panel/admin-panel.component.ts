@@ -65,7 +65,11 @@ export class AdminPanelComponent implements OnInit {
   isCityAddClicked: boolean;
   isCityEditClicked: boolean;
 
+  // Country
 
+  isCountryClicked: boolean;
+  isCountryAddClicked: boolean;
+  isCountryEditClicked: boolean;
 
   constructor() { }
 
@@ -108,6 +112,10 @@ export class AdminPanelComponent implements OnInit {
     this.isCityAddClicked = false;
     this.isCityEditClicked = false;
 
+    this.isCountryClicked = false;
+    this.isCountryAddClicked = false;
+    this.isCountryEditClicked = false;
+
   }
 
   // Resets
@@ -128,6 +136,7 @@ export class AdminPanelComponent implements OnInit {
     this.isGenreClicked = false;
     this.isInstrumentClicked = false;
     this.isCityClicked = false;
+    this.isCountryClicked = false;
   }
 
   resetOptionValue() {
@@ -147,6 +156,8 @@ export class AdminPanelComponent implements OnInit {
     this.isInstrumentEditClicked = false;
     this.isCityAddClicked = false;
     this.isCityEditClicked = false;
+    this.isCountryAddClicked = false;
+    this.isCountryEditClicked = false;
   }
 
   resetValues() {
