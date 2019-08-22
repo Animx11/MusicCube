@@ -11,7 +11,6 @@ export class BandConcert {
     this.band = (obj && obj.band) || null;
     this.concert = (obj && obj.concert) || null;
   }
-
     // Getters
 
     getId(): number {

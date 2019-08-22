@@ -4,9 +4,9 @@ import { Genre } from "src/app/Class/Genre";
 import { Country } from "src/app/Class/Country";
 
 @Component({
-  selector: "app-add-genre",
-  templateUrl: "./add-genre.component.html",
-  styleUrls: ["./add-genre.component.css"]
+  selector: 'app-add-genre',
+  templateUrl: './add-genre.component.html',
+  styleUrls: ['./add-genre.component.css']
 })
 export class AddGenreComponent implements OnInit {
 
@@ -14,7 +14,7 @@ export class AddGenreComponent implements OnInit {
 
   private origin: Country;
   private genreName: string;
-  private creationDate: string;
+  private creationTime: string;
 
   private isOriginClicked: boolean;
 
@@ -22,7 +22,7 @@ export class AddGenreComponent implements OnInit {
 
   ngOnInit() {
     this.genreName = "";
-    this.creationDate = "";
+    this.creationTime = "";
     this.isOriginClicked = false;
     this.genre = new Genre();
   }
@@ -32,19 +32,20 @@ export class AddGenreComponent implements OnInit {
   }
 
   addGenre() {
-    if (this.genreName === "") window.alert("Incomplete input");
-    else {
+    if (this.genreName === '') {
+      window.alert('Incomplete input');
+    } else {
       this.genre.setGenreName(this.genreName);
-      this.genre.setCreationDate(this.creationDate);
+      this.genre.setCreationDate(this.creationTime);
       this.genreService.create(this.genre).subscribe(
         res => {
-          console.log("add-genre-component received:");
+          console.log('add-genre-component received:');
           console.log(res);
-          window.alert("Genre added");
+          window.alert('Genre added');
         },
         err => {
           console.error(err);
-          window.alert("Error occured");
+          window.alert('Error occurred');
         }
       );
     }

@@ -2,9 +2,9 @@ import {City} from './City';
 
 export class Band {
   id: number;
-  private bandName: string;
-  private creationDate: Date;
-  private formedIn: City;
+  bandName: string;
+  creationDate: Date;
+  formedIn: City;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;

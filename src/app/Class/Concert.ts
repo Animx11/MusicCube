@@ -5,7 +5,6 @@ export class Concert {
   private startTime: Date;
   private concertName: string;
 
-
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.startTime = (obj && obj.startTime) || null;
@@ -35,5 +34,4 @@ export class Concert {
   setConcertName(concertName: string) {
     this.concertName = concertName;
   }
-
 }

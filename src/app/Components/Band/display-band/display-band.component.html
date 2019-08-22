@@ -2,16 +2,10 @@
   <h4>{{band.bandName}}</h4>
   <h5>Band<span *ngIf="band.formedIn"> from {{band.formedIn.cityName}}, {{band.formedIn.country.countryName}}</span></h5>
   <span *ngIf="band.creationDate">Formed in {{band.creationDate | date: 'yyyy'}}</span>
-  <h5>Current lineup</h5>
+  <h5>Lineup</h5>
   <ul>
-    <li *ngFor="let artist of currentLnp">
-      <a routerLink="/artist/{{artist.artist.id}}">{{artist.artist.stageName}}</a> active {{artist.yearsActive}}
-    </li>
-  </ul>
-  <h5>Past members</h5>
-  <ul>
-    <li *ngFor="let artist of pastLnp">
-      <a routerLink="/artist/{{artist.artist.id}}">{{artist.artist.stageName}}</a> active {{artist.yearsActive}}
+    <li *ngFor="let aDsp of artistDisplays">
+      <a routerLink="/artist/{{aDsp.artistId}}">{{aDsp.artistName}}</a> {{aDsp.getActivity()}}
     </li>
   </ul>
   <h5>Discography</h5>

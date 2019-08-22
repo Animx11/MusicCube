@@ -1,11 +1,11 @@
-import { Person } from "./Person";
+import { Person } from './Person';
 
 export class Artist extends Person {
-  private stageName: string;
+  stageName: string;
 
   constructor(obj?: any) {
     super(obj);
-    this.stageName = (obj && obj.stageName) || "";
+    this.stageName = (obj && obj.stageName) || '';
   }
 
   // Getter

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { this_url } from 'src/app/Services/API_URL';
+import { this_url } from 'src/app/Utils/API_URL';
 
 const thisUrl = this_url;
 

@@ -56,6 +56,8 @@ import { UserPanelComponent } from './Components/User/user-panel/user-panel.comp
 import { ProfileComponent } from './Components/User/user-panel/profile/profile.component';
 import { ReportBugComponent } from './Components/User/user-panel/report-bug/report-bug.component';
 import { AccountComponent } from './Components/User/user-panel/account/account.component';
+import { SecondsToStringPipe } from './Utils/seconds-to-string.pipe';
+import { AddCountryComponent } from './Components/Country/add-country/add-country.component';
 
 
 const ROUTES: Routes = [
@@ -263,6 +265,8 @@ const ROUTES: Routes = [
     ProfileComponent,
     ReportBugComponent,
     AccountComponent,
+    SecondsToStringPipe,
+    AddCountryComponent,
 
   ],
   imports: [

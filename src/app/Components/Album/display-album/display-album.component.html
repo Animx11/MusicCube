@@ -7,4 +7,7 @@
       <a routerLink="/song/{{song.id}}">{{song.songName}}</a>
     </li>
   </ul>
+  Track count: {{album.trackCount}}
+  Total length: {{album.albumLengthSeconds | secondsToString}}
+  <img src="{{album.coverArtLink}}" alt="cover"/>
 </div>

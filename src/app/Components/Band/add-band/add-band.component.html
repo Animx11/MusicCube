@@ -2,5 +2,8 @@
   <input [(ngModel)]="bandName" placeholder="Band name" /><br />
   Year of creation:<br />
   <input [(ngModel)]="creationYear" type="number" min="1900" max="2019" /><br />
+  <div *ngIf="band.formedIn">
+    Origin: {{ band.formedIn.cityName }}, {{ band.formedIn.country.countryName }}<br />
+  </div>
   <button (click)="addBand()">Add band</button>
 </div>

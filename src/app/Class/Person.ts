@@ -3,10 +3,10 @@ import { City } from './City';
 export class Person {
   id: number;
   protected origin: City;
-  protected firstNames: string;
-  protected lastName: string;
-  protected birthDate: Date;
-  protected deathDate: Date;
+  firstNames: string;
+  lastName: string;
+  birthDate: Date;
+  deathDate: Date;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
@@ -60,7 +60,6 @@ export class Person {
   setBirthDate(birthDate: Date) {
     this.birthDate = birthDate;
   }
-  
   setDeathDate(deathDate: Date) {
     this.deathDate = deathDate;
   }

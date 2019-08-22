@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {Country} from '../Class/Country';
 import {HttpClient} from '@angular/common/http';
 
-import { api_url } from './API_URL';
+import { api_url } from '../Utils/API_URL';
 
 const apiUrl = api_url;
 
