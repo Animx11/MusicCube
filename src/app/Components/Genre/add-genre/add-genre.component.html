@@ -14,6 +14,10 @@
             <button (click)="searchOrigin()">Set Origin</button>
         </div><br>
         <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>About Genre</i><br></div>
+            <textarea type="text" name = "aboutGenre" id = "inputAbout" [(ngModel)]="aboutGenre"></textarea>
+        </div><br>
+        <div class = "separateDiv">
             <button (click)="addGenre()">Add New Genre</button>
         </div><br>
     </form>

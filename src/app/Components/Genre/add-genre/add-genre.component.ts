@@ -42,6 +42,7 @@ export class AddGenreComponent implements OnInit {
     } else {
       this.genre.setGenreName(this.genreName);
       this.genre.setCreationDate(this.creationTime);
+      this.genre.setAboutGenre(this.aboutGenre);
       this.genreService.create(this.genre).subscribe(
         res => {
           console.log('add-genre-component received:');
