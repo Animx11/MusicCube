@@ -54,6 +54,12 @@ public class InstrumentTypeController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping(value = "/instrumentType")
+    public ResponseEntity<InstrumentType> create(@RequestBody @Valid @NotNull InstrumentType instrumentType) {
+        instrumentTypeService.save(instrumentType);
+        return ResponseEntity.ok().body(instrumentType);
+    }
+
     @DeleteMapping(value = "/instrumentType", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<InstrumentType> redirect(Model model) {
         return instrumentTypeService.getAll();
