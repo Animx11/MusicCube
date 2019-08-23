@@ -12,4 +12,6 @@ public interface CityService {
 
     boolean exists(String cityName);
     City getByCityName(String cityName);
+
+    Iterable<City> getIterableCityByCityName(String cityName);
 }

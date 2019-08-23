@@ -43,6 +43,12 @@ public class CityController {
         return ResponseEntity.ok().body(city);
     }
 
+    @GetMapping(value = "/city_by_cityName", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<City> getByCityName(@RequestParam("cityName") String cityName){
+        return cityService.getIterableCityByCityName(cityName);
+    }
+
+
     @RequestMapping(value = "/city",method = RequestMethod.PUT)
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull City city) {
         Optional<City> genre1 = cityService.getById(city.getId());
