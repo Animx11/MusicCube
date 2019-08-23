@@ -59,6 +59,12 @@ export class AdminPanelComponent implements OnInit {
   isInstrumentAddClicked: boolean;
   isInstrumentEditClicked: boolean;
 
+  // InstrumentType
+
+  isInstrumentTypeClicked: boolean;
+  isInstrumentTypeAddClicked: boolean;
+  isInstrumentTypeEditClicked: boolean;
+
   // City
 
   isCityClicked: boolean;
@@ -108,6 +114,10 @@ export class AdminPanelComponent implements OnInit {
     this.isInstrumentAddClicked = false;
     this.isInstrumentEditClicked = false;
 
+    this.isInstrumentTypeClicked = false;
+    this.isInstrumentTypeAddClicked = false;
+    this.isInstrumentTypeEditClicked = false;
+
     this.isCityClicked = false;
     this.isCityAddClicked = false;
     this.isCityEditClicked = false;
@@ -135,6 +145,7 @@ export class AdminPanelComponent implements OnInit {
     this.isConcertClicked = false;
     this.isGenreClicked = false;
     this.isInstrumentClicked = false;
+    this.isInstrumentTypeClicked = false;
     this.isCityClicked = false;
     this.isCountryClicked = false;
   }
@@ -154,6 +165,8 @@ export class AdminPanelComponent implements OnInit {
     this.isGenreEditClicked = false;
     this.isInstrumentAddClicked = false;
     this.isInstrumentEditClicked = false;
+    this.isInstrumentTypeAddClicked = false;
+    this.isInstrumentTypeEditClicked = false;
     this.isCityAddClicked = false;
     this.isCityEditClicked = false;
     this.isCountryAddClicked = false;

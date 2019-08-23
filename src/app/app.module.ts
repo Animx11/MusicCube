@@ -59,6 +59,8 @@ import { AccountComponent } from './Components/User/user-panel/account/account.c
 import { SecondsToStringPipe } from './Utils/seconds-to-string.pipe';
 import { AddCountryComponent } from './Components/Country/add-country/add-country.component';
 import { SearchCountryComponent } from './Components/Country/search-country/search-country.component';
+import { AddCityComponent } from './Components/City/add-city/add-city.component';
+import { AddInstrumentTypeComponent } from './Components/InstrumentType/add-instrument-type/add-instrument-type.component';
 
 
 const ROUTES: Routes = [
@@ -269,6 +271,8 @@ const ROUTES: Routes = [
     SecondsToStringPipe,
     AddCountryComponent,
     SearchCountryComponent,
+    AddCityComponent,
+    AddInstrumentTypeComponent,
 
   ],
   imports: [

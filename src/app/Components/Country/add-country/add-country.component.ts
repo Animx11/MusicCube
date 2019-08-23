@@ -45,26 +45,5 @@ export class AddCountryComponent implements OnInit {
     }
   }
 
-/*
 
-  addGenre() {
-    if (this.genreName === '') {
-      window.alert('Incomplete input');
-    } else {
-      this.genre.setGenreName(this.genreName);
-      this.genre.setCreationDate(this.creationTime);
-      this.genreService.create(this.genre).subscribe(
-        res => {
-          console.log('add-genre-component received:');
-          console.log(res);
-          window.alert('Genre added');
-        },
-        err => {
-          console.error(err);
-          window.alert('Error occurred');
-        }
-      );
-    }
-  }
-  */
 }
