@@ -26,36 +26,51 @@ public class BandConcertController {
     @Autowired
     private BandConcertService bandConcertService;
 
-    @RequestMapping(value = "/bandConcert{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<BandConcert> getById(int id) {
-        return bandConcertService.getById(id);
+    @GetMapping(
+            path = "/bandconcert/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<BandConcert> getById(int id) {
+        Optional<BandConcert> concert =  bandConcertService.getById(id);
+        return concert.isPresent() ?
+                ResponseEntity.ok(concert.get()) :
+                ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(value = "/bandConcerts",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            path = "/bandconcert",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Iterable<BandConcert> getAll() {
         return bandConcertService.getAll();
     }
 
     // --- Get by Band ---
-    @RequestMapping(value = "/bandConcerts{band}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<BandConcert> getByBand(Band band) { return bandConcertService.getByBand(band); }
+    @GetMapping(
+            path = "/bandconcert/band/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<BandConcert> getByBand(@PathVariable("id") int bandId) {
+        return bandConcertService.getByBandId(bandId);
+    }
 
     // --- Get by Concert ---
-    @RequestMapping(value = "/bandConcerts{concert}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<BandConcert> getByConcert(Concert concert) { return bandConcertService.getByConcert(concert); }
+    @GetMapping(
+            path = "/bandconcert/concert/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<BandConcert> getByConcert(@PathVariable("id") int concertId) {
+        return bandConcertService.getByConcertId(concertId);
+    }
 
 
-    @RequestMapping(value = "/bandConcert",method = RequestMethod.POST)
+    @PostMapping("/admin/bandconcert")
     public ResponseEntity<BandConcert> create(@RequestBody @Valid @NotNull BandConcert bandConcert) {
         bandConcertService.save(bandConcert);
         return ResponseEntity.ok().body(bandConcert);
     }
 
-    @RequestMapping(value = "/bandConcert",method = RequestMethod.PUT)
+    @PutMapping("/admin/bandconcert")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull BandConcert bandConcert) {
         Optional<BandConcert> bandConcert1 = bandConcertService.getById(bandConcert.getId());
         if (Objects.nonNull(bandConcert1)) {
@@ -65,14 +80,17 @@ public class BandConcertController {
     }
 
     @ApiIgnore
-    @RequestMapping(value = "/bandConcerts",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(
+            path = "/admin/bandconcert",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Iterable<BandConcert> redirect(Model model) {
         return bandConcertService.getAll();
     }
 
-    @RequestMapping(value = "/bandConcert/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/admin/bandconcert/{id}")
     public RedirectView delete(@PathVariable Integer id) {
         bandConcertService.delete(id);
-        return new RedirectView("/api/bandConcerts",true);
+        return new RedirectView("/api/admin/bandconcert",true);
     }
 }

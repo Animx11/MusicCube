@@ -13,6 +13,6 @@ public interface BandConcertService {
     BandConcert save(BandConcert BandConcert);
     void delete(int id);
 
-    Iterable<BandConcert> getByBand(Band band);
-    Iterable<BandConcert> getByConcert(Concert concert);
+    Iterable<BandConcert> getByBandId(int bandId);
+    Iterable<BandConcert> getByConcertId(int concertId);
 }

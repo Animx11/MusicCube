@@ -9,7 +9,7 @@ import java.util.Date;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ArtistInBand {
+public class ArtistActivity {
 
     @Id
     @GeneratedValue
@@ -34,9 +34,9 @@ public class ArtistInBand {
     @Column(length = 1024)
     private String[] roles;
 
-    public ArtistInBand() {}
+    public ArtistActivity() {}
 
-    public ArtistInBand(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String[] roles) {
+    public ArtistActivity(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String[] roles) {
         this.artist = artist;
         this.band = band;
         this.activityStart = activityStart;

@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import musiccube.deserializers.ArtistDeserializer;
 import musiccube.deserializers.ArtistInBandDeserializer;
 import musiccube.entities.Artist;
-import musiccube.entities.ArtistInBand;
+import musiccube.entities.ArtistActivity;
 import musiccube.entities.Band;
 import musiccube.services.artist.ArtistService;
-import musiccube.services.artistinband.ArtistInBandService;
+import musiccube.services.artistactivity.ArtistActivityService;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +35,7 @@ public class LineupHandler {
     @Autowired
     private ArtistService artistService;
     @Autowired
-    private ArtistInBandService artistInBandService;
+    private ArtistActivityService artistActivityService;
     @Autowired
     private InstrumentHandler instrumentHandler;
     @Autowired
@@ -44,7 +44,7 @@ public class LineupHandler {
     private LineupHandler() {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Artist.class, new ArtistDeserializer());
-        module.addDeserializer(ArtistInBand.class, new ArtistInBandDeserializer());
+        module.addDeserializer(ArtistActivity.class, new ArtistInBandDeserializer());
         mapper.registerModule(module);
     }
     public static LineupHandler getInstance() {
@@ -118,13 +118,13 @@ public class LineupHandler {
     }
 
     /*
-    Creates ArtistInBand object for given relation
+    Creates ArtistActivity object for given relation
      */
     private void signToBand(Artist artist, Band band, JSONObject relation) throws IOException {
-        ArtistInBand artistInBand = mapper.readValue(relation.toString(),ArtistInBand.class);
-        artistInBand.setArtist(artist);
-        artistInBand.setBand(band);
-        artistInBandService.save(artistInBand);
+        ArtistActivity artistActivity = mapper.readValue(relation.toString(), ArtistActivity.class);
+        artistActivity.setArtist(artist);
+        artistActivity.setBand(band);
+        artistActivityService.save(artistActivity);
         logger.info((new StringBuilder())
                 .append(ARTIST)
                 .append(artist.getStageName())

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import springfox.documentation.annotations.ApiIgnore;
 
 
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -29,59 +30,75 @@ public class BandController {
 
 /******************************** GET ***************************************/
 
-    @RequestMapping(value = "/band{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Band> getById(int id) {
-        return bandService.getById(id);
+    @GetMapping(
+            path = "/band/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Band> getById(@PathVariable("id") int id) {
+        Optional<Band> band = bandService.getById(id);
+        return band.isPresent() ?
+                ResponseEntity.ok(band.get()) :
+                ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(value = "/bands",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            path = "/band",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Iterable<Band> getAll() {
         return bandService.getAll();
     }
 
     // --- Get all bands with paging ---
-    @RequestMapping(value = "bands/{page}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Band> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage) {
-        return bandService.getAllPaging(pageNr,perPage.orElse(10));
+    @GetMapping(
+            path = "band/page/{page}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Band> getAllPaging(
+            @PathVariable("page") Integer pageNr,
+            @RequestParam(name = "size", required = false) Integer perPage
+    ) {
+        return perPage == null ?
+                bandService.getAllPaging(pageNr, Defaults.PAGESIZE) :
+                bandService.getAllPaging(pageNr, perPage);
     }
 
-    @RequestMapping(value = "/bands{name}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Band> getByBandName(String bandName) {
+    // --- Band by name ---
+    @GetMapping(
+            path = "/band/{name}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Band> getByBandName(@PathVariable("name") String bandName) {
         return bandService.getByBandName(bandName);
     }
 
-
-    @RequestMapping(value = "/band/genres",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Genre> getBandGenres(int bandId) {
+    // --- Genres ---
+    @GetMapping(
+            path = "/band/{id}/genres",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Genre> getBandGenres(@PathVariable("id") int bandId) {
         return bandService.getBandGenres(bandId);
     }
 
-    @RequestMapping(value = "/band/albums",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Album> getBandAlbums(int bandId) {
+    // --- Albums ---
+    @GetMapping(
+            path = "/band/{id}/albums",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Album> getBandAlbums(@PathVariable("id") int bandId) {
         return bandService.getBandAlbums(bandId);
     }
 
 /*******************************************************************************/
 
-    @RequestMapping(value = "/band",method = RequestMethod.POST)
+    @PostMapping("/admin/band")
     public ResponseEntity<Band> create(@RequestBody @Valid @NotNull Band band) {
         bandService.save(band);
         return ResponseEntity.ok().body(band);
     }
 
-    @RequestMapping(value = "/band",method = RequestMethod.PUT)
+    @PutMapping("/admin/band")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Band band) {
         Optional<Band> band1 = bandService.getById(band.getId());
         if (Objects.nonNull(band1)) {
@@ -91,15 +108,18 @@ public class BandController {
     }
 
     @ApiIgnore
-    @RequestMapping(value = "/bands",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(
+            path = "/admin/band",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Iterable<Band> redirect(Model model) {
         return bandService.getAll();
     }
 
-    @RequestMapping(value = "/band/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(path = "/admin/band/{id}")
     public RedirectView delete(@PathVariable Integer id) {
         bandService.delete(id);
-        return new RedirectView("/api/bands",true);
+        return new RedirectView("/api/admin/band",true);
     }
 
 }
