@@ -1,7 +1,7 @@
 import { Artist } from './Artist';
 import { Band } from './Band';
 
-export class ArtistInBand {
+export class ArtistActivity {
   id: number;
   artist: Artist;
   band: Band;

@@ -5,8 +5,8 @@ import { Location } from '@angular/common';
 import { BandService } from '../../../Services/band.service';
 import {Band} from '../../../Class/Band';
 import {Album} from '../../../Class/Album';
-import {ArtistInBand} from '../../../Class/ArtistInBand';
-import {ArtistInBandService} from '../../../Services/artist-in-band.service';
+import {ArtistActivity} from '../../../Class/ArtistActivity';
+import {ArtistActivityService} from '../../../Services/artist-activity.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
 import {isNull} from 'util';
 
@@ -19,7 +19,7 @@ export class DisplayBandComponent implements OnInit {
 
   band: Band;
   albums: Album[];
-  lnp: ArtistInBand[];
+  lnp: ArtistActivityService[];
   artistDisplays: ArtistActivityDisplay[];
 
 
@@ -27,7 +27,7 @@ export class DisplayBandComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private bandService: BandService,
-    private artistInBandService: ArtistInBandService) {
+    private artistInBandService: ArtistActivityService) {
     this.artistDisplays = [];
   }
 
@@ -57,7 +57,7 @@ export class DisplayBandComponent implements OnInit {
     this.artistInBandService.getByBandId(this.band.id).subscribe(
       res => {
         console.log('display-band-component received artists activities: ', res);
-        this.lnp = res.map(el => new ArtistInBand(el));
+        this.lnp = res.map(el => new ArtistActivityService(el));
         this.handleActivity();
       },
       err => console.error(err)
@@ -69,7 +69,7 @@ export class DisplayBandComponent implements OnInit {
   private handleActivity() {
     const presentIds = [];
     this.lnp.forEach(el => {
-      const periodString = ArtistActivityDisplay.buildPeriondString(el);
+      const periodString = ArtistActivityDisplay.buildPeriodString(el);
 
       const index = presentIds.indexOf(el.artist.id);
       if (index >= 0) {

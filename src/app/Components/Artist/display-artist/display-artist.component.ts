@@ -4,8 +4,8 @@ import { Location } from '@angular/common';
 
 import { ArtistService } from '../../../Services/artist.service';
 import {Artist} from '../../../Class/Artist';
-import {ArtistInBand} from '../../../Class/ArtistInBand';
-import {ArtistInBandService} from '../../../Services/artist-in-band.service';
+import {ArtistActivity} from '../../../Class/ArtistActivity';
+import {ArtistActivityService} from '../../../Services/artist-activity.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
 
 @Component({
@@ -16,14 +16,14 @@ import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
 export class DisplayArtistComponent implements OnInit {
 
   artist: Artist;
-  activities: ArtistInBand[];
+  activities: ArtistActivityService[];
   displays: ArtistActivityDisplay[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private artistService: ArtistService,
-    private artistInBandService: ArtistInBandService) { }
+    private artistInBandService: ArtistActivityService) { }
 
   ngOnInit() {
     this.getArtist();
@@ -42,7 +42,7 @@ export class DisplayArtistComponent implements OnInit {
   private getBands() {
     this.artistInBandService.getByArtistId(this.artist.id).subscribe(res =>{
       console.log('display-artist-component received: ', res);
-      this.activities = res.map(el => new ArtistInBand(el));
+      this.activities = res.map(el => new ArtistActivityService(el));
       this.handleActivities();
     },
     err => console.error(err));
@@ -51,7 +51,7 @@ export class DisplayArtistComponent implements OnInit {
   handleActivities() {
     const presentIds = [];
     this.activities.forEach(el => {
-      const periodString = ArtistActivityDisplay.buildPeriondString(el);
+      const periodString = ArtistActivityDisplay.buildPeriodString(el);
 
       const index = presentIds.indexOf(el.band.id);
       if (index >= 0) {

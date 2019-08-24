@@ -14,21 +14,21 @@ export class CountryService {
 
   constructor(private http: HttpClient) { }
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/country{id}?id=${id}`);
+    return this.http.get(`${apiUrl}/country/${id}`);
   }
   list(): Observable<any> {
-    return this.http.get(`${apiUrl}/cities`);
+    return this.http.get(`${apiUrl}/country`);
   }
 
   create(country: Country): Observable<any> {
-    return this.http.post(`${apiUrl}/country`, country);
+    return this.http.post(`${apiUrl}/admin/country`, country);
   }
 
   edit(country: Country): Observable<any> {
-    return this.http.put(`${apiUrl}/country`, country);
+    return this.http.put(`${apiUrl}/admin/country`, country);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/country/${id}`);
+    return this.http.delete(`${apiUrl}/admin/country/${id}`);
   }
 }

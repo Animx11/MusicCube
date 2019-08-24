@@ -1,5 +1,5 @@
 import {isNull} from 'util';
-import {ArtistInBand} from './ArtistInBand';
+import {ArtistActivity} from './ArtistActivity';
 
 export class ArtistActivityDisplay {
 
@@ -19,7 +19,7 @@ export class ArtistActivityDisplay {
   activityPeriods: string[];
   current: boolean;
 
-  static buildPeriondString(el: ArtistInBand): string {
+  static buildPeriodString(el: ArtistActivity): string {
     let periodString = '';
     const begin = isNull(el.activityStart) ? null : new Date(el.activityStart);
     const end = isNull(el.activityEnd) ? null : new Date(el.activityEnd);
