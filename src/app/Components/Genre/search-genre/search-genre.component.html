@@ -1,7 +1,6 @@
-<button (click)="toggleSearch()">Search in genres</button>
-<div *ngIf="searchOn">
+<div>
   <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
-  <div id="list">
+  <div class="listDisplay">
     <ul>
       <li *ngFor="let genre of (genres$ | async)" (click)="onSelect(genre)">
         {{ genre.genreName }}

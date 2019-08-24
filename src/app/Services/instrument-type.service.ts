@@ -18,7 +18,7 @@ export class InstrumentTypeService {
   }
 
   getByInstrumentTypeName(instrumentTypeName: string): Observable<any> {
-    return this.http.get(`${apiUrl}/instrumentType{name}?instrumentTypeName=${instrumentTypeName}`);
+    return this.http.get(`${apiUrl}/instrumentTypes?name=${instrumentTypeName}`);
   }
 
   list(): Observable<any> {

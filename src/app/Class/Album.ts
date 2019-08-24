@@ -1,12 +1,12 @@
 export class Album {
   id: number;
-  private albumName: string;
-  private albumLengthSeconds: number;
-  private releaseDate: Date;
-  private company: string;
-  private coverArtLink: string;
-  private type: string;
-  private trackCount: number;
+   albumName: string;
+   albumLengthSeconds: number;
+   releaseDate: Date;
+   company: string;
+   coverArtLink: string;
+   type: string;
+   trackCount: number;
 
 
   constructor(obj?: any) {

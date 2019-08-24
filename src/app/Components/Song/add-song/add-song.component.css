@@ -1,8 +1,52 @@
-.add {
-  width: auto;
-  height: auto;
-  background: aliceblue;
-  position: relative;
-  top: 100px;
-  display: inline-block;
+
+#profileForm{
+  padding-left: 3%;
+  width: 47%;
+  float: left;
 }
+
+#searchPlace{
+  padding-left: 3%;
+  width: 47%;
+  float: left;
+}
+
+.separateDiv{
+  padding-top: 5%;
+  text-align: left;
+  padding-left: 1%;
+}
+
+.inputText{
+  width: 60%;
+  height: 20px;
+  border-color: #f9f9f9;
+
+}
+.inputDate{
+  width: 60%;
+  height: 20px;
+  border-color: #f9f9f9;
+
+}
+
+.textSeparateDiv{
+  padding-left: 1%;
+  padding-bottom: 5px;
+}
+
+#inputAbout{
+  width: 60%;
+  height: 100px;
+  border-color: #f9f9f9;
+
+}
+
+
+.inputTime{
+  width: 7%;
+  border-color: #f9f9f9;
+
+}
+
+

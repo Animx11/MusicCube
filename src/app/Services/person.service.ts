@@ -18,4 +18,15 @@ export class PersonService {
   getByLastName(term: string): Observable<any> {
     if (term === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/persons{lastname}?lastName=${term}`); }
   }
+  create(person: Person): Observable<any> {
+    return this.http.post(`${apiUrl}/person`, person);
+  }
+
+  edit(person: Person): Observable<any> {
+    return this.http.put(`${apiUrl}/person`, person);
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${apiUrl}/person/${id}`);
+  }
 }

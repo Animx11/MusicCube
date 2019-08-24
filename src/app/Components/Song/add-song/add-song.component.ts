@@ -30,6 +30,18 @@ export class AddSongComponent implements OnInit {
   private instrumentList: SongInstrument[];
   private songInstrument: SongInstrument;
 
+  private isBandClicked: boolean;
+  private isAlbumClicked: boolean;
+  private isGenreClicked: boolean;
+  private isAuthorClicked: boolean;
+  private isInstrumentClicked: boolean;
+
+  private isBandSelected: boolean;
+  private isAlbumSelected: boolean;
+  private isGenreSelected: boolean;
+
+
+
   constructor(
     private songService: SongService,
     private songAuthorshipService: SongAuthorshipService,
@@ -41,21 +53,42 @@ export class AddSongComponent implements OnInit {
     this.song = new Song();
     this.authorList = [];
     this.instrumentList = [];
+  
+
+    this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
+    this.isBandSelected = this.isAlbumSelected = this.isGenreSelected = false;
+  }
+
+  resetClicked(){
+    this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
+  }
+
+  searchValue(value: boolean): boolean {
+    this.resetClicked();
+    return !value;
   }
 
   bandEventHandler($event: any) {
     this.song.setBand($event);
+    this.isBandSelected = true;
+    this.isBandClicked = false;
   }
   albumEventHandler($event: any) {
     this.song.setAlbum($event);
+    this.isAlbumSelected = true;
+    this.isAlbumClicked = false;
   }
   genreEventHandler($event: any) {
     this.song.setGenre($event);
+    this.isGenreSelected = true;
+    this.isGenreClicked = false;
   }
   personEventHandler($event: any) {
     this.authorship = new SongAuthorship();
     this.authorship.setAuthor($event);
     this.authorList.push(this.authorship);
+    this.isAuthorClicked = false;
+
   }
   instrumentEventHandler($event: any) {
     this.songInstrument = new SongInstrument();
@@ -63,6 +96,8 @@ export class AddSongComponent implements OnInit {
     this.instrumentList.push(this.songInstrument);
     console.log($event);
     console.log(this.instrumentList);
+    this.isInstrumentClicked = false;
+
   }
 
   addSong() {
@@ -117,5 +152,10 @@ export class AddSongComponent implements OnInit {
   removeAuthor(authorship: SongAuthorship) {
     const index = this.authorList.indexOf(authorship);
     if (index > -1) { this.authorList.splice(index, 1); }
+  }
+
+  removeInstrument(instrument: SongInstrument) {
+    const index = this.instrumentList.indexOf(instrument);
+    if (index > -1) { this.instrumentList.splice(index, 1); }
   }
 }

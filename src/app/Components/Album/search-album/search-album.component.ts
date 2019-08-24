@@ -10,15 +10,15 @@ import { Album } from "src/app/Class/Album";
   styleUrls: ["./search-album.component.css"]
 })
 export class SearchAlbumComponent implements OnInit {
-  private searchOn: boolean;
 
   albums$: Observable<Album[]>;
   private searchTerms = new Subject<string>();
 
   @Output() albumEvent = new EventEmitter<Album>();
+  @Output() searchEvent = new EventEmitter();
+
 
   constructor(private albumService: AlbumService) {
-    this.searchOn = false;
   }
 
   ngOnInit(): void {
@@ -30,25 +30,22 @@ export class SearchAlbumComponent implements OnInit {
   }
 
   toggleSearch() {
-    this.searchOn = !this.searchOn;
     this.albums$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => this.albumService.getByAlbumName(term))
     );
+    this.searchEvent.emit();
   }
 
   search(term: string): void {
-    this.searchTerms.next(term);
+    if (term !== '' && term !== ' '){
+      this.searchTerms.next(term);
+    }
   }
 
   onSelect(album: Album) {
-    this.searchOn = false;
     this.albumEvent.emit(album);
   }
 
-  getAll() {
-    this.searchOn = false;
-    this.albums$ = this.albumService.list();
-  }
 }

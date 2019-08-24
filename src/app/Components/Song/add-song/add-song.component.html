@@ -1,3 +1,4 @@
+<!--
 <div class="add">
   <input [(ngModel)]="songName" placeholder="song name" /><br />
   <input
@@ -44,3 +45,107 @@
     (instrumentEvent)="instrumentEventHandler($event)"
   ></app-search-instrument>
 </div>
+-->
+
+<div id="CRUD">
+  <div id = "profileForm">
+    <form>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Song Name</i><br></div>
+          <input type = "text" name = "songName" [(ngModel)]="songName" class = "inputText" >
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Song Length</i><br></div>
+          <input type = "number" name = "minutes" [(ngModel)]="minutes" class = "inputTime" min="0">:
+          <input type = "number" name = "seconds" [(ngModel)]="seconds" class = "inputTime" max = "59" min="0">
+      </div><br>
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Track Number In Album: </i>
+          <input type = "number" name = "trackNumber" [(ngModel)]="trackNumber" class = "inputTime" min="0">
+        </div>
+    </div><br>
+
+
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Band: <div *ngIf = "isBandSelected">{{ song.band.bandName }}</div></i><br></div>
+            <button (click)="isBandClicked = searchValue(isBandClicked)">Set Band</button>
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Album: <div *ngIf = "isAlbumSelected">{{ song.album.albumName }}</div></i><br></div>
+          <button (click)="isAlbumClicked = searchValue(isAlbumClicked)">Set Album</button>
+      </div><br>
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Genre:</i> <div *ngIf = "isGenreSelected"><i>{{ song.genre.genreName }}</i></div><br></div>
+        <button (click)="isGenreClicked = searchValue(isGenreClicked)">Set Genre</button>
+    </div><br>
+
+
+      <div class = "separateDiv">
+       <div class = "textSeparateDiv"><i>Authors:</i>
+        
+          <ul *ngIf="authorList">
+            <li *ngFor="let authorship of authorList">
+              {{ authorship.author.firstNames }} {{ authorship.author.lastName }} Text
+              <input type="checkbox" name = "wroteText" [(ngModel)]="authorship.wroteText" /> Music
+              <input type="checkbox" name = "wroteMusic" [(ngModel)]="authorship.wroteMusic" />
+              <button (click)="removeAuthor(authorship)">X</button>
+            </li>
+          </ul>
+      <br></div>
+       <button (click)="isAuthorClicked = searchValue(isAuthorClicked)">Set Authors</button>
+       </div><br>
+
+       <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Instruments:</i>
+            <ul *ngIf="instrumentList">
+                <li *ngFor="let songInstrument of instrumentList">
+                  {{ songInstrument.instrument.instrumentName }}
+                  <button (click)="removeInstrument(songInstrument)">X</button>
+                </li>
+              </ul>          
+         <br></div>
+          <button (click)="isInstrumentClicked = searchValue(isInstrumentClicked)">Set Instruments</button>
+          </div><br>
+
+
+        <div class = "separateDiv">
+            <button (click)="addSong()">Add New Song</button>
+        </div><br>
+    </form>
+  </div>
+  <div id = "searchPlace" *ngIf = "isBandClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search Band</i><br></div>
+        <app-search-band (bandEvent)="bandEventHandler($event)"></app-search-band>
+      </div><br>
+  </div>
+  <div id = "searchPlace" *ngIf = "isAlbumClicked">
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Search Album</i><br></div>
+      <app-search-album (albumEvent)="albumEventHandler($event)"></app-search-album>
+    </div><br>
+</div>
+<div id = "searchPlace" *ngIf = "isGenreClicked">
+  <div class = "separateDiv">
+    <div class = "textSeparateDiv"><i>Search Genre</i><br></div>
+    <app-search-genre (genreEvent)="genreEventHandler($event)"></app-search-genre>
+  </div><br>
+</div>
+
+<div id = "searchPlace" *ngIf = "isAuthorClicked">
+  <div class = "separateDiv">
+    <div class = "textSeparateDiv"><i>Search People</i><br></div>
+    <app-search-person (personEvent)="personEventHandler($event)"></app-search-person>
+  </div><br>
+</div>
+
+<div id = "searchPlace" *ngIf = "isInstrumentClicked">
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Search Instrument</i><br></div>
+      <app-search-instrument
+      (instrumentEvent)="instrumentEventHandler($event)"
+    ></app-search-instrument>
+    </div><br>
+  </div>
+</div>
+

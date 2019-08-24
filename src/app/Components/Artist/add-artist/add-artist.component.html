@@ -1,10 +1,48 @@
-<div class="add">
-  <input [(ngModel)]="firstNames" placeholder="name(s)" /><br />
-  <input [(ngModel)]="lastName" placeholder="last name" /><br />
-  <input [(ngModel)]="stageName" placeholder="stage name" /><br />
-  Select birthday <input [(ngModel)]="birthDate" type="date" /><br />
-  <div *ngIf="artist.origin">
-    Origin: {{ artist.origin.cityName }}, {{ artist.origin.country.countryName }}<br />
+
+<div id="CRUD">
+  <div id = "profileForm">
+    <form>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>First Name</i><br></div>
+          <input type = "text" name = "firstNames" [(ngModel)]="firstNames" class = "inputText" >
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Last Name</i><br></div>
+          <input type = "text" name = "lastName" [(ngModel)]="lastName" class = "inputText" >
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Birth Date</i><br></div>
+          <input type = "date" name = "birthDate" [(ngModel)]="birthDate" class = "inputText">
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Death Date</i><br></div>
+          <input type = "date" name = "deathDate" [(ngModel)]="deathDate" class = "inputText">
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Is that person an artist</i>
+            <input type="checkbox" name = "isArtist" [(ngModel)]="isArtist">
+          </div>
+        </div><br>
+        <div class = "separateDiv" *ngIf = "isArtist">
+          <div class = "textSeparateDiv"><i>Stage Name</i><br></div>
+          <input type = "text" name = "stageName" [(ngModel)]="stageName" class = "inputText" >
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Place of birth: {{ person.origin.cityName }}</i><br></div>
+            <button (click)="searchBirthPlace()">Set Origin</button>
+        </div><br>
+
+        <div class = "separateDiv">
+            <button (click)="add()">Add New Person</button>
+        </div><br>
+
+    </form>
   </div>
-  <button (click)="addArtist()">Add artist</button>
+  <div id = "searchPlace" *ngIf = "isBirthPlaceClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search Birth Place</i><br></div>
+        <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
+      </div><br>
+  </div>
+
 </div>
