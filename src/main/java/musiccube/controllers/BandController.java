@@ -8,13 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
-
-import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -107,19 +102,10 @@ public class BandController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(
-            path = "/admin/band",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Iterable<Band> redirect(Model model) {
-        return bandService.getAll();
-    }
-
     @DeleteMapping(path = "/admin/band/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         bandService.delete(id);
-        return new RedirectView("/api/admin/band",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -1,15 +1,12 @@
 package musiccube.controllers;
 
-import musiccube.services.genre.GenreService;
 import musiccube.entities.Genre;
+import musiccube.services.genre.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -28,7 +25,7 @@ public class GenreController {
             path = "/genre/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Genre> getById(int id) {
+    public ResponseEntity<Genre> getById(@PathVariable("id") int id) {
         Optional<Genre> genre = genreService.getById(id);
         return genre.isPresent() ?
                 ResponseEntity.ok(genre.get()) :
@@ -80,18 +77,9 @@ public class GenreController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(
-            path = "/admin/genre",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Iterable<Genre> redirect(Model model) {
-        return genreService.getAll();
-    }
-
     @DeleteMapping("/admin/genre/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         genreService.delete(id);
-        return new RedirectView("/api/admin/genres",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

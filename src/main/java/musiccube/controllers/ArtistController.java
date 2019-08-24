@@ -1,17 +1,14 @@
 package musiccube.controllers;
 
-import musiccube.services.artist.ArtistService;
 import musiccube.entities.Artist;
 import musiccube.entities.Person;
+import musiccube.services.artist.ArtistService;
 import musiccube.services.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -103,15 +100,9 @@ public class ArtistController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(path = "/admin/artist",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Artist> redirect(Model model) {
-        return artistService.getAll();
-    }
-
     @DeleteMapping("/admin/artist/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         artistService.delete(id);
-        return new RedirectView("/api/admin/artist",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

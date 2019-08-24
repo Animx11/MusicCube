@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -28,7 +25,7 @@ public class ConcertController {
             path = "/concert/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Concert> getById(int id) {
+    public ResponseEntity<Concert> getById(@PathVariable("id") int id) {
         Optional<Concert> concert = concertService.getById(id);
         return concert.isPresent() ?
                 ResponseEntity.ok(concert.get()) :
@@ -66,19 +63,10 @@ public class ConcertController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(
-            path = "/admin/concert",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Iterable<Concert> redirect(Model model) {
-        return concertService.getAll();
-    }
-
     @DeleteMapping("/admin/concert/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         concertService.delete(id);
-        return new RedirectView("/api/admin/concert",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -1,17 +1,12 @@
 package musiccube.controllers;
 
-import musiccube.entities.Band;
-import musiccube.entities.Concert;
-import musiccube.services.bandconcert.BandConcertService;
 import musiccube.entities.BandConcert;
+import musiccube.services.bandconcert.BandConcertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -30,7 +25,7 @@ public class BandConcertController {
             path = "/bandconcert/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<BandConcert> getById(int id) {
+    public ResponseEntity<BandConcert> getById(@PathVariable("id") int id) {
         Optional<BandConcert> concert =  bandConcertService.getById(id);
         return concert.isPresent() ?
                 ResponseEntity.ok(concert.get()) :
@@ -79,18 +74,9 @@ public class BandConcertController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(
-            path = "/admin/bandconcert",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Iterable<BandConcert> redirect(Model model) {
-        return bandConcertService.getAll();
-    }
-
     @DeleteMapping("/admin/bandconcert/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         bandConcertService.delete(id);
-        return new RedirectView("/api/admin/bandconcert",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

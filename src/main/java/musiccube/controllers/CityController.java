@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -57,19 +54,10 @@ public class CityController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(
-            path = "/admin/city",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Iterable<City> redirect(Model model) {
-        return cityService.getAll();
-    }
-
-    @DeleteMapping("/city/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    @DeleteMapping("/admin/city/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         cityService.delete(id);
-        return new RedirectView("/api/admin/city",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

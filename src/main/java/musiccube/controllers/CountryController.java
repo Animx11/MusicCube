@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -28,7 +25,7 @@ public class CountryController {
             path = "/country/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Country> getById(int id) {
+    public ResponseEntity<Country> getById(@PathVariable("id") int id) {
         Optional<Country> country = countryService.getById(id);
         return country.isPresent() ?
                 ResponseEntity.ok(country.get()) :
@@ -76,19 +73,10 @@ public class CountryController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(
-            path = "/admin/country",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public Iterable<Country> redirect(Model model) {
-        return countryService.getAll();
-    }
-
     @DeleteMapping(path = "/admin/country/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         countryService.delete(id);
-        return new RedirectView("/api/admin/country",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

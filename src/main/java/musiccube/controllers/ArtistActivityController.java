@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -88,16 +85,10 @@ public class ArtistActivityController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @DeleteMapping(path = "/admin/artistactivity",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<ArtistActivity> redirect(Model model) {
-        return artistActivityService.getAll();
-    }
-
-    @DeleteMapping(path = "/artistactivity/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
+    @DeleteMapping("/admin/artistactivity/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         artistActivityService.delete(id);
-        return new RedirectView("/api/admin/artistactivity",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
