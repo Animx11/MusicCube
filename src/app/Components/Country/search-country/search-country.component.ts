@@ -13,9 +13,6 @@ export class SearchCountryComponent implements OnInit {
 
   private searchOn: boolean;
   private listOn: boolean;
-  private pageOn: boolean;
-  private pageSize: number;
-  private pageNr: number;
   private reachedLastPage: boolean;
   private pageCount: number;
 
@@ -30,8 +27,6 @@ export class SearchCountryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pageSize = 10;
-    this.pageNr = 0;
     this.pageCount = 0;
     this.countries$ = this.searchTerms.pipe(
       debounceTime(300),
@@ -46,9 +41,6 @@ export class SearchCountryComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((term: string) => this.countryService.getByCountryName(term))
     );
-    this.searchOn = !this.searchOn;
-    this.listOn = true;
-    this.pageOn = false;
     this.searchEvent.emit();
   }
 
@@ -59,9 +51,6 @@ export class SearchCountryComponent implements OnInit {
   }
 
   onSelect(country: Country) {
-    this.searchOn = false;
-    this.listOn = false;
-    this.pageOn = false;
     this.countryEvent.emit(country);
   }
 

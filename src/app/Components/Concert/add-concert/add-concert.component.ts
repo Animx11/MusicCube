@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SystemJsNgModuleLoader } from '@angular/core';
 
 import { Concert } from 'src/app/Class/Concert';
 import { ConcertService } from 'src/app/Services/concert.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-add-concert',
@@ -11,11 +12,13 @@ import { ConcertService } from 'src/app/Services/concert.service';
 export class AddConcertComponent implements OnInit {
   private concert: Concert;
   private concertName: string;
-  private startTime: string;
+  private startTime: Date;
   private hour: number;
-  private minute: number;
+  private minutes: number;
 
-  private localizationSelected: boolean;
+  private dateString: string[];
+
+  private isCityClicked: boolean;
 
   constructor(
     private concertService: ConcertService,
@@ -24,21 +27,44 @@ export class AddConcertComponent implements OnInit {
   ngOnInit() {
     this.concert = new Concert();
     this.concertName = '';
-    this.startTime = '';
-    this.hour = this.minute = 0;
+    this.startTime = null;
+    this.isCityClicked = false;
+    this.hour = 0;
+    this.minutes = 0;
   }
+
+  searchCity(){
+    this.isCityClicked = true;
+  }
+
+  cityEventHandler($event: any) {
+    this.concert.setConcertCity($event);
+    this.isCityClicked = false;
+  }
+
+  makeDate(){
+    this.dateString = this.startTime.toString().split("-");
+    this.startTime = new Date(
+      parseInt(this.dateString[0]), parseInt(this.dateString[1]), parseInt(this.dateString[2]),
+      this.hour, this.minutes
+    );
+  }
+
   addConcert() {
+
     if (
       this.concertName === '' ||
-      this.startTime === ''
+      this.startTime === null ||
+      this.concert.getConcertCity === null 
     ) {
       window.alert('Incomplete input');
+    } else if (this.hour < 0 || this.minutes < 0 || this.hour > 23 || this.minutes > 59){
+      window.alert('Incorect time');
+
     } else {
       this.concert.setConcertName(this.concertName);
-      this.concert.setStartTime(
-        new Date(`${this.startTime}T${this.hour}:${this.minute}:00`)
-      );
-
+      this.makeDate();
+      this.concert.setStartTime(this.startTime);
       this.concertService.create(this.concert).subscribe(
         res => {
           console.log('add-concert-component received:');

@@ -34,6 +34,7 @@ export class AddGenreComponent implements OnInit {
 
   countryEventHandler($event: any) {
     this.genre.setOrigin($event);
+    this.isOriginClicked = false;
   }
 
   addGenre() {

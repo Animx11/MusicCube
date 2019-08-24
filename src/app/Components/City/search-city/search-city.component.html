@@ -1,0 +1,10 @@
+<div>
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..."/>
+</div>
+<div class="listDisplay">
+  <ul>
+    <li *ngFor="let city of (cities$ | async)" (click)="onSelect(city)">
+      {{ city.cityName }}
+    </li>
+  </ul>
+</div>

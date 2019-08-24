@@ -11,8 +11,11 @@ import { BandService } from 'src/app/Services/band.service';
 })
 export class AddBandComponent implements OnInit {
   private band: Band;
+
   private bandName: string;
-  private creationYear: number;
+  private creationYear: Date;
+
+  private isCityClicked: boolean;
 
   private formedInSelected: boolean;
 
@@ -21,14 +24,24 @@ export class AddBandComponent implements OnInit {
   ngOnInit() {
     this.band = new Band();
     this.bandName = '';
-    this.creationYear = 0;
+    this.creationYear = null;
+    this.isCityClicked = false;
+  }
+
+  searchCity(){
+    this.isCityClicked = true;
+  }
+
+  cityEventHandler($event: any) {
+    this.band.setFormedIn($event);
+    this.isCityClicked = false;
   }
 
   addBand() {
     if (
       this.bandName === '' ||
-      this.creationYear === 0 ||
-      this.band.getFormedIn() == null
+      this.creationYear === null ||
+      this.band.getFormedIn() === null
     ) {
       window.alert('Incomplete input');
     }

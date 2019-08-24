@@ -1,8 +1,7 @@
-<button (click)="toggleSearch()">Search in country</button>
-  <div *ngIf="searchOn">
+  <div>
     <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..."/>
   </div>
-  <div *ngIf="listOn" class="listDisplay">
+  <div class="listDisplay">
     <ul>
       <li *ngFor="let country of (countries$ | async)" (click)="onSelect(country)">
         {{ country.countryName }}

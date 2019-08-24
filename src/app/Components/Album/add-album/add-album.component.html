@@ -1,8 +1,40 @@
-<div id="CRUD">
+<!--<div id="CRUD">
   <input [(ngModel)]="albumName" placeholder="Album Title" /><br />
   <input [(ngModel)]="length" placeholder="Length" /><br />
   <input [(ngModel)]="releaseDate" type="date" /><br />
   <input [(ngModel)]="company" placeholder="Record Company" /><br />
 
   <button (click)="save()">Add Album</button>
+</div>
+-->
+<div id="CRUD">
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Album Title</i><br></div>
+          <input type = "text" name = "albumName" [(ngModel)]="albumName" class = "inputText" required>
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Album Length</i><br></div>
+            <input type = "number" name = "length" [(ngModel)]="minutes" class = "inputTime" min="0" required>:
+            <input type = "number" name = "length" [(ngModel)]="seconds" class = "inputTime" max = "59" min="0" required>
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Release Date</i><br></div>
+          <input type = "date" name = "releaseDate" [(ngModel)]="releaseDate" class = "inputText" required>
+      </div><br>
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Record Company</i><br></div>
+        <input type = "text" name = "company" [(ngModel)]="company" class = "inputText" required>
+    </div><br>
+        <div class = "separateDiv">
+            <button (click)="addAlbum()" [disabled]="!profileForm.valid">Add New Album</button>
+        </div><br>
+    </form>
+  <div id = "searchPlace" *ngIf = "isOriginClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search Origin Place</i><br></div>
+        <app-search-country (countryEvent)="countryEventHandler($event)"></app-search-country>
+      </div><br>
+  </div>
+
 </div>

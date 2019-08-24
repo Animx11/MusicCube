@@ -61,6 +61,7 @@ import { AddCountryComponent } from './Components/Country/add-country/add-countr
 import { SearchCountryComponent } from './Components/Country/search-country/search-country.component';
 import { AddCityComponent } from './Components/City/add-city/add-city.component';
 import { AddInstrumentTypeComponent } from './Components/InstrumentType/add-instrument-type/add-instrument-type.component';
+import { SearchCityComponent } from './Components/City/search-city/search-city.component';
 
 
 const ROUTES: Routes = [
@@ -273,6 +274,7 @@ const ROUTES: Routes = [
     SearchCountryComponent,
     AddCityComponent,
     AddInstrumentTypeComponent,
+    SearchCityComponent,
 
   ],
   imports: [

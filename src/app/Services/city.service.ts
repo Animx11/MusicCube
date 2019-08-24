@@ -16,6 +16,11 @@ export class CityService {
   getById(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/city{id}?id=${id}`);
   }
+
+  getByCityName(term: string): Observable<any> {
+    return this.http.get(`${apiUrl}/city_by_cityName?cityName=${term}`);
+  }
+
   list(): Observable<any> {
     return this.http.get(`${apiUrl}/cities`);
   }
