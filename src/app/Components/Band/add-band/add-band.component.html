@@ -1,10 +1,10 @@
 
 <div id="CRUD">
-  <div id = "profileForm">
-    <form>
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Band Name:</i><br></div>
-          <input type = "text" name = "bandName" [(ngModel)]="bandName" class = "inputText" >
+          <input type = "text" name = "bandName" [(ngModel)]="bandName" class = "inputText" required >
         </div><br>
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Creation Date:</i><br></div>
@@ -17,7 +17,7 @@
         </div><br>
 
         <div class = "separateDiv">
-            <button (click)="addBand()">Add New Band</button>
+            <button (click)="addBand()" [disabled]="!profileForm.valid">Add New Band</button>
         </div><br>
     </form>
   </div>

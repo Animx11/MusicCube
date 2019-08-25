@@ -1,15 +1,15 @@
 
 <div id="CRUD">
-  <div id = "profileForm">
-    <form>
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Song Name:</i><br></div>
-          <input type = "text" name = "songName" [(ngModel)]="songName" class = "inputText" >
+          <input type = "text" name = "songName" [(ngModel)]="songName" class = "inputText" required>
         </div><br>
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Song Length:</i><br></div>
-          <input type = "number" name = "minutes" [(ngModel)]="minutes" class = "inputTime" min="0">:
-          <input type = "number" name = "seconds" [(ngModel)]="seconds" class = "inputTime" max = "59" min="0">
+          <input type = "number" name = "minutes" [(ngModel)]="minutes" class = "inputTime" min="0" required>:
+          <input type = "number" name = "seconds" [(ngModel)]="seconds" class = "inputTime" max = "59" min="0" required>
       </div><br>
       <div class = "separateDiv">
         <div class = "textSeparateDiv"><i>Track Number In Album: </i>
@@ -64,7 +64,7 @@
 
 
         <div class = "separateDiv">
-            <button (click)="addSong()">Add New Song</button>
+            <button (click)="addSong()" [disabled]="!profileForm.valid">Add New Song</button>
         </div><br>
     </form>
   </div>

@@ -1,18 +1,18 @@
 
 <div id="CRUD">
-  <div id = "profileForm">
-    <form>
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>First Name:</i><br></div>
-          <input type = "text" name = "firstNames" [(ngModel)]="firstNames" class = "inputText" >
+          <input type = "text" name = "firstNames" [(ngModel)]="firstNames" class = "inputText" required >
         </div><br>
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Last Name:</i><br></div>
-          <input type = "text" name = "lastName" [(ngModel)]="lastName" class = "inputText" >
+          <input type = "text" name = "lastName" [(ngModel)]="lastName" class = "inputText" required>
         </div><br>
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Birth Date:</i><br></div>
-          <input type = "date" name = "birthDate" [(ngModel)]="birthDate" class = "inputText">
+          <input type = "date" name = "birthDate" [(ngModel)]="birthDate" class = "inputText" required>
         </div><br>
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Death Date:</i><br></div>
@@ -33,7 +33,7 @@
         </div><br>
 
         <div class = "separateDiv">
-            <button (click)="add()">Add New Person</button>
+            <button (click)="add()" [disabled]="!profileForm.valid">Add New Person</button>
         </div><br>
 
     </form>

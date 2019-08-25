@@ -1,14 +1,14 @@
 
 <div id="CRUD">
-  <div id = "profileForm">
-    <form>
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Concert Name:</i><br></div>
-          <input type = "text" name = "concertName" [(ngModel)]="concertName" class = "inputText" >
+          <input type = "text" name = "concertName" [(ngModel)]="concertName" class = "inputText" required >
         </div><br>
         <div class = "separateDiv">
             <div class = "textSeparateDiv"><i>Event Date:</i><br></div>
-            <input type = "date" name = "date" [(ngModel)]="startTime" class = "inputText" ><br />
+            <input type = "date" name = "date" [(ngModel)]="startTime" class = "inputText" required><br />
             <input type = "number" name = "hour" [(ngModel)]="hour" class = "inputTime" min="0" max="23">:
             <input type = "number" name = "minutes" [(ngModel)]="minutes" class = "inputTime" max = "59" min="0">
         </div><br>
@@ -17,7 +17,7 @@
             <button (click)="searchCity()">Set Concert Place</button>
         </div><br>
         <div class = "separateDiv">
-            <button (click)="addConcert()">Add New Concert</button>
+            <button (click)="addConcert()" [disabled]="!profileForm.valid">Add New Concert</button>
         </div><br>
     </form>
   </div>

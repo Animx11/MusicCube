@@ -1,13 +1,13 @@
 <div id="CRUD">
-  <div id = "profileForm">
-    <form>
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
         <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Genre Name:</i><br></div>
-          <input type = "text" name = "genreName" [(ngModel)]="genreName" class = "inputText" >
+          <input type = "text" name = "genreName" [(ngModel)]="genreName" class = "inputText" required>
         </div><br>
         <div class = "separateDiv">
             <div class = "textSeparateDiv"><i>Creation period:</i><br></div>
-            <input type = "text" name = "creationTime" [(ngModel)]="creationTime" class = "inputText" >
+            <input type = "text" name = "creationTime" [(ngModel)]="creationTime" class = "inputText" required>
         </div><br>
         <div class = "separateDiv">
             <div class = "textSeparateDiv"><i>Origin: <div *ngIf = "isOriginSelected">{{ genre.origin.countryName }}</div></i><br></div>
@@ -18,7 +18,7 @@
             <textarea type="text" name = "aboutGenre" id = "inputAbout" [(ngModel)]="aboutGenre"></textarea>
         </div><br>
         <div class = "separateDiv">
-            <button (click)="addGenre()">Add New Genre</button>
+            <button (click)="addGenre()" [disabled]="!profileForm.valid">Add New Genre</button>
         </div><br>
     </form>
   </div>
