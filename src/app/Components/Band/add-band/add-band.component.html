@@ -1,28 +1,18 @@
-<!--<div class="add">
-  <input [(ngModel)]="bandName" placeholder="Band name" /><br />
-  Year of creation:<br />
-  <input [(ngModel)]="creationYear" type="number" min="1900" max="2019" /><br />
-  <div *ngIf="band.formedIn">
-    Origin: {{ band.formedIn.cityName }}, {{ band.formedIn.country.countryName }}<br />
-  </div>
-  <button (click)="addBand()">Add band</button>
-</div>
--->
 
 <div id="CRUD">
   <div id = "profileForm">
     <form>
         <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Band Name</i><br></div>
+          <div class = "textSeparateDiv"><i>Band Name:</i><br></div>
           <input type = "text" name = "bandName" [(ngModel)]="bandName" class = "inputText" >
         </div><br>
         <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Creation Date</i><br></div>
+          <div class = "textSeparateDiv"><i>Creation Date:</i><br></div>
           <input type = "date" name = "creationYear" [(ngModel)]="creationYear" class = "inputText" required>
       </div><br>
 
         <div class = "separateDiv">
-            <div class = "textSeparateDiv"><i>City: {{ band.formedIn.cityName }}</i><br></div>
+            <div class = "textSeparateDiv"><i>City:<div *ngIf = "isCitySelected"> {{ band.formedIn.cityName }}</div></i><br></div>
             <button (click)="searchCity()">Set City</button>
         </div><br>
 
@@ -33,7 +23,7 @@
   </div>
   <div id = "searchPlace" *ngIf = "isCityClicked">
       <div class = "separateDiv">
-        <div class = "textSeparateDiv"><i>Search City</i><br></div>
+        <div class = "textSeparateDiv"><i>Search City:</i><br></div>
         <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
       </div><br>
   </div>

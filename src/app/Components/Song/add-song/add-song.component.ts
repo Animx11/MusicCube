@@ -13,8 +13,6 @@ import { SongAuthorship } from 'src/app/Class/SongAuthorship';
 import { Instrument } from 'src/app/Class/Instrument';
 import { SongInstrument } from 'src/app/Class/SongInstrument';
 
-// import { this_url } from "src/app/Services/API_URL";
-// const thisURL = this_url;
 
 @Component({
   selector: 'app-add-song',
@@ -137,6 +135,7 @@ export class AddSongComponent implements OnInit {
             );
           });
           window.alert('Dodano nową piosenke');
+          this.ngOnInit();
           // window.location.assign(`${thisURL}AdminPanel`);
         },
         err => {

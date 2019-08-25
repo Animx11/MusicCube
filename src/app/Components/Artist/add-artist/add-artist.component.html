@@ -3,19 +3,19 @@
   <div id = "profileForm">
     <form>
         <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>First Name</i><br></div>
+          <div class = "textSeparateDiv"><i>First Name:</i><br></div>
           <input type = "text" name = "firstNames" [(ngModel)]="firstNames" class = "inputText" >
         </div><br>
         <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Last Name</i><br></div>
+          <div class = "textSeparateDiv"><i>Last Name:</i><br></div>
           <input type = "text" name = "lastName" [(ngModel)]="lastName" class = "inputText" >
         </div><br>
         <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Birth Date</i><br></div>
+          <div class = "textSeparateDiv"><i>Birth Date:</i><br></div>
           <input type = "date" name = "birthDate" [(ngModel)]="birthDate" class = "inputText">
         </div><br>
         <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Death Date</i><br></div>
+          <div class = "textSeparateDiv"><i>Death Date:</i><br></div>
           <input type = "date" name = "deathDate" [(ngModel)]="deathDate" class = "inputText">
         </div><br>
         <div class = "separateDiv">
@@ -24,11 +24,11 @@
           </div>
         </div><br>
         <div class = "separateDiv" *ngIf = "isArtist">
-          <div class = "textSeparateDiv"><i>Stage Name</i><br></div>
+          <div class = "textSeparateDiv"><i>Stage Name:</i><br></div>
           <input type = "text" name = "stageName" [(ngModel)]="stageName" class = "inputText" >
         </div><br>
         <div class = "separateDiv">
-            <div class = "textSeparateDiv"><i>Place of birth: {{ person.origin.cityName }}</i><br></div>
+            <div class = "textSeparateDiv"><i>Place of birth:<div *ngIf = " isBirthPlaceSelected"> {{ person.origin.cityName }}</div></i><br></div>
             <button (click)="searchBirthPlace()">Set Origin</button>
         </div><br>
 
@@ -40,7 +40,7 @@
   </div>
   <div id = "searchPlace" *ngIf = "isBirthPlaceClicked">
       <div class = "separateDiv">
-        <div class = "textSeparateDiv"><i>Search Birth Place</i><br></div>
+        <div class = "textSeparateDiv"><i>Search Birth Place:</i><br></div>
         <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
       </div><br>
   </div>

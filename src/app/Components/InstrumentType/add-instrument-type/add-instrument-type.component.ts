@@ -32,6 +32,7 @@ export class AddInstrumentTypeComponent implements OnInit {
           console.log('add-instrument-type-component received:');
           console.log(res);
           window.alert('Instrument type added');
+          this.ngOnInit();
         },
         err => {
           console.error(err);

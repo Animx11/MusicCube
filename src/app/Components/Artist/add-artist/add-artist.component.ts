@@ -20,6 +20,7 @@ export class AddArtistComponent implements OnInit {
   private deathDate: Date;
   private isArtist: boolean;
   private isBirthPlaceClicked: boolean;
+  private isBirthPlaceSelected: boolean;
 
   constructor(private artistService: ArtistService, private personService: PersonService) {}
 
@@ -29,6 +30,7 @@ export class AddArtistComponent implements OnInit {
     this.birthDate = this.deathDate = null;
     this.isArtist = false;
     this.isBirthPlaceClicked = false;
+    this.isBirthPlaceSelected = false;
   }
 
   searchBirthPlace(){
@@ -38,6 +40,7 @@ export class AddArtistComponent implements OnInit {
   cityEventHandler($event: any) {
     this.person.setOrigin($event);
     this.isBirthPlaceClicked = false;
+    this.isBirthPlaceSelected = true;
   }
 
   add() {
@@ -61,6 +64,7 @@ export class AddArtistComponent implements OnInit {
             console.log('add-artist-component received artist:');
             console.log(res);
             window.alert('Artist added');
+            this.ngOnInit();
           },
           err => {
             window.alert('Error occured');
@@ -74,6 +78,7 @@ export class AddArtistComponent implements OnInit {
             console.log('add-artist-component received person:');
             console.log(res);
             window.alert('Person added');
+            this.ngOnInit();
           },
           err => {
             window.alert('Error occured');

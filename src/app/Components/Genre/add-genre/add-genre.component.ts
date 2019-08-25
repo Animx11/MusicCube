@@ -17,6 +17,7 @@ export class AddGenreComponent implements OnInit {
   private creationTime: string;
   private aboutGenre: string;
 
+  private isOriginSelected: boolean;
   private isOriginClicked: boolean;
 
   constructor(private genreService: GenreService) {}
@@ -25,6 +26,7 @@ export class AddGenreComponent implements OnInit {
     this.genreName = "";
     this.creationTime = "";
     this.isOriginClicked = false;
+    this.isOriginSelected = false;
     this.genre = new Genre();
   }
 
@@ -35,6 +37,7 @@ export class AddGenreComponent implements OnInit {
   countryEventHandler($event: any) {
     this.genre.setOrigin($event);
     this.isOriginClicked = false;
+    this.isOriginSelected = true;
   }
 
   addGenre() {
@@ -49,6 +52,7 @@ export class AddGenreComponent implements OnInit {
           console.log('add-genre-component received:');
           console.log(res);
           window.alert('Genre added');
+          this.ngOnInit();
         },
         err => {
           console.error(err);

@@ -14,6 +14,7 @@ export class AddCityComponent implements OnInit {
   private cityName: string;
 
   private isCountryClicked: boolean;
+  private isCountrySelected: boolean;
 
   constructor(private cityService: CityService) { }
 
@@ -21,6 +22,7 @@ export class AddCityComponent implements OnInit {
     this.cityName = '';
     this.city = new City();
     this.isCountryClicked = false;
+    this.isCountrySelected = false;
   }
 
   searchCountry() {
@@ -29,6 +31,8 @@ export class AddCityComponent implements OnInit {
 
   countryEventHandler($event: any) {
     this.city.setCountry($event);
+    this.isCountrySelected = true;
+    this.isCountryClicked = false;
   }
 
   addCity() {
@@ -41,12 +45,14 @@ export class AddCityComponent implements OnInit {
           console.log('add-city-component received:');
           console.log(res);
           window.alert('City added');
+          this.ngOnInit();
         },
         err => {
           console.error(err);
           window.alert('Error occurred');
         }
       );
+
     }
   }
 

@@ -14,6 +14,7 @@ export class AddInstrumentComponent implements OnInit {
   private instrumentTypeName: InstrumentType;
 
   private isInstrumentTypeClicked: boolean;
+  private isInstrumentTypeSelected: boolean;
 
   constructor(private instrumentService: InstrumentService) {}
 
@@ -21,6 +22,7 @@ export class AddInstrumentComponent implements OnInit {
     this.instrument = new Instrument();
     this.instrumentName = this.instrumentTypeName = null;
     this.isInstrumentTypeClicked = false;
+    this.isInstrumentTypeSelected = false;
   }
 
   searchInstrumentType(){
@@ -30,6 +32,7 @@ export class AddInstrumentComponent implements OnInit {
   instrumentTypeEventHandler($event: any) {
     this.instrument.setInstrumentType($event);
     this.isInstrumentTypeClicked = false;
+    this.isInstrumentTypeSelected = true;
   }
 
   addInstrument() {
@@ -42,6 +45,7 @@ export class AddInstrumentComponent implements OnInit {
           console.log("add-instrument-component received:");
           console.log(res);
           window.alert("Instrument added");
+          this.ngOnInit();
         },
         err => {
           console.error(err);

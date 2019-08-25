@@ -39,16 +39,6 @@ export class AddAlbumComponent implements OnInit {
     }
   }
 
-  resetValueAfterAdd(){
-    this.album = new Album();
-    this.albumName = "";
-    this.length = 0;
-    this.minutes = 0;
-    this.seconds = 0;
-    this.releaseDate = null;
-    this.company = "";
-  }
-
   addAlbum(): void {
     if(!this.albumLengthInSeconds()){
       window.alert("Album lenght is incorect");
@@ -70,7 +60,7 @@ export class AddAlbumComponent implements OnInit {
           console.log("add-album-component received:");
           console.log(res);
           window.alert("Album added");
-          this.resetValueAfterAdd();
+          this.ngOnInit();
         },
         err => {
           window.alert("Error occured");

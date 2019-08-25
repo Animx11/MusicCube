@@ -19,6 +19,7 @@ export class AddConcertComponent implements OnInit {
   private dateString: string[];
 
   private isCityClicked: boolean;
+  private isCitySelected: boolean;
 
   constructor(
     private concertService: ConcertService,
@@ -29,6 +30,7 @@ export class AddConcertComponent implements OnInit {
     this.concertName = '';
     this.startTime = null;
     this.isCityClicked = false;
+    this.isCitySelected = false;
     this.hour = 0;
     this.minutes = 0;
   }
@@ -40,6 +42,7 @@ export class AddConcertComponent implements OnInit {
   cityEventHandler($event: any) {
     this.concert.setConcertCity($event);
     this.isCityClicked = false;
+    this.isCitySelected = false;
   }
 
   makeDate(){
@@ -70,6 +73,7 @@ export class AddConcertComponent implements OnInit {
           console.log('add-concert-component received:');
           console.log(res);
           window.alert('Concert added');
+          this.ngOnInit();
         },
         err => {
           window.alert('Error occured');

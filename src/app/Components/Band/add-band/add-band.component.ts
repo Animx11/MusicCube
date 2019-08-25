@@ -17,7 +17,9 @@ export class AddBandComponent implements OnInit {
 
   private isCityClicked: boolean;
 
-  private formedInSelected: boolean;
+
+  private isCitySelected: boolean;
+
 
   constructor(private bandService: BandService) {}
 
@@ -26,6 +28,7 @@ export class AddBandComponent implements OnInit {
     this.bandName = '';
     this.creationYear = null;
     this.isCityClicked = false;
+    this.isCitySelected = false;
   }
 
   searchCity(){
@@ -35,6 +38,7 @@ export class AddBandComponent implements OnInit {
   cityEventHandler($event: any) {
     this.band.setFormedIn($event);
     this.isCityClicked = false;
+    this.isCitySelected = true;
   }
 
   addBand() {

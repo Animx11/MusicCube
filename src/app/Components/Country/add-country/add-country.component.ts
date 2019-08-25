@@ -18,8 +18,8 @@ export class AddCountryComponent implements OnInit {
   constructor(private countryService: CountryService) {}
 
   ngOnInit() {
-    this.countryName = "";
-    this.code = "";
+    this.countryName = '';
+    this.code = '';
     this.country = new Country();
   }
 
@@ -35,6 +35,7 @@ export class AddCountryComponent implements OnInit {
           console.log('add-country-component received:');
           console.log(res);
           window.alert('Country added');
+          this.ngOnInit();
         },
         err => {
           /* Trzeba dorobić error handlingi w backu i tutaj */
@@ -44,6 +45,4 @@ export class AddCountryComponent implements OnInit {
       )
     }
   }
-
-
 }
