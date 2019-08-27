@@ -42,7 +42,7 @@ export class AddConcertComponent implements OnInit {
   cityEventHandler($event: any) {
     this.concert.setConcertCity($event);
     this.isCityClicked = false;
-    this.isCitySelected = false;
+    this.isCitySelected = true;
   }
 
   makeDate(){

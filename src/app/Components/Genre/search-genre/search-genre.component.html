@@ -1,5 +1,5 @@
 <div>
-  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..." />
   <div class="listDisplay">
     <ul>
       <li *ngFor="let genre of (genres$ | async)" (click)="onSelect(genre)">

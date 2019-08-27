@@ -34,7 +34,7 @@
 
       <div class = "separateDiv">
        <div class = "textSeparateDiv"><i>Authors:</i>
-        <div *ngIf = "isAuthorSelected">
+        <div>
           <ul *ngIf="authorList">
             <li *ngFor="let authorship of authorList">
               {{ authorship.author.firstNames }} {{ authorship.author.lastName }} Text
@@ -50,7 +50,7 @@
 
        <div class = "separateDiv">
           <div class = "textSeparateDiv"><i>Instruments:</i>
-            <div *ngIf = "isInstrumentSelected">
+            <div>
               <ul *ngIf="instrumentList">
                   <li *ngFor="let songInstrument of instrumentList">
                     {{ songInstrument.instrument.instrumentName }}

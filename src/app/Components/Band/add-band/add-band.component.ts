@@ -58,6 +58,7 @@ export class AddBandComponent implements OnInit {
           console.log('add-band-component received:');
           console.log(res);
           window.alert('Band added');
+          this.ngOnInit();
         },
         err => {
           window.alert('Error occurred');
