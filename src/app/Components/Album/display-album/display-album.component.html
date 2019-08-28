@@ -9,5 +9,8 @@
   </ul>
   Track count: {{album.trackCount}}
   Total length: {{album.albumLengthSeconds | secondsToString}}
-  <img src="{{album.coverArtLink}}" alt="cover"/>
+  <img src="{{album.coverArtLink}}" alt="cover"/><br>
+  <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
+
 </div>
+

@@ -13,5 +13,7 @@
     <li *ngFor="let album of albums">
       <a routerLink="/album/{{album.id}}">{{album.albumName}}</a> {{album.releaseDate | date:'yyyy'}}
     </li>
-  </ul>
+  </ul><br>
+  <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
+
 </div>

@@ -4,5 +4,6 @@
   <div *ngIf="song.album">Album: <a routerLink="/album/{{song.album.id}}">{{song.album.albumName}}</a></div>
   <div *ngIf="song.genre">Genre: <a routerLink="/genre/{{song.genre.id}}">{{song.genre.genreName | titlecase}}</a></div>
   <div *ngIf="song.songLengthSeconds">Length: {{song.songLengthSeconds | secondsToString}} </div>
+  <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
 
 </div>

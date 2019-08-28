@@ -6,6 +6,8 @@ import { AlbumService } from '../../../Services/album.service';
 import {Album} from '../../../Class/Album';
 import {Band} from '../../../Class/Band';
 import {Song} from '../../../Class/Song';
+import { TokenStorageService } from 'src/app/Services/token-storage.service';
+import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 
 @Component({
   selector: 'app-display-album',
@@ -18,13 +20,35 @@ export class DisplayAlbumComponent implements OnInit {
   bands: Band[];
   songs: Song[];
 
+  private isLogged: boolean;
+  private isFavorite: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private albumService: AlbumService) { }
+    private albumService: AlbumService,
+    private tokenStorage: TokenStorageService,
+    private favoriteListsService: FavoriteListsService) { }
 
   ngOnInit() {
     this.getAlbum();
+    this.isLogged = false;
+    if (this.tokenStorage.getToken()) {
+      this.isLogged = true;
+      this.checkIfIsFavorite();
+    }
+  }
+
+  private checkIfIsFavorite() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.favoriteListsService.existAlbumInUserFavorites(this.tokenStorage.getUsername(), id).subscribe(
+      res => {
+        this.isFavorite = res;
+      },
+      err => {
+        window.alert(err);
+      }
+    );
   }
 
   private getAlbum() {
@@ -52,4 +76,28 @@ export class DisplayAlbumComponent implements OnInit {
     },
     err => console.error(err));
   }
+
+  toFavorite() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    if(this.isFavorite) {
+      this.favoriteListsService.deleteAlbumToFavorites(this.tokenStorage.getUsername(), id).subscribe(
+        res => {
+          console.log("Album succesfully deleted from favorite");
+        },
+        err => {
+          window.alert("Error has occured");
+        }
+      );
+    } else {
+      this.favoriteListsService.addAlbumToFavorites(this.tokenStorage.getUsername(), id).subscribe(
+        res => {
+          console.log("Album succesfully added to favorite");
+        },
+        err => {
+          window.alert("Error has occured");
+        }
+      );
+    }
+  }
+
 }

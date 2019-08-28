@@ -9,6 +9,8 @@ import {ArtistInBand} from '../../../Class/ArtistInBand';
 import {ArtistInBandService} from '../../../Services/artist-in-band.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
 import {isNull} from 'util';
+import { TokenStorageService } from 'src/app/Services/token-storage.service';
+import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 
 @Component({
   selector: 'app-display-band',
@@ -22,17 +24,39 @@ export class DisplayBandComponent implements OnInit {
   lnp: ArtistInBand[];
   artistDisplays: ArtistActivityDisplay[];
 
+  private isLogged: boolean;
+  private isFavorite: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private bandService: BandService,
-    private artistInBandService: ArtistInBandService) {
+    private artistInBandService: ArtistInBandService,
+    private tokenStorage: TokenStorageService,
+    private favoriteListsService: FavoriteListsService) {
     this.artistDisplays = [];
   }
 
   ngOnInit() {
     this.getBand();
+    this.isLogged = false;
+    if (this.tokenStorage.getToken()) {
+      this.isLogged = true;
+      this.checkIfIsFavorite();
+    }
+  }
+
+  
+  private checkIfIsFavorite() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.favoriteListsService.existBandInUserFavorites(this.tokenStorage.getUsername(), id).subscribe(
+      res => {
+        this.isFavorite = res;
+      },
+      err => {
+        window.alert(err);
+      }
+    );
   }
 
   private getBand() {
@@ -87,5 +111,28 @@ export class DisplayBandComponent implements OnInit {
         this.artistDisplays.push(aad);
       }
     });
+  }
+
+  toFavorite() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    if(this.isFavorite) {
+      this.favoriteListsService.deleteBandToFavorites(this.tokenStorage.getUsername(), id).subscribe(
+        res => {
+          console.log("Band succesfully deleted from favorite");
+        },
+        err => {
+          window.alert("Error has occured");
+        }
+      );
+    } else {
+      this.favoriteListsService.addBandToFavorites(this.tokenStorage.getUsername(), id).subscribe(
+        res => {
+          console.log("Band succesfully added to favorite");
+        },
+        err => {
+          window.alert("Error has occured");
+        }
+      );
+    }
   }
 }
