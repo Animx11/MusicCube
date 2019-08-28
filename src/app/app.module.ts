@@ -63,6 +63,7 @@ import { AddCityComponent } from './Components/City/add-city/add-city.component'
 import { AddInstrumentTypeComponent } from './Components/InstrumentType/add-instrument-type/add-instrument-type.component';
 import { SearchCityComponent } from './Components/City/search-city/search-city.component';
 import { SearchInstrumentTypeComponent } from './Components/InstrumentType/search-instrument-type/search-instrument-type.component';
+import { FavoritesComponent } from './Components/User/user-panel/favorites/favorites.component';
 
 
 const ROUTES: Routes = [
@@ -88,6 +89,12 @@ const ROUTES: Routes = [
   {
     path: 'UserPanel', component: UserPanelComponent,
     children: [{ path: 'Account', component: AccountComponent }]
+  },
+
+  // User Panel Favorites
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'Favorites', component: FavoritesComponent }]
   },
 
   // User
@@ -277,6 +284,7 @@ const ROUTES: Routes = [
     AddInstrumentTypeComponent,
     SearchCityComponent,
     SearchInstrumentTypeComponent,
+    FavoritesComponent,
 
   ],
   imports: [
