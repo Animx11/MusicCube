@@ -16,7 +16,7 @@ import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
 export class DisplayArtistComponent implements OnInit {
 
   artist: Artist;
-  activities: ArtistActivityService[];
+  activities: ArtistActivity[];
   displays: ArtistActivityDisplay[] = [];
 
   constructor(

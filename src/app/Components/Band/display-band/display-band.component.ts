@@ -8,7 +8,6 @@ import {Album} from '../../../Class/Album';
 import {ArtistActivity} from '../../../Class/ArtistActivity';
 import {ArtistActivityService} from '../../../Services/artist-activity.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
-import {isNull} from 'util';
 
 @Component({
   selector: 'app-display-band',
@@ -19,7 +18,7 @@ export class DisplayBandComponent implements OnInit {
 
   band: Band;
   albums: Album[];
-  lnp: ArtistActivityService[];
+  lnp: ArtistActivity[];
   artistDisplays: ArtistActivityDisplay[];
 
 
