@@ -40,7 +40,7 @@ public class InstrumentTypeController {
         return instrumentTypeService.getAllPaging(pageNr, perPage.orElse(10));
     }
 
-    @GetMapping(value = "instrumentTypes{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/instrumentTypes{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<InstrumentType> getByInstrumentTypeName(String instrumentTypeName) {
         return instrumentTypeService.getByInstrumentTypeName(instrumentTypeName);
     }

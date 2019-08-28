@@ -4,10 +4,12 @@ package musiccube.controllers;
 import musiccube.entities.Role;
 import musiccube.entities.RoleName;
 import musiccube.entities.User;
+import musiccube.entities.UserFavorites;
 import musiccube.jwt.JwtProvider;
 import musiccube.jwt.JwtResponse;
 import musiccube.repositories.RoleRepository;
 import musiccube.services.user.UserService;
+import musiccube.services.userFavorites.UserFavoritesService;
 import musiccube.user.UserAccount;
 import musiccube.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserFavoritesService userFavoritesService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -225,6 +230,7 @@ public class UserController {
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
 
         Set<Role> roles = new HashSet<>();
+
         Role role = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow(() -> new RuntimeException("Fail! -> User Role not found"));
 
         roles.add(role);
@@ -233,8 +239,10 @@ public class UserController {
         user.setUserName(userAccount.getUserName());
         user.setEmail(userAccount.getEmail());
         user.setPassword(userAccount.getPassword());
+        UserFavorites userFavorites = new UserFavorites(user);
 
         userService.save(user);
+        userFavoritesService.save(userFavorites);
 
         return ResponseEntity.ok().body(user);
     }
