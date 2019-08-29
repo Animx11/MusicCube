@@ -22,7 +22,7 @@ export class ArtistActivityService {
     return this.http.get(`${apiUrl}/artistactivity/artist/${id}`);
   }
   getByBandId(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/artistactivit/band/${id}`);
+    return this.http.get(`${apiUrl}/artistactivity/band/${id}`);
   }
   getByArtistIdIsActive(id: number, active: boolean): Observable<any> {
     return this.http.get(`${apiUrl}/artistactivity/artist/${id}?active=${active}`);

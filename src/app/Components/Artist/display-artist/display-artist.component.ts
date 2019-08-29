@@ -42,7 +42,7 @@ export class DisplayArtistComponent implements OnInit {
   private getBands() {
     this.artistInBandService.getByArtistId(this.artist.id).subscribe(res =>{
       console.log('display-artist-component received: ', res);
-      this.activities = res.map(el => new ArtistActivityService(el));
+      this.activities = res.map(el => new ArtistActivity(el));
       this.handleActivities();
     },
     err => console.error(err));

@@ -56,7 +56,7 @@ export class DisplayBandComponent implements OnInit {
     this.artistInBandService.getByBandId(this.band.id).subscribe(
       res => {
         console.log('display-band-component received artists activities: ', res);
-        this.lnp = res.map(el => new ArtistActivityService(el));
+        this.lnp = res.map(el => new ArtistActivity(el));
         this.handleActivity();
       },
       err => console.error(err)
