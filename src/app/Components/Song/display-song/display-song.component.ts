@@ -125,11 +125,6 @@ export class DisplaySongComponent implements OnInit {
     }
   }
 
-
-  test() {
-    console.error('Work work');
-  }
-
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
     if (this.isFavorite) {
