@@ -17,7 +17,7 @@ export class BandService {
     return this.http.get(`${apiUrl}/band/${id}`);
   }
   getByBandName(term: string): Observable<any> {
-    return this.http.get(`${apiUrl}/band/name/${term}`);
+    return this.http.get(`${apiUrl}/band/name/${term}/`);
   }
   getBandGenres(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/band/${id}/genres`);

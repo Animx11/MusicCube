@@ -19,7 +19,7 @@ export class CountryService {
   }
 
   getByCountryName(countryName: string): Observable<any> {
-    return this.http.get(`${apiUrl}/country_name{countryName}?countryName=${countryName}`);
+    return this.http.get(`${apiUrl}/country/name/${countryName}/`);
   }
 
 
