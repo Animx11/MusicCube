@@ -22,6 +22,7 @@ public class Band {
     @Column
     private Date creationDate;
 
+    @Column
     private String mbId;
 
     @ManyToOne
