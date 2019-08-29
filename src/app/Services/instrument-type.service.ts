@@ -14,26 +14,26 @@ export class InstrumentTypeService {
   constructor(private http: HttpClient) { }
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/instrumentType{id}?id=${id}`);
+    return this.http.get(`${apiUrl}/instrumenttype/${id}`);
   }
 
   getByInstrumentTypeName(instrumentTypeName: string): Observable<any> {
-    return this.http.get(`${apiUrl}/instrumentTypes?name=${instrumentTypeName}`);
+    return this.http.get(`${apiUrl}/instrumenttype/name/${instrumentTypeName}`);
   }
 
   list(): Observable<any> {
-    return this.http.get(`${apiUrl}/instrumentTypes`);
+    return this.http.get(`${apiUrl}/instrumenttype`);
   }
 
   create(instrumentType: InstrumentType): Observable<any> {
-    return this.http.post(`${apiUrl}/instrumentType`, instrumentType);
+    return this.http.post(`${apiUrl}/admin/instrumenttype`, instrumentType);
   }
 
   edit(instrumentType: InstrumentType): Observable<any> {
-    return this.http.put(`${apiUrl}/instrumentType`, instrumentType);
+    return this.http.put(`${apiUrl}/admin/instrumenttype`, instrumentType);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/instrumentType/${id}`);
+    return this.http.delete(`${apiUrl}/admin/instrumenttype/${id}`);
   }
 }

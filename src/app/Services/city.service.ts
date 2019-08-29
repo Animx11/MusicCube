@@ -18,7 +18,7 @@ export class CityService {
   }
 
   getByCityName(term: string): Observable<any> {
-    return this.http.get(`${apiUrl}/city_by_cityName?cityName=${term}`);
+    return this.http.get(`${apiUrl}/city/name-auto/${term}`);
   }
 
   list(): Observable<any> {

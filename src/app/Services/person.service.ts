@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { api_url } from '../Utils/API_URL';
+import {Person} from '../Class/Person';
 
 const apiUrl = api_url;
 
@@ -18,14 +19,14 @@ export class PersonService {
     if (term === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/person/lastname/${term}`); }
   }
   create(person: Person): Observable<any> {
-    return this.http.post(`${apiUrl}/person`, person);
+    return this.http.post(`${apiUrl}/admin/person`, person);
   }
 
   edit(person: Person): Observable<any> {
-    return this.http.put(`${apiUrl}/person`, person);
+    return this.http.put(`${apiUrl}/admin/person`, person);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/person/${id}`);
+    return this.http.delete(`${apiUrl}/admin/person/${id}`);
   }
 }
