@@ -39,6 +39,14 @@ public class CityController {
         return cityService.getAll();
     }
 
+
+    @GetMapping(
+            path = "/city/name-auto/{name}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<City> getByCityName(@PathVariable("name") String cityName){
+        return cityService.getIterableCityByCityName(cityName);
+    }
+
     @PostMapping("/admin/city")
     public ResponseEntity<City> create(@RequestBody @Valid @NotNull City city) {
         cityService.save(city);
