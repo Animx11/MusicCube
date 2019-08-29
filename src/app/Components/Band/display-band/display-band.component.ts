@@ -20,7 +20,7 @@ export class DisplayBandComponent implements OnInit {
 
   band: Band;
   albums: Album[];
-  lnp: ArtistInBand[];
+  lnp: ArtistActivity[];
   artistDisplays: ArtistActivityDisplay[];
 
   private isLogged: boolean;
@@ -30,7 +30,7 @@ export class DisplayBandComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private bandService: BandService,
-    private artistInBandService: ArtistInBandService,
+    private activityService: ArtistActivityService,
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService) {
     this.artistDisplays = [];
