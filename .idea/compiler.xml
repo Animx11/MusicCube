@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="MusicCube" options="-parameters" />
+      <module name="MusicCube" options="" />
     </option>
   </component>
 </project>
