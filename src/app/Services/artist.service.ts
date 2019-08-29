@@ -22,7 +22,7 @@ export class ArtistService {
   }
 
   getByName(name: string): Observable<any> {
-    return this.http.get(`${apiUrl}/artist/name/${name}`);
+    return this.http.get(`${apiUrl}/artist/name/${name}/`);
   }
 
   create(artist: Artist): Observable<any> {

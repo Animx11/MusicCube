@@ -18,7 +18,7 @@ export class SongService {
   }
 
   getBySongName(songName: string): Observable<any> {
-    return this.http.get(`${apiUrl}/song/name/${songName}`);
+    return this.http.get(`${apiUrl}/song/name/${songName}/`);
   }
 
   list(): Observable<any> {

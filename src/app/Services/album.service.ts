@@ -16,7 +16,7 @@ export class AlbumService {
     return this.http.get(`${apiUrl}/album/${id}`);
   }
   getByAlbumName(name: string): Observable<any> {
-    if (name === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/album/name/${name}`); }
+    if (name === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/album/name/${name}/`); }
   }
   getAlbumBands(albumId: number): Observable<any> {
     return this.http.get(`${apiUrl}/album/${albumId}/bands`);

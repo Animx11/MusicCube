@@ -4,7 +4,7 @@ import { Genre } from './Genre';
 
 export class Song {
   id: number;
-  private songName: string;
+  songName: string;
   private trackNumber: number;
   private songLengthSeconds: number;
   private album: Album;
