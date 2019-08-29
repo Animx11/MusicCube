@@ -3,8 +3,10 @@ package musiccube.controllers;
 import musiccube.entities.Role;
 import musiccube.entities.RoleName;
 import musiccube.entities.User;
+import musiccube.entities.UserFavorites;
 import musiccube.repositories.RoleRepository;
 import musiccube.services.user.UserService;
+import musiccube.services.userFavorites.UserFavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,8 @@ public class ModelGenerator {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserFavoritesService userFavoritesService;
 
 
     @RequestMapping(value = "generateModel", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
@@ -55,6 +59,10 @@ public class ModelGenerator {
         userUser.setLastName("Buczyński");
         userUser.setAboutUser("Just a normal user");
 
+        UserFavorites userFavorites1 = new UserFavorites(adminUser);
+        UserFavorites userFavorites2 = new UserFavorites(modUser);
+        UserFavorites userFavorites3 = new UserFavorites(userUser);
+
         roleRepository.save(user);
         roleRepository.save(mod);
         roleRepository.save(admin);
@@ -62,6 +70,10 @@ public class ModelGenerator {
         userService.save(adminUser);
         userService.save(userUser);
         userService.save(modUser);
+
+        userFavoritesService.save(userFavorites1);
+        userFavoritesService.save(userFavorites2);
+        userFavoritesService.save(userFavorites3);
 
         return "Model generated.";
     }

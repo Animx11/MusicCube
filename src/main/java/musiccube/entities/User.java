@@ -1,6 +1,9 @@
 package musiccube.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -15,38 +18,45 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     @Column(name = "id")
     private int id;
 
+    @JsonIgnore
     @Size(min = 3, max = 50)
     @Column(name = "userName", unique = true)
     private String userName;
 
+
     @Size(min = 6, max = 100)
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     @Column(name = "email", unique = true)
     private String email;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @Column(name = "firstName")
     private String firstName;
 
+    @JsonIgnore
     @Column(name = "lastName")
     private String lastName;
 
+    @JsonIgnore
     @Column(name = "birthDate")
     private Date birthDate;
 
-    //TODO
-    //Po wymyśleniu odpowiedniego sposobu na przechowywanie ulubionych dodać kolumnę favorits
-
+    @JsonIgnore
     @Column(name = "aboutUser")
     private String aboutUser;
 

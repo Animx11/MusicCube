@@ -80,7 +80,7 @@ public class UserController {
 
     // Finding User
 
-    @DeleteMapping(value = "/user_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/user_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getById(@RequestParam("id") int id){
         return userService.getById(id);
     }
