@@ -44,4 +44,13 @@ public class InstrumentTypeServiceImpl implements InstrumentTypeService {
         return instrumentTypeRepository.findByInstrumentTypeName(instrumentTypeName);
     }
 
+    @Override
+    public boolean existsByName(String name) {
+        return instrumentTypeRepository.existsByInstrumentTypeName(name);
+    }
+
+    @Override
+    public InstrumentType getOneByName(String name) {
+        return instrumentTypeRepository.findOneByInstrumentTypeName(name);
+    }
 }

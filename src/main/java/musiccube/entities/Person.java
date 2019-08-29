@@ -4,9 +4,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person {
 
     @Id

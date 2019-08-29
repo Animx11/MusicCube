@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -23,35 +21,40 @@ public class ConcertController {
     @Autowired
     private ConcertService concertService;
 
-    @RequestMapping(value = "/concert{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<Concert> getById(int id) {
-        return concertService.getById(id);
+    @GetMapping(
+            path = "/concert/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Concert> getById(@PathVariable("id") int id) {
+        Optional<Concert> concert = concertService.getById(id);
+        return concert.isPresent() ?
+                ResponseEntity.ok(concert.get()) :
+                ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(value = "/concerts",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            path = "/concert",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Iterable<Concert> getAll() {
         return concertService.getAll();
     }
 
     // --- Get by concertName
-    @RequestMapping(value = "/concerts{name}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Concert> getByConcertName(String concertName) {
+    @GetMapping(path = "/concert/{name}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Concert> getByConcertName(@PathVariable("name") String concertName) {
         return concertService.getByConcertName(concertName);
     }
 
-    @RequestMapping(value = "/concert",method = RequestMethod.POST)
+    @PostMapping("/admin/concert")
     public ResponseEntity<Concert> create(@RequestBody @Valid @NotNull Concert concert) {
         concertService.save(concert);
         return ResponseEntity.ok().body(concert);
     }
 
-    @RequestMapping(value = "/concert",method = RequestMethod.PUT)
+    @PutMapping("/admin/concert")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Concert concert) {
         Optional<Concert> artist1 = concertService.getById(concert.getId());
         if (Objects.nonNull(artist1)) {
@@ -60,15 +63,10 @@ public class ConcertController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/concerts",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Concert> redirect(Model model) {
-        return concertService.getAll();
-    }
-
-    @RequestMapping(value = "/concert/{id}", method = RequestMethod.DELETE)
-    public RedirectView delete(@PathVariable Integer id) {
+    @DeleteMapping("/admin/concert/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         concertService.delete(id);
-        return new RedirectView("/api/concerts",true);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
