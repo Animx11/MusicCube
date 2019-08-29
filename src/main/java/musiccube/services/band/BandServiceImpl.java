@@ -57,4 +57,8 @@ public class BandServiceImpl implements BandService {
     public boolean existsByBandName(String bandName){
         return bandRepository.existsByBandName(bandName);
     }
+    @Override
+    public boolean existsByMbId(String mbid) {
+        return bandRepository.existsByMbId(mbid);
+    }
 }
