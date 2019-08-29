@@ -8,6 +8,8 @@ import {Album} from '../../../Class/Album';
 import {ArtistActivity} from '../../../Class/ArtistActivity';
 import {ArtistActivityService} from '../../../Services/artist-activity.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
+import { TokenStorageService } from 'src/app/Services/token-storage.service';
+import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 
 @Component({
   selector: 'app-display-band',
