@@ -27,7 +27,7 @@ export class DisplaySongComponent implements OnInit {
   private selectOption: string;
 
   private id: number;
-  
+
 
   constructor(
     private route: ActivatedRoute,
@@ -55,24 +55,24 @@ export class DisplaySongComponent implements OnInit {
         this.isFavorite = res;
       },
       err => {
-        console.log(err);
+        console.error(err);
       }
     );
   }
 
   private checkIfIsRated() {
-    const id = +this.route.snapshot.paramMap.get('id'); 
+    const id = +this.route.snapshot.paramMap.get('id');
     this.rateService.getByUserNameAndSongId(this.tokenStorage.getUsername(), id).subscribe(
       res => {
-        console.log("This song was rated by user");
+        console.log('This song was rated by user');
         this.rate = new Rate(res);
         this.isRated = true;
         this.selectOption = this.rate.getRate().toString();
       },
       err => {
-        console.log("User hasn't rated this song yet");
+        console.log('User hasn\'t rated this song yet');
         this.isRated = false;
-        this.selectOption = "0";
+        this.selectOption = '0';
       }
     );
   }
@@ -84,66 +84,65 @@ export class DisplaySongComponent implements OnInit {
         this.song = new Song(res);
         console.log('display-song-component received: ', res);
       },
-        err => console.error(err));
+      err => console.error(err));
   }
 
-  setScore(){
+  setScore() {
     const id = +this.route.snapshot.paramMap.get('id');
-    if (this.isRated && this.selectOption === "0"){
+    if (this.isRated && this.selectOption === '0') {
       this.rateService.delete(this.rate.getId()).subscribe(
         res => {
-          console.log("Score was deleted");
+          console.log('Score was deleted');
           this.isRated = false;
         },
         err => {
-          window.alert("Error has occured");
+          console.error('Error has occurred');
         }
       );
-    } else if (!this.isRated && this.selectOption === "0") {
+    } else if (!this.isRated && this.selectOption === '0') {
 
-    } else if (!this.isRated){
+    } else if (!this.isRated) {
       this.rateService.create(this.tokenStorage.getUsername(), id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);
           this.isRated = true;
-          console.log("New score was setted");
+          console.log('New score was setted');
         },
         err => {
-          window.alert("Error has occured");
+          console.error('Error has occurred');
         }
       );
     } else if (this.isRated) {
       this.rateService.edit(this.rate.getId(), parseInt(this.selectOption)).subscribe(
         res => {
           this.rate.setRate(parseInt(this.selectOption));
-          console.log("Score has been changed");
+          console.log('Score has been changed');
         },
         err => {
-          window.alert("Error has occured");
+          console.error('Error has occurred');
         }
       );
     }
   }
 
-
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
-    if(this.isFavorite) {
+    if (this.isFavorite) {
       this.favoriteListsService.deleteSongToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Song succesfully deleted from favorite");
+          console.log('Song succesfully deleted from favorite');
         },
         err => {
-          window.alert("Error has occured");
+          console.error('Error has occurred');
         }
       );
     } else {
       this.favoriteListsService.addSongToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Song succesfully added to favorite");
+          console.log('Song succesfully added to favorite');
         },
         err => {
-          window.alert("Error has occured");
+          console.error('Error has occurred');
         }
       );
     }
