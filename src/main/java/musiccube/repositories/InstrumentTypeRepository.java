@@ -10,4 +10,7 @@ public interface InstrumentTypeRepository extends CrudRepository<InstrumentType,
     @Query("SELECT i FROM InstrumentType i WHERE LOWER(i.instrumentTypeName) LIKE LOWER(CONCAT(?1,'%'))")
     Iterable<InstrumentType> findByInstrumentTypeName(String instrumentTypeName);
 
+    boolean existsByInstrumentTypeName(String typeName);
+    InstrumentType findOneByInstrumentTypeName(String typeName);
+
 }

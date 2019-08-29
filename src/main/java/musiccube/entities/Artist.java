@@ -2,19 +2,21 @@ package musiccube.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.Date;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "mbId"})
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Artist extends Person {
 
     @Column
     private String stageName;
 
-    @Column
     private String mbId;
 
     public Artist() {}

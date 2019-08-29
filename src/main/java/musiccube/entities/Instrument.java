@@ -1,8 +1,11 @@
 package musiccube.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Instrument {
 
     @Id
@@ -12,6 +15,9 @@ public class Instrument {
 
     @Column(unique = true)
     private String instrumentName;
+
+    @Column(length = 1024)
+    private String aboutInstrument;
 
     @ManyToOne
     private InstrumentType instrumentType;
@@ -47,4 +53,11 @@ public class Instrument {
         this.instrumentType = instrumentType;
     }
 
+    public String getAboutInstrument() {
+        return aboutInstrument;
+    }
+
+    public void setAboutInstrument(String aboutInstrument) {
+        this.aboutInstrument = aboutInstrument;
+    }
 }

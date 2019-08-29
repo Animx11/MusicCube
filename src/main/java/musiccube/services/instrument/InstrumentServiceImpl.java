@@ -47,4 +47,8 @@ public class InstrumentServiceImpl implements InstrumentService {
         return instrumentRepository.existsByInstrumentName(instrumentName);
     }
 
+    @Override
+    public Instrument getOneByName(String name) {
+        return instrumentRepository.findOneByInstrumentName(name);
+    }
 }
