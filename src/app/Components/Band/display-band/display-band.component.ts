@@ -6,7 +6,7 @@ import { BandService } from '../../../Services/band.service';
 import {Band} from '../../../Class/Band';
 import {Album} from '../../../Class/Album';
 import {ArtistActivity} from '../../../Class/ArtistActivity';
-import {ArtistActivityService} from '../../../Services/artist-in-band.service';
+import {ArtistActivityService} from '../../../Services/artist-activity.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
