@@ -5,10 +5,9 @@ import { Location } from '@angular/common';
 import { BandService } from '../../../Services/band.service';
 import {Band} from '../../../Class/Band';
 import {Album} from '../../../Class/Album';
-import {ArtistInBand} from '../../../Class/ArtistInBand';
-import {ArtistInBandService} from '../../../Services/artist-in-band.service';
+import {ArtistActivity} from '../../../Class/ArtistActivity';
+import {ArtistActivityService} from '../../../Services/artist-activity.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
-import {isNull} from 'util';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 
@@ -21,7 +20,7 @@ export class DisplayBandComponent implements OnInit {
 
   band: Band;
   albums: Album[];
-  lnp: ArtistInBand[];
+  lnp: ArtistActivity[];
   artistDisplays: ArtistActivityDisplay[];
 
   private isLogged: boolean;
@@ -31,7 +30,7 @@ export class DisplayBandComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private bandService: BandService,
-    private artistInBandService: ArtistInBandService,
+    private activityService: ArtistActivityService,
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService) {
     this.artistDisplays = [];
@@ -46,7 +45,7 @@ export class DisplayBandComponent implements OnInit {
     }
   }
 
-  
+
   private checkIfIsFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.favoriteListsService.existBandInUserFavorites(this.tokenStorage.getUsername(), id).subscribe(
@@ -78,10 +77,10 @@ export class DisplayBandComponent implements OnInit {
       err => console.error(err));
   }
   private getMembers() {
-    this.artistInBandService.getByBandId(this.band.id).subscribe(
+    this.activityService.getByBandId(this.band.id).subscribe(
       res => {
         console.log('display-band-component received artists activities: ', res);
-        this.lnp = res.map(el => new ArtistInBand(el));
+        this.lnp = res.map(el => new ArtistActivity(el));
         this.handleActivity();
       },
       err => console.error(err)
@@ -93,7 +92,7 @@ export class DisplayBandComponent implements OnInit {
   private handleActivity() {
     const presentIds = [];
     this.lnp.forEach(el => {
-      const periodString = ArtistActivityDisplay.buildPeriondString(el);
+      const periodString = ArtistActivityDisplay.buildPeriodString(el);
 
       const index = presentIds.indexOf(el.artist.id);
       if (index >= 0) {
@@ -115,22 +114,22 @@ export class DisplayBandComponent implements OnInit {
 
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
-    if(this.isFavorite) {
+    if (this.isFavorite) {
       this.favoriteListsService.deleteBandToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Band succesfully deleted from favorite");
+          console.log('Band successfully deleted from favorites');
         },
         err => {
-          window.alert("Error has occured");
+          window.alert('Error has occurred');
         }
       );
     } else {
       this.favoriteListsService.addBandToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Band succesfully added to favorite");
+          console.log('Band successfully added to favorites');
         },
         err => {
-          window.alert("Error has occured");
+          window.alert('Error has occurred');
         }
       );
     }

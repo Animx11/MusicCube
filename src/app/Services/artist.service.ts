@@ -14,26 +14,27 @@ export class ArtistService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/artist{id}?id=${id}`);
+    return this.http.get(`${apiUrl}/artist/${id}`);
   }
 
   list(): Observable<any> {
-    return this.http.get(`${apiUrl}/artists`);
+    return this.http.get(`${apiUrl}/artist`);
+  }
+
+  getByName(name: string): Observable<any> {
+    return this.http.get(`${apiUrl}/artist/name/${name}`);
   }
 
   create(artist: Artist): Observable<any> {
-    return this.http.post(`${apiUrl}/artist`, artist);
+    return this.http.post(`${apiUrl}/admin/artist`, artist);
   }
 
   edit(artist: Artist): Observable<any> {
-    return this.http.put(`${apiUrl}/artist`, artist);
+    return this.http.put(`${apiUrl}/admin/artist`, artist);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/artist/${id}`);
+    return this.http.delete(`${apiUrl}/admin/artist/${id}`);
   }
 
-  getByStageName(stageName: string): Observable<any> {
-    return this.http.get(`${apiUrl}/artists{stagename}?name=${stageName}`);
-  }
 }

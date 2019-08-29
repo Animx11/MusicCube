@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Person } from 'src/app/Class/Person';
 import { api_url } from '../Utils/API_URL';
+import {Person} from '../Class/Person';
 
 const apiUrl = api_url;
 
@@ -13,20 +13,20 @@ const apiUrl = api_url;
 export class PersonService {
   constructor(private http: HttpClient) {}
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/person{id}?id=${id}`);
+    return this.http.get(`${apiUrl}/person/${id}`);
   }
   getByLastName(term: string): Observable<any> {
-    if (term === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/persons{lastname}?lastName=${term}`); }
+    if (term === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/person/lastname/${term}`); }
   }
   create(person: Person): Observable<any> {
-    return this.http.post(`${apiUrl}/person`, person);
+    return this.http.post(`${apiUrl}/admin/person`, person);
   }
 
   edit(person: Person): Observable<any> {
-    return this.http.put(`${apiUrl}/person`, person);
+    return this.http.put(`${apiUrl}/admin/person`, person);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/person/${id}`);
+    return this.http.delete(`${apiUrl}/admin/person/${id}`);
   }
 }
