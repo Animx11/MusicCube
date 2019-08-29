@@ -40,11 +40,6 @@ public class InstrumentTypeController {
         return instrumentTypeService.getAllPaging(pageNr, perPage.orElse(10));
     }
 
-    @GetMapping(value = "/instrumentTypes{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<InstrumentType> getByInstrumentTypeName(String instrumentTypeName) {
-        return instrumentTypeService.getByInstrumentTypeName(instrumentTypeName);
-    }
-
     @PutMapping(value = "/instrumentType")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull InstrumentType instrumentType) {
         Optional<InstrumentType> type = instrumentTypeService.getById(instrumentType.getId());
@@ -52,17 +47,6 @@ public class InstrumentTypeController {
             instrumentTypeService.save(instrumentType);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
-    @PostMapping(value = "/instrumentType")
-    public ResponseEntity<InstrumentType> create(@RequestBody @Valid @NotNull InstrumentType instrumentType) {
-        instrumentTypeService.save(instrumentType);
-        return ResponseEntity.ok().body(instrumentType);
-    }
-
-    @DeleteMapping(value = "/instrumentType", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<InstrumentType> redirect(Model model) {
-        return instrumentTypeService.getAll();
     }
 
     @DeleteMapping(value = "/instrumentType/{id}")
