@@ -129,7 +129,7 @@ export class SearchEngineMainComponent implements OnInit {
     }, err => console.error(err));
   }
   searchArtists(term: string) {
-    this.artistService.getByStageName(term).subscribe(res => {
+    this.artistService.getByName(term).subscribe(res => {
       console.log('search-engine received artists:', res);
       this.artists = res.map(el => new Artist(el));
       this.message += `${this.artists.length} artists `;

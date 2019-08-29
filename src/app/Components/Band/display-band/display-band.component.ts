@@ -77,10 +77,10 @@ export class DisplayBandComponent implements OnInit {
       err => console.error(err));
   }
   private getMembers() {
-    this.artistInBandService.getByBandId(this.band.id).subscribe(
+    this.activityService.getByBandId(this.band.id).subscribe(
       res => {
         console.log('display-band-component received artists activities: ', res);
-        this.lnp = res.map(el => new ArtistInBand(el));
+        this.lnp = res.map(el => new ArtistActivity(el));
         this.handleActivity();
       },
       err => console.error(err)
@@ -92,7 +92,7 @@ export class DisplayBandComponent implements OnInit {
   private handleActivity() {
     const presentIds = [];
     this.lnp.forEach(el => {
-      const periodString = ArtistActivityDisplay.buildPeriondString(el);
+      const periodString = ArtistActivityDisplay.buildPeriodString(el);
 
       const index = presentIds.indexOf(el.artist.id);
       if (index >= 0) {

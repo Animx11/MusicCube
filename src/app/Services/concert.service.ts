@@ -15,22 +15,22 @@ export class ConcertService {
   constructor(private http: HttpClient) {}
 
   getById(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/concert{id}?id=${id}`);
+    return this.http.get(`${apiUrl}/concert/${id}`);
   }
 
   list(): Observable<any> {
-    return this.http.get(`${apiUrl}/concerts`);
+    return this.http.get(`${apiUrl}/concert`);
   }
 
   create(concert: Concert): Observable<any> {
-    return this.http.post(`${apiUrl}/concert`, concert);
+    return this.http.post(`${apiUrl}/admin/concert`, concert);
   }
 
   edit(concert: Concert): Observable<any> {
-    return this.http.put(`${apiUrl}/concert`, concert);
+    return this.http.put(`${apiUrl}/admin/concert`, concert);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/concert/${id}`);
+    return this.http.delete(`${apiUrl}/admin/concert/${id}`);
   }
 }
