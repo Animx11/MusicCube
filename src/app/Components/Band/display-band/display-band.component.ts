@@ -8,7 +8,6 @@ import {Album} from '../../../Class/Album';
 import {ArtistInBand} from '../../../Class/ArtistInBand';
 import {ArtistInBandService} from '../../../Services/artist-in-band.service';
 import {ArtistActivityDisplay} from '../../../Class/ArtistActivityDisplay';
-import {isNull} from 'util';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 
@@ -46,7 +45,7 @@ export class DisplayBandComponent implements OnInit {
     }
   }
 
-  
+
   private checkIfIsFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.favoriteListsService.existBandInUserFavorites(this.tokenStorage.getUsername(), id).subscribe(
@@ -115,22 +114,22 @@ export class DisplayBandComponent implements OnInit {
 
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
-    if(this.isFavorite) {
+    if (this.isFavorite) {
       this.favoriteListsService.deleteBandToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Band succesfully deleted from favorite");
+          console.log('Band successfully deleted from favorites');
         },
         err => {
-          window.alert("Error has occured");
+          window.alert('Error has occurred');
         }
       );
     } else {
       this.favoriteListsService.addBandToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Band succesfully added to favorite");
+          console.log('Band successfully added to favorites');
         },
         err => {
-          window.alert("Error has occured");
+          window.alert('Error has occurred');
         }
       );
     }
