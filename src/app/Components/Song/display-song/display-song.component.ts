@@ -55,7 +55,7 @@ export class DisplaySongComponent implements OnInit {
         this.isFavorite = res;
       },
       err => {
-        window.alert(err);
+        console.log(err);
       }
     );
   }
@@ -125,10 +125,6 @@ export class DisplaySongComponent implements OnInit {
     }
   }
 
-
-  test(){
-    window.alert("Work work");
-  }
 
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');

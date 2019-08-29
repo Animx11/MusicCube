@@ -46,7 +46,7 @@ export class DisplayAlbumComponent implements OnInit {
         this.isFavorite = res;
       },
       err => {
-        window.alert(err);
+        console.log(err);
       }
     );
   }
