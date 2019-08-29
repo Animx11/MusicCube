@@ -28,7 +28,9 @@ export class DisplayBandComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private bandService: BandService,
-    private activityService: ArtistActivityService) {
+    private activityService: ArtistActivityService,
+    private tokenStorage: TokenStorageService,
+    private favoriteListsService: FavoriteListsService) {
     this.artistDisplays = [];
   }
 
