@@ -21,10 +21,10 @@ export class CountryService {
   getByCountryName(countryName: string): Observable<any> {
     return this.http.get(`${apiUrl}/country_name{countryName}?countryName=${countryName}`);
   }
-  
+
 
   list(): Observable<any> {
-    return this.http.get(`${apiUrl}/countries`);
+    return this.http.get(`${apiUrl}/country`);
   }
 
   create(country: Country): Observable<any> {
