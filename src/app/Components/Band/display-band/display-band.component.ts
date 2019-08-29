@@ -28,7 +28,7 @@ export class DisplayBandComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private bandService: BandService,
-    private artistInBandService: ArtistActivityService) {
+    private activityService: ArtistActivityService) {
     this.artistDisplays = [];
   }
 
@@ -55,7 +55,7 @@ export class DisplayBandComponent implements OnInit {
       err => console.error(err));
   }
   private getMembers() {
-    this.artistInBandService.getByBandId(this.band.id).subscribe(
+    this.activityService.getByBandId(this.band.id).subscribe(
       res => {
         console.log('display-band-component received artists activities: ', res);
         this.lnp = res.map(el => new ArtistActivity(el));
