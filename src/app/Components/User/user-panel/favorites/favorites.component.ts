@@ -52,7 +52,7 @@ export class FavoritesComponent implements OnInit {
     this.favoriteListsService.getUserFavoriteAlbumsByUserName(this.tokenService.getUsername()).subscribe(
       res => {
         this.albumList = new Set<Album>(res);
-        console.log("Successfully taken song list");
+        console.log("Successfully taken album list");
       }, err => {
         window.alert("Error has occured");
       }
@@ -65,7 +65,7 @@ export class FavoritesComponent implements OnInit {
     this.favoriteListsService.getUserFavoriteBandsByUserName(this.tokenService.getUsername()).subscribe(
       res => {
         this.bandList = new Set<Band>(res);
-        console.log("Successfully taken song list");
+        console.log("Successfully taken band list");
       }, err => {
         window.alert("Error has occured");
       }
