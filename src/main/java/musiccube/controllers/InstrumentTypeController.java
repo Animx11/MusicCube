@@ -1,16 +1,12 @@
 package musiccube.controllers;
 
-
-
 import musiccube.entities.InstrumentType;
 import musiccube.services.instrumentType.InstrumentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,22 +21,53 @@ public class InstrumentTypeController {
     @Autowired
     private InstrumentTypeService instrumentTypeService;
 
-    @GetMapping(value = "/instrumentType{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<InstrumentType> getById(int id) {
-        return instrumentTypeService.getById(id);
+    @GetMapping(
+            path = "/instrumenttype/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<InstrumentType> getById(@PathVariable("id") int id) {
+        Optional<InstrumentType> type = instrumentTypeService.getById(id);
+        return type.isPresent() ?
+                ResponseEntity.ok(type.get()) :
+                ResponseEntity.notFound().build();
     }
 
-    @GetMapping(value = "/instrumentTypes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            path = "/instrumenttype",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Iterable<InstrumentType> getAll() {
         return instrumentTypeService.getAll();
     }
 
-    @GetMapping(value = "instrumentType/{page}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<InstrumentType> getAllPaging(@PathVariable("page") Integer pageNr, @RequestParam("size") Optional<Integer> perPage){
-        return instrumentTypeService.getAllPaging(pageNr, perPage.orElse(10));
+    @GetMapping(
+            path = "instrumenttype/page/{page}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<InstrumentType> getAllPaging(
+            @PathVariable("page") Integer pageNr,
+            @RequestParam(name = "size", required = false) Integer perPage
+    ){
+        return perPage == null ?
+                instrumentTypeService.getAllPaging(pageNr, Defaults.PAGESIZE) :
+                instrumentTypeService.getAllPaging(pageNr, perPage);
     }
 
-    @PutMapping(value = "/instrumentType")
+    @GetMapping(
+            path = "instrumenttype/name/{name}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<InstrumentType> getByInstrumentTypeName(@PathVariable("name") String instrumentTypeName) {
+        return instrumentTypeService.getByInstrumentTypeName(instrumentTypeName);
+    }
+
+    @PostMapping("/admin/instrumenttype")
+    public ResponseEntity<InstrumentType> create(@RequestBody @Valid @NotNull InstrumentType type) {
+        instrumentTypeService.save(type);
+        return ResponseEntity.ok(type);
+    }
+
+    @PutMapping("/admin/instrumenttype")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull InstrumentType instrumentType) {
         Optional<InstrumentType> type = instrumentTypeService.getById(instrumentType.getId());
         if (Objects.nonNull(type)) {
@@ -49,10 +76,10 @@ public class InstrumentTypeController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping(value = "/instrumentType/{id}")
-    public RedirectView delete(@PathVariable Integer id) {
-        instrumentTypeService.delete(id);
-        return new RedirectView("/api/instrumentType",true);
-    }
 
+    @DeleteMapping("/admin/instrumenttype/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        instrumentTypeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
