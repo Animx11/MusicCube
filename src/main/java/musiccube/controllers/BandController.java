@@ -60,7 +60,7 @@ public class BandController {
 
     // --- Band by name ---
     @GetMapping(
-            path = "/band/{name}",
+            path = "/band/name/{name}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Band> getByBandName(@PathVariable("name") String bandName) {
