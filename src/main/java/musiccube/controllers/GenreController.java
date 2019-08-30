@@ -64,6 +64,9 @@ public class GenreController {
 
     @PostMapping("/admin/genre")
     public ResponseEntity<Genre> create(@RequestBody @Valid @NotNull Genre genre) {
+        if (genreService.existsByName(genre.getGenreName())) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         genreService.save(genre);
         return ResponseEntity.ok().body(genre);
     }
