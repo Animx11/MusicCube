@@ -11,22 +11,94 @@
   <input #searchBox id="searchBox"/>
   <button (click)="search(searchBox.value)">Search</button>
   <div *ngIf="message">{{message}}</div>
-  <ul *ngIf="switches[1]">
-    <li *ngFor="let band of bands">[Band] <a routerLink="/band/{{band.id}}">{{band.bandName}}</a></li>
-  </ul>
-  <ul *ngIf="switches[2]">
-    <li *ngFor="let artist of artists">[Artist] <a routerLink="/artist/{{artist.id}}">{{artist.stageName}}</a></li>
-  </ul>
-  <ul *ngIf="switches[3]">
-    <li *ngFor="let album of albums">[Album] <a routerLink="/album/{{album.id}}">{{album.albumName}}</a></li>
-  </ul>
-  <ul *ngIf="switches[4]">
-    <li *ngFor="let song of songs">[Song] <a routerLink="/song/{{song.id}}">{{song.songName}}</a></li>
-  </ul>
-  <ul *ngIf="switches[5]">
-    <li *ngFor="let instrument of instruments">[Instrument] <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a></li>
-  </ul>
-  <ul *ngIf="switches[6]">
-    <li *ngFor="let genre of genres">[Genre] <a routerLink="/genre/{{genre.id}}">{{genre.genreName}}</a></li>
-  </ul>
+
+  <table *ngIf="switches[1] && bands.length">
+    <thead>
+      <tr>
+        <th>Band</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let band of bands">
+      <td>
+        <a routerLink="/band/{{band.id}}">{{band.bandName}}</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="switches[2] && artists.length">
+    <thead>
+      <tr>
+        <th>
+          Artist
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let artist of artists">
+        <td>
+          <a routerLink="/artist/{{artist.id}}">{{artist.stageName}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="switches[3] && albums.length">
+    <thead>
+      <tr>
+        <th>
+          Album
+        </th>
+      </tr>
+    </thead>
+    <tr *ngFor="let album of albums">
+      <td>
+        <a routerLink="/album/{{album.id}}">{{album.albumName}}</a>
+      </td>
+    </tr>
+  </table>
+
+  <table *ngIf="switches[4] && songs.length">
+    <thead>
+    <tr>
+      <th>Song</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let song of songs">
+      <td><a routerLink="/song/{{song.id}}">{{song.songName}}</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="switches[5] && instruments.length">
+    <thead>
+      <tr>
+        <th>
+          Instrument
+        </th>
+      </tr>
+    </thead>
+    <tr *ngFor="let instrument of instruments">
+      <td>
+        <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a>
+      </td>
+    </tr>
+  </table>
+
+  <table *ngIf="switches[6] && genres.length">
+    <thead>
+      <tr>
+        <th>
+          Genre
+        </th>
+      </tr>
+    </thead>
+    <tr *ngFor="let genre of genres">
+      <td>
+        <a routerLink="/genre/{{genre.id}}">{{genre.genreName}}</a>
+      </td>
+    </tr>
+  </table>
 </div>
