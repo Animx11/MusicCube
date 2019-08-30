@@ -16,7 +16,7 @@ public class Genre {
     @ManyToOne
     private Country origin;
 
-    @Column
+    @Column(unique = true)
     private String genreName;
 
     @Column
