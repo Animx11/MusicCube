@@ -1,7 +1,7 @@
 export class InstrumentType {
 
     private id: number;
-    private instrumentTypeName: string;
+    instrumentTypeName: string;
     private aboutType: string;
 
     constructor(obj?: any) {
