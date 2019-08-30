@@ -7,8 +7,8 @@ export class Song {
   songName: string;
   private trackNumber: number;
   private songLengthSeconds: number;
-  private album: Album;
-  private band: Band;
+  album: Album;
+  band: Band;
   private genre: Genre;
 
   constructor(obj?: any) {
