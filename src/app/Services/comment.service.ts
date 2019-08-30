@@ -30,6 +30,6 @@ export class CommentService {
   }
 
   getBySongId(songId: number): Observable<any> {
-    return this.http.get(`${apiUrl}/comment/${songId}`);
+    return this.http.get(`${apiUrl}/comment/songId?songId=${songId}`);
   }
 }
