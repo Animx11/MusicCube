@@ -31,7 +31,7 @@ export class DisplayGenreComponent implements OnInit {
         console.log('display-genre-component received: ', res);
         if (!this.genre.aboutGenre) {
           this.genre.setAboutGenre(
-            'No description was provided for this genre. If you think, you could write some, please contact our admins.'
+            'No description was provided for this genre. If you think, you could write some, please contact us.'
           );
         }
       },
