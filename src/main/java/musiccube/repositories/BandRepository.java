@@ -18,5 +18,6 @@ public interface BandRepository extends CrudRepository<Band,Integer>, PagingAndS
     Iterable<Album> findBandAlbums(int bandId);
 
     boolean existsByBandName(String bandName);
+    boolean existsByMbId(String mbid);
 
 }

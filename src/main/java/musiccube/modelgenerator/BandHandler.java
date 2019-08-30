@@ -20,6 +20,7 @@ public class BandHandler {
     private static BandHandler instance = null;
 
     private ObjectMapper mapper = new ObjectMapper();
+    private Logger logger = Logger.getLogger(BandHandler.class);
 
     @Autowired
     private LocationHandler locationHandler;
@@ -69,7 +70,11 @@ public class BandHandler {
     Checks, if fetched band data contains most important fields
      */
     private boolean checkBand(JSONObject obj) {
-        return obj.has("area") &&
+        if (bandService.existsByMbId(obj.getString("id"))) {
+            logger.warn("Band "+obj.getString("id")+": "+obj.getString("name")+Constants.EXISTS);
+            return false;
+        } else return
+                obj.has("area") &&
                 obj.has("begin-area") &&
                 obj.has("name") &&
                 obj.has(Constants.LF_SPAN);
