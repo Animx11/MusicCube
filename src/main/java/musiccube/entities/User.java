@@ -22,7 +22,6 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @JsonIgnore
     @Size(min = 3, max = 50)
     @Column(name = "userName", unique = true)
     private String userName;

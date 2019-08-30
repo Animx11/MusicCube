@@ -3,6 +3,7 @@ package musiccube.controllers;
 import musiccube.entities.Comment;
 import musiccube.repositories.CommentRepository;
 import musiccube.services.comment.CommentService;
+import musiccube.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +23,9 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping(path = "/comment/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Comment> getById(@PathVariable("id") int id) {
         Optional<Comment> rate = commentService.getById(id);
@@ -35,12 +39,14 @@ public class CommentController {
         return commentService.getAll();
     }
 
-    @PostMapping(path = "/comment", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Comment> create(@RequestBody @Valid @NotNull Comment comment) {
-
+    @PostMapping(path = "/comment/{userName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Comment> create(@RequestBody @Valid @NotNull Comment comment, @PathVariable("userName") String userName) {
         if(comment != null){
-            commentService.save(comment);
-            return ResponseEntity.ok().body(comment);
+            comment.setUser(userService.getByUserName(userName).orElse(null));
+            if(comment.getUser() != null) {
+                commentService.save(comment);
+                return ResponseEntity.ok().body(comment);
+            } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -59,8 +65,8 @@ public class CommentController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(path = "/comment/{songId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Comment> getCommentsBySongId(@PathVariable("songID") int id){
+    @GetMapping(path = "/comment/songId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Comment> getCommentsBySongId(@RequestParam("songId") int id){
         return commentService.getCommentsBySongId(id);
     }
 
