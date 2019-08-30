@@ -1,7 +1,7 @@
 import { Users } from './Users';
 import { Song } from './Song';
 
-export class Comment {
+export class CommentClass {
 
     private id: number;
     private user: Users;
@@ -47,24 +47,24 @@ export class Comment {
 
 
     // Setters
-    
+
     setUser(user: Users) {
         this.user = user;
     }
 
-    getSong(song: Song){
+    setSong(song: Song){
         this.song = song;
     }
 
-    getCommentDate(commentDate: Date) {
+    setCommentDate(commentDate: Date) {
         this.commentDate = commentDate;
     }
 
-    getWasEdited(wasEdited: boolean) {
+    setWasEdited(wasEdited: boolean) {
         this.wasEdited = wasEdited;
     }
 
-    getCommentContent(commentContent: string) {
+    setCommentContent(commentContent: string) {
         this.commentContent = commentContent;
     }
 

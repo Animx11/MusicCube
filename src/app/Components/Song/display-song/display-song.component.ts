@@ -8,6 +8,8 @@ import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 import { RateService } from 'src/app/Services/rate.service';
 import { Rate } from 'src/app/Class/Rate';
+import { CommentService } from 'src/app/Services/comment.service';
+import { CommentClass } from 'src/app/Class/CommentClass';
 
 @Component({
   selector: 'app-display-song',
@@ -18,6 +20,7 @@ export class DisplaySongComponent implements OnInit {
 
   song: Song;
   rate: Rate;
+  comment: CommentClass;
 
 
   private isLogged: boolean;
@@ -27,7 +30,9 @@ export class DisplaySongComponent implements OnInit {
   private selectOption: string;
 
   private id: number;
-  
+
+  private commentContent: string;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -35,12 +40,14 @@ export class DisplaySongComponent implements OnInit {
     private songService: SongService,
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService,
-    private rateService: RateService) { }
+    private rateService: RateService,
+    private commentService: CommentService) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getSong();
     this.isLogged = false;
+    this.commentContent = '';
     if (this.tokenStorage.getToken()) {
       this.isLogged = true;
       this.checkIfIsFavorite();
@@ -148,4 +155,30 @@ export class DisplaySongComponent implements OnInit {
       );
     }
   }
+
+  cleanComment() {
+    this.commentContent = '';
+  }
+
+  sendComment() {
+    const id = +this.route.snapshot.paramMap.get('id');
+
+    if(this.commentContent.length > 2) {
+      this.comment = new CommentClass();
+      this.comment.setCommentContent(this.commentContent);
+      this.comment.setCommentDate(new Date());
+      this.comment.setSong(this.song);
+      this.comment.setWasEdited(false);
+      this.commentService.create(this.comment, this.tokenStorage.getUsername()).subscribe(
+        res => {
+          console.log('Comment was successfully created');
+        },
+        err => {
+          window.alert('Error has occured');
+        }
+      );
+      
+    }
+  }
+
 }
