@@ -8,6 +8,8 @@ import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 import { RateService } from 'src/app/Services/rate.service';
 import { Rate } from 'src/app/Class/Rate';
+import { CommentService } from 'src/app/Services/comment.service';
+import { CommentClass } from 'src/app/Class/CommentClass';
 
 @Component({
   selector: 'app-display-song',
@@ -18,6 +20,8 @@ export class DisplaySongComponent implements OnInit {
 
   song: Song;
   rate: Rate;
+  comment: CommentClass;
+  allComments: CommentClass[];
 
 
   private isLogged: boolean;
@@ -28,6 +32,9 @@ export class DisplaySongComponent implements OnInit {
 
   private id: number;
 
+  private commentContent: string;
+  userName: string;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -35,12 +42,16 @@ export class DisplaySongComponent implements OnInit {
     private songService: SongService,
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService,
-    private rateService: RateService) { }
+    private rateService: RateService,
+    private commentService: CommentService) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getSong();
+    this.getComments();
     this.isLogged = false;
+    this.commentContent = '';
+    this.userName = this.tokenStorage.getUsername();
     if (this.tokenStorage.getToken()) {
       this.isLogged = true;
       this.checkIfIsFavorite();
@@ -50,7 +61,7 @@ export class DisplaySongComponent implements OnInit {
 
   private checkIfIsFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.favoriteListsService.existSongInUserFavorites(this.tokenStorage.getUsername(), id).subscribe(
+    this.favoriteListsService.existSongInUserFavorites(this.userName, id).subscribe(
       res => {
         this.isFavorite = res;
       },
@@ -61,8 +72,8 @@ export class DisplaySongComponent implements OnInit {
   }
 
   private checkIfIsRated() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.rateService.getByUserNameAndSongId(this.tokenStorage.getUsername(), id).subscribe(
+    const id = +this.route.snapshot.paramMap.get('id'); 
+    this.rateService.getByUserNameAndSongId(this.userName, id).subscribe(
       res => {
         console.log('This song was rated by user');
         this.rate = new Rate(res);
@@ -101,8 +112,8 @@ export class DisplaySongComponent implements OnInit {
       );
     } else if (!this.isRated && this.selectOption === '0') {
 
-    } else if (!this.isRated) {
-      this.rateService.create(this.tokenStorage.getUsername(), id, parseInt(this.selectOption)).subscribe(
+    } else if (!this.isRated){
+      this.rateService.create(this.userName, id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);
           this.isRated = true;
@@ -127,8 +138,8 @@ export class DisplaySongComponent implements OnInit {
 
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
-    if (this.isFavorite) {
-      this.favoriteListsService.deleteSongToFavorites(this.tokenStorage.getUsername(), id).subscribe(
+    if(this.isFavorite) {
+      this.favoriteListsService.deleteSongToFavorites(this.userName, id).subscribe(
         res => {
           console.log('Song succesfully deleted from favorite');
         },
@@ -137,7 +148,7 @@ export class DisplaySongComponent implements OnInit {
         }
       );
     } else {
-      this.favoriteListsService.addSongToFavorites(this.tokenStorage.getUsername(), id).subscribe(
+      this.favoriteListsService.addSongToFavorites(this.userName, id).subscribe(
         res => {
           console.log('Song succesfully added to favorite');
         },
@@ -147,4 +158,53 @@ export class DisplaySongComponent implements OnInit {
       );
     }
   }
+
+  cleanComment() {
+    this.commentContent = '';
+  }
+
+  sendComment() {
+    const id = +this.route.snapshot.paramMap.get('id');
+
+    if(this.commentContent.length > 2) {
+      this.comment = new CommentClass();
+      this.comment.setCommentContent(this.commentContent);
+      this.comment.setCommentDate(new Date());
+      this.comment.setSong(this.song);
+      this.comment.setWasEdited(false);
+      this.commentService.create(this.comment, this.userName).subscribe(
+        res => {
+          console.log('Comment was successfully created');
+          window.location.reload();
+        },
+        err => {
+          window.alert('Error has occured');
+        }
+      );
+    }
+  }
+
+
+  getComments() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.commentService.getBySongId(id).subscribe(res => {
+      console.log('display-song-component comments, received: ', res);
+      this.allComments = res.map(el => new CommentClass(el));
+    },
+    err => console.error(err));
+  }
+
+  deleteComment(commentId: number) {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.commentService.delete(commentId).subscribe(
+      res => {
+        console.log('Comment was successfully deleted');
+        window.location.reload();
+      },
+      err => {
+        window.alert('Error has occured');
+      }
+    );
+  }
+
 }
