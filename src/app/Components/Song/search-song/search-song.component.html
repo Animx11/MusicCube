@@ -1,3 +1,4 @@
+<!--
 <button (click)="toggleSearch()">Search in songs</button
 ><button (click)="getAll()">Get all songs</button>
 <div *ngIf="searchOn">
@@ -23,3 +24,17 @@
     {{ song.songName }}
   </li>
 </div>
+-->
+
+<div *ngIf = "!isToEditSelected">
+    <b><i>Find song that you want to edit/delete:</i></b>
+    <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..." />
+    <div class="listDisplay">
+      <ul>
+        <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
+          {{ song.songName }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

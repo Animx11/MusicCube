@@ -64,6 +64,7 @@ import { AddInstrumentTypeComponent } from './Components/InstrumentType/add-inst
 import { SearchCityComponent } from './Components/City/search-city/search-city.component';
 import { SearchInstrumentTypeComponent } from './Components/InstrumentType/search-instrument-type/search-instrument-type.component';
 import { FavoritesComponent } from './Components/User/user-panel/favorites/favorites.component';
+import { EditCountryComponent } from './Components/Country/edit-country/edit-country.component';
 
 
 const ROUTES: Routes = [
@@ -285,6 +286,7 @@ const ROUTES: Routes = [
     SearchCityComponent,
     SearchInstrumentTypeComponent,
     FavoritesComponent,
+    EditCountryComponent,
 
   ],
   imports: [

@@ -1,4 +1,19 @@
 
+
+  #list {
+    display: inline-block;
+    position: relative;
+    top: 110px;
+  }
+  
+  #editor {
+    display: inline-block;
+    position: relative;
+    top: 110px;
+  }
+  
+
+  
 #profileForm{
   padding-left: 3%;
   width: 47%;
@@ -38,13 +53,6 @@
 #inputAbout{
   width: 60%;
   height: 100px;
-  border-color: #f9f9f9;
-
-}
-
-
-.inputTime{
-  width: 9%;
   border-color: #f9f9f9;
 
 }

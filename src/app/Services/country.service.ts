@@ -35,7 +35,7 @@ export class CountryService {
     return this.http.put(`${apiUrl}/admin/country`, country);
   }
 
-  delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/admin/country/${id}`);
+  delete(id: number, countryName: string): Observable<any> {
+    return this.http.delete(`${apiUrl}/admin/country/${id}/${countryName}`);
   }
 }
