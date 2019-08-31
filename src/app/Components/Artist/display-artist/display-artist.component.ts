@@ -77,13 +77,13 @@ export class DisplayArtistComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.rateService.getByUserNameAndArtistId(this.userName, id).subscribe(
       res => {
-        console.log('This song was rated by user');
+        console.log('This artist was rated by user');
         this.rate = new Rate(res);
         this.isRated = true;
         this.selectOption = this.rate.getRate().toString();
       },
       err => {
-        console.log('User hasn\'t rated this song yet');
+        console.log('User hasn\'t rated this artist yet');
         this.isRated = false;
         this.selectOption = '0';
       }
