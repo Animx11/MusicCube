@@ -46,3 +46,7 @@
   background: aliceblue;
 }
 
+input.year {
+  width: 35px;
+}
+

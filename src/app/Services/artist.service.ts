@@ -25,6 +25,15 @@ export class ArtistService {
     return this.http.get(`${apiUrl}/artist/name/${name}/`);
   }
 
+  advancedSearch(bandId: number, cityId?: number): Observable<any> {
+    const band = bandId ? `bandId=${bandId}` : '';
+    const city = cityId ? `cityId=${cityId}` : '';
+    const amp = (cityId && bandId) ? '&' : '';
+    const query = `${apiUrl}/artist/advanced?${band}${amp}${city}`;
+    console.log(query);
+    return this.http.get(query);
+  }
+
   create(artist: Artist): Observable<any> {
     return this.http.post(`${apiUrl}/admin/artist`, artist);
   }

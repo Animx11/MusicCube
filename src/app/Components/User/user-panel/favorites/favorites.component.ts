@@ -91,7 +91,7 @@ export class FavoritesComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   @Output() songEvent = new EventEmitter<Song>();
-  @Output() searchEvent = new EventEmitter();
+  @Output() artistSearchEvent = new EventEmitter();
 
   constructor(private songService: SongService) {
   }
@@ -116,7 +116,7 @@ export class FavoritesComponent implements OnInit {
     this.searchOn = !this.searchOn;
     this.listOn = true;
     this.pageOn = false;
-    this.searchEvent.emit();
+    this.artistSearchEvent.emit();
   }
 
   search(term: string): void {
@@ -142,7 +142,7 @@ export class FavoritesComponent implements OnInit {
       this.reachedLastPage = res.last;
       this.pageCount = res.totalPages;
     });
-    this.searchEvent.emit();
+    this.artistSearchEvent.emit();
   }
 
   nextPage() { if (this.reachedLastPage) {

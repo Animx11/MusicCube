@@ -16,7 +16,8 @@ span.pagingOpts:hover {
 }
 .listDisplay {
   width: 50%;
-  height: 400px;
+  height: 100px;
+  overflow: scroll;
 }
 .listDisplay ul {
   height: 80%;
