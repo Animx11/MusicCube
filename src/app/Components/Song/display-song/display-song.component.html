@@ -23,7 +23,7 @@
 
   <div id = "commentSection">
 
-      <div id = "writeComment">
+      <div id = "writeComment" *ngIf = "isLogged">
         <textarea id = "comment" placeholder="Write your comment" maxlength="255" [(ngModel)] = "commentContent" rows="5" cols="50"></textarea><br />
         <button (click) = "sendComment()">Send Comment</button> <div id = "clean"><a (click) = "cleanComment()">Clean</a></div>
       </div>
