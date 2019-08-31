@@ -25,6 +25,8 @@ export class AccountComponent implements OnInit {
   user: Users;
   userAccount: UserAccount;
 
+  isDeleteClicked: boolean;
+  confirmPassword: string;
 
   constructor(private userService: UserService, private tokenStorageService: TokenStorageService) { }
 
@@ -34,7 +36,9 @@ export class AccountComponent implements OnInit {
     this.oldPassword = '';
     this.newPassword = '';
     this.repeatPassword = '';
+    this.confirmPassword = '';
     this.newEmail = '';
+    this.isDeleteClicked = false;
   }
 
   changeUsername() {
@@ -128,6 +132,39 @@ export class AccountComponent implements OnInit {
       );
     }
 
+  }
+
+  deleteAccount() {
+    if (this.isDeleteClicked) {
+
+      if (this.confirmPassword !== '' && this.confirmPassword !== ' ') {
+        this.userService.deleteYourAccount(this.tokenStorageService.getUsername(), this.confirmPassword).subscribe(
+          res => {
+            console.log('Successfully deleted account');
+            this.tokenStorageService.signOut();
+            window.location.replace(thisUrl);
+          },
+          err => {
+            this.confirmPassword = '';
+            this.isDeleteClicked = false;
+            if (err.status === 409) {
+              window.alert(`Typed password is incorrect`);
+            } else if (err.status === 401) {
+              window.alert('Session is expired, try to sign in again');
+            } else if (err.status === 400) {
+              window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
+            } else {
+              window.alert(`Unknown error has occured`);
+            }
+          }
+        );
+      } else {
+        window.alert('Type password to confirm');
+      }
+
+    } else {
+      this.isDeleteClicked = true;
+    }
   }
 
 

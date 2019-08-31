@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get<Users>(`${api_url}/user_by_userName?userName=${userName}`);
   }
 
+  deleteYourAccount(userName: string, password: string): Observable<any> {
+    return this.http.delete(`${api_url}/user?userName=${userName}&password=${password}`);
+  }
+
   /*User Profile*/
 
   takeUserProfileInfo(userName: string): Observable<UserProfile> {
