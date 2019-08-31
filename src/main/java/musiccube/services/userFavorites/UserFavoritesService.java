@@ -1,9 +1,6 @@
 package musiccube.services.userFavorites;
 
-import musiccube.entities.Album;
-import musiccube.entities.Band;
-import musiccube.entities.Song;
-import musiccube.entities.UserFavorites;
+import musiccube.entities.*;
 
 import java.util.Optional;
 import java.util.Set;
@@ -20,5 +17,7 @@ public interface UserFavoritesService {
     Set<Song> getUserFavoriteSongsByUserName(String userName);
     Set<Album> getUserFavoriteAlbumsByUserName(String userName);
     Set<Band> getUserFavoriteBandsByUserName(String userName);
+    Set<Artist> getUserFavoriteArtistsByUserName(String userName);
+
 
 }

@@ -1,9 +1,6 @@
 package musiccube.services.userFavorites;
 
-import musiccube.entities.Album;
-import musiccube.entities.Band;
-import musiccube.entities.Song;
-import musiccube.entities.UserFavorites;
+import musiccube.entities.*;
 import musiccube.repositories.UserFavoritesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +52,11 @@ public class UserFavoritesServiceImpl implements UserFavoritesService{
     @Override
     public Set<Band> getUserFavoriteBandsByUserName(String userName) {
         return userFavoritesRepository.findUserFavoriteBandsByUserName(userName);
+    }
+
+    @Override
+    public Set<Artist> getUserFavoriteArtistsByUserName(String userName) {
+        return userFavoritesRepository.findUserFavoriteArtistByUserName(userName);
     }
 
 }

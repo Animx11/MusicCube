@@ -16,17 +16,46 @@ public class Rate {
     @ManyToOne
     private Song song;
 
+    @ManyToOne
+    private Album album;
+
+    @ManyToOne
+    private Band band;
+
+    @ManyToOne
+    private Artist artist;
+
     @Column
     private int rate;
 
     public Rate() {
     }
 
-    public Rate(User user, Song song, int rate) {
+    private Rate(User user, int rate) {
         this.user = user;
-        this.song = song;
         this.rate = rate;
     }
+
+    public Rate(User user, Song song, int rate) {
+        this(user, rate);
+        this.song = song;
+    }
+
+    public Rate(User user, Album album, int rate) {
+        this(user, rate);
+        this.album = album;
+    }
+
+    public Rate(User user, Band band, int rate) {
+        this(user, rate);
+        this.band = band;
+    }
+
+    public Rate(User user, Artist artist, int rate) {
+        this(user, rate);
+        this.artist = artist;
+    }
+
 
     public int getId() {
         return id;
@@ -54,5 +83,29 @@ public class Rate {
 
     public void setRate(int rate) {
         this.rate = rate;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Band getBand() {
+        return band;
+    }
+
+    public void setBand(Band band) {
+        this.band = band;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 }

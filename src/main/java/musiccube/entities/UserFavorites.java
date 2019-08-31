@@ -38,14 +38,22 @@ public class UserFavorites {
             inverseJoinColumns = @JoinColumn(name = "band_id"))
     private Set<Band> favoriteBands = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "userFavoritesArtist",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
+    private Set<Artist> favoriteArtists = new HashSet<>();
+
+
     public UserFavorites() {
     }
 
-    public UserFavorites(User user, Set<Song> favoriteSongs, Set<Album> favoriteAlbums, Set<Band> favoriteBands) {
+    public UserFavorites(User user, Set<Song> favoriteSongs, Set<Album> favoriteAlbums, Set<Band> favoriteBands, Set<Artist> favoriteArtists) {
         this.user = user;
         this.favoriteSongs = favoriteSongs;
         this.favoriteAlbums = favoriteAlbums;
         this.favoriteBands = favoriteBands;
+        this.favoriteArtists = favoriteArtists;
     }
 
     public UserFavorites(User user) {
@@ -53,6 +61,7 @@ public class UserFavorites {
         favoriteSongs.add(null);
         favoriteAlbums.add(null);
         favoriteBands.add(null);
+        favoriteArtists.add(null);
     }
 
 
@@ -92,6 +101,16 @@ public class UserFavorites {
         this.favoriteBands = favoriteBands;
     }
 
+    public Set<Artist> getFavoriteArtists() {
+        return favoriteArtists;
+    }
+
+    public void setFavoriteArtists(Set<Artist> favoriteArtists) {
+        this.favoriteArtists = favoriteArtists;
+    }
+
+    // Add and delete
+
     public void addSongToFavorites(Song song) {
         favoriteSongs.add(song);
     }
@@ -102,6 +121,10 @@ public class UserFavorites {
 
     public void addBandToFavorites(Band band) {
         favoriteBands.add(band);
+    }
+
+    public void addArtistToFavorites(Artist artist) {
+        favoriteArtists.add(artist);
     }
 
     public boolean deleteSongFromFavorites(Song song){
@@ -115,5 +138,10 @@ public class UserFavorites {
     public boolean deleteBandFromFavorites(Band band){
         return favoriteBands.remove(band);
     }
+
+    public boolean deleteArtistFromFavorites(Artist artist){
+        return favoriteArtists.remove(artist);
+    }
+
 
 }

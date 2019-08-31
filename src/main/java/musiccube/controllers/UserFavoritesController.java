@@ -1,11 +1,9 @@
 package musiccube.controllers;
 
 
-import musiccube.entities.Album;
-import musiccube.entities.Band;
-import musiccube.entities.Song;
-import musiccube.entities.UserFavorites;
+import musiccube.entities.*;
 import musiccube.services.album.AlbumService;
+import musiccube.services.artist.ArtistService;
 import musiccube.services.band.BandService;
 import musiccube.services.song.SongService;
 import musiccube.services.userFavorites.UserFavoritesService;
@@ -39,6 +37,9 @@ public class UserFavoritesController {
     @Autowired
     private BandService bandService;
 
+    @Autowired
+    private ArtistService artistService;
+
     @GetMapping(path = "/userFavorites/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserFavorites> getById(@PathVariable("id") int id) {
         Optional<UserFavorites> userFavorites = userFavoritesService.getById(id);
@@ -67,6 +68,11 @@ public class UserFavoritesController {
     @GetMapping(path = "/userFavorites/band", produces = MediaType.APPLICATION_JSON_VALUE)
     public Set<Band> getUserFavoriteBandsByUserName(@RequestParam("userName") String userName){
         return userFavoritesService.getUserFavoriteBandsByUserName(userName);
+    }
+
+    @GetMapping(path = "/userFavorites/artist", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Set<Artist> getUserFavoriteArtistsByUserName(@RequestParam("userName") String userName){
+        return userFavoritesService.getUserFavoriteArtistsByUserName(userName);
     }
 
     @GetMapping(path = "/userFavorites/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -146,6 +152,29 @@ public class UserFavoritesController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PatchMapping(path = "userFavorites/artist/add")
+    public ResponseEntity<Void> addArtistToFavorites(@RequestParam("id") int id, @RequestParam("userName") String userName){
+        UserFavorites userFavorites = getByUserName(userName).orElse(null);
+        Artist artist = artistService.getById(id).orElse(null);
+        if(artist != null && userFavorites != null){
+            userFavorites.addArtistToFavorites(artist);
+            userFavoritesService.save(userFavorites);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PatchMapping(path = "userFavorites/artist/delete")
+    public ResponseEntity<Void> deleteArtistFromFavorites(@RequestParam("id") int id, @RequestParam("userName") String userName){
+        UserFavorites userFavorites = getByUserName(userName).orElse(null);
+        Artist artist = artistService.getById(id).orElse(null);
+        if(artist != null && userFavorites != null) {
+            if(userFavorites.deleteArtistFromFavorites(artist)){
+                userFavoritesService.save(userFavorites);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     // Check if exist in user favorite list
 
     @GetMapping(path = "/userFavorites/song/exist")
@@ -174,6 +203,16 @@ public class UserFavoritesController {
         Band band = bandService.getById(id).orElse(null);
         if(band != null) {
             return userFavorites.getFavoriteBands().contains(band);
+        }
+        else return false;
+    }
+
+    @GetMapping(path = "/userFavorites/artist/exist")
+    public boolean existArtistInUserFavorites(@RequestParam("id") int id, @RequestParam("userName") String userName){
+        UserFavorites userFavorites = userFavoritesService.getUserFavoriteAllByUserName(userName).orElse(null);
+        Artist artist = artistService.getById(id).orElse(null);
+        if(artist != null) {
+            return userFavorites.getFavoriteArtists().contains(artist);
         }
         else return false;
     }

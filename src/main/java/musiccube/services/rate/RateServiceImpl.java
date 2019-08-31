@@ -39,6 +39,22 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
+    public Optional<Rate> getRateByUserNameAndAlbumId(String userName, int id) {
+        return rateRepository.findRateByUserNameAndAlbumId(userName, id);
+    }
+
+    @Override
+    public Optional<Rate> getRateByUserNameAndBandId(String userName, int id) {
+        return rateRepository.findRateByUserNameAndBandId(userName, id);
+    }
+
+    @Override
+    public Optional<Rate> getRateByUserNameAndArtistId(String userName, int id) {
+        return rateRepository.findRateByUserNameAndArtistId(userName, id);
+    }
+
+
+    @Override
     public Iterable<Rate> getAllUserRates(String userName) {
         return rateRepository.findAllUserRates(userName);
     }

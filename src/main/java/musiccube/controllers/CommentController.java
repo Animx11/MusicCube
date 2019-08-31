@@ -65,9 +65,26 @@ public class CommentController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(path = "/comment/songId", produces = MediaType.APPLICATION_JSON_VALUE)
+    // Get comments from sections
+
+    @GetMapping(path = "/comment/song", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Comment> getCommentsBySongId(@RequestParam("songId") int id){
         return commentService.getCommentsBySongId(id);
+    }
+
+    @GetMapping(path = "/comment/album", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Comment> getCommentsByAlbumId(@RequestParam("albumId") int id){
+        return commentService.getCommentsByAlbumId(id);
+    }
+
+    @GetMapping(path = "/comment/band", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Comment> getCommentsByBandId(@RequestParam("bandId") int id){
+        return commentService.getCommentsByBandId(id);
+    }
+
+    @GetMapping(path = "/comment/artist", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Comment> getCommentsByArtistId(@RequestParam("artistId") int id){
+        return commentService.getCommentsByArtistId(id);
     }
 
 }

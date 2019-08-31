@@ -17,6 +17,15 @@ public class Comment {
     @ManyToOne
     private Song song;
 
+    @ManyToOne
+    private Album album;
+
+    @ManyToOne
+    private Band band;
+
+    @ManyToOne
+    private Artist artist;
+
     @Column
     private Date commentDate;
 
@@ -29,12 +38,31 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(User user, Song song, Date commentDate, boolean wasEdited, String commentContent) {
+    private Comment(User user, Date commentDate, boolean wasEdited, String commentContent) {
         this.user = user;
-        this.song = song;
         this.commentDate = commentDate;
         this.wasEdited = wasEdited;
         this.commentContent = commentContent;
+    }
+
+    public Comment(User user, Song song, Date commentDate, boolean wasEdited, String commentContent) {
+        this(user, commentDate, wasEdited, commentContent);
+        this.song = song;
+    }
+
+    public Comment(User user, Album album, Date commentDate, boolean wasEdited, String commentContent) {
+        this(user, commentDate, wasEdited, commentContent);
+        this.album = album;
+    }
+
+    public Comment(User user, Band band, Date commentDate, boolean wasEdited, String commentContent) {
+        this(user, commentDate, wasEdited, commentContent);
+        this.band = band;
+    }
+
+    public Comment(User user, Artist artist, Date commentDate, boolean wasEdited, String commentContent) {
+        this(user, commentDate, wasEdited, commentContent);
+        this.artist = artist;
     }
 
     public int getId() {
@@ -55,6 +83,30 @@ public class Comment {
 
     public void setSong(Song song) {
         this.song = song;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Band getBand() {
+        return band;
+    }
+
+    public void setBand(Band band) {
+        this.band = band;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     public Date getCommentDate() {

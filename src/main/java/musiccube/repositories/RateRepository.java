@@ -12,6 +12,17 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
     @Query("SELECT r FROM Rate r where r.user.userName like ?1 AND r.song.id = ?2")
     Optional<Rate> findRateByUserNameAndSongId(String userName, int id);
 
+    @Query("SELECT r FROM Rate r where r.user.userName like ?1 AND r.album.id = ?2")
+    Optional<Rate> findRateByUserNameAndAlbumId(String userName, int id);
+
+    @Query("SELECT r FROM Rate r where r.user.userName like ?1 AND r.band.id = ?2")
+    Optional<Rate> findRateByUserNameAndBandId(String userName, int id);
+
+    @Query("SELECT r FROM Rate r where r.user.userName like ?1 AND r.artist.id = ?2")
+    Optional<Rate> findRateByUserNameAndArtistId(String userName, int id);
+
+
+
     @Query("SELECT r FROM Rate r WHERE r.user.userName like ?1")
     Iterable<Rate> findAllUserRates(String userName);
 

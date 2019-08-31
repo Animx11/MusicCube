@@ -12,6 +12,11 @@ public interface RateService {
     void delete(int id);
 
     Optional<Rate> getRateByUserNameAndSongId(String userName, int id);
+    Optional<Rate> getRateByUserNameAndAlbumId(String userName, int id);
+    Optional<Rate> getRateByUserNameAndBandId(String userName, int id);
+    Optional<Rate> getRateByUserNameAndArtistId(String userName, int id);
+
+
     Iterable<Rate> getAllUserRates(String userName);
 
 }

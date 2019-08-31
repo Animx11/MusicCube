@@ -12,6 +12,11 @@ public interface CommentService {
     void delete(int id);
 
     Iterable<Comment> getCommentsBySongId(int id);
+    Iterable<Comment> getCommentsByAlbumId(int id);
+    Iterable<Comment> getCommentsByBandId(int id);
+    Iterable<Comment> getCommentsByArtistId(int id);
+
+
     Iterable<Comment> getAllUserComments(String userName);
 
 }
