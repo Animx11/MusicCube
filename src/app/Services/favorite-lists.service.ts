@@ -30,6 +30,10 @@ export class FavoriteListsService {
     return this.http.get(`${apiUrl}/userFavorites/band?userName=${userName}`);
   }
 
+  getUserFavoriteArtistByUserName(userName: string): Observable<any> {
+    return this.http.get(`${apiUrl}/userFavorites/artist?userName=${userName}`);
+  }
+
   // Add and delete from favorite list
 
   addSongToFavorites(userName: string, id: number): Observable<any> {
@@ -56,6 +60,14 @@ export class FavoriteListsService {
     return this.http.patch(`${apiUrl}/userFavorites/band/delete?userName=${userName}&id=${id}`, null);
   }
 
+  addArtistToFavorites(userName: string, id: number): Observable<any> {
+    return this.http.patch(`${apiUrl}/userFavorites/artist/add?userName=${userName}&id=${id}`, null);
+  }
+
+  deleteArtistToFavorites(userName: string, id: number): Observable<any> {
+    return this.http.patch(`${apiUrl}/userFavorites/artist/delete?userName=${userName}&id=${id}`, null);
+  }
+
   // Check if exist in user favorite list
 
   existSongInUserFavorites(userName: string, id: number): Observable<any> {
@@ -68,6 +80,10 @@ export class FavoriteListsService {
 
   existBandInUserFavorites(userName: string, id: number): Observable<any> {
     return this.http.get(`${apiUrl}/userFavorites/band/exist?userName=${userName}&id=${id}`);
+  }
+
+  existArtistInUserFavorites(userName: string, id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/userFavorites/artist/exist?userName=${userName}&id=${id}`);
   }
 
 }

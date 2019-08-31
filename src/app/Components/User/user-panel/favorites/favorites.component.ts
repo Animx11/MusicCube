@@ -4,6 +4,7 @@ import { Band } from 'src/app/Class/Band';
 import { Album } from 'src/app/Class/Album';
 import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
+import { Artist } from 'src/app/Class/Artist';
 
 @Component({
   selector: 'app-favorites',
@@ -15,10 +16,12 @@ export class FavoritesComponent implements OnInit {
   isSongListClicked: boolean;
   isAlbumListClicked: boolean;
   isBandListClicked: boolean;
+  isArtistListClicked: boolean;
 
   songList: Set<Song>;
   albumList: Set<Album>;
   bandList: Set<Band>;
+  artistList: Set<Artist>;
 
 
   pagedSongList: Set<Song>;
@@ -29,7 +32,7 @@ export class FavoritesComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.isSongListClicked = this.isAlbumListClicked = this.isBandListClicked = false;
+    this.isSongListClicked = this.isAlbumListClicked = this.isBandListClicked = this.isArtistListClicked = false;
  
   }
 
@@ -72,8 +75,21 @@ export class FavoritesComponent implements OnInit {
     );
   }
 
+  artistFavoriteList() {
+    this.resetValue();
+    this.isArtistListClicked = true;
+    this.favoriteListsService.getUserFavoriteArtistByUserName(this.tokenService.getUsername()).subscribe(
+      res => {
+        this.artistList = new Set<Artist>(res);
+        console.log("Successfully taken artist list");
+      }, err => {
+        window.alert("Error has occured");
+      }
+    );
+  }
+
   resetValue(){
-    this.isSongListClicked = this.isAlbumListClicked = this.isBandListClicked = false;
+    this.isSongListClicked = this.isAlbumListClicked = this.isBandListClicked = this.isArtistListClicked = false;
   }
 
 

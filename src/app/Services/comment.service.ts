@@ -29,7 +29,22 @@ export class CommentService {
     return this.http.put(`${apiUrl}/comment`, comment);
   }
 
+  // Gets
+
   getBySongId(songId: number): Observable<any> {
-    return this.http.get(`${apiUrl}/comment/songId?songId=${songId}`);
+    return this.http.get(`${apiUrl}/comment/song?songId=${songId}`);
   }
+
+  getByAlbumId(albumId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/comment/album?albumId=${albumId}`);
+  }
+
+  getByBandId(bandId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/comment/band?bandId=${bandId}`);
+  }
+
+  getByArtistId(artistId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/comment/artist?artistId=${artistId}`);
+  }
+
 }

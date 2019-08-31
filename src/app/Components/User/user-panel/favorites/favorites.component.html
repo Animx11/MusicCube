@@ -3,12 +3,13 @@
     <div class="componentNavigator" (click) = "songFavoriteList()">Favorite Songs</div>
     <div class="componentNavigator" (click) = "albumFavoriteList()">Favorite Albums</div>
     <div class="componentNavigator" (click) = "bandFavoriteList()">Favorite Bands</div>
+    <div class="componentNavigator" (click) = "artistFavoriteList()">Favorite Artist</div>
   </div>
 
   <div *ngIf = "isSongListClicked" class="listDisplay">
 
       <li *ngFor="let song of songList">
-          {{ song.songName }}
+          <a routerLink="/song/{{song.id}}">{{ song.songName }}</a>
       </li>
 
   </div>
@@ -16,7 +17,7 @@
   <div *ngIf = "isAlbumListClicked" class="listDisplay">
 
       <li *ngFor="let album of albumList">
-          {{ album.albumName }}
+          <a routerLink="/album/{{album.id}}">{{ album.albumName }}</a>
       </li>
 
   </div>
@@ -24,7 +25,16 @@
   <div *ngIf = "isBandListClicked" class="listDisplay">
 
       <li *ngFor="let band of bandList">
-          {{ band.bandName }}
+          <a routerLink="/band/{{band.id}}">{{ band.bandName }}</a>
+      </li>
+
+  </div>
+
+  <div *ngIf = "isArtistListClicked" class="listDisplay">
+
+      <li *ngFor="let artist of artistList">
+          <a routerLink="/artist/{{artist.id}}">{{ artist.stageName }}</a>
+          
       </li>
 
   </div>

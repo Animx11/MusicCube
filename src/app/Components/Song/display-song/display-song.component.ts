@@ -30,8 +30,6 @@ export class DisplaySongComponent implements OnInit {
 
   private selectOption: string;
 
-  private id: number;
-
   private commentContent: string;
   userName: string;
 
@@ -113,7 +111,7 @@ export class DisplaySongComponent implements OnInit {
     } else if (!this.isRated && this.selectOption === '0') {
 
     } else if (!this.isRated){
-      this.rateService.create(this.userName, id, parseInt(this.selectOption)).subscribe(
+      this.rateService.createSongRate(this.userName, id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);
           this.isRated = true;
