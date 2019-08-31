@@ -12,7 +12,8 @@ export class Genre {
     this.origin = (obj && obj.origin) || null;
     this.genreName = (obj && obj.genreName) || '';
     this.creationDate = (obj && obj.creationDate) || '';
-    this.aboutGenre = (obj && obj.aboutGenre) || '';
+    this.aboutGenre = (obj && obj.aboutGenre) ||
+      'No description was provided for this genre. If you think, you could write some, please contact us.';
   }
 
   // Getters

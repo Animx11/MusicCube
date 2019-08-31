@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { GenreService } from "src/app/Services/genre.service";
-import { Genre } from "src/app/Class/Genre";
-import { Country } from "src/app/Class/Country";
+import { Component, OnInit } from '@angular/core';
+import { GenreService } from 'src/app/Services/genre.service';
+import { Genre } from 'src/app/Class/Genre';
+import { Country } from 'src/app/Class/Country';
 
 @Component({
   selector: 'app-add-genre',
@@ -23,14 +23,14 @@ export class AddGenreComponent implements OnInit {
   constructor(private genreService: GenreService) {}
 
   ngOnInit() {
-    this.genreName = "";
-    this.creationTime = "";
+    this.genreName = '';
+    this.creationTime = '';
     this.isOriginClicked = false;
     this.isOriginSelected = false;
     this.genre = new Genre();
   }
 
-  searchOrigin(){
+  searchOrigin() {
     this.isOriginClicked = true;
   }
 
@@ -56,7 +56,11 @@ export class AddGenreComponent implements OnInit {
         },
         err => {
           console.error(err);
-          window.alert('Error occurred');
+          if (err.status === 409) {
+            window.alert(`Genre ${this.genreName} already exists.`);
+          } else {
+            window.alert('Error occurred');
+          }
         }
       );
     }
