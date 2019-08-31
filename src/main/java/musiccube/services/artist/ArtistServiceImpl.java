@@ -1,18 +1,25 @@
 package musiccube.services.artist;
 
 import musiccube.entities.Artist;
+import musiccube.entities.ArtistActivity;
+import musiccube.repositories.ArtistActivityRepository;
 import musiccube.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArtistServiceImpl implements ArtistService{
 
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    ArtistActivityRepository activityRepository;
 
     @Override
     public Optional<Artist> getById(int id) {
@@ -55,5 +62,19 @@ public class ArtistServiceImpl implements ArtistService{
     @Override
     public boolean existsByMbId(String mbId) {
         return artistRepository.existsByMbId(mbId);
+    }
+
+    @Override
+    public Iterable<Artist> advancedSearch(int bandId, int cityId) {
+        if (bandId == 0) {
+            return artistRepository.findByOriginId(cityId);
+        } else if (cityId == 0) {
+            return ((List<ArtistActivity>)activityRepository.findByBandId(bandId))
+                    .stream()
+                    .map(activity -> activity.getArtist())
+                    .collect(Collectors.toSet());
+        } else {
+            return artistRepository.findByBandAndCity(bandId,cityId);
+        }
     }
 }

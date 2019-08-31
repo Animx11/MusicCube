@@ -18,4 +18,6 @@ public interface ArtistService {
 
     boolean existsByMbId(String mbId);
 
+    Iterable<Artist> advancedSearch(int bandId, int cityId);
+
 }

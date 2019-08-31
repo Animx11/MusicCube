@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -83,6 +84,27 @@ public class ArtistController {
     )
     public Iterable<Artist> getByAnything(@PathVariable("name") String input) {
         return artistService.getByAnything(input);
+    }
+
+    // --- ADVANCED SEARCH ---
+    @GetMapping(
+            path = "/artist/advanced",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Artist> getAdvanced(
+            @RequestParam(required = false, name = "bandId") Integer bandId,
+            @RequestParam(required = false, name = "cityId") Integer cityId
+    ) {
+        if (bandId == null) {
+            if (cityId == null) {
+                return new ArrayList<>();
+            } else {
+                bandId = 0;
+            }
+        } else if (cityId == null) {
+            cityId = 0;
+        }
+        return artistService.advancedSearch(bandId, cityId);
     }
 
     @PostMapping("/admin/artist")
