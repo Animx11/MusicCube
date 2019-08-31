@@ -12,5 +12,6 @@ public interface CommentService {
     void delete(int id);
 
     Iterable<Comment> getCommentsBySongId(int id);
+    Iterable<Comment> getAllUserComments(String userName);
 
 }

@@ -38,4 +38,9 @@ public class CommentServiceImpl implements CommentService {
     public Iterable<Comment> getCommentsBySongId(int id) {
         return commentRepository.findCommentsBySongId(id);
     }
+
+    @Override
+    public Iterable<Comment> getAllUserComments(String userName) {
+        return commentRepository.findAllUserComments(userName);
+    }
 }

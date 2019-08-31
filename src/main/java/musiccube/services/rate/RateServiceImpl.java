@@ -38,4 +38,9 @@ public class RateServiceImpl implements RateService {
         return rateRepository.findRateByUserNameAndSongId(userName, id);
     }
 
+    @Override
+    public Iterable<Rate> getAllUserRates(String userName) {
+        return rateRepository.findAllUserRates(userName);
+    }
+
 }

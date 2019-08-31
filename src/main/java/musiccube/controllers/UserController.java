@@ -1,13 +1,12 @@
 package musiccube.controllers;
 
 
-import musiccube.entities.Role;
-import musiccube.entities.RoleName;
-import musiccube.entities.User;
-import musiccube.entities.UserFavorites;
+import musiccube.entities.*;
 import musiccube.jwt.JwtProvider;
 import musiccube.jwt.JwtResponse;
 import musiccube.repositories.RoleRepository;
+import musiccube.services.comment.CommentService;
+import musiccube.services.rate.RateService;
 import musiccube.services.user.UserService;
 import musiccube.services.userFavorites.UserFavoritesService;
 import musiccube.user.UserAccount;
@@ -43,6 +42,12 @@ public class UserController {
     private UserFavoritesService userFavoritesService;
 
     @Autowired
+    private RateService rateService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -73,9 +78,33 @@ public class UserController {
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/user")
-    public ResponseEntity<User> delete(@RequestParam("id") Integer id){
-        userService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> delete(@RequestParam("userName") String userName, @RequestParam("password") String password){
+
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
+                User user = userService.getByUserName(userName).orElse(null);
+                if(user != null) {
+                    if (passwordEncoder.matches(password, user.getPassword())) {
+                        UserFavorites userFavorites = userFavoritesService.getUserFavoriteAllByUserName(userName).orElse(null);
+
+                        Iterable<Rate> allUserRates = rateService.getAllUserRates(userName);
+                        for (Rate rate : allUserRates) {
+                            rateService.delete(rate.getId());
+                        }
+
+                        Iterable<Comment> allUserComments = commentService.getAllUserComments(userName);
+                        for (Comment comment : allUserComments) {
+                            commentService.delete(comment.getId());
+                        }
+
+                        if(userFavorites != null) {
+                            userFavoritesService.delete(userFavorites.getId());
+                        }
+                        userService.delete(user.getId());
+                        return new ResponseEntity<>(HttpStatus.OK);
+                    } else return new ResponseEntity<>(HttpStatus.CONFLICT);
+                } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
     }
 
     // Finding User

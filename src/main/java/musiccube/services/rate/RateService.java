@@ -12,5 +12,6 @@ public interface RateService {
     void delete(int id);
 
     Optional<Rate> getRateByUserNameAndSongId(String userName, int id);
+    Iterable<Rate> getAllUserRates(String userName);
 
 }
