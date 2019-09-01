@@ -23,6 +23,7 @@ export class AdvancedArtistComponent implements OnInit {
   }
 
   @Output() artistSearchEvent = new EventEmitter<Artist[]>();
+  @Output() noResultEvent = new EventEmitter<string>();
 
 
   bandEvent($event) {
@@ -40,7 +41,11 @@ export class AdvancedArtistComponent implements OnInit {
         res => {
           this.result = res.map(el => new Artist(el));
           console.log('Advanced artist search received artists:', res);
-          this.artistSearchEvent.emit(this.result);
+          if (this.result.length) {
+            this.artistSearchEvent.emit(this.result);
+          } else {
+            this.noResultEvent.emit('artists');
+          }
         },
         err => {
           console.error(err);
@@ -51,7 +56,11 @@ export class AdvancedArtistComponent implements OnInit {
         res => {
           this.result = res.map(el => new Artist(el));
           console.log('Advanced artist search received artists:', res);
-          this.artistSearchEvent.emit(this.result);
+          if (this.result.length) {
+            this.artistSearchEvent.emit(this.result);
+          } else {
+            this.noResultEvent.emit('artists');
+          }
         },
         err => {
           console.error(err);
@@ -62,7 +71,11 @@ export class AdvancedArtistComponent implements OnInit {
         res => {
           this.result = res.map(el => new Artist(el));
           console.log('Advanced artist search received artists:', res);
-          this.artistSearchEvent.emit(this.result);
+          if (this.result.length) {
+            this.artistSearchEvent.emit(this.result);
+          } else {
+            this.noResultEvent.emit('artists');
+          }
         },
         err => {
           console.error(err);

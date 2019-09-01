@@ -4,7 +4,7 @@ import {Instrument} from '../../../Class/Instrument';
 @Component({
   selector: 'app-advanced-instrument',
   templateUrl: './advanced-instrument.component.html',
-  styleUrls: ['./advanced-instrument.component.css']
+  styleUrls: ['./advanced-instrument.component.css', '../../../app.component.css']
 })
 export class AdvancedInstrumentComponent implements OnInit {
 

@@ -24,7 +24,7 @@ export class AdvancedSearchComponent implements OnInit {
   private foundBands: Band[];
   private foundAlbums: Album[]
   private foundSongs: Song[];
-  private foundGenres: Genre[];;
+  private foundGenres: Genre[];
   private foundInstruments: Instrument[];
 
   constructor() {
@@ -79,6 +79,9 @@ export class AdvancedSearchComponent implements OnInit {
   }
   instrumentSearchHandler($event) {
     this.foundInstruments = $event;
+  }
+  noResultEventHandler($event) {
+    window.alert(`No ${$event} found`);
   }
 
 }

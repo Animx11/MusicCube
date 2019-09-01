@@ -1,12 +1,15 @@
 <h5>Find artist who:</h5>
-Played in band: <span *ngIf="band">{{band.bandName}}</span>
-<button (click)="resetBand()" *ngIf="band" class="advReset">Clear</button>
-<div>
+
+<div class="advSrcElement">
+  Played in band: <span *ngIf="band">{{band.bandName}}</span>
+  <button (click)="resetBand()" *ngIf="band" class="advReset">Clear</button>
   <app-search-band (bandEvent)="bandEvent($event)"></app-search-band>
 </div>
-Comes from: <span *ngIf="origin">{{origin.cityName}}</span>
-<button (click)="resetOrigin()" *ngIf="origin" class="advReset">Clear</button>
-<div>
+
+<div class="advSrcElement">
+  Comes from: <span *ngIf="origin">{{origin.cityName}}</span>
+  <button (click)="resetOrigin()" *ngIf="origin" class="advReset">Clear</button>
   <app-search-city (cityEvent)="cityEvent($event)"></app-search-city>
 </div>
+
 <button (click)="search()">Search</button>

@@ -24,6 +24,8 @@ export class AdvancedAlbumComponent implements OnInit {
   }
 
   @Output() albumSearchEvent = new EventEmitter<Album[]>();
+  @Output() noResultEvent = new EventEmitter<string>();
+
 
   ngOnInit() {
   }
@@ -49,7 +51,11 @@ export class AdvancedAlbumComponent implements OnInit {
         res => {
           this.result = res.map(el => new Album(el));
           console.log(`Advanced album search received: `, res);
-          this.albumSearchEvent.emit(this.result);
+          if (this.result.length) {
+            this.albumSearchEvent.emit(this.result);
+          } else {
+            this.noResultEvent.emit('albums');
+          }
         },
         err => {
           console.error(err);

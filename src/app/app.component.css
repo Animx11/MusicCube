@@ -83,3 +83,6 @@ th, td {
   border: 1px solid #dddddd;
 }
 
+div.advSrcElement {
+  margin-bottom: 25px;
+}
