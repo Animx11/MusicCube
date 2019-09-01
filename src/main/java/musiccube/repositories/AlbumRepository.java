@@ -6,6 +6,7 @@ import musiccube.entities.Song;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface AlbumRepository extends CrudRepository<Album,Integer>, PagingAndSortingRepository<Album,Integer> {
 
@@ -17,4 +18,12 @@ public interface AlbumRepository extends CrudRepository<Album,Integer>, PagingAn
     Iterable<Song> findAlbumSongs(int albumId);
 
     boolean existsByAlbumName(String albumName);
+
+
+    @Query("SELECT DISTINCT s.album from Song s WHERE s.songName LIKE :song AND s.genre.genreName LIKE :genre AND LOWER(s.album.company) LIKE LOWER(:company)")
+    Iterable<Album> advancedSearch(
+            @Param("song") String song,
+            @Param("genre") String genre,
+            @Param("company") String company
+    );
 }

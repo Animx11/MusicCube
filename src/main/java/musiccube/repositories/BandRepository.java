@@ -6,6 +6,7 @@ import musiccube.entities.Genre;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 
 public interface BandRepository extends CrudRepository<Band,Integer>, PagingAndSortingRepository<Band,Integer> {
@@ -20,4 +21,16 @@ public interface BandRepository extends CrudRepository<Band,Integer>, PagingAndS
     boolean existsByBandName(String bandName);
     boolean existsByMbId(String mbid);
 
+    @Query("SELECT DISTINCT s.band FROM Song s WHERE s.genre.genreName LIKE :genre AND s.band.formedIn.country.id=:countryID")
+    Iterable<Band> findByCountryAndGenre(
+            @Param("genre") String genre,
+            @Param("countryID") int countryId
+    );
+    @Query("SELECT DISTINCT s.band FROM Song s WHERE s.genre.genreName LIKE :genre AND s.band.formedIn.id=:cityID")
+    Iterable<Band> findByCityAndGenre(
+            @Param("genre") String genre,
+            @Param("cityID") int cityId
+    );
+    @Query("SELECT DISTINCT s.band FROM Song s WHERE s.genre.genreName LIKE :genre")
+    Iterable<Band> findByGenreName(@Param("genre") String genre);
 }

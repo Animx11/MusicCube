@@ -85,6 +85,21 @@ public class BandController {
         return bandService.getBandAlbums(bandId);
     }
 
+    // --- Advanced ---
+    @GetMapping(
+            path = "/band/advanced",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Band> advancedSearch(
+            @RequestParam("cityid") Optional<Integer> cityId,
+            @RequestParam("countryid") Optional<Integer> countryId,
+            @RequestParam("genre") Optional<String> genre
+    ) {
+        return bandService.advancedSearch(
+                cityId.orElse(0),
+                countryId.orElse(0),
+                genre.orElse("%"));
+    }
 /*******************************************************************************/
 
     @PostMapping("/admin/band")
