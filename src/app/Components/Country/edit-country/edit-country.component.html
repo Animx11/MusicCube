@@ -2,6 +2,7 @@
     <app-search-country  *ngIf = "!isEditSelected" (countryEvent)="countryEventHandler($event)" (searchEvent)="searchEventHandler($event)"></app-search-country>
 
     <div id="CRUD" *ngIf = "selectedCountry">
+      <h4><i>Edit country: {{selectedCountry.countryName}}</i></h4>
         <div>
           <form #profileForm = "ngForm" id = "profileForm">
               <div class = "separateDiv">

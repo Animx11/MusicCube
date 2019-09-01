@@ -65,6 +65,8 @@ import { SearchCityComponent } from './Components/City/search-city/search-city.c
 import { SearchInstrumentTypeComponent } from './Components/InstrumentType/search-instrument-type/search-instrument-type.component';
 import { FavoritesComponent } from './Components/User/user-panel/favorites/favorites.component';
 import { EditCountryComponent } from './Components/Country/edit-country/edit-country.component';
+import { EditCityComponent } from './Components/City/edit-city/edit-city.component';
+import { EditInstrumentTypeComponent } from './Components/InstrumentType/edit-instrument-type/edit-instrument-type.component';
 
 
 const ROUTES: Routes = [
@@ -287,6 +289,8 @@ const ROUTES: Routes = [
     SearchInstrumentTypeComponent,
     FavoritesComponent,
     EditCountryComponent,
+    EditCityComponent,
+    EditInstrumentTypeComponent,
 
   ],
   imports: [

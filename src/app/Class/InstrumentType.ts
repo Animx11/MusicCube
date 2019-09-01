@@ -1,8 +1,8 @@
 export class InstrumentType {
 
-    private id: number;
+    id: number;
     instrumentTypeName: string;
-    private aboutType: string;
+    aboutType: string;
 
     constructor(obj?: any) {
         this.id = (obj && obj.id) || 0;

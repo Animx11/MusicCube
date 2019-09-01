@@ -52,4 +52,5 @@ export class SearchInstrumentComponent implements OnInit {
   onSelect(instrument: Instrument) {
     this.instrumentEvent.emit(instrument);
   }
+
 }
