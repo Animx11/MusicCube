@@ -4,7 +4,7 @@ import {Artist} from '../../../Class/Artist';
 @Component({
   selector: 'app-artist-list-display',
   templateUrl: './artist-list-display.component.html',
-  styleUrls: ['./artist-list-display.component.css']
+  styleUrls: ['./artist-list-display.component.css', '../../../app.component.css']
 })
 export class ArtistListDisplayComponent implements OnInit {
 

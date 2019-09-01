@@ -20,22 +20,22 @@ export class SongAuthorshipService {
     return this.http.get(`${apiUrl}/songauthorship/song/${id}`);
   }
   getByAuthorId(id: number): Observable<any> {
-    return this.http.get(`${apiUrl}/songauthorsip/author/${id}`);
+    return this.http.get(`${apiUrl}/songauthorship/author/${id}`);
   }
 
   list(): Observable<any> {
-    return this.http.get(`${apiUrl}/songauthorsip`);
+    return this.http.get(`${apiUrl}/songauthorship`);
   }
 
   create(songAuthorship: SongAuthorship): Observable<any> {
-    return this.http.post(`${apiUrl}/admin/songauthorsip`, songAuthorship);
+    return this.http.post(`${apiUrl}/admin/songauthorship`, songAuthorship);
   }
 
   edit(songAuthorship: SongAuthorship): Observable<any> {
-    return this.http.put(`${apiUrl}/admin/songauthorsip`, songAuthorship);
+    return this.http.put(`${apiUrl}/admin/songauthorship`, songAuthorship);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${apiUrl}/admin/songauthorsip/${id}`);
+    return this.http.delete(`${apiUrl}/admin/songauthorship/${id}`);
   }
 }

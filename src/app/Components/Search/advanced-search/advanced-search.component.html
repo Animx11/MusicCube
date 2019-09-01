@@ -13,13 +13,18 @@
   </div>
   <div id="search-opts">
     <app-advanced-artist *ngIf="artists" (artistSearchEvent)="artistSearchHandler($event)"></app-advanced-artist>
-    <app-advanced-band *ngIf="bands"></app-advanced-band>
-    <app-advanced-album *ngIf="albums"></app-advanced-album>
-    <app-advanced-song *ngIf="songs"></app-advanced-song>
-    <app-advanced-genre *ngIf="genres"></app-advanced-genre>
-    <app-advanced-instrument *ngIf="instruments"></app-advanced-instrument>
+    <app-advanced-band *ngIf="bands" (bandSearchEvent)="bandSearchHandler($event)"></app-advanced-band>
+    <app-advanced-album *ngIf="albums" (albumSearchEvent)="albumSearchHandler($event)"></app-advanced-album>
+    <app-advanced-song *ngIf="songs" (songSearchEvent)="songSearchHandler($event)"></app-advanced-song>
+    <app-advanced-genre *ngIf="genres" (genreSearchEvent)="genreSearchHandler($event)"></app-advanced-genre>
+    <app-advanced-instrument *ngIf="instruments" (instrumentSearchEvent)="instrumentSearchHandler($event)"></app-advanced-instrument>
   </div>
   <div id="search-result">
     <app-artist-list-display *ngIf="artists && foundArtists" [list]="foundArtists"></app-artist-list-display>
+    <app-band-list-display *ngIf="bands && foundBands" [list]="foundBands"></app-band-list-display>
+    <app-album-list-display *ngIf="albums && foundAlbums" [list]="foundAlbums"></app-album-list-display>
+    <app-song-list-display *ngIf="songs && foundSongs" [list]="foundSongs"></app-song-list-display>
+    <app-genre-list-display *ngIf="genres && foundGenres" [list]="foundGenres"></app-genre-list-display>
+    <app-instrument-list-display *ngIf="instruments && foundInstruments" [list]="foundInstruments"></app-instrument-list-display>
   </div>
 </div>

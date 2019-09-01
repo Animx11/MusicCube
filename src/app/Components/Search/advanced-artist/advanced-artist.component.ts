@@ -7,7 +7,7 @@ import {ArtistService} from '../../../Services/artist.service';
 @Component({
   selector: 'app-advanced-artist',
   templateUrl: './advanced-artist.component.html',
-  styleUrls: ['./advanced-artist.component.css']
+  styleUrls: ['./advanced-artist.component.css', '../../../app.component.css']
 })
 export class AdvancedArtistComponent implements OnInit {
 

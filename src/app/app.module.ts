@@ -72,6 +72,11 @@ import { AdvancedSongComponent } from './Components/Search/advanced-song/advance
 import { AdvancedGenreComponent } from './Components/Search/advanced-genre/advanced-genre.component';
 import { AdvancedInstrumentComponent } from './Components/Search/advanced-instrument/advanced-instrument.component';
 import { ArtistListDisplayComponent } from './Components/Artist/artist-list-display/artist-list-display.component';
+import { BandListDisplayComponent } from './Components/Band/band-list-display/band-list-display.component';
+import { SongListDisplayComponent } from './Components/Song/song-list-display/song-list-display.component';
+import { AlbumListDisplayComponent } from './Components/Album/album-list-display/album-list-display.component';
+import { GenreListDisplayComponent } from './Components/Genre/genre-list-display/genre-list-display.component';
+import { InstrumentListDisplayComponent } from './Components/Instrument/instrument-list-display/instrument-list-display.component';
 
 
 const ROUTES: Routes = [
@@ -306,6 +311,11 @@ const ROUTES: Routes = [
     AdvancedGenreComponent,
     AdvancedInstrumentComponent,
     ArtistListDisplayComponent,
+    BandListDisplayComponent,
+    SongListDisplayComponent,
+    AlbumListDisplayComponent,
+    GenreListDisplayComponent,
+    InstrumentListDisplayComponent,
 
   ],
   imports: [

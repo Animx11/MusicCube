@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Song} from '../../../Class/Song';
 
 @Component({
   selector: 'app-advanced-song',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdvancedSongComponent implements OnInit {
 
   constructor() { }
-
+  @Output() songSearchEvent = new EventEmitter<Song[]>();
   ngOnInit() {
   }
 

@@ -1,3 +1,13 @@
 <h5>Find album which:</h5>
-Was released between <input type="text" placeholder="year" class="year"> and <input type="text" placeholder="year" class="year"><br>
-By company: <input type="text"><br>
+Contains song: <span *ngIf="song">{{song.songName}}</span>
+<button *ngIf="song" (click)="resetSong()" class="advReset">Clear</button>
+<div>
+  <app-search-song (songEvent)="songEvent($event)"></app-search-song>
+</div>
+Is associated with genre: <span *ngIf="genre">{{genre.genreName}}</span>
+<button *ngIf="genre" (click)="resetGenre()" class="advReset">Clear</button>
+<div>
+  <app-search-genre (genreEvent)="genreEvent($event)"></app-search-genre>
+</div>
+Was released by company <input type="text" [(ngModel)]="compName" placeholder="Company name">
+<button (click)="search()">Search</button>

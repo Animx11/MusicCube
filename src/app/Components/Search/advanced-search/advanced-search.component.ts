@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Artist} from '../../../Class/Artist';
+import {Album} from '../../../Class/Album';
+import {Band} from '../../../Class/Band';
+import {Genre} from '../../../Class/Genre';
+import {Song} from '../../../Class/Song';
+import {Instrument} from '../../../Class/Instrument';
 
 @Component({
   selector: 'app-advanced-search',
@@ -16,6 +21,11 @@ export class AdvancedSearchComponent implements OnInit {
   private instruments: boolean;
 
   private foundArtists: Artist[];
+  private foundBands: Band[];
+  private foundAlbums: Album[]
+  private foundSongs: Song[];
+  private foundGenres: Genre[];;
+  private foundInstruments: Instrument[];
 
   constructor() {
     this.artists = true;
@@ -54,6 +64,21 @@ export class AdvancedSearchComponent implements OnInit {
 
   artistSearchHandler($event) {
     this.foundArtists = $event;
+  }
+  bandSearchHandler($event) {
+    this.foundBands = $event;
+  }
+  albumSearchHandler($event) {
+    this.foundAlbums = $event;
+  }
+  songSearchHandler($event) {
+    this.foundSongs = $event;
+  }
+  genreSearchHandler($event) {
+    this.foundGenres = $event;
+  }
+  instrumentSearchHandler($event) {
+    this.foundInstruments = $event;
   }
 
 }

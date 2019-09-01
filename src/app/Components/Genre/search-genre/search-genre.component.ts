@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { GenreService } from "src/app/Services/genre.service";
-import { Genre } from "src/app/Class/Genre";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { GenreService } from 'src/app/Services/genre.service';
+import { Genre } from 'src/app/Class/Genre';
 
 @Component({
-  selector: "app-search-genre",
-  templateUrl: "./search-genre.component.html",
-  styleUrls: ["./search-genre.component.css"]
+  selector: 'app-search-genre',
+  templateUrl: './search-genre.component.html',
+  styleUrls: ['./search-genre.component.css']
 })
 export class SearchGenreComponent implements OnInit {
   private searchOn: boolean;
@@ -40,7 +40,7 @@ export class SearchGenreComponent implements OnInit {
   }
 
   search(term: string): void {
-    if (term !== '' && term !== ' '){
+    if (term !== '' && term !== ' ') {
       this.searchTerms.next(term);
     }
   }

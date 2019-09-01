@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Band} from '../../../Class/Band';
 
 @Component({
   selector: 'app-advanced-band',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdvancedBandComponent implements OnInit {
 
   constructor() { }
-
+  @Output() bandSearchEvent = new EventEmitter<Band[]>();
   ngOnInit() {
   }
 

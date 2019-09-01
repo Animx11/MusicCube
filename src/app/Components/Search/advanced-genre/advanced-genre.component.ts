@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Genre} from '../../../Class/Genre';
 
 @Component({
   selector: 'app-advanced-genre',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdvancedGenreComponent implements OnInit {
 
   constructor() { }
-
+  @Output() genreSearchEvent = new EventEmitter<Genre[]>();
   ngOnInit() {
   }
 
