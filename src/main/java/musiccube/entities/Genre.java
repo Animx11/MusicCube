@@ -11,7 +11,7 @@ public class Genre {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "id")
     private int id;
 
     @ManyToOne

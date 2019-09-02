@@ -8,7 +8,7 @@ import java.util.Date;
 public class Comment {
 
     @Id
-    @Column
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

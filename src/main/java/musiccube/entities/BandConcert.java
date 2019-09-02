@@ -8,7 +8,7 @@ public class BandConcert {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "id")
     private int id;
 
     @ManyToOne

@@ -11,7 +11,7 @@ public class Instrument {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "id")
     private int id;
 
     @Column(unique = true)

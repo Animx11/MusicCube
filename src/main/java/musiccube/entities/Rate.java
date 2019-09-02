@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Rate {
 
     @Id
-    @Column
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

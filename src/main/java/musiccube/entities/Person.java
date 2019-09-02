@@ -14,7 +14,7 @@ public class Person {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "id")
     protected int id;
 
     @ManyToOne(fetch = FetchType.LAZY)

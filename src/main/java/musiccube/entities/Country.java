@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Country {
 
     @Id
-    @Column
+    @Column(name = "id")
     @GeneratedValue
     private int id;
 

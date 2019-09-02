@@ -8,7 +8,7 @@ import java.util.Date;
 public class Concert {
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "id")
     private int id;
 
     @Column

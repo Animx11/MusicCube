@@ -11,7 +11,7 @@ public class SongAuthorship {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "id")
     private int id;
 
     @Column
