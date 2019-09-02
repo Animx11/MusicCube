@@ -65,16 +65,43 @@ public class ArtistServiceImpl implements ArtistService{
     }
 
     @Override
-    public Iterable<Artist> advancedSearch(int bandId, int cityId) {
-        if (bandId == 0) {
-            return artistRepository.findByOriginId(cityId);
-        } else if (cityId == 0) {
-            return ((List<ArtistActivity>)activityRepository.findByBandId(bandId))
+    public Iterable<Artist> advancedSearch(Optional<Integer> bandId, Optional<Integer> countryId, Optional<Integer> cityId, Optional<Integer> instrumentId) {
+        if (countryId.isPresent() && cityId.isPresent()) {
+            return new ArrayList<>();
+        } else if (bandId.isPresent() && countryId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByBandAndCountryAndInstrument(
+                    bandId.get(),
+                    countryId.get(),
+                    instrumentId.get()
+            );
+        } else if (bandId.isPresent() && cityId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByBandAndCityAndInstrument(
+                    bandId.get(),
+                    cityId.get(),
+                    instrumentId.get()
+            );
+        } else if(bandId.isPresent() && countryId.isPresent()) {
+            artistRepository.findByBandAndCountry(bandId.get(), countryId.get());
+        } else if(bandId.isPresent() && cityId.isPresent()) {
+            artistRepository.findByBandAndCity(bandId.get(), cityId.get());
+        } else if(bandId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByBandAndInstrument(bandId.get(), instrumentId.get());
+        } else if(countryId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByCountryAndInstrument(countryId.get(), instrumentId.get());
+        } else if(cityId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByCityAndInstrument(cityId.get(), instrumentId.get());
+        } else if(bandId.isPresent()) {
+            return ((ArrayList<ArtistActivity>) activityRepository.findByBandId(bandId.get()))
                     .stream()
                     .map(activity -> activity.getArtist())
-                    .collect(Collectors.toSet());
-        } else {
-            return artistRepository.findByBandAndCity(bandId,cityId);
+                    .collect(Collectors.toList());
+        } else if (cityId.isPresent()) {
+            return artistRepository.findByOriginId(cityId.get());
+        } else if (countryId.isPresent()) {
+            return artistRepository.findByOriginCountryId(countryId.get());
+        } else if (instrumentId.isPresent()) {
+            return artistRepository.findByInstrument(instrumentId.get());
         }
+        return new ArrayList<>();
     }
 }
