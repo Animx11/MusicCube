@@ -7,13 +7,18 @@ import javax.persistence.*;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@Table(name = "city")
 public class City {
     @Id
     @GeneratedValue
+    @Column(name = "city_id")
     private int id;
-    @Column(unique = true)
+
+    @Column(name = "city_name", unique = true)
     private String cityName;
+
     @ManyToOne
+    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country country;
 
     public City() {};

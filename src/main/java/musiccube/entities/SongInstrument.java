@@ -7,13 +7,15 @@ public class SongInstrument{
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "song_instrument_id")
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "song_id", referencedColumnName = "song_id")
     private Song song;
 
     @ManyToOne
+    @JoinColumn(name = "instrument_id", referencedColumnName = "instrument_id")
     private Instrument instrument;
 
     public SongInstrument() {}

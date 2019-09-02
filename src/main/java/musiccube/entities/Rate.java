@@ -3,29 +3,35 @@ package musiccube.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "rate")
 public class Rate {
 
     @Id
-    @Column
+    @Column(name = "rate_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "song_id", referencedColumnName = "song_id")
     private Song song;
 
     @ManyToOne
+    @JoinColumn(name = "album_id", referencedColumnName = "album_id")
     private Album album;
 
     @ManyToOne
+    @JoinColumn(name = "band_id", referencedColumnName = "band_id")
     private Band band;
 
     @ManyToOne
+    @JoinColumn(name = "artist_id", referencedColumnName = "artist_id")
     private Artist artist;
 
-    @Column
+    @Column(name = "rate")
     private int rate;
 
     public Rate() {

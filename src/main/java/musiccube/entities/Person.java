@@ -9,27 +9,28 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "person")
 public class Person {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "person_id")
     protected int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CityId",referencedColumnName = "id")
+    @JoinColumn(name = "city_id",referencedColumnName = "city_id")
     protected City origin;
 
-    @Column
+    @Column(name = "first_names")
     protected String firstNames;
 
-    @Column
+    @Column(name = "last_name")
     protected String lastName;
 
-    @Column
+    @Column(name = "birth_date")
     protected Date birthDate;
 
-    @Column
+    @Column(name = "death_date")
     protected Date deathDate;
 
     public Person() {}

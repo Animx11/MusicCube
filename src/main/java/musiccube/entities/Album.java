@@ -2,40 +2,38 @@ package musiccube.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "album")
 public class Album {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "album_id")
     private int id;
 
-    @Column
+    @Column(name = "album_name")
     private String albumName;
 
-    @Column
+    @Column(name = "album_length_seconds")
     private int albumLengthSeconds;
 
-    @Column
+    @Column(name = "release_date")
     private Date releaseDate;
 
-    @Column
+    @Column(name = "company")
     private String company;
 
-    @Column
+    @Column(name = "cover_art_link")
     private String coverArtLink;
 
-    @Column
+    @Column(name = "type")
     private String type;
 
-    @Column
+    @Column(name = "track_count")
     private int trackCount;
 
     public Album() {}

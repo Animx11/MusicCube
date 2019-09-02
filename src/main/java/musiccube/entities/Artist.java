@@ -7,16 +7,19 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "mbId"})
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "artist")
 public class Artist extends Person {
 
-    @Column
+    @Column(name = "stage_name")
     private String stageName;
 
+    @Column(name = "mb_id")
     private String mbId;
 
     public Artist() {}

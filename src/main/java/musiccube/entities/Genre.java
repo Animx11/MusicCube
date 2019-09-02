@@ -6,20 +6,22 @@ import javax.persistence.*;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "genre")
 public class Genre {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "genre_id")
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country origin;
 
-    @Column(unique = true)
+    @Column(name = "genre_name", unique = true)
     private String genreName;
 
-    @Column
+    @Column(name = "creation_date")
     private String creationDate;
 
     public Genre() {}

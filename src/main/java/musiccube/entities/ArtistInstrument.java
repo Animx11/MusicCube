@@ -3,17 +3,20 @@ package musiccube.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "artist_instrument")
 public class ArtistInstrument {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "artist_instrument_id")
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "artist_id", referencedColumnName = "artist_id")
     private Artist artist;
 
     @ManyToOne
+    @JoinColumn(name = "instrument_id", referencedColumnName = "instrument_id")
     private Instrument instrument;
 
     public ArtistInstrument() {}

@@ -6,11 +6,12 @@ import javax.persistence.*;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "song")
 public class Song {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "song_id")
     private int id;
 
     @Column
@@ -23,12 +24,15 @@ public class Song {
     private int songLengthSeconds;
 
     @ManyToOne
+    @JoinColumn(name = "album_id", referencedColumnName = "album_id")
     private Album album;
 
     @ManyToOne
+    @JoinColumn(name = "band_id", referencedColumnName = "band_id")
     private Band band;
 
     @ManyToOne
+    @JoinColumn(name = "genre_id", referencedColumnName = "genre_id")
     private Genre genre;
 
     public Song() {}

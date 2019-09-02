@@ -2,25 +2,23 @@ package musiccube.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@Table(name = "country")
 public class Country {
 
     @Id
-    @Column
+    @Column(name = "country_id")
     @GeneratedValue
     private int id;
 
-    @Column(unique = true)
+    @Column(name = "country_name", unique = true)
     private String countryName;
 
-    @Column(unique = true)
+    @Column(name = "code", unique = true)
     private String code;
 
     public Country() {

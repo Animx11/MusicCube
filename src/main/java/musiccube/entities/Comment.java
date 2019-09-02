@@ -4,35 +4,41 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "comment")
 public class Comment {
 
     @Id
-    @Column
+    @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "song_id", referencedColumnName = "song_id")
     private Song song;
 
     @ManyToOne
+    @JoinColumn(name = "album_id", referencedColumnName = "album_id")
     private Album album;
 
     @ManyToOne
+    @JoinColumn(name = "band_id", referencedColumnName = "band_id")
     private Band band;
 
     @ManyToOne
+    @JoinColumn(name = "artist_id", referencedColumnName = "artist_id")
     private Artist artist;
 
-    @Column
+    @Column(name = "comment_date")
     private Date commentDate;
 
-    @Column
+    @Column(name = "was_edited")
     private boolean wasEdited;
 
-    @Column
+    @Column(name = "comment_content")
     private String commentContent;
 
     public Comment() {

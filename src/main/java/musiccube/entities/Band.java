@@ -9,23 +9,25 @@ import java.util.Date;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "mbId"})
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "band")
 public class Band {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "band_id")
     private int id;
 
-    @Column
+    @Column(name = "band_name")
     private String bandName;
 
-    @Column
+    @Column(name = "creation_date")
     private Date creationDate;
 
-    @Column
+    @Column(name = "mb_id")
     private String mbId;
 
     @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     private City formedIn;
 
     public Band() {}

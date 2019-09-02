@@ -4,19 +4,21 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "concert")
 public class Concert {
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "concert_id")
     private int id;
 
-    @Column
+    @Column(name = "start_time")
     private Date startTime;
 
-    @Column
+    @Column(name = "concert_name")
     private String concertName;
 
     @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     private City concertCity;
 
 

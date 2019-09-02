@@ -3,24 +3,22 @@ package musiccube.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Table(name = "instrument_type")
 public class InstrumentType {
 
     @Id
-    @Column
+    @Column(name = "instrument_type_id")
     @GeneratedValue
     private int id;
 
-    @Column(unique = true)
+    @Column(name = "instrument_type_name", unique = true)
     private String instrumentTypeName;
 
-    @Column(length = 1024)
+    @Column(name = "about_type", length = 1024)
     private String aboutType;
 
     public InstrumentType() {
