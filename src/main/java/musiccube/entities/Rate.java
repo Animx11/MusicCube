@@ -20,7 +20,7 @@ public class Rate {
     private Song song;
 
     @ManyToOne
-    @JoinColumn(name = "album_id", referencedColumnName = "album_id")
+    @JoinColumn(name = "id")
     private Album album;
 
     @ManyToOne

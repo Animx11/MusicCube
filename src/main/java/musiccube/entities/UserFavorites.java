@@ -28,7 +28,7 @@ public class UserFavorites {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesAlbums",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "album_id"))
+            inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<Album> favoriteAlbums = new HashSet<>();
 
 

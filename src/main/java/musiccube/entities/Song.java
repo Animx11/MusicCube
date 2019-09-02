@@ -24,7 +24,7 @@ public class Song {
     private int songLengthSeconds;
 
     @ManyToOne
-    @JoinColumn(name = "album_id", referencedColumnName = "album_id")
+    @JoinColumn(name = "id")
     private Album album;
 
     @ManyToOne
