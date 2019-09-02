@@ -7,4 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface ConcertRepository extends CrudRepository<Concert,Integer> {
     @Query("SELECT c FROM Concert c WHERE LOWER(c.concertName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Concert> findByConcertName(String concertName);
+
+    @Query("SELECT c FROM Concert c WHERE c.concertCity.cityName LIKE ?1")
+    Iterable<Concert> findByCityName(String cityName);
 }

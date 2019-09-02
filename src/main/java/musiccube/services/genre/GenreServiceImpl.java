@@ -43,6 +43,12 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    public Iterable<Genre> getByGenreOrigin(String countryName) {
+        return genreRepository.findByGenreOrigin(countryName);
+    }
+
+
+    @Override
     public Genre getOneByGenreName(String genreName) {
         return genreRepository.findOneByGenreName(genreName);
     }

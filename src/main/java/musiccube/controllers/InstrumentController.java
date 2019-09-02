@@ -1,7 +1,11 @@
 package musiccube.controllers;
 
+import musiccube.entities.ArtistInstrument;
 import musiccube.entities.Instrument;
+import musiccube.entities.SongInstrument;
+import musiccube.services.artistinstrument.ArtistInstrumentService;
 import musiccube.services.instrument.InstrumentService;
+import musiccube.services.songinstrument.SongInstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +23,12 @@ import java.util.Optional;
 public class InstrumentController {
     @Autowired
     private InstrumentService instrumentService;
+
+    @Autowired
+    private SongInstrumentService songInstrumentService;
+
+    @Autowired
+    private ArtistInstrumentService artistInstrumentService;
 
     @GetMapping(
             path = "/instrument/{id}",
@@ -79,7 +89,18 @@ public class InstrumentController {
 
     @DeleteMapping("/admin/instrument/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        instrumentService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Instrument instrument = instrumentService.getById(id).orElse(null);
+        if(instrument != null) {
+            Iterable<ArtistInstrument> allArtistsWithInstrument = artistInstrumentService.getByInstrumentId(instrument.getId());
+            Iterable<SongInstrument> allSongsWithInstrument = songInstrumentService.getByInstrumentId(instrument.getId());
+            for (ArtistInstrument artistInstrument : allArtistsWithInstrument){
+                artistInstrumentService.delete(artistInstrument.getId());
+            }
+            for (SongInstrument songInstrument : allSongsWithInstrument) {
+                songInstrumentService.delete(songInstrument.getId());
+            }
+            instrumentService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,9 +1,13 @@
 package musiccube.controllers;
 
-import musiccube.entities.Album;
-import musiccube.entities.Band;
-import musiccube.entities.Genre;
+import musiccube.entities.*;
+import musiccube.services.artistactivity.ArtistActivityService;
 import musiccube.services.band.BandService;
+import musiccube.services.bandconcert.BandConcertService;
+import musiccube.services.comment.CommentService;
+import musiccube.services.rate.RateService;
+import musiccube.services.song.SongService;
+import musiccube.services.userFavorites.UserFavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +18,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +27,24 @@ public class BandController {
 
     @Autowired
     private BandService bandService;
+
+    @Autowired
+    private ArtistActivityService artistActivityService;
+
+    @Autowired
+    private BandConcertService bandConcertService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private RateService rateService;
+
+    @Autowired
+    private SongService songService;
+
+    @Autowired
+    private UserFavoritesService userFavoritesService;
 
 /******************************** GET ***************************************/
 
@@ -119,8 +142,43 @@ public class BandController {
 
     @DeleteMapping(path = "/admin/band/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        bandService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Band band = bandService.getById(id).orElse(null);
+        if(band != null){
+
+            Iterable<ArtistActivity> allArtistActivitiesBands = artistActivityService.getByBandId(band.getId());
+            for (ArtistActivity artistActivity : allArtistActivitiesBands) {
+                artistActivityService.delete(artistActivity.getId());
+            }
+            Iterable<BandConcert> allBandConcerts = bandConcertService.getByBandId(band.getId());
+            for (BandConcert bandConcert : allBandConcerts) {
+                bandConcertService.delete(bandConcert.getId());
+            }
+            Iterable<Comment> allBandComments = commentService.getCommentsByBandId(band.getId());
+            for (Comment comment : allBandComments) {
+                commentService.delete(comment.getId());
+            }
+            Iterable<Rate> allBandRates = rateService.getRatesByBandId(band.getId());
+            for (Rate rate : allBandRates) {
+                rateService.delete(rate.getId());
+            }
+            Iterable<Song> allBandSongs = songService.getByBandId(band.getId());
+            for (Song song : allBandSongs) {
+                song.setBand(null);
+                songService.save(song);
+            }
+            Iterable<UserFavorites> allUserFavoritesLists = userFavoritesService.getAll();
+            for (UserFavorites userFavorites : allUserFavoritesLists) {
+                Set<Band> userFavoritesBands = userFavorites.getFavoriteBands();
+                if(userFavoritesBands.contains(band)) {
+                    userFavorites.deleteBandFromFavorites(band);
+                }
+            }
+
+            bandService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+
     }
 
 }

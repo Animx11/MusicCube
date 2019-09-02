@@ -13,6 +13,9 @@ public interface InstrumentService {
     void delete(int id);
 
     Iterable<Instrument> getByInstrumentName(String instrumentName);
+    Iterable<Instrument> getByInstrumentType(String instrumentTypeName);
+
+
     boolean existsByInstrumentName(String instrumentName);
     Instrument getOneByName(String name);
 

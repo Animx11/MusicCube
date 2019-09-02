@@ -50,6 +50,12 @@ public class ArtistServiceImpl implements ArtistService{
     }
 
     @Override
+    public Iterable<Artist> getByCity(String cityName) {
+        return artistRepository.findByCity(cityName);
+    }
+
+
+    @Override
     public Iterable<Artist> getByAnything(String input) {
         return artistRepository.findByAnything(input);
     }

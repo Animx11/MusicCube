@@ -1,7 +1,11 @@
 package musiccube.controllers;
 
-import musiccube.entities.Country;
+import musiccube.entities.*;
+import musiccube.services.artist.ArtistService;
+import musiccube.services.city.CityService;
 import musiccube.services.country.CountryService;
+import musiccube.services.genre.GenreService;
+import musiccube.services.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +24,12 @@ public class CountryController {
 
     @Autowired
     private CountryService countryService;
+
+    @Autowired
+    private CityService cityService;
+
+    @Autowired
+    private GenreService genreService;
 
     @GetMapping(
             path = "/country/{id}",
@@ -73,8 +83,18 @@ public class CountryController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping(path = "/admin/country/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    @DeleteMapping(path = "/admin/country/{id}/{countryName}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id, @PathVariable String  countryName) {
+        Iterable<City> allCountryCities = cityService.getIterableCityByCountry(countryName);
+        for (City city : allCountryCities) {
+            city.setCountry(null);
+            cityService.save(city);
+        }
+        Iterable<Genre> allGenreByCountry = genreService.getByGenreOrigin(countryName);
+        for (Genre genre : allGenreByCountry) {
+            genre.setOrigin(null);
+            genreService.save(genre);
+        }
         countryService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

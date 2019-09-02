@@ -43,4 +43,9 @@ public class CityServiceImpl implements CityService{
     public Iterable<City> getIterableCityByCityName(String cityName) {
         return cityRepository.findIterableCityByCityName(cityName);
     }
+
+    @Override
+    public Iterable<City> getIterableCityByCountry(String countryName) {
+        return cityRepository.findIterableCityByCountry(countryName);
+    }
 }

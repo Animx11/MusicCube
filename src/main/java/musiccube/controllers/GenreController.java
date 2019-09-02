@@ -1,7 +1,9 @@
 package musiccube.controllers;
 
 import musiccube.entities.Genre;
+import musiccube.entities.Song;
 import musiccube.services.genre.GenreService;
+import musiccube.services.song.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,9 @@ public class GenreController {
 
     @Autowired
     private GenreService genreService;
+
+    @Autowired
+    private SongService songService;
 
     @GetMapping(
             path = "/genre/{id}",
@@ -82,7 +87,15 @@ public class GenreController {
 
     @DeleteMapping("/admin/genre/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        genreService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Genre genre = genreService.getById(id).orElse(null);
+        if(genre != null) {
+            Iterable<Song> allSongsWithGenre = songService.getByGenreName(genre.getGenreName());
+            for (Song song : allSongsWithGenre){
+                song.setGenre(null);
+                songService.save(song);
+            }
+            genreService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

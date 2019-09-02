@@ -11,4 +11,6 @@ public interface ConcertService {
     void delete(int id);
 
     Iterable<Concert> getByConcertName(String concertName);
+    Iterable<Concert> getByCityName(String cityName);
+
 }

@@ -43,6 +43,10 @@ public class InstrumentServiceImpl implements InstrumentService {
     public Iterable<Instrument> getByInstrumentName(String instrumentName) { return instrumentRepository.findByInstrumentName(instrumentName); }
 
     @Override
+    public Iterable<Instrument> getByInstrumentType(String instrumentTypeName) { return instrumentRepository.findByInstrumentType(instrumentTypeName); }
+
+
+    @Override
     public boolean existsByInstrumentName(String instrumentName){
         return instrumentRepository.existsByInstrumentName(instrumentName);
     }

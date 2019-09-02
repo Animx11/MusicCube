@@ -1,9 +1,11 @@
 package musiccube.controllers;
 
-import musiccube.entities.Band;
-import musiccube.entities.Song;
+import musiccube.entities.*;
 import musiccube.services.album.AlbumService;
-import musiccube.entities.Album;
+import musiccube.services.comment.CommentService;
+import musiccube.services.rate.RateService;
+import musiccube.services.song.SongService;
+import musiccube.services.userFavorites.UserFavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +25,18 @@ public class AlbumController {
 
     @Autowired
     private AlbumService albumService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private RateService rateService;
+
+    @Autowired
+    private UserFavoritesService userFavoritesService;
+
+    @Autowired
+    private SongService songService;
 
     /************************ GET ********************************/
     @GetMapping(
@@ -116,7 +131,35 @@ public class AlbumController {
 
     @DeleteMapping("/admin/album/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        albumService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        Album album = albumService.getById(id).orElse(null);
+        if(album != null){
+            Iterable<Comment> allAlbumComments = commentService.getCommentsByAlbumId(album.getId());
+            for (Comment comment : allAlbumComments) {
+                commentService.delete(comment.getId());
+            }
+
+            Iterable<Rate> allAlbumRates = rateService.getRatesByAlbumId(album.getId());
+            for (Rate rate : allAlbumRates) {
+                rateService.delete(rate.getId());
+            }
+            Iterable<UserFavorites> allUserFavoritesLists = userFavoritesService.getAll();
+            for (UserFavorites userFavorites : allUserFavoritesLists) {
+                Set<Album> userFavoritesAlbums = userFavorites.getFavoriteAlbums();
+                if(userFavoritesAlbums.contains(album)) {
+                    userFavorites.deleteAlbumFromFavorites(album);
+                }
+            }
+
+            Iterable<Song> allAlbumSongs = songService.getByAlbumName(album.getAlbumName());
+            for (Song song : allAlbumSongs) {
+                song.setAlbum(null);
+                songService.save(song);
+            }
+
+
+            albumService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

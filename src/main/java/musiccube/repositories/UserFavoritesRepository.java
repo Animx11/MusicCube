@@ -25,4 +25,5 @@ public interface UserFavoritesRepository extends CrudRepository<UserFavorites, I
     @Query("SELECT f from UserFavorites f where f.user.userName like ?1")
     Optional<UserFavorites> findUserFavoriteAllByUserName(String userName);
 
+
 }
