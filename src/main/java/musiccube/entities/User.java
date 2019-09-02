@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(
         name = "SystemUsers",
         uniqueConstraints = {
-            @UniqueConstraint(columnNames = {"user_id"})
+            @UniqueConstraint(columnNames = {"id"})
         }
 )
 public class User {
