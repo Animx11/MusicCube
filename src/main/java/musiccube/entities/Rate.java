@@ -28,7 +28,7 @@ public class Rate {
     private Band band;
 
     @ManyToOne
-    @JoinColumn(name = "artist", referencedColumnName = "id")
+    @JoinColumn(name = "artist", referencedColumnName = "personid")
     private Artist artist;
 
     @Column

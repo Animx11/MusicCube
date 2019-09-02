@@ -18,7 +18,7 @@ public class ArtistActivity {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "artist", referencedColumnName = "id")
+    @JoinColumn(name = "artist", referencedColumnName = "personid")
     private Artist artist;
 
     @ManyToOne
