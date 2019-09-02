@@ -27,4 +27,6 @@ public interface BandService {
     boolean existsByBandName(String bandName);
 
     boolean existsByMbId(String mbid);
+
+    Iterable<Band> advancedSearch(int cityId, int countryId, String genre);
 }

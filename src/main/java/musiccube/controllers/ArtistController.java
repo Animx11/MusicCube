@@ -4,6 +4,7 @@ import musiccube.entities.Artist;
 import musiccube.entities.Person;
 import musiccube.services.artist.ArtistService;
 import musiccube.services.person.PersonService;
+import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -83,6 +85,20 @@ public class ArtistController {
     )
     public Iterable<Artist> getByAnything(@PathVariable("name") String input) {
         return artistService.getByAnything(input);
+    }
+
+    // --- ADVANCED SEARCH ---
+    @GetMapping(
+            path = "/artist/advanced",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Artist> getAdvanced(
+            @RequestParam("band") Optional<Integer> band,
+            @RequestParam("country") Optional<Integer> country,
+            @RequestParam("city") Optional<Integer> city,
+            @RequestParam("instrument") Optional<Integer> instrument
+    ) {
+        return artistService.advancedSearch(band, country, city, instrument);
     }
 
     @PostMapping("/admin/artist")

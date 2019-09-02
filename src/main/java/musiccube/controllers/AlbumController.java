@@ -81,6 +81,21 @@ public class AlbumController {
         return albumService.getAlbumSongs(albumId);
     }
 
+    @GetMapping(
+            path = "/album/advanced",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<Album> advancedSearch(
+            @RequestParam(name = "song") Optional<String> song,
+            @RequestParam(name = "genre") Optional<String> genre,
+            @RequestParam("company") Optional<String> company
+    ) {
+        return albumService.advancedSearch(
+                song.orElse("%"),
+                genre.orElse("%"),
+                company.orElse("%")
+        );
+    }
     /*************************************************************/
 
 
