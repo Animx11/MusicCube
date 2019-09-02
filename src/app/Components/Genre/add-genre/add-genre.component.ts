@@ -10,15 +10,15 @@ import { Country } from 'src/app/Class/Country';
 })
 export class AddGenreComponent implements OnInit {
 
-  private genre: Genre;
+  genre: Genre;
 
-  private origin: Country;
-  private genreName: string;
-  private creationTime: string;
-  private aboutGenre: string;
+  origin: Country;
+  genreName: string;
+  creationTime: string;
+  aboutGenre: string;
 
-  private isOriginSelected: boolean;
-  private isOriginClicked: boolean;
+  isOriginSelected: boolean;
+  isOriginClicked: boolean;
 
   constructor(private genreService: GenreService) {}
 

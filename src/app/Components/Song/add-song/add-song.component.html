@@ -68,33 +68,33 @@
         </div><br>
     </form>
   </div>
-  <div id = "searchPlace" *ngIf = "isBandClicked">
+  <div class = "searchPlace" *ngIf = "isBandClicked">
       <div class = "separateDiv">
         <div class = "textSeparateDiv"><i>Search Band</i><br></div>
         <app-search-band (bandEvent)="bandEventHandler($event)"></app-search-band>
       </div><br>
   </div>
-  <div id = "searchPlace" *ngIf = "isAlbumClicked">
+  <div class = "searchPlace" *ngIf = "isAlbumClicked">
     <div class = "separateDiv">
       <div class = "textSeparateDiv"><i>Search Album:</i><br></div>
       <app-search-album (albumEvent)="albumEventHandler($event)"></app-search-album>
     </div><br>
 </div>
-<div id = "searchPlace" *ngIf = "isGenreClicked">
+<div class = "searchPlace" *ngIf = "isGenreClicked">
   <div class = "separateDiv">
     <div class = "textSeparateDiv"><i>Search Genre:</i><br></div>
     <app-search-genre (genreEvent)="genreEventHandler($event)"></app-search-genre>
   </div><br>
 </div>
 
-<div id = "searchPlace" *ngIf = "isAuthorClicked">
+<div class = "searchPlace" *ngIf = "isAuthorClicked">
   <div class = "separateDiv">
     <div class = "textSeparateDiv"><i>Search People:</i><br></div>
     <app-search-person (personEvent)="personEventHandler($event)"></app-search-person>
   </div><br>
 </div>
 
-<div id = "searchPlace" *ngIf = "isInstrumentClicked">
+<div class = "searchPlace" *ngIf = "isInstrumentClicked">
     <div class = "separateDiv">
       <div class = "textSeparateDiv"><i>Search Instrument:</i><br></div>
       <app-search-instrument

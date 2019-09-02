@@ -10,17 +10,17 @@ import { Song } from 'src/app/Class/Song';
   styleUrls: ['./search-song.component.css']
 })
 export class SearchSongComponent implements OnInit {
-  private searchOn: boolean;
-  private listOn: boolean;
-  private pageOn: boolean;
-  private pageSize: number;
-  private pageNr: number;
-  private reachedLastPage: boolean;
-  private pageCount: number;
+  searchOn: boolean;
+  listOn: boolean;
+  pageOn: boolean;
+  pageSize: number;
+  pageNr: number;
+  reachedLastPage: boolean;
+  pageCount: number;
 
   songs$: Observable<Song[]>;
   songPage: Song[];
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() songEvent = new EventEmitter<Song>();
   @Output() searchEvent = new EventEmitter();

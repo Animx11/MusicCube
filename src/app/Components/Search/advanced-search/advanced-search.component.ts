@@ -13,19 +13,19 @@ import {Instrument} from '../../../Class/Instrument';
 })
 export class AdvancedSearchComponent implements OnInit {
 
-  private artists: boolean;
-  private bands: boolean;
-  private albums: boolean;
-  private songs: boolean;
-  private genres: boolean;
-  private instruments: boolean;
+  artists: boolean;
+  bands: boolean;
+  albums: boolean;
+  songs: boolean;
+  genres: boolean;
+  instruments: boolean;
 
-  private foundArtists: Artist[];
-  private foundBands: Band[];
-  private foundAlbums: Album[]
-  private foundSongs: Song[];
-  private foundGenres: Genre[];
-  private foundInstruments: Instrument[];
+  foundArtists: Artist[];
+  foundBands: Band[];
+  foundAlbums: Album[]
+  foundSongs: Song[];
+  foundGenres: Genre[];
+  foundInstruments: Instrument[];
 
   constructor() {
     this.artists = true;

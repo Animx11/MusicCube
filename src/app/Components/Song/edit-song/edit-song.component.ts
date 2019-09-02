@@ -10,7 +10,7 @@ import { Song } from 'src/app/Class/Song';
   styleUrls: ['./edit-song.component.css']
 })
 export class EditSongComponent implements OnInit {
-  private selectedSong: Song;
+  selectedSong: Song;
 
   constructor(private songService: SongService) {}
 

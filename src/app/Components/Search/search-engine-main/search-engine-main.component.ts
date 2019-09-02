@@ -33,7 +33,7 @@ export class SearchEngineMainComponent implements OnInit {
   instruments: Instrument[] = [];
   message: string;
 
-  private switches = [];
+  switches = [];
 
   constructor(
     private artistService: ArtistService,

@@ -1,20 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { InstrumentService } from "src/app/Services/instrument.service";
-import { Instrument } from "src/app/Class/Instrument";
-import { InstrumentType } from "src/app/Class/InstrumentType";
+import { Component, OnInit } from '@angular/core';
+import { InstrumentService } from 'src/app/Services/instrument.service';
+import { Instrument } from 'src/app/Class/Instrument';
+import { InstrumentType } from 'src/app/Class/InstrumentType';
 
 @Component({
-  selector: "app-add-instrument",
-  templateUrl: "./add-instrument.component.html",
-  styleUrls: ["./add-instrument.component.css"]
+  selector: 'app-add-instrument',
+  templateUrl: './add-instrument.component.html',
+  styleUrls: ['./add-instrument.component.css']
 })
 export class AddInstrumentComponent implements OnInit {
-  private instrument: Instrument;
-  private instrumentName: string;
-  private instrumentTypeName: InstrumentType;
+  instrument: Instrument;
+  instrumentName: string;
+  instrumentTypeName: InstrumentType;
 
-  private isInstrumentTypeClicked: boolean;
-  private isInstrumentTypeSelected: boolean;
+  isInstrumentTypeClicked: boolean;
+  isInstrumentTypeSelected: boolean;
 
   constructor(private instrumentService: InstrumentService) {}
 
@@ -25,7 +25,7 @@ export class AddInstrumentComponent implements OnInit {
     this.isInstrumentTypeSelected = false;
   }
 
-  searchInstrumentType(){
+  searchInstrumentType() {
     this.isInstrumentTypeClicked = true;
   }
 
@@ -36,20 +36,20 @@ export class AddInstrumentComponent implements OnInit {
   }
 
   addInstrument() {
-    if (this.instrumentName === "")
-      window.alert("Incomplete input");
-    else {
+    if (this.instrumentName === '') {
+      window.alert('Incomplete input');
+    } else {
       this.instrument.setInstrumentName(this.instrumentName);
       this.instrumentService.create(this.instrument).subscribe(
         res => {
-          console.log("add-instrument-component received:");
+          console.log('add-instrument-component received:');
           console.log(res);
-          window.alert("Instrument added");
+          window.alert('Instrument added');
           this.ngOnInit();
         },
         err => {
           console.error(err);
-          window.alert("Error occured");
+          window.alert('Error occured');
         }
       );
     }

@@ -4,7 +4,6 @@ import {Country} from '../../../Class/Country';
 import {City} from '../../../Class/City';
 import {Genre} from '../../../Class/Genre';
 import {BandService} from '../../../Services/band.service';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-advanced-band',

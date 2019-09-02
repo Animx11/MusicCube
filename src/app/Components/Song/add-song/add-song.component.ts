@@ -5,12 +5,7 @@ import { SongAuthorshipService } from 'src/app/Services/song-authorship.service'
 import { SongInstrumentService } from 'src/app/Services/song-instrument.service';
 
 import { Song } from 'src/app/Class/Song';
-import { Band } from 'src/app/Class/Band';
-import { Album } from 'src/app/Class/Album';
-import { Genre } from 'src/app/Class/Genre';
-import { Person } from 'src/app/Class/Person';
 import { SongAuthorship } from 'src/app/Class/SongAuthorship';
-import { Instrument } from 'src/app/Class/Instrument';
 import { SongInstrument } from 'src/app/Class/SongInstrument';
 
 
@@ -20,23 +15,26 @@ import { SongInstrument } from 'src/app/Class/SongInstrument';
   styleUrls: ['./add-song.component.css']
 })
 export class AddSongComponent implements OnInit {
-  private songName: string;
-  private songLengthSeconds: number;
-  private song: Song;
-  private authorList: SongAuthorship[];
-  private authorship: SongAuthorship;
-  private instrumentList: SongInstrument[];
-  private songInstrument: SongInstrument;
+  songName: string;
+  songLengthSeconds: number;
+  song: Song;
+  authorList: SongAuthorship[];
+  authorship: SongAuthorship;
+  instrumentList: SongInstrument[];
+  songInstrument: SongInstrument;
+  minutes: number;
+  seconds: number;
+  trackNumber: number;
 
-  private isBandClicked: boolean;
-  private isAlbumClicked: boolean;
-  private isGenreClicked: boolean;
-  private isAuthorClicked: boolean;
-  private isInstrumentClicked: boolean;
+  isBandClicked: boolean;
+  isAlbumClicked: boolean;
+  isGenreClicked: boolean;
+  isAuthorClicked: boolean;
+  isInstrumentClicked: boolean;
 
-  private isBandSelected: boolean;
-  private isAlbumSelected: boolean;
-  private isGenreSelected: boolean;
+  isBandSelected: boolean;
+  isAlbumSelected: boolean;
+  isGenreSelected: boolean;
 
 
 
@@ -57,7 +55,7 @@ export class AddSongComponent implements OnInit {
     this.isBandSelected = this.isAlbumSelected = this.isGenreSelected = false;
   }
 
-  resetClicked(){
+  resetClicked() {
     this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
   }
 

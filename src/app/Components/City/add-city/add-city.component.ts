@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CityService } from 'src/app/Services/city.service';
 import { City } from 'src/app/Class/City';
-import { Country } from 'src/app/Class/Country';
 
 @Component({
   selector: 'app-add-city',
@@ -10,11 +9,11 @@ import { Country } from 'src/app/Class/Country';
 })
 export class AddCityComponent implements OnInit {
 
-  private city: City;
-  private cityName: string;
+  city: City;
+  cityName: string;
 
-  private isCountryClicked: boolean;
-  private isCountrySelected: boolean;
+  isCountryClicked: boolean;
+  isCountrySelected: boolean;
 
   constructor(private cityService: CityService) { }
 

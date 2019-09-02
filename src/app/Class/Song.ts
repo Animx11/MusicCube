@@ -9,7 +9,7 @@ export class Song {
   private songLengthSeconds: number;
   album: Album;
   band: Band;
-  private genre: Genre;
+  genre: Genre;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;

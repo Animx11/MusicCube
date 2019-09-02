@@ -10,16 +10,16 @@ import { stringify } from 'querystring';
   styleUrls: ['./add-concert.component.css']
 })
 export class AddConcertComponent implements OnInit {
-  private concert: Concert;
-  private concertName: string;
-  private startTime: Date;
-  private hour: number;
-  private minutes: number;
+  concert: Concert;
+  concertName: string;
+  startTime: Date;
+  hour: number;
+  minutes: number;
 
-  private dateString: string[];
+  dateString: string[];
 
-  private isCityClicked: boolean;
-  private isCitySelected: boolean;
+  isCityClicked: boolean;
+  isCitySelected: boolean;
 
   constructor(
     private concertService: ConcertService,

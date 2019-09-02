@@ -11,16 +11,16 @@ import { PersonService } from 'src/app/Services/person.service';
   styleUrls: ['./add-artist.component.css']
 })
 export class AddArtistComponent implements OnInit {
-  private person: Person;
-  private artist: Artist;
-  private firstNames: string;
-  private lastName: string;
-  private stageName: string;
-  private birthDate: Date;
-  private deathDate: Date;
-  private isArtist: boolean;
-  private isBirthPlaceClicked: boolean;
-  private isBirthPlaceSelected: boolean;
+  person: Person;
+  artist: Artist;
+  firstNames: string;
+  lastName: string;
+  stageName: string;
+  birthDate: Date;
+  deathDate: Date;
+  isArtist: boolean;
+  isBirthPlaceClicked: boolean;
+  isBirthPlaceSelected: boolean;
 
   constructor(private artistService: ArtistService, private personService: PersonService) {}
 

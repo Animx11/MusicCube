@@ -12,14 +12,14 @@ import { SongInstrumentService } from 'src/app/Services/song-instrument.service'
   styleUrls: ['./edit-song-details.component.css']
 })
 export class EditSongDetailsComponent implements OnInit {
-  @Input() private song: Song;
-  private authorList: SongAuthorship[];
-  private instrumentList: SongInstrument[];
-  private removedAuthors: SongAuthorship[];
-  private removedSongIns: SongInstrument[];
-  private newAuthors: SongAuthorship[];
-  private newSongIns: SongInstrument[];
-  private oldAuthors: SongAuthorship[];
+  @Input() song: Song;
+  authorList: SongAuthorship[];
+  instrumentList: SongInstrument[];
+  removedAuthors: SongAuthorship[];
+  removedSongIns: SongInstrument[];
+  newAuthors: SongAuthorship[];
+  newSongIns: SongInstrument[];
+  oldAuthors: SongAuthorship[];
 
   constructor(
     private songService: SongService,
