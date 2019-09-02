@@ -29,7 +29,7 @@ public class Comment {
     private Band band;
 
     @ManyToOne
-    @JoinColumn(name = "artist_id", referencedColumnName = "artist_id")
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     private Artist artist;
 
     @Column(name = "comment_date")
