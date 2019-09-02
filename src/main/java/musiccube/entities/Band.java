@@ -14,20 +14,20 @@ public class Band {
 
     @Id
     @GeneratedValue
-    @Column(name = "band_id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "band_name")
+    @Column
     private String bandName;
 
-    @Column(name = "creation_date")
+    @Column
     private Date creationDate;
 
-    @Column(name = "mb_id")
+    @Column
     private String mbId;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
+    @JoinColumn(name = "id")
     private City formedIn;
 
     public Band() {}

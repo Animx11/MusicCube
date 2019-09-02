@@ -14,23 +14,23 @@ public class Person {
 
     @Id
     @GeneratedValue
-    @Column(name = "person_id")
+    @Column(name = "id")
     protected int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id",referencedColumnName = "city_id")
+    @JoinColumn(name = "id")
     protected City origin;
 
-    @Column(name = "first_names")
+    @Column
     protected String firstNames;
 
-    @Column(name = "last_name")
+    @Column
     protected String lastName;
 
-    @Column(name = "birth_date")
+    @Column
     protected Date birthDate;
 
-    @Column(name = "death_date")
+    @Column
     protected Date deathDate;
 
     public Person() {}

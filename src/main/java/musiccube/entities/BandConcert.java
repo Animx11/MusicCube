@@ -8,15 +8,15 @@ public class BandConcert {
 
     @Id
     @GeneratedValue
-    @Column(name = "band_concert_id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "band_id", referencedColumnName = "band_id")
+    @JoinColumn(name = "id")
     private Band band;
 
     @ManyToOne
-    @JoinColumn(name = "concert_id", referencedColumnName = "concert_id")
+    @JoinColumn(name = "id")
     private Concert concert;
 
     public BandConcert() {}

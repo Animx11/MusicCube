@@ -11,14 +11,14 @@ import javax.persistence.*;
 public class City {
     @Id
     @GeneratedValue
-    @Column(name = "city_id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "city_name", unique = true)
+    @Column(unique = true)
     private String cityName;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
+    @JoinColumn(name = "id")
     private Country country;
 
     public City() {};

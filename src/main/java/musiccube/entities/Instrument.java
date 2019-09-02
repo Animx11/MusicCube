@@ -11,17 +11,17 @@ public class Instrument {
 
     @Id
     @GeneratedValue
-    @Column(name = "instrument_id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "instrument_name", unique = true)
+    @Column(unique = true)
     private String instrumentName;
 
-    @Column(name = "about_instrument", length = 1024)
+    @Column(length = 1024)
     private String aboutInstrument;
 
     @ManyToOne
-    @JoinColumn(name = "instrument_type_id", referencedColumnName = "instrument_type_id")
+    @JoinColumn(name = "id")
     private InstrumentType instrumentType;
 
     public Instrument() {}

@@ -14,27 +14,27 @@ public class ArtistActivity {
 
     @Id
     @GeneratedValue
-    @Column(name = "artist_activity_id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    @JoinColumn(name = "id")
     private Artist artist;
 
     @ManyToOne
-    @JoinColumn(name = "band_id", referencedColumnName = "band_id")
+    @JoinColumn(name = "id")
     private Band band;
 
-    @Column(name = "activity_start")
+    @Column
     private Date activityStart;
 
-    @Column(name = "activity_end")
+    @Column
     private Date activityEnd;
 
-    @Column(name = "is_active")
+    @Column
     private boolean isActive;
 
-    @Column(name = "roles", length = 1024)
+    @Column(length = 1024)
     private String[] roles;
 
     public ArtistActivity() {}

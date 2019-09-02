@@ -11,17 +11,17 @@ public class Genre {
 
     @Id
     @GeneratedValue
-    @Column(name = "genre_id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
+    @JoinColumn(name = "id")
     private Country origin;
 
-    @Column(name = "genre_name", unique = true)
+    @Column(unique = true)
     private String genreName;
 
-    @Column(name = "creation_date")
+    @Column
     private String creationDate;
 
     public Genre() {}

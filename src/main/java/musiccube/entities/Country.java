@@ -11,14 +11,14 @@ import javax.persistence.*;
 public class Country {
 
     @Id
-    @Column(name = "country_id")
+    @Column(name = "id")
     @GeneratedValue
     private int id;
 
-    @Column(name = "country_name", unique = true)
+    @Column(unique = true)
     private String countryName;
 
-    @Column(name = "code", unique = true)
+    @Column(unique = true)
     private String code;
 
     public Country() {

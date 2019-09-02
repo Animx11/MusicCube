@@ -11,7 +11,7 @@ public class SongAuthorship {
 
     @Id
     @GeneratedValue
-    @Column(name = "song_authorship_id")
+    @Column(name = "id")
     private int id;
 
     @Column
@@ -21,11 +21,11 @@ public class SongAuthorship {
     private boolean wroteMusic;
 
     @ManyToOne
-    @JoinColumn(name = "song_id", referencedColumnName = "song_id")
+    @JoinColumn(name = "id")
     private Song song;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    @JoinColumn(name = "id")
     private Person author;
 
     public SongAuthorship() {}

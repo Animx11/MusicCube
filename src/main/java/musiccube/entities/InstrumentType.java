@@ -11,14 +11,14 @@ import javax.persistence.*;
 public class InstrumentType {
 
     @Id
-    @Column(name = "instrument_type_id")
+    @Column(name = "id")
     @GeneratedValue
     private int id;
 
-    @Column(name = "instrument_type_name", unique = true)
+    @Column(unique = true)
     private String instrumentTypeName;
 
-    @Column(name = "about_type", length = 1024)
+    @Column(length = 1024)
     private String aboutType;
 
     public InstrumentType() {

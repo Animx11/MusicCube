@@ -22,44 +22,44 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    @Column(name = "user_id")
+    @Column(name = "id")
     private int id;
 
     @Size(min = 3, max = 50)
-    @Column(name = "userName", unique = true)
+    @Column(unique = true)
     private String userName;
 
 
     @Size(min = 6, max = 100)
-    @Column(name = "password")
+    @Column
     @JsonIgnore
     private String password;
 
     @JsonIgnore
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
+        joinColumns = @JoinColumn(name = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<Role> roles = new HashSet<>();
 
     @JsonIgnore
-    @Column(name = "firstName")
+    @Column
     private String firstName;
 
     @JsonIgnore
-    @Column(name = "lastName")
+    @Column
     private String lastName;
 
     @JsonIgnore
-    @Column(name = "birthDate")
+    @Column
     private Date birthDate;
 
     @JsonIgnore
-    @Column(name = "aboutUser")
+    @Column
     private String aboutUser;
 
     //Constructors

@@ -16,10 +16,10 @@ import java.util.Date;
 @Table(name = "artist")
 public class Artist extends Person {
 
-    @Column(name = "stage_name")
+    @Column
     private String stageName;
 
-    @Column(name = "mb_id")
+    @Column
     private String mbId;
 
     public Artist() {}

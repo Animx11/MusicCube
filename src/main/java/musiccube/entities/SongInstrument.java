@@ -8,15 +8,15 @@ public class SongInstrument{
 
     @Id
     @GeneratedValue
-    @Column(name = "song_instrument_id")
+    @Column(name = "id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "song_id", referencedColumnName = "song_id")
+    @JoinColumn(name = "id")
     private Song song;
 
     @ManyToOne
-    @JoinColumn(name = "instrument_id", referencedColumnName = "instrument_id")
+    @JoinColumn(name = "id")
     private Instrument instrument;
 
     public SongInstrument() {}
