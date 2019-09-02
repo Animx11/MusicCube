@@ -11,7 +11,7 @@ public class Song {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column
     private int id;
 
     @Column
@@ -24,15 +24,15 @@ public class Song {
     private int songLengthSeconds;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(referencedColumnName = "id")
     private Album album;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(referencedColumnName = "id")
     private Band band;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(referencedColumnName = "id")
     private Genre genre;
 
     public Song() {}

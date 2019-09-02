@@ -11,11 +11,11 @@ public class Genre {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(referencedColumnName = "id")
     private Country origin;
 
     @Column(unique = true)

@@ -14,11 +14,11 @@ public class Person {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column
     protected int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(referencedColumnName = "id")
     protected City origin;
 
     @Column

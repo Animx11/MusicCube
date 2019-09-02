@@ -22,27 +22,27 @@ public class UserFavorites {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesSongs",
-        joinColumns = @JoinColumn(name = "id"),
-        inverseJoinColumns = @JoinColumn(name = "id"))
+        joinColumns = @JoinColumn(referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Song> favoriteSongs = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesAlbums",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
+            joinColumns = @JoinColumn(referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Album> favoriteAlbums = new HashSet<>();
 
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesBands",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
+            joinColumns = @JoinColumn(referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Band> favoriteBands = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesArtist",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
+            joinColumns = @JoinColumn(referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Artist> favoriteArtists = new HashSet<>();
 
 

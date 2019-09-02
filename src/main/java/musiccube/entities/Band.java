@@ -14,7 +14,7 @@ public class Band {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column
     private int id;
 
     @Column
@@ -27,7 +27,7 @@ public class Band {
     private String mbId;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(referencedColumnName = "id")
     private City formedIn;
 
     public Band() {}
