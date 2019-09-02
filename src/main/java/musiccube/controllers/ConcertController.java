@@ -1,6 +1,8 @@
 package musiccube.controllers;
 
+import musiccube.entities.BandConcert;
 import musiccube.entities.Concert;
+import musiccube.services.bandconcert.BandConcertService;
 import musiccube.services.concert.ConcertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +20,12 @@ import java.util.Optional;
 @CrossOrigin(origins = "${serverAddress}")
 
 public class ConcertController {
+
     @Autowired
     private ConcertService concertService;
+
+    @Autowired
+    private BandConcertService bandConcertService;
 
     @GetMapping(
             path = "/concert/{id}",
@@ -41,10 +47,10 @@ public class ConcertController {
     }
 
     // --- Get by concertName
-    @GetMapping(path = "/concert/{name}",
+    @GetMapping(path = "/concert/concertName",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Iterable<Concert> getByConcertName(@PathVariable("name") String concertName) {
+    public Iterable<Concert> getByConcertName(@RequestParam("concertName") String concertName) {
         return concertService.getByConcertName(concertName);
     }
 
@@ -65,8 +71,15 @@ public class ConcertController {
 
     @DeleteMapping("/admin/concert/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        concertService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Concert concert = concertService.getById(id).orElse(null);
+        if(concert != null) {
+            Iterable<BandConcert> allBandConcert = bandConcertService.getByConcertId(concert.getId());
+            for (BandConcert bandConcert : allBandConcert) {
+                bandConcertService.delete(bandConcert.getId());
+            }
+            concertService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

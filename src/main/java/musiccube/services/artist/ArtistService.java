@@ -13,6 +13,7 @@ public interface ArtistService {
     void delete(int id);
 
     Iterable<Artist> getByStageName(String stageName);
+    Iterable<Artist> getByCity(String cityName);
     Iterable<Artist> getByAnything(String input);
     Artist getByMbId(String mbId);
 

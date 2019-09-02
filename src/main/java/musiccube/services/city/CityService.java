@@ -14,4 +14,5 @@ public interface CityService {
     City getByCityName(String cityName);
 
     Iterable<City> getIterableCityByCityName(String cityName);
+    Iterable<City> getIterableCityByCountry(String countryName);
 }

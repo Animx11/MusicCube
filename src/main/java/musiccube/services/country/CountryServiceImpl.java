@@ -48,4 +48,8 @@ public class CountryServiceImpl implements CountryService {
     public Country getOneByCode(String code) {
         return countryRepository.findOneByCode(code);
     }
+
+    @Override
+    public Country getOneByCountryName(String countryName) { return countryRepository.findOneByCountryName(countryName); }
+
 }

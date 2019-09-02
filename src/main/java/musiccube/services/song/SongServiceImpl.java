@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.OneToOne;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,21 @@ public class SongServiceImpl implements SongService {
     @Override
     public Iterable<Song> getBySongName(String songName) {
         return songRepository.findBySongName(songName);
+    }
+
+    @Override
+    public Iterable<Song> getByGenreName(String genreName) {
+        return songRepository.findByGenreName(genreName);
+    }
+
+    @Override
+    public Iterable<Song> getByAlbumName(String albumName) {
+        return songRepository.findByAlbumName(albumName);
+    }
+
+    @Override
+    public Iterable<Song> getByBandId(int id) {
+        return songRepository.findByBandId(id);
     }
 
     @Override

@@ -45,6 +45,12 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
+    public Iterable<Band> getByCity(String cityName) {
+        return bandRepository.findByCity(cityName);
+    }
+
+
+    @Override
     public Iterable<Genre> getBandGenres(int bandId) {
         return bandRepository.findBandGenres(bandId);
     }

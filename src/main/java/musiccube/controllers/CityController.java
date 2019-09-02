@@ -1,7 +1,13 @@
 package musiccube.controllers;
 
+import musiccube.entities.Band;
 import musiccube.entities.City;
+import musiccube.entities.Concert;
+import musiccube.entities.Person;
+import musiccube.services.band.BandService;
 import musiccube.services.city.CityService;
+import musiccube.services.concert.ConcertService;
+import musiccube.services.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,8 +23,18 @@ import java.util.Optional;
 @RequestMapping("/api")
 @CrossOrigin(origins = "${serverAddress}")
 public class CityController {
+
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    private ConcertService concertService;
+
+    @Autowired
+    private BandService bandService;
+
+    @Autowired
+    private PersonService personService;
 
     @GetMapping(
             path = "/city/{id}",
@@ -64,6 +80,24 @@ public class CityController {
 
     @DeleteMapping("/admin/city/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        City city = cityService.getById(id).orElse(null);
+        Iterable<Concert> allConcertByCity = concertService.getByCityName(city.getCityName());
+        Iterable<Person> allPersonByCity = personService.getByCity(city.getCityName());
+        Iterable<Band> allBandByCity = bandService.getByCity(city.getCityName());
+
+        for (Concert concert : allConcertByCity) {
+            concert.setConcertCity(null);
+            concertService.save(concert);
+        }
+        for (Person person : allPersonByCity) {
+            person.setOrigin(null);
+            personService.save(person);
+        }
+        for (Band band : allBandByCity) {
+            band.setFormedIn(null);
+            bandService.save(band);
+        }
+
         cityService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

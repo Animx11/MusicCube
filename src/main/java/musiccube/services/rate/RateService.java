@@ -18,5 +18,10 @@ public interface RateService {
 
 
     Iterable<Rate> getAllUserRates(String userName);
+    Iterable<Rate> getRatesByArtistId(int id);
+    Iterable<Rate> getRatesBySongId(int id);
+    Iterable<Rate> getRatesByBandId(int id);
+    Iterable<Rate> getRatesByAlbumId(int id);
+
 
 }

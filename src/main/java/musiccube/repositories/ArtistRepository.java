@@ -13,6 +13,9 @@ public interface ArtistRepository extends CrudRepository<Artist,Integer>, Paging
     Iterable<Artist> findByAnything(String input);
     Artist findByMbId(String mbId);
 
+    @Query("SELECT a FROM Artist a WHERE a.origin.cityName LIKE ?1")
+    Iterable<Artist> findByCity(String cityName);
+
     boolean existsByFirstNamesAndLastName(String firstNames, String lastNames);
     boolean existsArtistByStageName(String stageName);
     boolean existsByMbId(String mbId);

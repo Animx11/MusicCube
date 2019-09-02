@@ -59,4 +59,5 @@ public class UserFavoritesServiceImpl implements UserFavoritesService{
         return userFavoritesRepository.findUserFavoriteArtistByUserName(userName);
     }
 
+
 }

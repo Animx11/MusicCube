@@ -1,7 +1,12 @@
 package musiccube.controllers;
 
-import musiccube.entities.Song;
+import musiccube.entities.*;
+import musiccube.services.comment.CommentService;
+import musiccube.services.rate.RateService;
 import musiccube.services.song.SongService;
+import musiccube.services.songauthorship.SongAuthorshipService;
+import musiccube.services.songinstrument.SongInstrumentService;
+import musiccube.services.userFavorites.UserFavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +17,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -20,6 +26,23 @@ public class SongController {
 
     @Autowired
     private SongService songService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private RateService rateService;
+
+    @Autowired
+    private SongAuthorshipService songAuthorshipService;
+
+    @Autowired
+    private SongInstrumentService songInstrumentService;
+
+    @Autowired
+    private UserFavoritesService userFavoritesService;
+
+
 
     // --- Get by id ---
     @GetMapping(
@@ -83,8 +106,36 @@ public class SongController {
 
     @DeleteMapping("/admin/song/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        songService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        Song song = songService.getById(id).orElse(null);
+        if(song != null) {
+            Iterable<Comment> allSongComments = commentService.getCommentsBySongId(song.getId());
+            for (Comment comment : allSongComments) {
+                commentService.delete(comment.getId());
+            }
+            Iterable<Rate> allSongRates = rateService.getRatesBySongId(song.getId());
+            for (Rate rate : allSongRates) {
+                rateService.delete(rate.getId());
+            }
+            Iterable<SongAuthorship> allSongAutorships = songAuthorshipService.getBySongId(song.getId());
+            for (SongAuthorship songAuthorship : allSongAutorships) {
+                songAuthorshipService.delete(songAuthorship.getId());
+            }
+            Iterable<SongInstrument> allSongInstruments = songInstrumentService.getBySongId(song.getId());
+            for (SongInstrument songInstrument : allSongInstruments) {
+                songInstrumentService.delete(songInstrument.getId());
+            }
+            Iterable<UserFavorites> allUserFavoritesLists = userFavoritesService.getAll();
+            for (UserFavorites userFavorites : allUserFavoritesLists) {
+                Set<Song> userFavoritesSongs = userFavorites.getFavoriteSongs();
+                if(userFavoritesSongs.contains(song)) {
+                    userFavorites.deleteSongFromFavorites(song);
+                }
+            }
+
+            songService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

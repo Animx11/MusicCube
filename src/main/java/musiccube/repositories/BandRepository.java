@@ -12,6 +12,10 @@ public interface BandRepository extends CrudRepository<Band,Integer>, PagingAndS
 
     @Query("SELECT b FROM Band b WHERE LOWER(b.bandName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Band> findByBandName(String bandName);
+
+    @Query("SELECT b FROM Band b WHERE b.formedIn.cityName LIKE ?1")
+    Iterable<Band> findByCity(String cityName);
+
     @Query("SELECT DISTINCT s.genre FROM Song s WHERE s.band.id=?1")
     Iterable<Genre> findBandGenres(int bandId);
     @Query("SELECT DISTINCT s.album FROM Song s WHERE s.band.id=?1 ORDER BY s.album.releaseDate")

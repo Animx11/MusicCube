@@ -1,6 +1,8 @@
 package musiccube.controllers;
 
+import musiccube.entities.Instrument;
 import musiccube.entities.InstrumentType;
+import musiccube.services.instrument.InstrumentService;
 import musiccube.services.instrumentType.InstrumentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class InstrumentTypeController {
 
     @Autowired
     private InstrumentTypeService instrumentTypeService;
+
+    @Autowired
+    private InstrumentService instrumentService;
 
     @GetMapping(
             path = "/instrumenttype/{id}",
@@ -79,7 +84,15 @@ public class InstrumentTypeController {
 
     @DeleteMapping("/admin/instrumenttype/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        instrumentTypeService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        InstrumentType instrumentType = instrumentTypeService.getById(id).orElse(null);
+        if(instrumentType != null) {
+            Iterable<Instrument> allInstrumentWithThisType = instrumentService.getByInstrumentType(instrumentType.getInstrumentTypeName());
+            for (Instrument instrument : allInstrumentWithThisType){
+                instrument.setInstrumentType(null);
+                instrumentService.save(instrument);
+            }
+            instrumentTypeService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

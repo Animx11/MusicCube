@@ -11,4 +11,7 @@ public interface CityRepository extends CrudRepository<City,Integer> {
 
     @Query("SELECT c FROM City c WHERE LOWER(c.cityName) LIKE LOWER(CONCAT(?1,'%'))")
     Iterable<City> findIterableCityByCityName(String cityName);
+
+    @Query("SELECT c FROM City c WHERE c.country.countryName LIKE ?1")
+    Iterable<City> findIterableCityByCountry(String countryName);
 }
