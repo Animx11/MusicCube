@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
+import { FetchDataService } from '../../../Services/fetch-data.service';
+
 import { this_url } from 'src/app/Utils/API_URL';
+import {of} from 'rxjs';
 
 const thisUrl = this_url;
 
@@ -15,6 +19,7 @@ export class AdminPanelComponent implements OnInit {
   isBackClicked: boolean;
   isShowRecordClicked: boolean;
   isManageUsersClicked: boolean;
+  isFetchDataClicked: boolean;
   showHead: boolean;
 
   // Song
@@ -77,15 +82,16 @@ export class AdminPanelComponent implements OnInit {
   isCountryAddClicked: boolean;
   isCountryEditClicked: boolean;
 
-  constructor() { }
+  constructor(private fetchDataService: FetchDataService) { }
 
   ngOnInit() {
 
     this.isBackClicked = false;
     this.isShowRecordClicked = false;
     this.isManageUsersClicked = false;
+    this.isFetchDataClicked = false;
     this.showHead = false;
- 
+
     this.isSongClicked = false;
     this.isSongAddClicked = false;
     this.isSongEditClicked = false;
@@ -134,8 +140,9 @@ export class AdminPanelComponent implements OnInit {
     this.isBackClicked = false;
     this.isShowRecordClicked = false;
     this.isManageUsersClicked = false;
+    this.isFetchDataClicked = false;
     this.showHead = false;
-  }  
+  }
 
   resetRecordValue() {
     this.isSongClicked = false;
@@ -181,7 +188,7 @@ export class AdminPanelComponent implements OnInit {
 
   // Switch
 
-  swichMainValue(clicked: boolean): boolean {
+  switchMainValue(clicked: boolean): boolean {
     return !clicked;
   }
 
@@ -201,7 +208,26 @@ export class AdminPanelComponent implements OnInit {
   }
 
   userPanel() {
-    window.location.replace(thisUrl + "/UserPanel")
+    window.location.replace(thisUrl + '/UserPanel');
+  }
+
+  // Fetch data
+  fetchData(offset: string, count: string) {
+    console.log('fetchin');
+    this.fetchDataService.fetch(offset, count).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.error(err);
+        if (err.status === 400) {
+          window.alert(err.error);
+        }
+        if (err.status === 200) {
+          window.alert(err.error.text);
+        }
+      }
+    );
   }
 
 }
