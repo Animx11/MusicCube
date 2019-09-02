@@ -3,11 +3,11 @@ const path = require('path');
 const app = express();
 
 // Serve static files....
-app.use(express.static(__dirname + '/dist/MusicCube'));
+app.use(express.static(__dirname + '/dist/music-cube'));
 
 // Send all requests to index.html
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/dist/MusicCube/index.html'));
+  res.sendFile(path.join(__dirname + '/dist/music-cube/index.html'));
 });
 
 // default Heroku PORT
