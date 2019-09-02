@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Table(name = "album", schema = "music_cube")
+@Table(name = "album")
 public class Album {
 
     @Id
