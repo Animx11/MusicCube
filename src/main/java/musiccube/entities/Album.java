@@ -12,28 +12,28 @@ public class Album {
 
     @Id
     @GeneratedValue
-    @Column(name = "album_id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name = "album_name")
+    @Column(name = "name")
     private String albumName;
 
-    @Column(name = "album_length_seconds")
+    @Column(name = "length")
     private int albumLengthSeconds;
 
-    @Column(name = "release_date")
+    @Column(name = "release")
     private Date releaseDate;
 
     @Column(name = "company")
     private String company;
 
-    @Column(name = "cover_art_link")
+    @Column(name = "cover")
     private String coverArtLink;
 
     @Column(name = "type")
     private String type;
 
-    @Column(name = "track_count")
+    @Column(name = "tracks")
     private int trackCount;
 
     public Album() {}
