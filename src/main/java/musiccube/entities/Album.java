@@ -15,25 +15,25 @@ public class Album {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column
     private String albumName;
 
     @Column
     private int albumLengthSeconds;
 
-    @Column(name = "release")
+    @Column
     private Date releaseDate;
 
-    @Column(name = "company")
+    @Column
     private String company;
 
-    @Column(name = "cover")
+    @Column
     private String coverArtLink;
 
-    @Column(name = "type")
+    @Column
     private String type;
 
-    @Column(name = "tracks")
+    @Column
     private int trackCount;
 
     public Album() {}
