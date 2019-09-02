@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class City {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column
     private int id;
 
     @Column(unique = true)
