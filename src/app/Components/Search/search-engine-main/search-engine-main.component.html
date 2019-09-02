@@ -10,6 +10,7 @@
 
   <input #searchBox id="searchBox"/>
   <button (click)="search(searchBox.value)">Search</button>
+  <button routerLink="/search/advanced">Advanced</button>
   <div *ngIf="message">{{message}}</div>
 
   <table *ngIf="switches[1] && bands.length">

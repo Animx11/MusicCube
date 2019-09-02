@@ -51,7 +51,7 @@ export class AddSongComponent implements OnInit {
     this.song = new Song();
     this.authorList = [];
     this.instrumentList = [];
-  
+
 
     this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
     this.isBandSelected = this.isAlbumSelected = this.isGenreSelected = false;

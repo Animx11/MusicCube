@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { PersonService } from "src/app/Services/person.service";
-import { Person } from "src/app/Class/Person";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { PersonService } from 'src/app/Services/person.service';
+import { Person } from 'src/app/Class/Person';
 
 @Component({
-  selector: "app-search-person",
-  templateUrl: "./search-person.component.html",
-  styleUrls: ["./search-person.component.css"]
+  selector: 'app-search-person',
+  templateUrl: './search-person.component.html',
+  styleUrls: ['./search-person.component.css']
 })
 export class SearchPersonComponent implements OnInit {
   private searchOn: boolean;
@@ -41,7 +41,7 @@ export class SearchPersonComponent implements OnInit {
   }
 
   search(term: string): void {
-    if (term !== '' && term !== ' '){
+    if (term !== '' && term !== ' ') {
      this.searchTerms.next(term);
     }
   }

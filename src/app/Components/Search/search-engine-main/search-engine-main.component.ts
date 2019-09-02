@@ -156,4 +156,8 @@ export class SearchEngineMainComponent implements OnInit {
       this.message += `${this.instruments.length} instruments `;
     }, err => console.error(err));
   }
+
+  advanced() {
+
+  }
 }

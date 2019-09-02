@@ -46,3 +46,43 @@
   background: aliceblue;
 }
 
+input.year {
+  width: 35px;
+}
+
+button.advReset {
+  margin-left: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+table {
+  width: 200px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-family: arial, sans-serif;
+  margin: 10px;
+  display: inline-block;
+}
+
+tbody{
+  display:block;
+  overflow: auto;
+  height: 300px;
+}
+
+thead tr {
+  display: block;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  width: 200px;
+  border: 1px solid #dddddd;
+}
+
+div.advSrcElement {
+  margin-bottom: 25px;
+}
