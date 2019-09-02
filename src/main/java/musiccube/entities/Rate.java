@@ -3,7 +3,7 @@ package musiccube.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "rate")
+@Table(name = "rate", schema = "music_cube")
 public class Rate {
 
     @Id

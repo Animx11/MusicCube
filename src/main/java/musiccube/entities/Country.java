@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "country")
+@Table(name = "country", schema = "music_cube")
 public class Country {
 
     @Id

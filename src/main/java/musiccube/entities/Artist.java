@@ -13,7 +13,7 @@ import java.util.Date;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "mbId"})
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Table(name = "artist")
+@Table(name = "artist", schema = "music_cube")
 public class Artist extends Person {
 
     @Column(name = "stage_name")

@@ -11,9 +11,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "SystemUsers", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id"})
-})
+@Table(
+        name = "SystemUsers",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = {"user_id"})
+        },
+        schema = "music_cube"
+)
 public class User {
 
     @Id
