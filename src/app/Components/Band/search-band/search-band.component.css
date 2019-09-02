@@ -1,8 +1,10 @@
 #searchBox{
-    width: 99%;
+    width: 96%;
+    margin-left: 3%;
     margin-top: 15px;
 }
 .listDisplay{
     margin-top: 15px;
-    width: 99%;
+    width: 96%;
+    margin-left: 3%;
 }

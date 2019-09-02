@@ -2,7 +2,7 @@ import { City } from './City';
 
 export class Person {
   id: number;
-  protected origin: City;
+  origin: City;
   firstNames: string;
   lastName: string;
   birthDate: Date;

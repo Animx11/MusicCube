@@ -67,6 +67,8 @@ import { FavoritesComponent } from './Components/User/user-panel/favorites/favor
 import { EditCountryComponent } from './Components/Country/edit-country/edit-country.component';
 import { EditCityComponent } from './Components/City/edit-city/edit-city.component';
 import { EditInstrumentTypeComponent } from './Components/InstrumentType/edit-instrument-type/edit-instrument-type.component';
+import { SearchConcertComponent } from './Components/Concert/search-concert/search-concert.component';
+import { SearchArtistComponent } from './Components/Artist/search-artist/search-artist.component';
 
 
 const ROUTES: Routes = [
@@ -291,6 +293,8 @@ const ROUTES: Routes = [
     EditCountryComponent,
     EditCityComponent,
     EditInstrumentTypeComponent,
+    SearchConcertComponent,
+    SearchArtistComponent,
 
   ],
   imports: [

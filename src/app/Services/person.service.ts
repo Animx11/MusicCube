@@ -18,6 +18,11 @@ export class PersonService {
   getByLastName(term: string): Observable<any> {
     if (term === '') { return new Observable<any>(); } else { return this.http.get(`${apiUrl}/person/lastname/${term}`); }
   }
+
+  getByAnything(input: string): Observable<any> {
+    return this.http.get(`${apiUrl}/person/anything?input=${input}`);
+  }
+
   create(person: Person): Observable<any> {
     return this.http.post(`${apiUrl}/admin/person`, person);
   }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Concert } from 'src/app/Class/Concert';
 
 import { api_url } from '../Utils/API_URL';
+import { SrvRecord } from 'dns';
 
 const apiUrl = api_url;
 
@@ -16,6 +17,10 @@ export class ConcertService {
 
   getById(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/concert/${id}`);
+  }
+
+  getByConcertName(name: string): Observable<any> {
+    return this.http.get(`${apiUrl}/concert/concertName?concertName=${name}`);
   }
 
   list(): Observable<any> {

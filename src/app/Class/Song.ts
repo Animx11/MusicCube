@@ -5,11 +5,11 @@ import { Genre } from './Genre';
 export class Song {
   id: number;
   songName: string;
-  private trackNumber: number;
-  private songLengthSeconds: number;
+  trackNumber: number;
+  songLengthSeconds: number;
   album: Album;
   band: Band;
-  private genre: Genre;
+  genre: Genre;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;

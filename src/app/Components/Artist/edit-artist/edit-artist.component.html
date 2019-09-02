@@ -1,3 +1,52 @@
-<div id = "CRUD">
-  edit-artist works!
+<div class="down70px">
+    <app-search-artist  *ngIf = "!isEditSelected" (artistEvent)="artistEventHandler($event)" (searchEvent)="searchEventHandler($event)"></app-search-artist>
+
+    <div *ngIf = "isEditSelected">
+        <h4><i>Edit person:<div *ngIf = "!isArtist">{{ selectedArtist.firstNames }} {{selectedArtist.lastName}}</div> <div *ngIf = "isArtist">{{ selectedArtist.stageName }}</div></i></h4>
+
+            <form #profileForm = "ngForm" id = "profileForm">
+                <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>First Name:</i><br></div>
+                  <input type = "text" name = "firstNames" [(ngModel)]="firstNames" class = "inputText" required >
+                </div><br>
+                <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>Last Name:</i><br></div>
+                  <input type = "text" name = "lastName" [(ngModel)]="lastName" class = "inputText" required>
+                </div><br>
+                <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>Birth Date: {{person.birthDate | date:'d MMMM yyyy'}}</i><br></div>
+                  <input type = "date" name = "birthDate" [(ngModel)]="birthDate" class = "inputText" required>
+                </div><br>
+                <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>Death Date: {{person.deathDate | date:'d MMMM yyyy'}}</i><br></div>
+                  <input type = "date" name = "deathDate" [(ngModel)]="deathDate" class = "inputText">
+                </div><br>
+                <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>Is that person an artist</i>
+                    <input type="checkbox" name = "isArtist" [(ngModel)]="isArtist">
+                  </div>
+                </div><br>
+                <div class = "separateDiv" *ngIf = "isArtist">
+                  <div class = "textSeparateDiv"><i>Stage Name:</i><br></div>
+                  <input type = "text" name = "stageName" [(ngModel)]="stageName" class = "inputText" >
+                </div><br>
+                <div class = "separateDiv">
+                    <div class = "textSeparateDiv"><i>Place of birth:<div *ngIf = " isBirthPlaceSelected"> {{ person.origin.cityName }}</div></i><br></div>
+                    <button (click)="searchBirthPlace()">Set Origin</button>
+                </div><br>
+        
+                <div class = "separateDiv">
+                    <button (click)="update()">Update</button>
+                    <button (click)="delete()">Delete</button>
+                </div><br>
+        
+            </form>
+          </div>
+          <div id = "searchPlace" *ngIf = "isBirthPlaceClicked">
+              <div class = "separateDiv">
+                <div class = "textSeparateDiv"><i>Search Birth Place:</i><br></div>
+                <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
+              </div><br>
+          </div>
+
 </div>
