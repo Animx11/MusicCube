@@ -23,43 +23,46 @@ public class DataLoader {
     @Autowired
     private DiscographyHandler discographyHandler;
 
-    @PostMapping(value = "/generate")
-    public ResponseEntity<String> generate(@RequestParam Map<String,String> params) throws IOException, InterruptedException {
+    @PostMapping(value = "/admin/generate")
+    public ResponseEntity<String> generate(
+            @RequestParam(required = false, name = "offset") String offset,
+            @RequestParam(required = false, name = "iterations") String iterations
+    ) throws IOException, InterruptedException {
 
         logger.info("\n\nGENERATING NEW MODEL\n");
 
-        int offset = Constants.OFFSET;
-        int iterations = Constants.ITERATIONS;
+        int offsetNumber = Constants.OFFSET;
+        int iterationsCount = Constants.ITERATIONS;
 
-        if (params.containsKey("offset")) {
+        if (offset != null) {
             try {
-                offset = Integer.parseInt(params.get("offset"));
+                offsetNumber = Integer.parseInt(offset);
             } catch (NumberFormatException e) {
-                logger.error("Invalid offset value: "+params.get("offset"));
+                logger.error("Invalid offset value: "+offset);
                 return ResponseEntity.badRequest().body("Expecting integer parameters: offset, iterations");
             }
         }
-        if (params.containsKey("iterations")) {
+        if (iterations != null) {
             try {
-                iterations = Integer.parseInt(params.get("iterations"));
+                iterationsCount = Integer.parseInt(iterations);
             } catch (NumberFormatException e) {
-                logger.error("Invalid iterations value: "+params.get("iterations"));
+                logger.error("Invalid iterations value: "+iterations);
                 return ResponseEntity.badRequest().body("Expecting integer parameters: offset, iterations");
             }
         }
 
-        iterations += offset;
-        logger.info("Fetching bands from "+offset+" to "+(iterations-1));
+        iterationsCount += offsetNumber;
+        logger.info("Fetching bands from "+offsetNumber+" to "+(iterationsCount-1));
 
-        for (;offset < iterations;offset++) {
-            logger.info("\nProcessing band "+offset);
-            Band band = bandHandler.getBand(offset);
+        for (;offsetNumber < iterationsCount;offsetNumber++) {
+            logger.info("\nProcessing band "+offsetNumber);
+            Band band = bandHandler.getBand(offsetNumber);
             if (band != null) {
                 lineupHandler.getLineup(band);
                 discographyHandler.getAlbums(band);
             }
             else
-                logger.warn("Skipping band "+offset);
+                logger.warn("Skipping band "+offsetNumber);
         }
         return ResponseEntity.ok("Model generated.");
     }
