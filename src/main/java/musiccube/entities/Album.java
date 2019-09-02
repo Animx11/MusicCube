@@ -18,7 +18,7 @@ public class Album {
     @Column(name = "name")
     private String albumName;
 
-    @Column(name = "length")
+    @Column(name = "album_length")
     private int albumLengthSeconds;
 
     @Column(name = "release")
