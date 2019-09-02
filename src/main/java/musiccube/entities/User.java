@@ -19,7 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    @Column(name = "id")
+    @Column(name = "user_id")
     private int id;
 
     @Size(min = 3, max = 50)
