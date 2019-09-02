@@ -15,8 +15,7 @@ import java.util.Set;
         name = "SystemUsers",
         uniqueConstraints = {
             @UniqueConstraint(columnNames = {"user_id"})
-        },
-        schema = "music_cube"
+        }
 )
 public class User {
 
