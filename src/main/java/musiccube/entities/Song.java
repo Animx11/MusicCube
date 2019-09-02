@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Table(name = "song", schema = "music_cube")
+@Table(name = "song")
 public class Song {
 
     @Id

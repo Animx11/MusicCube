@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "city", schema = "music_cube")
+@Table(name = "city")
 public class City {
     @Id
     @GeneratedValue

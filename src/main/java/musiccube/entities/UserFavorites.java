@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_favorites", schema = "music_cube")
+@Table(name = "user_favorites")
 public class UserFavorites {
 
     @Id

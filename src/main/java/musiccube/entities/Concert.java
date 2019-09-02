@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "concert", schema = "music_cube")
+@Table(name = "concert")
 public class Concert {
     @Id
     @GeneratedValue

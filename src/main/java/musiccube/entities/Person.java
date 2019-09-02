@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Table(name = "person", schema = "music_cube")
+@Table(name = "person")
 public class Person {
 
     @Id
