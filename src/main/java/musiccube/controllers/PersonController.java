@@ -88,7 +88,7 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Person> getByLastName(@PathVariable("name") String lastName) {
-        return personService.getByLastName(lastName);
+        return personService.getByLastNameOrFristNames(lastName);
     }
 
     @GetMapping(

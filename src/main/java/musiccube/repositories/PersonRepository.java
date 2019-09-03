@@ -11,6 +11,9 @@ public interface PersonRepository extends CrudRepository<Person,Integer>, Paging
     @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Person> findByLastName(String lastName);
 
+    @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) LIKE LOWER(CONCAT('%',?1,'%')) OR LOWER(p.firstNames) LIKE LOWER(CONCAT('%',?1,'%'))")
+    Iterable<Person> findByLastNameOrFristNames(String lastName);
+
     @Query("SELECT p FROM Person p WHERE LOWER(p.stageName) LIKE LOWER(CONCAT('%',?1,'%')) OR LOWER(p.firstNames) LIKE LOWER(CONCAT('%',?1,'%')) OR LOWER(p.lastName) LIKE LOWER(CONCAT('%',?1,'%'))")
     Iterable<Artist> findByAnything(String input);
 

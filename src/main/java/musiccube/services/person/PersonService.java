@@ -14,6 +14,7 @@ public interface PersonService {
     void delete(int id);
 
     Iterable<Person> getByLastName(String lastName);
+    Iterable<Person> getByLastNameOrFristNames(String lastName);
     Iterable<Person> getByCity(String cityName);
 
     Iterable<Artist> getByAnything(String input);

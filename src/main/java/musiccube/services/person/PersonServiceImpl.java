@@ -44,6 +44,12 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
+    public Iterable<Person> getByLastNameOrFristNames(String lastName) {
+        return personRepository.findByLastNameOrFristNames(lastName);
+    }
+
+
+    @Override
     public Iterable<Person> getByCity(String cityName) {
         return personRepository.findByCity(cityName);
     }
