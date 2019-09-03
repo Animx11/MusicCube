@@ -24,8 +24,8 @@ public class SongAuthorship {
     @JoinColumn(name = "song_id")
     private Song song;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "person_id")
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private Person author;
 
     public SongAuthorship() {}
