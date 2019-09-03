@@ -23,7 +23,7 @@ public class ActivityController {
 
 /*************************** GET ***********************************/
     @GetMapping(
-            path = "/Activity/{id}",
+            path = "/artistactivity/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Activity> getById(@PathVariable("id") int id) {
@@ -34,7 +34,7 @@ public class ActivityController {
     }
 
     @GetMapping(
-            path = "/Activity",
+            path = "/artistactivity",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Activity> getAll() {
@@ -43,7 +43,7 @@ public class ActivityController {
 
     // --- Get by Artist ---
     @GetMapping(
-            path = "/Activity/artist/{id}",
+            path = "/artistactivity/artist/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Activity> getByArtist(
@@ -57,7 +57,7 @@ public class ActivityController {
 
     // --- Get by Band ---
     @GetMapping(
-            path = "/Activity/band/{id}",
+            path = "/artistactivity/band/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Activity> getByBand(
@@ -70,13 +70,13 @@ public class ActivityController {
     }
 /************************************************************************************/
 
-    @PostMapping(path = "/admin/Activity")
+    @PostMapping(path = "/admin/artistactivity")
     public ResponseEntity<Activity> create(@RequestBody @Valid @NotNull Activity activity) {
         ActivityService.save(activity);
         return ResponseEntity.ok().body(activity);
     }
 
-    @PutMapping(path = "/admin/Activity")
+    @PutMapping(path = "/admin/artistactivity")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Activity activity) {
         Optional<Activity> Activity1 = ActivityService.getById(activity.getId());
         if (Objects.nonNull(Activity1)) {
@@ -85,7 +85,7 @@ public class ActivityController {
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/admin/Activity/{id}")
+    @DeleteMapping("/admin/artistactivity/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         ActivityService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
