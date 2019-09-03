@@ -8,7 +8,7 @@ import musiccube.entities.Artist;
 import musiccube.entities.Activity;
 import musiccube.entities.Band;
 import musiccube.services.artist.ArtistService;
-import musiccube.services.artistactivity.ArtistActivityService;
+import musiccube.services.Activity.ActivityService;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +35,7 @@ public class LineupHandler {
     @Autowired
     private ArtistService artistService;
     @Autowired
-    private ArtistActivityService artistActivityService;
+    private ActivityService ActivityService;
     @Autowired
     private InstrumentHandler instrumentHandler;
     @Autowired
@@ -118,13 +118,13 @@ public class LineupHandler {
     }
 
     /*
-    Creates ArtistActivity object for given relation
+    Creates Activity object for given relation
      */
     private void signToBand(Artist artist, Band band, JSONObject relation) throws IOException {
         Activity activity = mapper.readValue(relation.toString(), Activity.class);
         activity.setArtist(artist);
         activity.setBand(band);
-        artistActivityService.save(activity);
+        ActivityService.save(activity);
         logger.info((new StringBuilder())
                 .append(ARTIST)
                 .append(artist.getStageName())

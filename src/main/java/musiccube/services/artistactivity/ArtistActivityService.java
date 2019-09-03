@@ -1,10 +1,10 @@
-package musiccube.services.artistactivity;
+package musiccube.services.Activity;
 
 import musiccube.entities.Activity;
 
 import java.util.Optional;
 
-public interface ArtistActivityService {
+public interface ActivityService {
 
     Optional<Activity> getById(int id);
     Iterable<Activity> getAll();

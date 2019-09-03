@@ -1,51 +1,51 @@
-package musiccube.services.artistactivity;
+package musiccube.services.Activity;
 
 import musiccube.entities.Activity;
-import musiccube.repositories.ArtistActivityRepository;
+import musiccube.repositories.ActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class ArtistActivityServiceImpl implements ArtistActivityService {
+public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
-    private ArtistActivityRepository artistActivityRepository;
+    private ActivityRepository ActivityRepository;
 
     @Override
     public Optional<Activity> getById(int id) {
-        return artistActivityRepository.findById(id);
+        return ActivityRepository.findById(id);
     }
     @Override
     public Iterable<Activity> getAll() {
-        return artistActivityRepository.findAll();
+        return ActivityRepository.findAll();
     }
     @Override
     public Activity save(Activity activity) {
-        return artistActivityRepository.save(activity);
+        return ActivityRepository.save(activity);
     }
     @Override
     public void delete(int id) {
-        artistActivityRepository.deleteById(id);
+        ActivityRepository.deleteById(id);
     }
 
     @Override
     public Iterable<Activity> getByArtistId(int artistId) {
-        return artistActivityRepository.findByArtistId(artistId);
+        return ActivityRepository.findByArtistId(artistId);
     }
     @Override
     public Iterable<Activity> getByBandId(int bandId) {
-        return artistActivityRepository.findByBandId(bandId);
+        return ActivityRepository.findByBandId(bandId);
     }
 
     @Override
     public Iterable<Activity> getByArtistIdIsActive(int artistId, boolean active) {
-        return artistActivityRepository.findByArtistIdIsActive(artistId,active);
+        return ActivityRepository.findByArtistIdIsActive(artistId,active);
     }
 
     @Override
     public Iterable<Activity> getByBandIdIsActive(int bandId, boolean active) {
-        return artistActivityRepository.findByBandIdIsActive(bandId,active);
+        return ActivityRepository.findByBandIdIsActive(bandId,active);
     }
 }

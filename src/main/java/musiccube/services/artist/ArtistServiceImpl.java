@@ -2,7 +2,7 @@ package musiccube.services.artist;
 
 import musiccube.entities.Artist;
 import musiccube.entities.Activity;
-import musiccube.repositories.ArtistActivityRepository;
+import musiccube.repositories.ActivityRepository;
 import musiccube.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +18,7 @@ public class ArtistServiceImpl implements ArtistService{
     @Autowired
     private ArtistRepository artistRepository;
     @Autowired
-    ArtistActivityRepository activityRepository;
+    ActivityRepository activityRepository;
 
     @Override
     public Optional<Artist> getById(int id) {

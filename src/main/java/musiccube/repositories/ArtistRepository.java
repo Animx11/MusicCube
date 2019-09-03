@@ -18,7 +18,7 @@ public interface ArtistRepository extends CrudRepository<Artist,Integer>, Paging
     boolean existsArtistByStageName(String stageName);
     boolean existsByMbId(String mbId);
 
-    @Query("SELECT DISTINCT aa.artist FROM ArtistActivity aa WHERE aa.band.id = :band " +
+    @Query("SELECT DISTINCT aa.artist FROM Activity aa WHERE aa.band.id = :band " +
             "AND aa.artist.origin.country.id = :country " +
             "AND aa.artist.id IN (SELECT ai.artist.id FROM ArtistInstrument ai WHERE ai.instrument.id=:instrument)"
     )
@@ -27,7 +27,7 @@ public interface ArtistRepository extends CrudRepository<Artist,Integer>, Paging
             @Param("country") int countryId,
             @Param("instrument") int instrumentId
     );
-    @Query("SELECT DISTINCT aa.artist FROM ArtistActivity aa WHERE aa.band.id = :band " +
+    @Query("SELECT DISTINCT aa.artist FROM Activity aa WHERE aa.band.id = :band " +
             "AND aa.artist.origin.id = :city " +
             "AND aa.artist.id IN (SELECT ai.artist.id FROM ArtistInstrument ai WHERE ai.instrument.id=:instrument)"
     )
@@ -36,17 +36,17 @@ public interface ArtistRepository extends CrudRepository<Artist,Integer>, Paging
             @Param("city") int cityId,
             @Param("instrument") int instrumentId
     );
-    @Query("SELECT DISTINCT aa.artist FROM ArtistActivity aa WHERE aa.band.id = :band AND aa.artist.origin.country.id = :country")
+    @Query("SELECT DISTINCT aa.artist FROM Activity aa WHERE aa.band.id = :band AND aa.artist.origin.country.id = :country")
     Iterable<Artist> findByBandAndCountry(
             @Param("band") int bandId,
             @Param("country") int countryId
     );
-    @Query("SELECT DISTINCT aa.artist FROM ArtistActivity aa WHERE aa.band.id = :band AND aa.artist.origin.id = :city")
+    @Query("SELECT DISTINCT aa.artist FROM Activity aa WHERE aa.band.id = :band AND aa.artist.origin.id = :city")
     Iterable<Artist> findByBandAndCity(
             @Param("band") int bandId,
             @Param("city") int cityId
     );
-    @Query("SELECT DISTINCT aa.artist FROM ArtistActivity aa WHERE aa.band.id = :band AND aa.artist.id IN (SELECT ai.artist.id FROM ArtistInstrument ai WHERE ai.instrument.id=:instrument)")
+    @Query("SELECT DISTINCT aa.artist FROM Activity aa WHERE aa.band.id = :band AND aa.artist.id IN (SELECT ai.artist.id FROM ArtistInstrument ai WHERE ai.instrument.id=:instrument)")
     Iterable<Artist> findByBandAndInstrument(
             @Param("band") int bandId,
             @Param("instrument") int instrumentId

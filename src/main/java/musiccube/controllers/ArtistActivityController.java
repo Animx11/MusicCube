@@ -1,7 +1,7 @@
 package musiccube.controllers;
 
 import musiccube.entities.Activity;
-import musiccube.services.artistactivity.ArtistActivityService;
+import musiccube.services.Activity.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,34 +16,34 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "${serverAddress}")
-public class ArtistActivityController {
+public class ActivityController {
 
     @Autowired
-    private ArtistActivityService artistActivityService;
+    private ActivityService ActivityService;
 
 /*************************** GET ***********************************/
     @GetMapping(
-            path = "/artistactivity/{id}",
+            path = "/Activity/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Activity> getById(@PathVariable("id") int id) {
-        Optional<Activity> activity = artistActivityService.getById(id);
+        Optional<Activity> activity = ActivityService.getById(id);
         return activity.isPresent() ?
                 ResponseEntity.ok(activity.get()) : 
                 ResponseEntity.notFound().build();
     }
 
     @GetMapping(
-            path = "/artistactivity",
+            path = "/Activity",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Activity> getAll() {
-        return artistActivityService.getAll();
+        return ActivityService.getAll();
     }
 
     // --- Get by Artist ---
     @GetMapping(
-            path = "/artistactivity/artist/{id}",
+            path = "/Activity/artist/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Activity> getByArtist(
@@ -51,13 +51,13 @@ public class ArtistActivityController {
             @RequestParam(name = "active", required = false) Boolean active // zwraca 400 bad request jeśli nie {true, false}
     ) {
         return active == null ?
-                artistActivityService.getByArtistId(artistId) :
-                artistActivityService.getByArtistIdIsActive(artistId, active);
+                ActivityService.getByArtistId(artistId) :
+                ActivityService.getByArtistIdIsActive(artistId, active);
     }
 
     // --- Get by Band ---
     @GetMapping(
-            path = "/artistactivity/band/{id}",
+            path = "/Activity/band/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Activity> getByBand(
@@ -65,29 +65,29 @@ public class ArtistActivityController {
             @RequestParam(name = "active", required = false) Boolean active
     ) {
         return active == null ?
-                artistActivityService.getByBandId(bandId) :
-                artistActivityService.getByBandIdIsActive(bandId, active);
+                ActivityService.getByBandId(bandId) :
+                ActivityService.getByBandIdIsActive(bandId, active);
     }
 /************************************************************************************/
 
-    @PostMapping(path = "/admin/artistactivity")
+    @PostMapping(path = "/admin/Activity")
     public ResponseEntity<Activity> create(@RequestBody @Valid @NotNull Activity activity) {
-        artistActivityService.save(activity);
+        ActivityService.save(activity);
         return ResponseEntity.ok().body(activity);
     }
 
-    @PutMapping(path = "/admin/artistactivity")
+    @PutMapping(path = "/admin/Activity")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Activity activity) {
-        Optional<Activity> artistActivity1 = artistActivityService.getById(activity.getId());
-        if (Objects.nonNull(artistActivity1)) {
-            artistActivityService.save(activity);
+        Optional<Activity> Activity1 = ActivityService.getById(activity.getId());
+        if (Objects.nonNull(Activity1)) {
+            ActivityService.save(activity);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping("/admin/artistactivity/{id}")
+    @DeleteMapping("/admin/Activity/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        artistActivityService.delete(id);
+        ActivityService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
