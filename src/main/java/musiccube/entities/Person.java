@@ -18,7 +18,7 @@ public class Person {
     protected int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "originid")
     protected City origin;
 
     @Column
