@@ -42,7 +42,7 @@ export class EditAlbumComponent implements OnInit {
     this.company = this.selectedAlbum.company;
     this.length = this.selectedAlbum.albumLengthSeconds;
     this.isEditSelected = true;
-    this.lengthInSecondsTodMinutesAndSeconds()
+    this.lengthInSecondsTodMinutesAndSeconds();
   }
   searchEventHandler($event) {
     this.selectedAlbum = null;

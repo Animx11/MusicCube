@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { BandService } from "src/app/Services/band.service";
-import { Band } from "src/app/Class/Band";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { BandService } from 'src/app/Services/band.service';
+import { Band } from 'src/app/Class/Band';
 
 @Component({
-  selector: "app-search-band",
-  templateUrl: "./search-band.component.html",
-  styleUrls: ["./search-band.component.css"]
+  selector: 'app-search-band',
+  templateUrl: './search-band.component.html',
+  styleUrls: ['./search-band.component.css']
 })
 export class SearchBandComponent implements OnInit {
   private searchOn: boolean;
@@ -41,7 +41,7 @@ export class SearchBandComponent implements OnInit {
 
 
   search(term: string): void {
-    if (term !== '' && term !== ' '){
+    if (term !== '' && term !== ' ') {
       this.searchTerms.next(term);
     }
   }

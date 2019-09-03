@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Album } from '../Class/Album';
 import { api_url } from '../Utils/API_URL';
+import {Song} from '../Class/Song';
+import {Genre} from '../Class/Genre';
 
 const apiUrl = api_url;
 
@@ -29,6 +31,22 @@ export class AlbumService {
   }
   list(): Observable<any> {
     return this.http.get(`${apiUrl}/album`);
+  }
+  advancedSearch(song: Song, genre: Genre, company: string): Observable<any> {
+    const songStr = song ? `song=${song.getSongName()}` : '';
+    const genreStr = genre ? `genre=${genre.getGenreName()}` : '';
+    const compStr = company ? `company=${company}` : '';
+    let amp1 = '';
+    let amp2 = '';
+    if (
+      songStr && (genre || company)
+    ) {
+      amp1 = '&';
+    }
+    if (genre && company) {
+      amp2 = '&';
+    }
+    return this.http.get(`${apiUrl}/album/advanced?${songStr}${amp1}${genreStr}${amp2}${compStr}`);
   }
 
   create(obj: Album): Observable<any> {

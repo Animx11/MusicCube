@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { AlbumService } from "src/app/Services/album.service";
-import { Album } from "src/app/Class/Album";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { AlbumService } from 'src/app/Services/album.service';
+import { Album } from 'src/app/Class/Album';
 
 @Component({
-  selector: "app-search-album",
-  templateUrl: "./search-album.component.html",
-  styleUrls: ["./search-album.component.css"]
+  selector: 'app-search-album',
+  templateUrl: './search-album.component.html',
+  styleUrls: ['./search-album.component.css']
 })
 export class SearchAlbumComponent implements OnInit {
 
@@ -39,7 +39,7 @@ export class SearchAlbumComponent implements OnInit {
   }
 
   search(term: string): void {
-    if (term !== '' && term !== ' '){
+    if (term !== '' && term !== ' ') {
       this.searchTerms.next(term);
     }
   }

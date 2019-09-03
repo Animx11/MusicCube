@@ -69,6 +69,19 @@ import { EditCityComponent } from './Components/City/edit-city/edit-city.compone
 import { EditInstrumentTypeComponent } from './Components/InstrumentType/edit-instrument-type/edit-instrument-type.component';
 import { SearchConcertComponent } from './Components/Concert/search-concert/search-concert.component';
 import { SearchArtistComponent } from './Components/Artist/search-artist/search-artist.component';
+import { AdvancedSearchComponent } from './Components/Search/advanced-search/advanced-search.component';
+import { AdvancedArtistComponent } from './Components/Search/advanced-artist/advanced-artist.component';
+import { AdvancedBandComponent } from './Components/Search/advanced-band/advanced-band.component';
+import { AdvancedAlbumComponent } from './Components/Search/advanced-album/advanced-album.component';
+import { AdvancedSongComponent } from './Components/Search/advanced-song/advanced-song.component';
+import { AdvancedGenreComponent } from './Components/Search/advanced-genre/advanced-genre.component';
+import { AdvancedInstrumentComponent } from './Components/Search/advanced-instrument/advanced-instrument.component';
+import { ArtistListDisplayComponent } from './Components/Artist/artist-list-display/artist-list-display.component';
+import { BandListDisplayComponent } from './Components/Band/band-list-display/band-list-display.component';
+import { SongListDisplayComponent } from './Components/Song/song-list-display/song-list-display.component';
+import { AlbumListDisplayComponent } from './Components/Album/album-list-display/album-list-display.component';
+import { GenreListDisplayComponent } from './Components/Genre/genre-list-display/genre-list-display.component';
+import { InstrumentListDisplayComponent } from './Components/Instrument/instrument-list-display/instrument-list-display.component';
 
 
 const ROUTES: Routes = [
@@ -233,6 +246,11 @@ const ROUTES: Routes = [
     component: SearchEngineMainComponent
   },
 
+  {
+    path: 'search/advanced',
+    component: AdvancedSearchComponent
+  },
+
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -295,6 +313,19 @@ const ROUTES: Routes = [
     EditInstrumentTypeComponent,
     SearchConcertComponent,
     SearchArtistComponent,
+    AdvancedSearchComponent,
+    AdvancedArtistComponent,
+    AdvancedBandComponent,
+    AdvancedAlbumComponent,
+    AdvancedSongComponent,
+    AdvancedGenreComponent,
+    AdvancedInstrumentComponent,
+    ArtistListDisplayComponent,
+    BandListDisplayComponent,
+    SongListDisplayComponent,
+    AlbumListDisplayComponent,
+    GenreListDisplayComponent,
+    InstrumentListDisplayComponent,
 
   ],
   imports: [
