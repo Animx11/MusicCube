@@ -22,6 +22,7 @@ import { SongInstrument } from 'src/app/Class/SongInstrument';
 export class AddSongComponent implements OnInit {
   private songName: string;
   private songLengthSeconds: number;
+  private trackNumber: number;
   private song: Song;
   private authorList: SongAuthorship[];
   private authorship: SongAuthorship;
@@ -38,6 +39,11 @@ export class AddSongComponent implements OnInit {
   private isAlbumSelected: boolean;
   private isGenreSelected: boolean;
 
+  
+  private minutes: number;
+  private seconds: number;
+  private toMandS: number;
+
 
 
   constructor(
@@ -51,7 +57,9 @@ export class AddSongComponent implements OnInit {
     this.song = new Song();
     this.authorList = [];
     this.instrumentList = [];
-
+    this.trackNumber = null;
+    this.seconds = 0;
+    this.minutes = 0;
 
     this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
     this.isBandSelected = this.isAlbumSelected = this.isGenreSelected = false;
@@ -59,6 +67,16 @@ export class AddSongComponent implements OnInit {
 
   resetClicked(){
     this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
+  }
+
+  albumLengthInSeconds(): boolean {
+    if(this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0){
+      return false;
+    }
+    else{
+      this.songLengthSeconds = 60 * this.minutes + this.seconds;
+      return true;
+    }
   }
 
   searchValue(value: boolean): boolean {
@@ -99,12 +117,15 @@ export class AddSongComponent implements OnInit {
   }
 
   addSong() {
-    if (this.songName === '' || this.songLengthSeconds === 0) {
+    if(!this.albumLengthInSeconds()) {
+      window.alert('Incorect song length');
+    }
+    else if (this.songName === '' || this.songLengthSeconds === 0) {
       window.alert('Dane są niekompletne i/lub nieprawidłowe');
     } else {
       this.song.setSongName(this.songName);
       this.song.setSongLengthSeconds(this.songLengthSeconds);
-
+      this.song.setTrackNumber(this.trackNumber);
       this.songService.create(this.song).subscribe(
         res => {
           console.log('add-song-component received:');

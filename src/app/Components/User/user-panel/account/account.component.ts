@@ -24,6 +24,12 @@ export class AccountComponent implements OnInit {
   newEmail: string;
   user: Users;
   userAccount: UserAccount;
+  
+  
+  roles: string[];
+  authority: string;
+  isLogged: boolean;
+
 
   isDeleteClicked: boolean;
   confirmPassword: string;
@@ -31,6 +37,23 @@ export class AccountComponent implements OnInit {
   constructor(private userService: UserService, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit() {
+
+    if (this.tokenStorageService.getToken()) {
+      this.isLogged = true;
+      this.roles = this.tokenStorageService.getAuthorities();
+      this.roles.forEach(role => {
+        if(role === 'ROLE_ADMIN'){
+          this.authority = 'admin';
+        }
+        else if(role === 'ROLE_MOD' && this.authority !== 'admin'){
+          this.authority = 'mod';
+        }
+        else if(role === 'ROLE_USER' && this.authority !== 'admin' && this.authority !== 'mod'){
+          this.authority = 'user';
+        }
+      });
+ 
+    }
 
     this.userName = '';
     this.oldPassword = '';

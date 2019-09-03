@@ -31,12 +31,12 @@
     <div class = "separateDiv">
       <button (click)="changePassword()">Change Password</button>
     </div><br>
-    <div class = "separateDiv">
+    <div class = "separateDiv" *ngIf="authority !== 'admin'">
         <div class = "textSeparateDiv"><i><b>Delete your account</b></i><br></div>
         <div class = "textSeparateDiv" *ngIf = "isDeleteClicked"><i>Type your password and then press button again</i><br></div>
         <input type = "password" name = "confirmPassword" class = "inputText" [(ngModel)]="confirmPassword" *ngIf = "isDeleteClicked"><br><br>
-      <button id = "deleteButton" (click)="deleteAccount()">Delete Account</button>
-    </div>
+        <button id = "deleteButton" (click)="deleteAccount()">Delete Account</button>
+      </div>
     </form>
   </div>
   

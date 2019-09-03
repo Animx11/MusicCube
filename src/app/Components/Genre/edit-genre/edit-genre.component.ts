@@ -73,14 +73,16 @@ export class EditGenreComponent implements OnInit {
       }
     );
   }
-/*
+
   update() {
-    if(this.cityName === this.selectedCity.cityName && this.city.getCountry() === this.selectedCity.country) {
+    if(this.genreName === this.selectedGenre.genreName && this.genre.getOrigin() === this.selectedGenre.origin && this.creationTime === this.selectedGenre.creationDate && this.aboutGenre === this.selectedGenre.aboutGenre) {
       window.alert('You need to do some changes before update');
     } else {
-      this.city.id = this.selectedCity.id;
-      this.city.setCityName(this.cityName);
-      this.cityService.edit(this.city).subscribe(
+      this.genre.id = this.selectedGenre.id;
+      this.genre.setGenreName(this.genreName);
+      this.genre.setCreationDate(this.creationTime);
+      this.genre.setAboutGenre(this.aboutGenre);
+      this.genreService.edit(this.genre).subscribe(
         res => {
           console.log(res);
           this.reset();
@@ -91,7 +93,7 @@ export class EditGenreComponent implements OnInit {
       );
     }
   }
-*/
+
   reset() {
     this.isEditSelected = false;
     this.selectedGenre = null;
