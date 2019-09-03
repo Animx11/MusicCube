@@ -18,6 +18,7 @@ public class UserFavorites {
     private int id;
 
     @OneToOne
+    @JoinColumn(referencedColumnName = "userid")
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)
