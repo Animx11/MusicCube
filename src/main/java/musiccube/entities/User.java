@@ -22,7 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    @Column(name = "userid")
+    @Column(name = "id")
     private int id;
 
     @Size(min = 3, max = 50)
@@ -42,7 +42,7 @@ public class User {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
-        joinColumns = @JoinColumn(referencedColumnName = "userid"),
+        joinColumns = @JoinColumn(referencedColumnName = "user_id"),
         inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
