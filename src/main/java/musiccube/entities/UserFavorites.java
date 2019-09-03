@@ -23,26 +23,26 @@ public class UserFavorites {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesSongs",
         joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(referencedColumnName = "songid"))
+        inverseJoinColumns = @JoinColumn(name = "song_id"))
     private Set<Song> favoriteSongs = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesAlbums",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "albumid"))
+            inverseJoinColumns = @JoinColumn(name = "album_id"))
     private Set<Album> favoriteAlbums = new HashSet<>();
 
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesBands",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "bandid"))
+            inverseJoinColumns = @JoinColumn(name = "band_id"))
     private Set<Band> favoriteBands = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userFavoritesArtist",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "personid"))
+            inverseJoinColumns = @JoinColumn(name = "person_id"))
     private Set<Artist> favoriteArtists = new HashSet<>();
 
 

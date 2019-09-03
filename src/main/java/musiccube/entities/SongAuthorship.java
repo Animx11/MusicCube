@@ -21,11 +21,11 @@ public class SongAuthorship {
     private boolean wroteMusic;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "songid")
+    @JoinColumn(name = "song_id")
     private Song song;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "personid")
+    @JoinColumn(name = "person_id")
     private Person author;
 
     public SongAuthorship() {}

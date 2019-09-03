@@ -12,11 +12,11 @@ public class BandConcert {
     private int id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "bandid")
+    @JoinColumn(name = "band_id")
     private Band band;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "concertid")
+    @JoinColumn(name = "concert_id")
     private Concert concert;
 
     public BandConcert() {}

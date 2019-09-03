@@ -12,11 +12,11 @@ public class SongInstrument{
     private int id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "songid")
+    @JoinColumn(name = "song_id")
     private Song song;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "instrumentid")
+    @JoinColumn(name = "instrument_id")
     private Instrument instrument;
 
     public SongInstrument() {}

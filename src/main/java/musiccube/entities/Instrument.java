@@ -11,7 +11,7 @@ public class Instrument {
 
     @Id
     @GeneratedValue
-    @Column(name = "instrumentid")
+    @Column(name = "id")
     private int id;
 
     @Column(unique = true)
@@ -21,7 +21,7 @@ public class Instrument {
     private String aboutInstrument;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "instrumenttypeid")
+    @JoinColumn(name = "instrument_type_id")
     private InstrumentType instrumentType;
 
     public Instrument() {}

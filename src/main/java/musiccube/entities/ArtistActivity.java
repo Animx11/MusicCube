@@ -18,11 +18,11 @@ public class ArtistActivity {
     private int id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "personid")
+    @JoinColumn(name = "person_id")
     private Artist artist;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "bandid")
+    @JoinColumn(name = "band_id")
     private Band band;
 
     @Column

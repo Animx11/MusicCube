@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Rate {
 
     @Id
-    @Column(name = "rateid")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -16,19 +16,19 @@ public class Rate {
     private User user;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "songid")
+    @JoinColumn(name = "song_id")
     private Song song;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "albumid")
+    @JoinColumn(name = "album_id")
     private Album album;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "bandid")
+    @JoinColumn(name = "band_id")
     private Band band;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "personid")
+    @JoinColumn(name = "person_id")
     private Artist artist;
 
     @Column
