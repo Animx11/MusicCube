@@ -18,7 +18,7 @@ public class Concert {
     private String concertName;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
+    @JoinColumn(name = "concert_city_id")
     private City concertCity;
 
 

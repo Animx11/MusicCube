@@ -15,7 +15,7 @@ public class Genre {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "country_id")
+    @JoinColumn(name = "origin_id")
     private Country origin;
 
     @Column(unique = true)

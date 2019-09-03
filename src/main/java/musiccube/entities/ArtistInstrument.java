@@ -12,7 +12,7 @@ public class ArtistInstrument {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id")
+    @JoinColumn(name = "artist_id")
     private Artist artist;
 
     @ManyToOne

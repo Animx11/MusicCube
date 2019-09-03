@@ -27,7 +27,7 @@ public class Band {
     private String mbId;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
+    @JoinColumn(name = "formed_in_id")
     private City formedIn;
 
     public Band() {}
