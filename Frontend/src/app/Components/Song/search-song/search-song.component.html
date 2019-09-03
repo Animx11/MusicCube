@@ -1,0 +1,40 @@
+<!--
+<button (click)="toggleSearch()">Search in songs</button
+><button (click)="getAll()">Get all songs</button>
+<div *ngIf="searchOn">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..."/>
+</div>
+<div *ngIf="listOn" class="listDisplay">
+  <ul>
+    <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
+      {{ song.songName }}
+    </li>
+  </ul>
+</div>
+<div *ngIf="pageOn">
+  <div>Showing page {{pageNr+1}} of {{pageCount}}</div>
+  <span *ngIf="pageNr > 0" class="pagingOpts" (click)="prevPage()">Previous page</span>
+  <span class="pagingOpts" (click)="nextPage()">Next page</span>
+  <span class="pagingOpts" (click)="setSize(5)">5</span>
+  <span class="pagingOpts" (click)="setSize(10)">10</span>
+  <span class="pagingOpts" (click)="setSize(20)">20</span>
+  <span class="pagingOpts" (click)="setSize(50)">50</span>
+  <span class="pagingOpts" (click)="setSize(100)">100</span>
+  <li *ngFor="let song of songPage" (click)="onSelect(song)">
+    {{ song.songName }}
+  </li>
+</div>
+-->
+
+<div *ngIf = "!isToEditSelected">
+    <b><i>Find song that you want to edit/delete:</i></b>
+    <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..." />
+    <div class="listDisplay">
+      <ul>
+        <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
+          {{ song.songName }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

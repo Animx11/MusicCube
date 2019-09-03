@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+.down70px {
+  position: relative;
+  top: 70px;
+}
+.contentDisplay {
+  position: relative;
+  top: 50px;
+}
+span.pagingOpts {
+  margin: 10px;
+  color: brown;
+}
+span.pagingOpts:hover {
+  cursor: pointer;
+}
+.listDisplay {
+  width: 50%;
+  height: 100px;
+  overflow: scroll;
+}
+.listDisplay ul {
+  height: 80%;
+  overflow: auto;
+}

@@ -1,0 +1,12 @@
+
+<div>
+    <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..."/>
+  </div>
+  <div class="listDisplay">
+    <ul>
+      <li *ngFor="let instrument of (instruments$ | async)" (click)="onSelect(instrument)">
+        {{ instrument.instrumentName }}
+      </li>
+    </ul>
+  </div>
+  

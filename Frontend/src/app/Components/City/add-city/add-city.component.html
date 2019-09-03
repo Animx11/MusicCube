@@ -1,0 +1,24 @@
+<div id="CRUD">
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>City Name:</i><br></div>
+          <input type = "text" name = "cityName" [(ngModel)]="cityName" class = "inputText" required >
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Origin: <div *ngIf = "isCountrySelected">{{ city.country.countryName }}</div></i><br></div>
+            <button (click)="searchCountry()">Set Country</button>
+        </div><br>
+        <div class = "separateDiv">
+            <button (click)="addCity()" [disabled]="!profileForm.valid">Add New City</button>
+        </div><br>
+    </form>
+  </div>
+  <div id = "searchPlace" *ngIf = "isCountryClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search Country:</i><br></div>
+        <app-search-country (countryEvent)="countryEventHandler($event)"></app-search-country>
+      </div><br>
+  </div>
+
+</div>

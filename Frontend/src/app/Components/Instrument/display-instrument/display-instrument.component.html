@@ -1,0 +1,5 @@
+<div *ngIf="instrument" class="contentDisplay">
+  <h4>{{instrument.instrumentName| titlecase}}</h4>
+  <h5 *ngIf="instrument.instrumentType">Type: {{instrument.instrumentType.instrumentTypeName}}</h5>
+  {{instrument.about}}
+</div>

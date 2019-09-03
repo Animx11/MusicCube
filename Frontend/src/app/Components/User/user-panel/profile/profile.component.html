@@ -1,0 +1,27 @@
+<div id = "centerDiv">
+    <div id = "head">Public Profile</div>
+    <br>
+    <form id = "profileForm">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>First Name:</i><br></div>
+        <input type = "text" name = "firstName" [(ngModel)]="firstName" class = "inputText" >
+      </div><br>
+      <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Last Name:</i><br></div>
+        <input type = "text" name = "lastName" class = "inputText" [(ngModel)]="lastName">
+      </div><br>
+      <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Birthdate:</i> {{birthDate | date:'dd.MM.yyyy'}}<br></div>
+        <input type = "date" name = "birthDate" class = "inputDate" [(ngModel)]="birthDate">
+    </div><br>
+    <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>About You:</i><br></div>
+        <textarea type="text" name = "aboutUser" id = "inputAbout" [(ngModel)]="aboutUser"></textarea>
+      </div><br>
+    <div class = "separateDiv">
+      <button (click)="updateProfile()">Update Profil</button>
+    </div>
+    </form>
+  </div>
+  
+  

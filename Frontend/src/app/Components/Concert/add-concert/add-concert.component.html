@@ -1,0 +1,32 @@
+
+<div id="CRUD">
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Concert Name:</i><br></div>
+          <input type = "text" name = "concertName" [(ngModel)]="concertName" class = "inputText" required >
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Event Date:</i><br></div>
+            <input type = "date" name = "date" [(ngModel)]="startTime" class = "inputText" required><br />
+            <input type = "number" name = "hour" [(ngModel)]="hour" class = "inputTime" min="0" max="23">:
+            <input type = "number" name = "minutes" [(ngModel)]="minutes" class = "inputTime" max = "59" min="0">
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>City:<div *ngIf = "isCitySelected"> {{ concert.concertCity.cityName }}</div></i><br></div>
+            <button (click)="searchCity()">Set Concert Place</button>
+        </div><br>
+        <div class = "separateDiv">
+            <button (click)="addConcert()" [disabled]="!profileForm.valid">Add New Concert</button>
+        </div><br>
+    </form>
+  </div>
+  <div id = "searchPlace" *ngIf = "isCityClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search City:</i><br></div>
+        <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
+      </div><br>
+  </div>
+
+</div>
+

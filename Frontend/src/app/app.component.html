@@ -1,0 +1,25 @@
+
+  <div id = "navigationPanel">
+
+  <div class = "navigator">News</div>
+  <a routerLink="/search"><div class = "navigator">Search</div></a>
+  <div class = "navigator">Rankings</div>
+  <div class = "navigator">Contact</div>
+  <div class = "navigator">Events</div>
+  <div class = "navigator">Reviews</div>
+  <div class = "navigator">Music Videos</div>
+  <div class = "navigator">Forum</div>
+
+
+  </div>
+
+  
+  <div id = "loginPanel">
+    <a routerLink = "SignIn" routerLinkActive = "active"><div class = "signNavigator" *ngIf="isLogged === false">Sign in</div></a>
+    <a routerLink = "SignUp" routerLinkActive = "active"><div class = "signNavigator" *ngIf="isLogged === false">Sign up</div></a>
+    <a routerLink = "UserPanel" routerLinkActive = "active"><div class="signNavigator" *ngIf="authority === 'user'">User Panel</div></a>
+    <a routerLink = "AdminPanel" routerLinkActive = "active"> <div class="signNavigator" *ngIf="authority === 'admin'">Admin Panel</div></a>
+    <div class="signNavigator" *ngIf="isLogged === true" (click)="signOut()">Sign Out</div>
+  </div>
+
+<router-outlet></router-outlet>

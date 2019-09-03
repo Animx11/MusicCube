@@ -1,0 +1,53 @@
+
+#head{
+    width: 95%;
+    padding-top: 11px;
+    margin-left: 3%;
+    height: 30px;
+    padding-left: 2%;
+    text-align: left;
+    background: #d9edff;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #f0f0f0;
+
+}
+#profileForm{
+    padding-left: 3%;
+    width: 50%;
+
+}
+
+.separateDiv{
+    padding-top: 5%;
+    text-align: left;
+    padding-left: 1%;
+}
+
+.inputText{
+    width: 60%;
+    height: 20px;
+    border-color: #f9f9f9;
+
+}
+.inputDate{
+    width: 60%;
+    height: 20px;
+    border-color: #f9f9f9;
+
+}
+
+.textSeparateDiv{
+    padding-left: 1%;
+    padding-bottom: 5px;
+}
+
+#inputAbout{
+    width: 60%;
+    height: 100px;
+    border-color: #f9f9f9;
+
+}
+
+
+

@@ -1,0 +1,116 @@
+
+<div id = 'marginLeft'>
+</div>
+
+  <div id = 'adminPanel'>
+    <div class = 'navigator' id = 'notClickable'>Admin Panel</div>
+    <div class = 'navigator' *ngIf="!isShowRecordClicked">Manage Users</div>
+    <div class = 'navigator' (click)="isShowRecordClicked = swichMainValue(isShowRecordClicked)" *ngIf="!isShowRecordClicked">Manage Records</div>
+    <div class = 'navigator' (click)="userPanel()" *ngIf="!isShowRecordClicked">Manage Your Account</div>  
+    <div class = 'navigator' (click)="resetValues()" *ngIf="isShowRecordClicked">Back</div>
+    <div class = 'navigator' (click)="isSongClicked = switchRecordValue(isSongClicked)" *ngIf="isShowRecordClicked">Song</div>
+    <div class = 'navigator' (click)="isBandClicked = switchRecordValue(isBandClicked)" *ngIf="isShowRecordClicked">Band</div>
+    <div class = 'navigator' (click)="isAlbumClicked = switchRecordValue(isAlbumClicked)" *ngIf="isShowRecordClicked">Album</div>
+    <div class = 'navigator' (click)="isPersonClicked = switchRecordValue(isPersonClicked)" *ngIf="isShowRecordClicked">Person</div>
+    <div class = 'navigator' (click)="isConcertClicked = switchRecordValue(isConcertClicked)" *ngIf="isShowRecordClicked">Concert</div>
+    <div class = 'navigator' (click)="isGenreClicked = switchRecordValue(isGenreClicked)" *ngIf="isShowRecordClicked">Genre</div>
+    <div class = 'navigator' (click)="isInstrumentClicked = switchRecordValue(isInstrumentClicked)" *ngIf="isShowRecordClicked">Instrument</div>
+    <div class = 'navigator' (click)="isInstrumentTypeClicked = switchRecordValue(isInstrumentTypeClicked)" *ngIf="isShowRecordClicked">Instrument Type</div>
+    <div class = 'navigator' (click)="isCityClicked = switchRecordValue(isCityClicked)" *ngIf="isShowRecordClicked">City</div>
+    <div class = 'navigator' (click)="isCountryClicked = switchRecordValue(isCountryClicked)" *ngIf="isShowRecordClicked">Country</div>
+
+  </div>
+    <div id = 'routerOutlet'>
+        <div id = "head" *ngIf="showHead">
+
+            <div class="adminComponentPanel" *ngIf="isSongClicked">
+              <div class="adminComponentNavigator" (click) = "isSongAddClicked = switchOptionValue(isSongAddClicked)">Add New Song</div>
+              <div class="adminComponentNavigator" (click) = "isSongEditClicked = switchOptionValue(isSongEditClicked)">Edit/Delete Song</div>
+            </div>
+
+              <div class="adminComponentPanel" *ngIf="isBandClicked">
+                <div class="adminComponentNavigator" (click) = "isBandAddClicked = switchOptionValue(isBandAddClicked)">Add New Band</div>
+                <div class="adminComponentNavigator" (click) = "isBandEditClicked = switchOptionValue(isBandEditClicked)">Edit/Delete Band</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isAlbumClicked">
+                <div class="adminComponentNavigator" (click) = "isAlbumAddClicked = switchOptionValue(isAlbumAddClicked)">Add New Album</div>
+                <div class="adminComponentNavigator" (click) = "isAlbumEditClicked = switchOptionValue(isAlbumEditClicked)">Edit/Delete Album</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isPersonClicked">
+                <div class="adminComponentNavigator" (click) = "isPersonAddClicked = switchOptionValue(isPersonAddClicked)">Add New Person</div>
+                <div class="adminComponentNavigator" (click) = "isPersonEditClicked = switchOptionValue(isPersonEditClicked)">Edit/Delete Person</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isConcertClicked">
+                <div class="adminComponentNavigator" (click) = "isConcertAddClicked = switchOptionValue(isConcertAddClicked)">Add New Concert</div>
+                <div class="adminComponentNavigator" (click) = "isConcertEditClicked = switchOptionValue(isConcertEditClicked)">Edit/Delete Concert</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isGenreClicked">
+                  <div class="adminComponentNavigator" (click) = "isGenreAddClicked = switchOptionValue(isGenreAddClicked)">Add New Genre</div>
+                  <div class="adminComponentNavigator" (click) = "isGenreEditClicked = switchOptionValue(isGenreEditClicked)">Edit/Delete Genre</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isInstrumentClicked">
+                <div class="adminComponentNavigator" (click) = "isInstrumentAddClicked = switchOptionValue(isInstrumentAddClicked)">Add New Instrument</div>
+                <div class="adminComponentNavigator" (click) = "isInstrumentEditClicked = switchOptionValue(isInstrumentEditClicked)">Edit/Delete Instrument</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isInstrumentTypeClicked">
+                <div class="adminComponentNavigator" (click) = "isInstrumentTypeAddClicked = switchOptionValue(isInstrumentTypeAddClicked)">Add New Instrument Type</div>
+                <div class="adminComponentNavigator" (click) = "isInstrumentTypeEditClicked = switchOptionValue(isInstrumentTypeEditClicked)">Edit/Delete Instrument Type</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isCityClicked">
+                  <div class="adminComponentNavigator" (click) = "isCityAddClicked = switchOptionValue(isCityAddClicked)">Add New City</div>
+                  <div class="adminComponentNavigator" (click) = "isCityEditClicked = switchOptionValue(isCityEditClicked)">Edit/Delete City</div>
+              </div>
+
+              <div class="adminComponentPanel" *ngIf="isCountryClicked">
+                  <div class="adminComponentNavigator" (click) = "isCountryAddClicked = switchOptionValue(isCountryAddClicked)">Add New Country</div>
+                  <div class="adminComponentNavigator" (click) = "isCountryEditClicked = switchOptionValue(isCountryEditClicked)">Edit/Delete Country</div>
+              </div>
+        </div>
+
+        <app-add-song *ngIf = "isSongAddClicked"></app-add-song>
+        <app-edit-song *ngIf = "isSongEditClicked"></app-edit-song>
+
+        <app-add-band *ngIf = "isBandAddClicked"></app-add-band>
+        <app-edit-band *ngIf = "isBandEditClicked"></app-edit-band>
+
+        <app-add-album *ngIf = "isAlbumAddClicked"></app-add-album>
+        <app-edit-album *ngIf = "isAlbumEditClicked"></app-edit-album>
+
+        <!--TODO Zamiast artist zrób tu person-->
+
+        <app-add-artist *ngIf = "isPersonAddClicked"></app-add-artist>
+        <app-edit-artist *ngIf = "isPersonEditClicked"></app-edit-artist>
+
+        <app-add-concert *ngIf = "isConcertAddClicked"></app-add-concert>
+        <app-edit-concert *ngIf = "isConcertEditClicked"></app-edit-concert>
+
+        <app-add-genre *ngIf = "isGenreAddClicked"></app-add-genre>
+        <app-edit-genre *ngIf = "isGenreEditClicked"></app-edit-genre>
+        
+        <app-add-instrument *ngIf = "isInstrumentAddClicked"></app-add-instrument>
+        <app-edit-instrument *ngIf = "isInstrumentEditClicked"></app-edit-instrument>
+
+        <app-add-instrument-type *ngIf = "isInstrumentTypeAddClicked"></app-add-instrument-type>
+        <app-edit-instrument-type *ngIf = "isInstrumentTypeEditClicked"></app-edit-instrument-type>
+
+        <app-add-city *ngIf = "isCityAddClicked"></app-add-city>
+        <app-edit-city *ngIf = "isCityEditClicked"></app-edit-city>
+
+        <app-add-country *ngIf = "isCountryAddClicked"></app-add-country>
+        <app-edit-country *ngIf = "isCountryEditClicked"></app-edit-country>
+
+      <router-outlet></router-outlet>
+    </div>
+
+<div id = 'marginRight'>
+</div>
+
+
+

@@ -1,0 +1,10 @@
+<div>
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..." />
+  <div class="listDisplay">
+    <ul>
+      <li *ngFor="let band of (bands$ | async)" (click)="onSelect(band)">
+        {{ band.bandName }}
+      </li>
+    </ul>
+  </div>
+</div>

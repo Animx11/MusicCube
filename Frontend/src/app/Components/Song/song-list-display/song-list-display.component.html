@@ -1,0 +1,16 @@
+<table *ngIf="list && list.length">
+  <thead>
+  <tr>
+    <th>
+      Song
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let song of list">
+    <td>
+      <a routerLink="/song/{{song.id}}">{{song.songName}}</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

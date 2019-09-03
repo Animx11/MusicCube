@@ -1,0 +1,25 @@
+
+<div id="CRUD">
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Instrument Name:</i><br></div>
+          <input type = "text" name = "instrumentName" [(ngModel)]="instrumentName" class = "inputText" required >
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Instrument Type: <div *ngIf = "isInstrumentTypeSelected">{{ instrument.instrumentType.instrumentTypeName }}</div></i><br></div>
+            <button (click)="searchInstrumentType()">Set Type</button>
+        </div><br>
+        <div class = "separateDiv">
+            <button (click)="addInstrument()" [disabled]="!profileForm.valid">Add New Instrument</button>
+        </div><br>
+    </form>
+  </div>
+  <div id = "searchPlace" *ngIf = "isInstrumentTypeClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search Instrument Type:</i><br></div>
+        <app-search-instrument-type (instrumentTypeEvent)="instrumentTypeEventHandler($event)"></app-search-instrument-type>
+      </div><br>
+  </div>
+
+</div>

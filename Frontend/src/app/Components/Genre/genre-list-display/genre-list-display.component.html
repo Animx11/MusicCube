@@ -1,0 +1,16 @@
+<table *ngIf="list && list.length">
+  <thead>
+  <tr>
+    <th>
+      Genre
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let genre of list">
+    <td>
+      <a routerLink="/genre/{{genre.id}}">{{genre.genreName}}</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
