@@ -12,7 +12,7 @@ public class Rate {
     private int id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "userid")
+    @JoinColumn(referencedColumnName = "user_id")
     private User user;
 
     @ManyToOne
