@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Table
-public class ArtistActivity {
+public class Activity {
 
     @Id
     @GeneratedValue
@@ -37,9 +37,9 @@ public class ArtistActivity {
     @Column(length = 1024)
     private String[] roles;
 
-    public ArtistActivity() {}
+    public Activity() {}
 
-    public ArtistActivity(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String[] roles) {
+    public Activity(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String[] roles) {
         this.artist = artist;
         this.band = band;
         this.activityStart = activityStart;

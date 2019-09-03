@@ -1,19 +1,19 @@
 package musiccube.services.artistactivity;
 
-import musiccube.entities.ArtistActivity;
+import musiccube.entities.Activity;
 
 import java.util.Optional;
 
 public interface ArtistActivityService {
 
-    Optional<ArtistActivity> getById(int id);
-    Iterable<ArtistActivity> getAll();
-    ArtistActivity save(ArtistActivity artistActivity);
+    Optional<Activity> getById(int id);
+    Iterable<Activity> getAll();
+    Activity save(Activity activity);
     void delete(int id);
 
-    Iterable<ArtistActivity> getByArtistId(int artistId);
-    Iterable<ArtistActivity> getByBandId(int bandId);
-    Iterable<ArtistActivity> getByArtistIdIsActive(int artistId, boolean active);
-    Iterable<ArtistActivity> getByBandIdIsActive(int bandId, boolean active);
+    Iterable<Activity> getByArtistId(int artistId);
+    Iterable<Activity> getByBandId(int bandId);
+    Iterable<Activity> getByArtistIdIsActive(int artistId, boolean active);
+    Iterable<Activity> getByBandIdIsActive(int bandId, boolean active);
 
 }

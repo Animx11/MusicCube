@@ -1,6 +1,6 @@
 package musiccube.controllers;
 
-import musiccube.entities.ArtistActivity;
+import musiccube.entities.Activity;
 import musiccube.services.artistactivity.ArtistActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +26,8 @@ public class ArtistActivityController {
             path = "/artistactivity/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<ArtistActivity> getById(@PathVariable("id") int id) {
-        Optional<ArtistActivity> activity = artistActivityService.getById(id);
+    public ResponseEntity<Activity> getById(@PathVariable("id") int id) {
+        Optional<Activity> activity = artistActivityService.getById(id);
         return activity.isPresent() ?
                 ResponseEntity.ok(activity.get()) : 
                 ResponseEntity.notFound().build();
@@ -37,7 +37,7 @@ public class ArtistActivityController {
             path = "/artistactivity",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Iterable<ArtistActivity> getAll() {
+    public Iterable<Activity> getAll() {
         return artistActivityService.getAll();
     }
 
@@ -46,7 +46,7 @@ public class ArtistActivityController {
             path = "/artistactivity/artist/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Iterable<ArtistActivity> getByArtist(
+    public Iterable<Activity> getByArtist(
             @PathVariable("id") int artistId,
             @RequestParam(name = "active", required = false) Boolean active // zwraca 400 bad request jeśli nie {true, false}
     ) {
@@ -60,7 +60,7 @@ public class ArtistActivityController {
             path = "/artistactivity/band/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Iterable<ArtistActivity> getByBand(
+    public Iterable<Activity> getByBand(
             @PathVariable("id") int bandId,
             @RequestParam(name = "active", required = false) Boolean active
     ) {
@@ -71,14 +71,14 @@ public class ArtistActivityController {
 /************************************************************************************/
 
     @PostMapping(path = "/admin/artistactivity")
-    public ResponseEntity<ArtistActivity> create(@RequestBody @Valid @NotNull ArtistActivity activity) {
+    public ResponseEntity<Activity> create(@RequestBody @Valid @NotNull Activity activity) {
         artistActivityService.save(activity);
         return ResponseEntity.ok().body(activity);
     }
 
     @PutMapping(path = "/admin/artistactivity")
-    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull ArtistActivity activity) {
-        Optional<ArtistActivity> artistActivity1 = artistActivityService.getById(activity.getId());
+    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Activity activity) {
+        Optional<Activity> artistActivity1 = artistActivityService.getById(activity.getId());
         if (Objects.nonNull(artistActivity1)) {
             artistActivityService.save(activity);
             return new ResponseEntity<>(HttpStatus.CREATED);

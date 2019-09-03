@@ -1,7 +1,7 @@
 package musiccube.services.artist;
 
 import musiccube.entities.Artist;
-import musiccube.entities.ArtistActivity;
+import musiccube.entities.Activity;
 import musiccube.repositories.ArtistActivityRepository;
 import musiccube.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -91,7 +90,7 @@ public class ArtistServiceImpl implements ArtistService{
         } else if(cityId.isPresent() && instrumentId.isPresent()) {
             return artistRepository.findByCityAndInstrument(cityId.get(), instrumentId.get());
         } else if(bandId.isPresent()) {
-            return ((ArrayList<ArtistActivity>) activityRepository.findByBandId(bandId.get()))
+            return ((ArrayList<Activity>) activityRepository.findByBandId(bandId.get()))
                     .stream()
                     .map(activity -> activity.getArtist())
                     .collect(Collectors.toList());

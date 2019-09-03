@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import musiccube.deserializers.ArtistDeserializer;
 import musiccube.deserializers.ArtistInBandDeserializer;
 import musiccube.entities.Artist;
-import musiccube.entities.ArtistActivity;
+import musiccube.entities.Activity;
 import musiccube.entities.Band;
 import musiccube.services.artist.ArtistService;
 import musiccube.services.artistactivity.ArtistActivityService;
@@ -44,7 +44,7 @@ public class LineupHandler {
     private LineupHandler() {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Artist.class, new ArtistDeserializer());
-        module.addDeserializer(ArtistActivity.class, new ArtistInBandDeserializer());
+        module.addDeserializer(Activity.class, new ArtistInBandDeserializer());
         mapper.registerModule(module);
     }
     public static LineupHandler getInstance() {
@@ -121,10 +121,10 @@ public class LineupHandler {
     Creates ArtistActivity object for given relation
      */
     private void signToBand(Artist artist, Band band, JSONObject relation) throws IOException {
-        ArtistActivity artistActivity = mapper.readValue(relation.toString(), ArtistActivity.class);
-        artistActivity.setArtist(artist);
-        artistActivity.setBand(band);
-        artistActivityService.save(artistActivity);
+        Activity activity = mapper.readValue(relation.toString(), Activity.class);
+        activity.setArtist(artist);
+        activity.setBand(band);
+        artistActivityService.save(activity);
         logger.info((new StringBuilder())
                 .append(ARTIST)
                 .append(artist.getStageName())
