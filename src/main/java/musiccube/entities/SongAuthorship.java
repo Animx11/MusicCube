@@ -25,7 +25,7 @@ public class SongAuthorship {
     private Song song;
 
     @ManyToOne
-    @JoinColumn(name = "person", referencedColumnName = "personid")
+    @JoinColumn(name = "person", referencedColumnName = "_id")
     private Person author;
 
     public SongAuthorship() {}
