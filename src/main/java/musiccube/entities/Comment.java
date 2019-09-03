@@ -8,28 +8,28 @@ import java.util.Date;
 public class Comment {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "commentid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "userid")
     private User user;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "songid")
     private Song song;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "albumid")
     private Album album;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "bandid")
     private Band band;
 
     @ManyToOne
-    @JoinColumn(name = "artist", referencedColumnName = "_id")
+    @JoinColumn(referencedColumnName = "personid")
     private Artist artist;
 
     @Column

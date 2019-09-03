@@ -12,7 +12,7 @@ public class Album {
 
     @Id
     @GeneratedValue
-    @Column
+    @Column(name = "albumid")
     private int id;
 
     @Column

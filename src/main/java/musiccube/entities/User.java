@@ -14,7 +14,7 @@ import java.util.Set;
 @Table(
         name = "SystemUsers",
         uniqueConstraints = {
-            @UniqueConstraint(columnNames = {"id"})
+            @UniqueConstraint(columnNames = {"userid"})
         }
 )
 public class User {
@@ -22,7 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    @Column(name = "id")
+    @Column(name = "userid")
     private int id;
 
     @Size(min = 3, max = 50)
@@ -42,7 +42,7 @@ public class User {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
-        joinColumns = @JoinColumn(referencedColumnName = "id"),
+        joinColumns = @JoinColumn(referencedColumnName = "userid"),
         inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 

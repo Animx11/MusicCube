@@ -8,7 +8,7 @@ import java.util.Date;
 public class Concert {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "concertid")
     private int id;
 
     @Column
@@ -18,7 +18,7 @@ public class Concert {
     private String concertName;
 
     @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "cityid")
     private City concertCity;
 
 

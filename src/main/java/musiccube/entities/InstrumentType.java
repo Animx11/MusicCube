@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class InstrumentType {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "instrumenttypeid")
     @GeneratedValue
     private int id;
 
