@@ -42,7 +42,7 @@ public class User {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
-        joinColumns = @JoinColumn(referencedColumnName = "user_id"),
+        joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
