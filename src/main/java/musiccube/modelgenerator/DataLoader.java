@@ -1,13 +1,12 @@
 package musiccube.modelgenerator;
 
 import musiccube.entities.Band;
+import musiccube.services.band.BandService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Map;
 
@@ -50,17 +49,17 @@ public class DataLoader {
         }
 
         iterations += offset;
-        logger.info("Fetching bands from "+offset+" to "+iterations);
+        logger.info("Fetching bands from "+offset+" to "+(iterations-1));
 
-        for (int i=offset;i < iterations;i++) {
-            logger.info("\nProcessing band "+i);
-            Band band = bandHandler.getBand(i);
+        for (;offset < iterations;offset++) {
+            logger.info("\nProcessing band "+offset);
+            Band band = bandHandler.getBand(offset);
             if (band != null) {
                 lineupHandler.getLineup(band);
                 discographyHandler.getAlbums(band);
             }
             else
-                logger.warn("Band (offset: "+i+") json lacking important fields, ignoring.");
+                logger.warn("Skipping band "+offset);
         }
         return ResponseEntity.ok("Model generated.");
     }

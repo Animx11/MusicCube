@@ -18,6 +18,7 @@ public class InstrumentServiceImpl implements InstrumentService {
     public Optional<Instrument> getById(int id) {
         return instrumentRepository.findById(id);
     }
+
     @Override
     public Iterable<Instrument> getAll() {
         return instrumentRepository.findAll();
@@ -32,6 +33,7 @@ public class InstrumentServiceImpl implements InstrumentService {
     public Instrument save(Instrument instrument) {
         return instrumentRepository.save(instrument);
     }
+
     @Override
     public void delete(int id) {
         instrumentRepository.deleteById(id);
@@ -41,8 +43,16 @@ public class InstrumentServiceImpl implements InstrumentService {
     public Iterable<Instrument> getByInstrumentName(String instrumentName) { return instrumentRepository.findByInstrumentName(instrumentName); }
 
     @Override
+    public Iterable<Instrument> getByInstrumentType(String instrumentTypeName) { return instrumentRepository.findByInstrumentType(instrumentTypeName); }
+
+
+    @Override
     public boolean existsByInstrumentName(String instrumentName){
         return instrumentRepository.existsByInstrumentName(instrumentName);
     }
 
+    @Override
+    public Instrument getOneByName(String name) {
+        return instrumentRepository.findOneByInstrumentName(name);
+    }
 }

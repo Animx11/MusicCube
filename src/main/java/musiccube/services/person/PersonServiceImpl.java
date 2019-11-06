@@ -1,5 +1,6 @@
 package musiccube.services.person;
 
+import musiccube.entities.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
@@ -41,4 +42,21 @@ public class PersonServiceImpl implements PersonService{
     public Iterable<Person> getByLastName(String lastName) {
         return personRepository.findByLastName(lastName);
     }
+
+    @Override
+    public Iterable<Person> getByLastNameOrFristNames(String lastName) {
+        return personRepository.findByLastNameOrFristNames(lastName);
+    }
+
+
+    @Override
+    public Iterable<Person> getByCity(String cityName) {
+        return personRepository.findByCity(cityName);
+    }
+
+    @Override
+    public Iterable<Artist> getByAnything(String input) {
+        return personRepository.findByAnything(input);
+    }
+
 }

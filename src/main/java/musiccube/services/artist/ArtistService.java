@@ -13,9 +13,17 @@ public interface ArtistService {
     void delete(int id);
 
     Iterable<Artist> getByStageName(String stageName);
+    Iterable<Artist> getByCity(String cityName);
     Iterable<Artist> getByAnything(String input);
     Artist getByMbId(String mbId);
 
     boolean existsByMbId(String mbId);
+
+    Iterable<Artist> advancedSearch(
+            Optional<Integer> band,
+            Optional<Integer> country,
+            Optional<Integer> city,
+            Optional<Integer> instrument
+    );
 
 }

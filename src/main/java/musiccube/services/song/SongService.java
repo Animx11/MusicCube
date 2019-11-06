@@ -14,7 +14,10 @@ public interface SongService {
     Song save(Song song);
     void delete(int id);
 
+    Iterable<Song> getByBandId(int id);
     Iterable<Song> getBySongName(String songName);
+    Iterable<Song> getByGenreName(String genreName);
+    Iterable<Song> getByAlbumName(String albumName);
     boolean existsBySongName(String songName);
     boolean existsByAlbum(Album album);
     boolean existsByBand(Band band);

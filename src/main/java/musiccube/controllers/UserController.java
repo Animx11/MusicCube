@@ -1,13 +1,14 @@
 package musiccube.controllers;
 
 
-import musiccube.entities.Role;
-import musiccube.entities.RoleName;
-import musiccube.entities.User;
+import musiccube.entities.*;
 import musiccube.jwt.JwtProvider;
 import musiccube.jwt.JwtResponse;
 import musiccube.repositories.RoleRepository;
+import musiccube.services.comment.CommentService;
+import musiccube.services.rate.RateService;
 import musiccube.services.user.UserService;
+import musiccube.services.userFavorites.UserFavoritesService;
 import musiccube.user.UserAccount;
 import musiccube.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,20 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "${serverAddress}")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserFavoritesService userFavoritesService;
+
+    @Autowired
+    private RateService rateService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -68,14 +78,38 @@ public class UserController {
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/user")
-    public ResponseEntity<User> delete(@RequestParam("id") Integer id){
-        userService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<User> delete(@RequestParam("userName") String userName, @RequestParam("password") String password){
+
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
+                User user = userService.getByUserName(userName).orElse(null);
+                if(user != null) {
+                    if (passwordEncoder.matches(password, user.getPassword())) {
+                        UserFavorites userFavorites = userFavoritesService.getUserFavoriteAllByUserName(userName).orElse(null);
+
+                        Iterable<Rate> allUserRates = rateService.getAllUserRates(userName);
+                        for (Rate rate : allUserRates) {
+                            rateService.delete(rate.getId());
+                        }
+
+                        Iterable<Comment> allUserComments = commentService.getAllUserComments(userName);
+                        for (Comment comment : allUserComments) {
+                            commentService.delete(comment.getId());
+                        }
+
+                        if(userFavorites != null) {
+                            userFavoritesService.delete(userFavorites.getId());
+                        }
+                        userService.delete(user.getId());
+                        return new ResponseEntity<>(HttpStatus.OK);
+                    } else return new ResponseEntity<>(HttpStatus.CONFLICT);
+                } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
     }
 
     // Finding User
 
-    @DeleteMapping(value = "/user_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/user_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getById(@RequestParam("id") int id){
         return userService.getById(id);
     }
@@ -225,6 +259,7 @@ public class UserController {
         userAccount.setPassword(passwordEncoder.encode(userAccount.getPassword()));
 
         Set<Role> roles = new HashSet<>();
+
         Role role = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow(() -> new RuntimeException("Fail! -> User Role not found"));
 
         roles.add(role);
@@ -233,8 +268,10 @@ public class UserController {
         user.setUserName(userAccount.getUserName());
         user.setEmail(userAccount.getEmail());
         user.setPassword(userAccount.getPassword());
+        UserFavorites userFavorites = new UserFavorites(user);
 
         userService.save(user);
+        userFavoritesService.save(userFavorites);
 
         return ResponseEntity.ok().body(user);
     }

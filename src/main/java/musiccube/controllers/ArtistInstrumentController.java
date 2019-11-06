@@ -1,17 +1,12 @@
 package musiccube.controllers;
 
-import musiccube.entities.Artist;
-import musiccube.entities.Instrument;
-import musiccube.services.artistinstrument.ArtistInstrumentService;
 import musiccube.entities.ArtistInstrument;
+import musiccube.services.artistinstrument.ArtistInstrumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -20,58 +15,67 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "${serverAddress}")
 public class ArtistInstrumentController {
 
     @Autowired
-    private ArtistInstrumentService artistInstrumentService;
+    private ArtistInstrumentService artistinstrumentService;
 
-    @RequestMapping(value = "/artistInstrument{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public Optional<ArtistInstrument> getById(int id) {
-        return artistInstrumentService.getById(id);
+    @GetMapping(
+            path = "/artistinstrument/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<ArtistInstrument> getById(@PathVariable("id") int id) {
+        Optional<ArtistInstrument> ai = artistinstrumentService.getById(id);
+        return ai.isPresent() ?
+                ResponseEntity.ok(ai.get()) :
+                ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(value = "/artistInstruments",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            path = "/artistinstrument",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Iterable<ArtistInstrument> getAll() {
-        return artistInstrumentService.getAll();
+        return artistinstrumentService.getAll();
     }
 
     // --- Get by Artist ---
-    @RequestMapping(value = "/artistInstruments{artist}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<ArtistInstrument> getByArtist(Artist artist) { return artistInstrumentService.getByArtist(artist); }
-
-    // --- Get by Instrument ---
-    @RequestMapping(value = "/artistInstruments{instrument}", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<ArtistInstrument> getByInstrument(Instrument instrument) { return artistInstrumentService.getByInstrument(instrument); }
-
-    @RequestMapping(value = "/artistInstrument",method = RequestMethod.POST)
-    public ResponseEntity<ArtistInstrument> create(@RequestBody @Valid @NotNull ArtistInstrument artistInstrument) {
-        artistInstrumentService.save(artistInstrument);
-        return ResponseEntity.ok().body(artistInstrument);
+    @GetMapping(
+            path = "/artistinstrument/artist/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<ArtistInstrument> getByArtist(@PathVariable("id") int artistId) {
+        return artistinstrumentService.getByArtistId(artistId);
     }
 
-    @RequestMapping(value = "/artistInstrument",method = RequestMethod.PUT)
-    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull ArtistInstrument artistInstrument) {
-        Optional<ArtistInstrument> artistInstrument1 = artistInstrumentService.getById(artistInstrument.getId());
-        if (Objects.nonNull(artistInstrument1)) {
-            artistInstrumentService.save(artistInstrument);
+    // --- Get by Instrument ---
+    @GetMapping(
+            path = "/artistinstrument/instrument/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Iterable<ArtistInstrument> getByInstrument(@PathVariable("id") int instrumentId) {
+        return artistinstrumentService.getByInstrumentId(instrumentId);
+    }
+
+    @PostMapping("/admin/artistinstrument")
+    public ResponseEntity<ArtistInstrument> create(@RequestBody @Valid @NotNull ArtistInstrument artistinstrument) {
+        artistinstrumentService.save(artistinstrument);
+        return ResponseEntity.ok().body(artistinstrument);
+    }
+
+    @PutMapping("/admin/artistinstrument")
+    public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull ArtistInstrument artistinstrument) {
+        Optional<ArtistInstrument> artistinstrument1 = artistinstrumentService.getById(artistinstrument.getId());
+        if (Objects.nonNull(artistinstrument1)) {
+            artistinstrumentService.save(artistinstrument);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @ApiIgnore
-    @RequestMapping(value = "/artistInstruments",method = RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<ArtistInstrument> redirect(Model model) {
-        return artistInstrumentService.getAll();
-    }
-
-    @RequestMapping(value = "/artistInstrument/{id}", method = RequestMethod.DELETE)
-    public RedirectView delete(@PathVariable Integer id) {
-        artistInstrumentService.delete(id);
-        return new RedirectView("/api/artistInstruments",true);
+    @DeleteMapping("/admin/artistinstrument/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        artistinstrumentService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

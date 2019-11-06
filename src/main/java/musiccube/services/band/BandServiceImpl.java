@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -45,6 +46,12 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
+    public Iterable<Band> getByCity(String cityName) {
+        return bandRepository.findByCity(cityName);
+    }
+
+
+    @Override
     public Iterable<Genre> getBandGenres(int bandId) {
         return bandRepository.findBandGenres(bandId);
     }
@@ -56,5 +63,28 @@ public class BandServiceImpl implements BandService {
     @Override
     public boolean existsByBandName(String bandName){
         return bandRepository.existsByBandName(bandName);
+    }
+    @Override
+    public boolean existsByMbId(String mbid) {
+        return bandRepository.existsByMbId(mbid);
+    }
+
+    @Override
+    public Iterable<Band> advancedSearch(int cityId, int countryId, String genre) {
+        if (cityId == 0) {
+            if (countryId == 0) {
+                if (genre.equals("%")) {
+                    return new ArrayList<>();
+                } else {
+                    return bandRepository.findByGenreName(genre);
+                }
+            } else {
+                return bandRepository.findByCountryAndGenre(genre, countryId);
+            }
+        } else if (countryId == 0) {
+            return bandRepository.findByCityAndGenre(genre, cityId);
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

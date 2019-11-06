@@ -1,13 +1,15 @@
 package musiccube.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class ArtistInBand {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ArtistActivity {
 
     @Id
     @GeneratedValue
@@ -29,12 +31,12 @@ public class ArtistInBand {
     @Column
     private boolean isActive;
 
-    @Column
-    private String roles;
+    @Column(length = 1024)
+    private String[] roles;
 
-    public ArtistInBand() {}
+    public ArtistActivity() {}
 
-    public ArtistInBand(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String roles) {
+    public ArtistActivity(Artist artist, Band band, Date activityStart, Date activityEnd, boolean isActive, String[] roles) {
         this.artist = artist;
         this.band = band;
         this.activityStart = activityStart;
@@ -91,11 +93,11 @@ public class ArtistInBand {
         this.activityEnd = activityEnd;
     }
 
-    public String getRoles() {
+    public String[] getRoles() {
         return roles;
     }
 
-    public void setRoles(String roles) {
+    public void setRoles(String[] roles) {
         this.roles = roles;
     }
 }

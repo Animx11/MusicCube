@@ -1,12 +1,14 @@
 package musiccube.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "mbId"})
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Band {
 
     @Id

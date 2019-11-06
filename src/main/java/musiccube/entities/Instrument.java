@@ -1,11 +1,11 @@
 package musiccube.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import javax.persistence.*;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Instrument {
 
     @Id
@@ -16,14 +16,17 @@ public class Instrument {
     @Column(unique = true)
     private String instrumentName;
 
-    @Column
-    private String type;
+    @Column(length = 1024)
+    private String aboutInstrument;
+
+    @ManyToOne
+    private InstrumentType instrumentType;
 
     public Instrument() {}
 
-    public Instrument(String instrumentName, String type) {
+    public Instrument(String instrumentName, InstrumentType instrumentType) {
         this.instrumentName = instrumentName;
-        this.type = type;
+        this.instrumentType = instrumentType;
     }
 
     public int getId() {
@@ -42,11 +45,19 @@ public class Instrument {
         this.instrumentName = instrumentName;
     }
 
-    public String getType() {
-        return type;
+    public InstrumentType getInstrumentType() {
+        return instrumentType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setInstrumentType(InstrumentType instrumentType) {
+        this.instrumentType = instrumentType;
+    }
+
+    public String getAboutInstrument() {
+        return aboutInstrument;
+    }
+
+    public void setAboutInstrument(String aboutInstrument) {
+        this.aboutInstrument = aboutInstrument;
     }
 }

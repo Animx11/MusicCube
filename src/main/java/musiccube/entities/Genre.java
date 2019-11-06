@@ -1,8 +1,11 @@
 package musiccube.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Genre {
 
     @Id
@@ -13,7 +16,7 @@ public class Genre {
     @ManyToOne
     private Country origin;
 
-    @Column
+    @Column(unique = true)
     private String genreName;
 
     @Column

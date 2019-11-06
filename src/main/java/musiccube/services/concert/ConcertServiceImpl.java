@@ -34,4 +34,9 @@ public class ConcertServiceImpl implements ConcertService {
     public Iterable<Concert> getByConcertName(String concertName) {
         return concertRepository.findByConcertName(concertName);
     }
+
+    @Override
+    public Iterable<Concert> getByCityName(String cityName) {
+        return concertRepository.findByCityName(cityName);
+    }
 }

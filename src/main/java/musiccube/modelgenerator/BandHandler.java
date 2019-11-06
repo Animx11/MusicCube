@@ -20,6 +20,7 @@ public class BandHandler {
     private static BandHandler instance = null;
 
     private ObjectMapper mapper = new ObjectMapper();
+    private Logger logger = Logger.getLogger(BandHandler.class);
 
     @Autowired
     private LocationHandler locationHandler;
@@ -46,7 +47,7 @@ public class BandHandler {
         RestTemplate restTemplate = new RestTemplate();
         Logger logger = Logger.getLogger(BandHandler.class);
         try {
-            Thread.sleep(600);
+            Thread.sleep(Constants.WAIT);
             ResponseEntity<String> response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/?query=type:group&limit=1&offset="+Integer.toString(offset)+"&fmt=json", String.class);
             JSONObject obj = new JSONObject(response.getBody()).getJSONArray("artists").getJSONObject(0);
             if (checkBand(obj)) {
@@ -69,7 +70,11 @@ public class BandHandler {
     Checks, if fetched band data contains most important fields
      */
     private boolean checkBand(JSONObject obj) {
-        return obj.has("area") &&
+        if (bandService.existsByMbId(obj.getString("id"))) {
+            logger.warn("Band "+obj.getString("id")+": "+obj.getString("name")+Constants.EXISTS);
+            return false;
+        } else return
+                obj.has("area") &&
                 obj.has("begin-area") &&
                 obj.has("name") &&
                 obj.has(Constants.LF_SPAN);

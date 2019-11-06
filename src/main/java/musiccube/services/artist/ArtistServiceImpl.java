@@ -1,18 +1,25 @@
 package musiccube.services.artist;
 
 import musiccube.entities.Artist;
+import musiccube.entities.ArtistActivity;
+import musiccube.repositories.ArtistActivityRepository;
 import musiccube.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArtistServiceImpl implements ArtistService{
 
     @Autowired
     private ArtistRepository artistRepository;
+    @Autowired
+    ArtistActivityRepository activityRepository;
 
     @Override
     public Optional<Artist> getById(int id) {
@@ -43,6 +50,12 @@ public class ArtistServiceImpl implements ArtistService{
     }
 
     @Override
+    public Iterable<Artist> getByCity(String cityName) {
+        return artistRepository.findByCity(cityName);
+    }
+
+
+    @Override
     public Iterable<Artist> getByAnything(String input) {
         return artistRepository.findByAnything(input);
     }
@@ -55,5 +68,46 @@ public class ArtistServiceImpl implements ArtistService{
     @Override
     public boolean existsByMbId(String mbId) {
         return artistRepository.existsByMbId(mbId);
+    }
+
+    @Override
+    public Iterable<Artist> advancedSearch(Optional<Integer> bandId, Optional<Integer> countryId, Optional<Integer> cityId, Optional<Integer> instrumentId) {
+        if (countryId.isPresent() && cityId.isPresent()) {
+            return new ArrayList<>();
+        } else if (bandId.isPresent() && countryId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByBandAndCountryAndInstrument(
+                    bandId.get(),
+                    countryId.get(),
+                    instrumentId.get()
+            );
+        } else if (bandId.isPresent() && cityId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByBandAndCityAndInstrument(
+                    bandId.get(),
+                    cityId.get(),
+                    instrumentId.get()
+            );
+        } else if(bandId.isPresent() && countryId.isPresent()) {
+            artistRepository.findByBandAndCountry(bandId.get(), countryId.get());
+        } else if(bandId.isPresent() && cityId.isPresent()) {
+            artistRepository.findByBandAndCity(bandId.get(), cityId.get());
+        } else if(bandId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByBandAndInstrument(bandId.get(), instrumentId.get());
+        } else if(countryId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByCountryAndInstrument(countryId.get(), instrumentId.get());
+        } else if(cityId.isPresent() && instrumentId.isPresent()) {
+            return artistRepository.findByCityAndInstrument(cityId.get(), instrumentId.get());
+        } else if(bandId.isPresent()) {
+            return ((ArrayList<ArtistActivity>) activityRepository.findByBandId(bandId.get()))
+                    .stream()
+                    .map(activity -> activity.getArtist())
+                    .collect(Collectors.toList());
+        } else if (cityId.isPresent()) {
+            return artistRepository.findByOriginId(cityId.get());
+        } else if (countryId.isPresent()) {
+            return artistRepository.findByOriginCountryId(countryId.get());
+        } else if (instrumentId.isPresent()) {
+            return artistRepository.findByInstrument(instrumentId.get());
+        }
+        return new ArrayList<>();
     }
 }

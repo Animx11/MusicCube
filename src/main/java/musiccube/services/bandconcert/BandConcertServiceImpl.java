@@ -33,7 +33,7 @@ public class BandConcertServiceImpl implements BandConcertService {
     }
 
     @Override
-    public Iterable<BandConcert> getByBand(Band band) { return bandConcertRepository.findByBand(band); }
+    public Iterable<BandConcert> getByBandId(int bandId) { return bandConcertRepository.findByBandId(bandId); }
     @Override
-    public Iterable<BandConcert> getByConcert(Concert concert) { return bandConcertRepository.findByConcert(concert); }
+    public Iterable<BandConcert> getByConcertId(int concertId) { return bandConcertRepository.findByConcertId(concertId); }
 }

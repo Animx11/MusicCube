@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import musiccube.deserializers.ArtistDeserializer;
 import musiccube.deserializers.ArtistInBandDeserializer;
 import musiccube.entities.Artist;
-import musiccube.entities.ArtistInBand;
+import musiccube.entities.ArtistActivity;
 import musiccube.entities.Band;
 import musiccube.services.artist.ArtistService;
-import musiccube.services.artistinband.ArtistInBandService;
+import musiccube.services.artistactivity.ArtistActivityService;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,19 +29,22 @@ public class LineupHandler {
     private ResponseEntity<String> response;
     private RestTemplate restTemplate = new RestTemplate();
     private ObjectMapper mapper = new ObjectMapper();
+    
+    private static final String ARTIST = "Artist ";
 
     @Autowired
     private ArtistService artistService;
     @Autowired
-    private ArtistInBandService artistInBandService;
-
+    private ArtistActivityService artistActivityService;
+    @Autowired
+    private InstrumentHandler instrumentHandler;
     @Autowired
     private LocationHandler locationHandler;
 
     private LineupHandler() {
         SimpleModule module = new SimpleModule();
         module.addDeserializer(Artist.class, new ArtistDeserializer());
-        module.addDeserializer(ArtistInBand.class, new ArtistInBandDeserializer());
+        module.addDeserializer(ArtistActivity.class, new ArtistInBandDeserializer());
         mapper.registerModule(module);
     }
     public static LineupHandler getInstance() {
@@ -54,7 +57,7 @@ public class LineupHandler {
     Gets members of band, calls getArtist for each of them
      */
     public void getLineup(Band band) throws IOException, InterruptedException {
-        Thread.sleep(600);
+        Thread.sleep(Constants.WAIT);
         response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/"+band.getMbId()+"?inc=artist-rels&fmt=json",String.class);
         JSONObject obj = new JSONObject(response.getBody());
         JSONArray relations = obj.getJSONArray("relations");
@@ -65,7 +68,6 @@ public class LineupHandler {
                 if ( (artist = getArtist(obj.getJSONObject("artist").getString("id"))) != null) {
                     signToBand(artist, band, obj);
                 }
-
             }
         }
     }
@@ -80,7 +82,7 @@ public class LineupHandler {
         }
         else {
             try {
-                Thread.sleep(600);
+                Thread.sleep(Constants.WAIT);
                 response = restTemplate.getForEntity("https://musicbrainz.org/ws/2/artist/" + mbid + Constants.FMT, String.class);
                 JSONObject obj = new JSONObject(response.getBody());
                 if (checkArtist(obj)) {
@@ -90,14 +92,14 @@ public class LineupHandler {
                             obj.getJSONObject(Constants.BGN_AREA).getString("id")
                     ));
                     artistService.save(artist);
-                    logger.info("Artist " + artist.getStageName() + Constants.SAVED);
+                    logger.info(ARTIST + artist.getStageName() + Constants.SAVED);
                     return artist;
                 } else {
-                    logger.warn("Artist "+mbid+" json incomplete, ignoring.");
+                    logger.warn(ARTIST+mbid+" json incomplete, ignoring.");
                 }
 
             } catch (JSONException je) {
-                logger.warn("Artist "+mbid+" causing problems, ignoring");
+                logger.warn(ARTIST+mbid+" causing problems, ignoring");
             }
         }
         return null;
@@ -116,21 +118,33 @@ public class LineupHandler {
     }
 
     /*
-    Creates ArtistInBand object for given relation
+    Creates ArtistActivity object for given relation
      */
     private void signToBand(Artist artist, Band band, JSONObject relation) throws IOException {
-        ArtistInBand artistInBand = mapper.readValue(relation.toString(),ArtistInBand.class);
-        artistInBand.setArtist(artist);
-        artistInBand.setBand(band);
-
-        artistInBandService.save(artistInBand);
+        ArtistActivity artistActivity = mapper.readValue(relation.toString(), ArtistActivity.class);
+        artistActivity.setArtist(artist);
+        artistActivity.setBand(band);
+        artistActivityService.save(artistActivity);
         logger.info((new StringBuilder())
-                .append("Artist ")
+                .append(ARTIST)
                 .append(artist.getStageName())
                 .append(" added to band ")
                 .append(band.getBandName())
                 .append(".")
                 .toString()
         );
+
+        if (relation.has("attributes") && relation.getJSONArray("attributes").length() > 0) {
+            Constants.arrayToStream(relation.getJSONArray("attributes"))
+                    .map(String.class::cast)
+                    .filter(s -> ! (
+                                    s.equals("original") ||
+                                    s.equals("lead vocals") ||
+                                    s.equals("background vocals")
+                            ))
+                    .forEach(s -> {
+                        instrumentHandler.handleInstrument(s,artist);
+                    });
+        }
     }
 }

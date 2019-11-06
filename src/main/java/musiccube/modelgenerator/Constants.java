@@ -12,8 +12,9 @@ public class Constants {
     static final String LF_SPAN = "life-span";
     static final String FMT = "?fmt=json";
     static final String EXISTS = " already exists.";
-    static final int ITERATIONS = 1;
-    static final int OFFSET = 50;
+    static final int ITERATIONS = 100;
+    static final int OFFSET = 0;
+    static final int WAIT = 650;
 
     static Stream<Object> arrayToStream(JSONArray array) {
         return StreamSupport.stream(array.spliterator(), false);
