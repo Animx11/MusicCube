@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { BandService } from "src/app/Services/band.service";
-import { Band } from "src/app/Class/Band";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { BandService } from 'src/app/Services/band.service';
+import { Band } from 'src/app/Class/Band';
 
 @Component({
-  selector: "app-search-band",
-  templateUrl: "./search-band.component.html",
-  styleUrls: ["./search-band.component.css"]
+  selector: 'app-search-band',
+  templateUrl: './search-band.component.html',
+  styleUrls: ['./search-band.component.css']
 })
 export class SearchBandComponent implements OnInit {
   private searchOn: boolean;
@@ -16,6 +16,7 @@ export class SearchBandComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   @Output() bandEvent = new EventEmitter<Band>();
+  @Output() searchEvent = new EventEmitter();
 
   constructor(private bandService: BandService) {
     this.searchOn = false;
@@ -30,15 +31,22 @@ export class SearchBandComponent implements OnInit {
   }
 
   toggleSearch() {
-    this.searchOn = !this.searchOn;
+    this.bands$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.bandService.getByBandName(term))
+    );
+    this.searchEvent.emit();
   }
 
+
   search(term: string): void {
-    this.searchTerms.next(term);
+    if (term !== '' && term !== ' ') {
+      this.searchTerms.next(term);
+    }
   }
 
   onSelect(band: Band) {
-    this.toggleSearch();
     this.bandEvent.emit(band);
   }
 }

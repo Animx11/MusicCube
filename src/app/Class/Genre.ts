@@ -1,16 +1,19 @@
-import { Country } from "./Country";
+import { Country } from './Country';
 
 export class Genre {
   id: number;
-  private origin: Country;
-  private genreName: string;
-  private creationDate: Date;
+  origin: Country;
+  genreName: string;
+  creationDate: string;
+  aboutGenre: string;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.origin = (obj && obj.origin) || null;
-    this.genreName = (obj && obj.genreName) || "";
-    this.creationDate = (obj && obj.creationDate) || null;
+    this.genreName = (obj && obj.genreName) || '';
+    this.creationDate = (obj && obj.creationDate) || '';
+    this.aboutGenre = (obj && obj.aboutGenre) ||
+      'No description was provided for this genre. If you think, you could write some, please contact us.';
   }
 
   // Getters
@@ -27,8 +30,12 @@ export class Genre {
     return this.genreName;
   }
 
-  getCreationDate(): Date {
+  getCreationDate(): string {
     return this.creationDate;
+  }
+
+  getAboutGenre(): string {
+    return this.aboutGenre;
   }
 
   // Setters
@@ -41,7 +48,11 @@ export class Genre {
     this.genreName = genreName;
   }
 
-  setCreationDate(creationDate: Date) {
+  setCreationDate(creationDate: string) {
     this.creationDate = creationDate;
+  }
+
+  setAboutGenre(aboutGenre: string) {
+    this.aboutGenre = aboutGenre;
   }
 }

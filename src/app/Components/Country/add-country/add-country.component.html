@@ -1,0 +1,22 @@
+<div id="CRUD">
+    <div>
+      <form #profileForm = "ngForm" id = "profileForm">
+          <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Country Name:</i><br></div>
+            <input type = "text" name = "countryName" [(ngModel)]="countryName" class = "inputText" required >
+          </div><br>
+          <div class = "separateDiv">
+              <div class = "textSeparateDiv"><i>Country Code:</i><br></div>
+              <input type = "text" name = "code" [(ngModel)]="code" class = "inputText" required >
+          </div><br>
+          <div class = "separateDiv">
+              <button (click)="addCountry()" [disabled]="!profileForm.valid">Add New Country</button>
+          </div><br>
+      </form>
+    </div>
+    <div id = "searchPlace" *ngIf = "isOriginClicked">
+
+    </div>
+  
+  </div>
+  

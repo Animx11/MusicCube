@@ -1,46 +1,106 @@
-<div class="add">
-  <input [(ngModel)]="songName" placeholder="song name" /><br />
-  <input
-    [(ngModel)]="songLengthSeconds"
-    placeholder="length in seconds"
-  /><br />
 
-  <div *ngIf="song.band">Band: {{ song.band.bandName }}<br /></div>
-  <app-search-band (bandEvent)="bandEventHandler($event)"></app-search-band
-  ><br />
+<div id="CRUD">
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Song Name:</i><br></div>
+          <input type = "text" name = "songName" [(ngModel)]="songName" class = "inputText" required>
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Song Length:</i><br></div>
+          <input type = "number" name = "minutes" [(ngModel)]="minutes" class = "inputTime" min="0" required>:
+          <input type = "number" name = "seconds" [(ngModel)]="seconds" class = "inputTime" max = "59" min="0" required>
+      </div><br>
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Track Number In Album: </i>
+          <input type = "number" name = "trackNumber" [(ngModel)]="trackNumber" class = "inputTime" min="0">
+        </div>
+    </div><br>
 
-  <div *ngIf="song.album">Album: {{ song.album.albumName }}<br /></div>
-  <app-search-album (albumEvent)="albumEventHandler($event)"></app-search-album
-  ><br />
 
-  <div *ngIf="song.genre">Genre: {{ song.genre.genreName }}<br /></div>
-  <app-search-genre (genreEvent)="genreEventHandler($event)"></app-search-genre
-  ><br />
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Band: <div *ngIf = "isBandSelected">{{ song.band.bandName }}</div></i><br></div>
+            <button (click)="isBandClicked = searchValue(isBandClicked)">Set Band</button>
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Album: <div *ngIf = "isAlbumSelected">{{ song.album.albumName }}</div></i><br></div>
+          <button (click)="isAlbumClicked = searchValue(isAlbumClicked)">Set Album</button>
+      </div><br>
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Genre:</i> <div *ngIf = "isGenreSelected"><i>{{ song.genre.genreName }}</i></div><br></div>
+        <button (click)="isGenreClicked = searchValue(isGenreClicked)">Set Genre</button>
+    </div><br>
 
-  <button (click)="addSong()">Add song</button>
+
+      <div class = "separateDiv">
+       <div class = "textSeparateDiv"><i>Authors:</i>
+        <div>
+          <ul *ngIf="authorList">
+            <li *ngFor="let authorship of authorList">
+              {{ authorship.author.firstNames }} {{ authorship.author.lastName }} Text
+              <input type="checkbox" name = "wroteText" [(ngModel)]="authorship.wroteText" /> Music
+              <input type="checkbox" name = "wroteMusic" [(ngModel)]="authorship.wroteMusic" />
+              <button (click)="removeAuthor(authorship)">X</button>
+            </li>
+          </ul>
+        </div>
+      <br></div>
+       <button (click)="isAuthorClicked = searchValue(isAuthorClicked)">Set Authors</button>
+       </div><br>
+
+       <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Instruments:</i>
+            <div>
+              <ul *ngIf="instrumentList">
+                  <li *ngFor="let songInstrument of instrumentList">
+                    {{ songInstrument.instrument.instrumentName }}
+                    <button (click)="removeInstrument(songInstrument)">X</button>
+                  </li>
+                </ul>          
+            </div>
+         <br></div>
+          <button (click)="isInstrumentClicked = searchValue(isInstrumentClicked)">Set Instruments</button>
+          </div><br>
+
+
+        <div class = "separateDiv">
+            <button (click)="addSong()" [disabled]="!profileForm.valid">Add New Song</button>
+        </div><br>
+    </form>
+  </div>
+  <div id = "searchPlace" *ngIf = "isBandClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search Band</i><br></div>
+        <app-search-band (bandEvent)="bandEventHandler($event)"></app-search-band>
+      </div><br>
+  </div>
+  <div id = "searchPlace" *ngIf = "isAlbumClicked">
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Search Album:</i><br></div>
+      <app-search-album (albumEvent)="albumEventHandler($event)"></app-search-album>
+    </div><br>
 </div>
-<div class="add">
-  <h5>Authors</h5>
-  <ul *ngIf="authorList">
-    <li *ngFor="let authorship of authorList">
-      {{ authorship.author.lastName }} Text
-      <input type="checkbox" [(ngModel)]="authorship.wroteText" /> Music
-      <input type="checkbox" [(ngModel)]="authorship.wroteMusic" />
-      <button (click)="removeAuthor(authorship)">X</button>
-    </li>
-  </ul>
-  <app-search-person
-    (personEvent)="personEventHandler($event)"
-  ></app-search-person>
+<div id = "searchPlace" *ngIf = "isGenreClicked">
+  <div class = "separateDiv">
+    <div class = "textSeparateDiv"><i>Search Genre:</i><br></div>
+    <app-search-genre (genreEvent)="genreEventHandler($event)"></app-search-genre>
+  </div><br>
 </div>
-<div class="add">
-  <h5>Instruments</h5>
-  <ul *ngIf="instrumentList">
-    <li *ngFor="let songInstrument of instrumentList">
-      {{ songInstrument.instrument.instrumentName }}
-    </li>
-  </ul>
-  <app-search-instrument
-    (instrumentEvent)="instrumentEventHandler($event)"
-  ></app-search-instrument>
+
+<div id = "searchPlace" *ngIf = "isAuthorClicked">
+  <div class = "separateDiv">
+    <div class = "textSeparateDiv"><i>Search People:</i><br></div>
+    <app-search-person (personEvent)="personEventHandler($event)"></app-search-person>
+  </div><br>
 </div>
+
+<div id = "searchPlace" *ngIf = "isInstrumentClicked">
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Search Instrument:</i><br></div>
+      <app-search-instrument
+      (instrumentEvent)="instrumentEventHandler($event)"
+    ></app-search-instrument>
+    </div><br>
+  </div>
+</div>
+

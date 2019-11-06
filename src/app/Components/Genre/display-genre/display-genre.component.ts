@@ -29,6 +29,11 @@ export class DisplayGenreComponent implements OnInit {
       res => {
         this.genre = new Genre(res);
         console.log('display-genre-component received: ', res);
+        if (!this.genre.aboutGenre) {
+          this.genre.setAboutGenre(
+            'No description was provided for this genre. If you think, you could write some, please contact us.'
+          );
+        }
       },
       err => console.error(err));
   }

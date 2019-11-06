@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
-import { PersonService } from "src/app/Services/person.service";
-import { Person } from "src/app/Class/Person";
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { PersonService } from 'src/app/Services/person.service';
+import { Person } from 'src/app/Class/Person';
 
 @Component({
-  selector: "app-search-person",
-  templateUrl: "./search-person.component.html",
-  styleUrls: ["./search-person.component.css"]
+  selector: 'app-search-person',
+  templateUrl: './search-person.component.html',
+  styleUrls: ['./search-person.component.css']
 })
 export class SearchPersonComponent implements OnInit {
   private searchOn: boolean;
@@ -16,6 +16,8 @@ export class SearchPersonComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   @Output() personEvent = new EventEmitter<Person>();
+  @Output() searchEvent = new EventEmitter();
+
 
   constructor(private personService: PersonService) {
     this.searchOn = false;
@@ -30,15 +32,21 @@ export class SearchPersonComponent implements OnInit {
   }
 
   toggleSearch() {
-    this.searchOn = !this.searchOn;
+    this.persons$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.personService.getByLastName(term))
+    );
+    this.searchEvent.emit();
   }
 
   search(term: string): void {
-    this.searchTerms.next(term);
+    if (term !== '' && term !== ' ') {
+     this.searchTerms.next(term);
+    }
   }
 
   onSelect(person: Person) {
-    this.toggleSearch();
     this.personEvent.emit(person);
   }
 }

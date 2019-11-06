@@ -4,15 +4,17 @@ import { Genre } from './Genre';
 
 export class Song {
   id: number;
-  private songName: string;
-  private songLengthSeconds: number;
-  private album: Album;
-  private band: Band;
-  private genre: Genre;
+  songName: string;
+  trackNumber: number;
+  songLengthSeconds: number;
+  album: Album;
+  band: Band;
+  genre: Genre;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.songName = (obj && obj.songName) || '';
+    this.trackNumber = (obj && obj.trackNumber) || 0;
     this.songLengthSeconds = (obj && obj.songLengthSeconds) || 0;
     this.album = (obj && obj.album) || null;
     this.band = (obj && obj.band) || null;
@@ -27,6 +29,10 @@ export class Song {
 
   getSongName(): string {
     return this.songName;
+  }
+
+  getTrackNumber(): number {
+    return this.trackNumber;
   }
 
   getSongLengthSeconds(): number {
@@ -49,6 +55,10 @@ export class Song {
 
   setSongName(songName: string) {
     this.songName = songName;
+  }
+
+  setTrackNumber(trackNumber: number) {
+    this.trackNumber = trackNumber;
   }
 
   setSongLengthSeconds(songLengthSeconds: number) {

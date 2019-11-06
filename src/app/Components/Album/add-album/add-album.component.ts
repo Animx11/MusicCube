@@ -11,6 +11,8 @@ export class AddAlbumComponent implements OnInit {
   private album: Album;
   private albumName: string;
   private length: number;
+  private minutes: number;
+  private seconds: number;
   private releaseDate: Date;
   private company: string;
 
@@ -19,12 +21,29 @@ export class AddAlbumComponent implements OnInit {
   ngOnInit() {
     this.album = new Album();
     this.albumName = "";
+    this.minutes = 0;
+    this.seconds = 0;
     this.length = 0;
     this.releaseDate = null;
     this.company = "";
   }
-  save(): void {
-    if (
+
+  albumLengthInSeconds(): boolean {
+    if(this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0){
+      return false;
+    }
+
+    else{
+      this.length = 60 * this.minutes + this.seconds;
+      return true;
+    }
+  }
+
+  addAlbum(): void {
+    if(!this.albumLengthInSeconds()){
+      window.alert("Album lenght is incorect");
+    }
+    else if (
       this.albumName === "" ||
       this.length === 0 ||
       this.releaseDate == null ||
@@ -41,6 +60,7 @@ export class AddAlbumComponent implements OnInit {
           console.log("add-album-component received:");
           console.log(res);
           window.alert("Album added");
+          this.ngOnInit();
         },
         err => {
           window.alert("Error occured");

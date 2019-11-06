@@ -28,9 +28,6 @@ import { AddGenreComponent } from './Components/Genre/add-genre/add-genre.compon
 import { EditGenreComponent } from './Components/Genre/edit-genre/edit-genre.component';
 import { AddInstrumentComponent } from './Components/Instrument/add-instrument/add-instrument.component';
 import { EditInstrumentComponent } from './Components/Instrument/edit-instrument/edit-instrument.component';
-import { AddLocalizationComponent } from './Components/Localization/add-localization/add-localization.component';
-import { EditLocalizationComponent } from './Components/Localization/edit-localization/edit-localization.component';
-import { EditLocalizationDetailsComponent } from './Components/Localization/edit-localization/edit-localization-details/edit-localization-details.component';
 import { EditAlbumDetailsComponent } from './Components/Album/edit-album/edit-album-details/edit-album-details.component';
 import { EditArtistDetailsComponent } from './Components/Artist/edit-artist/edit-artist-details/edit-artist-details.component';
 import { EditBandDetailsComponent } from './Components/Band/edit-band/edit-band-details/edit-band-details.component';
@@ -38,7 +35,6 @@ import { EditConcertDetailsComponent } from './Components/Concert/edit-concert/e
 import { EditGenreDetailsComponent } from './Components/Genre/edit-genre/edit-genre-details/edit-genre-details.component';
 import { EditInstrumentDetailsComponent } from './Components/Instrument/edit-instrument/edit-instrument-details/edit-instrument-details.component';
 import { EditSongDetailsComponent } from './Components/Song/edit-song/edit-song-details/edit-song-details.component';
-import { SearchLocalizationComponent } from './Components/Localization/search-localization/search-localization.component';
 import { SearchAlbumComponent } from './Components/Album/search-album/search-album.component';
 import { SearchSongComponent } from './Components/Song/search-song/search-song.component';
 import { SearchBandComponent } from './Components/Band/search-band/search-band.component';
@@ -50,7 +46,6 @@ import { DisplayArtistComponent } from './Components/Artist/display-artist/displ
 import { DisplayBandComponent } from './Components/Band/display-band/display-band.component';
 import { DisplayConcertComponent } from './Components/Concert/display-concert/display-concert.component';
 import { DisplayGenreComponent } from './Components/Genre/display-genre/display-genre.component';
-import { DisplayLocalizationComponent } from './Components/Localization/display-localization/display-localization.component';
 import { DisplayPersonComponent } from './Components/Person/display-person/display-person.component';
 import { DisplayAlbumComponent } from './Components/Album/display-album/display-album.component';
 import { DisplayInstrumentComponent } from './Components/Instrument/display-instrument/display-instrument.component';
@@ -61,6 +56,32 @@ import { UserPanelComponent } from './Components/User/user-panel/user-panel.comp
 import { ProfileComponent } from './Components/User/user-panel/profile/profile.component';
 import { ReportBugComponent } from './Components/User/user-panel/report-bug/report-bug.component';
 import { AccountComponent } from './Components/User/user-panel/account/account.component';
+import { SecondsToStringPipe } from './Utils/seconds-to-string.pipe';
+import { AddCountryComponent } from './Components/Country/add-country/add-country.component';
+import { SearchCountryComponent } from './Components/Country/search-country/search-country.component';
+import { AddCityComponent } from './Components/City/add-city/add-city.component';
+import { AddInstrumentTypeComponent } from './Components/InstrumentType/add-instrument-type/add-instrument-type.component';
+import { SearchCityComponent } from './Components/City/search-city/search-city.component';
+import { SearchInstrumentTypeComponent } from './Components/InstrumentType/search-instrument-type/search-instrument-type.component';
+import { FavoritesComponent } from './Components/User/user-panel/favorites/favorites.component';
+import { EditCountryComponent } from './Components/Country/edit-country/edit-country.component';
+import { EditCityComponent } from './Components/City/edit-city/edit-city.component';
+import { EditInstrumentTypeComponent } from './Components/InstrumentType/edit-instrument-type/edit-instrument-type.component';
+import { SearchConcertComponent } from './Components/Concert/search-concert/search-concert.component';
+import { SearchArtistComponent } from './Components/Artist/search-artist/search-artist.component';
+import { AdvancedSearchComponent } from './Components/Search/advanced-search/advanced-search.component';
+import { AdvancedArtistComponent } from './Components/Search/advanced-artist/advanced-artist.component';
+import { AdvancedBandComponent } from './Components/Search/advanced-band/advanced-band.component';
+import { AdvancedAlbumComponent } from './Components/Search/advanced-album/advanced-album.component';
+import { AdvancedSongComponent } from './Components/Search/advanced-song/advanced-song.component';
+import { AdvancedGenreComponent } from './Components/Search/advanced-genre/advanced-genre.component';
+import { AdvancedInstrumentComponent } from './Components/Search/advanced-instrument/advanced-instrument.component';
+import { ArtistListDisplayComponent } from './Components/Artist/artist-list-display/artist-list-display.component';
+import { BandListDisplayComponent } from './Components/Band/band-list-display/band-list-display.component';
+import { SongListDisplayComponent } from './Components/Song/song-list-display/song-list-display.component';
+import { AlbumListDisplayComponent } from './Components/Album/album-list-display/album-list-display.component';
+import { GenreListDisplayComponent } from './Components/Genre/genre-list-display/genre-list-display.component';
+import { InstrumentListDisplayComponent } from './Components/Instrument/instrument-list-display/instrument-list-display.component';
 
 
 const ROUTES: Routes = [
@@ -86,6 +107,12 @@ const ROUTES: Routes = [
   {
     path: 'UserPanel', component: UserPanelComponent,
     children: [{ path: 'Account', component: AccountComponent }]
+  },
+
+  // User Panel Favorites
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'Favorites', component: FavoritesComponent }]
   },
 
   // User
@@ -212,30 +239,16 @@ const ROUTES: Routes = [
     component: DisplayInstrumentComponent
   },
 
-  // Localization
-
-  {
-    path: 'AdminPanel',
-    component: AdminPanelComponent,
-    children: [{ path: 'AddLocalization', component: AddLocalizationComponent }]
-  },
-  {
-    path: 'AdminPanel',
-    component: AdminPanelComponent,
-    children: [
-      { path: 'EditLocalization', component: EditLocalizationComponent }
-    ]
-  },
-  {
-    path: 'localization/:id',
-    component: DisplayLocalizationComponent
-  },
-
   // Search
 
   {
     path: 'search',
     component: SearchEngineMainComponent
+  },
+
+  {
+    path: 'search/advanced',
+    component: AdvancedSearchComponent
   },
 
   { path: '', redirectTo: '', pathMatch: 'full' }
@@ -261,9 +274,6 @@ const ROUTES: Routes = [
     EditGenreComponent,
     AddInstrumentComponent,
     EditInstrumentComponent,
-    AddLocalizationComponent,
-    EditLocalizationComponent,
-    EditLocalizationDetailsComponent,
     EditAlbumDetailsComponent,
     EditArtistDetailsComponent,
     EditBandDetailsComponent,
@@ -271,7 +281,6 @@ const ROUTES: Routes = [
     EditGenreDetailsComponent,
     EditInstrumentDetailsComponent,
     EditSongDetailsComponent,
-    SearchLocalizationComponent,
     SearchAlbumComponent,
     SearchSongComponent,
     SearchBandComponent,
@@ -283,7 +292,6 @@ const ROUTES: Routes = [
     DisplayBandComponent,
     DisplayConcertComponent,
     DisplayGenreComponent,
-    DisplayLocalizationComponent,
     DisplayPersonComponent,
     DisplayAlbumComponent,
     DisplayInstrumentComponent,
@@ -292,6 +300,32 @@ const ROUTES: Routes = [
     ProfileComponent,
     ReportBugComponent,
     AccountComponent,
+    SecondsToStringPipe,
+    AddCountryComponent,
+    SearchCountryComponent,
+    AddCityComponent,
+    AddInstrumentTypeComponent,
+    SearchCityComponent,
+    SearchInstrumentTypeComponent,
+    FavoritesComponent,
+    EditCountryComponent,
+    EditCityComponent,
+    EditInstrumentTypeComponent,
+    SearchConcertComponent,
+    SearchArtistComponent,
+    AdvancedSearchComponent,
+    AdvancedArtistComponent,
+    AdvancedBandComponent,
+    AdvancedAlbumComponent,
+    AdvancedSongComponent,
+    AdvancedGenreComponent,
+    AdvancedInstrumentComponent,
+    ArtistListDisplayComponent,
+    BandListDisplayComponent,
+    SongListDisplayComponent,
+    AlbumListDisplayComponent,
+    GenreListDisplayComponent,
+    InstrumentListDisplayComponent,
 
   ],
   imports: [

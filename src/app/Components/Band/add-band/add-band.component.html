@@ -1,13 +1,32 @@
-<div class="add">
-  <input [(ngModel)]="bandName" placeholder="Band name" /><br />
-  Year of creation:<br />
-  <input [(ngModel)]="creationYear" type="number" min="1900" max="2019" /><br />
-  <div *ngIf="band.formedIn">
-    Origin: {{ band.formedIn.country }} {{ band.formedIn.city }}
-    {{ band.formedIn.address }}<br />
+
+<div id="CRUD">
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Band Name:</i><br></div>
+          <input type = "text" name = "bandName" [(ngModel)]="bandName" class = "inputText" required >
+        </div><br>
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Creation Date:</i><br></div>
+          <input type = "date" name = "creationYear" [(ngModel)]="creationYear" class = "inputText" required>
+      </div><br>
+
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>City:<div *ngIf = "isCitySelected"> {{ band.formedIn.cityName }}</div></i><br></div>
+            <button (click)="searchCity()">Set City</button>
+        </div><br>
+
+        <div class = "separateDiv">
+            <button (click)="addBand()" [disabled]="!profileForm.valid">Add New Band</button>
+        </div><br>
+    </form>
   </div>
-  <app-search-localization
-    (localizationEvent)="localizationEventHandler($event)"
-  ></app-search-localization>
-  <button (click)="addBand()">Add band</button>
+  <div id = "searchPlace" *ngIf = "isCityClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search City:</i><br></div>
+        <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
+      </div><br>
+  </div>
+
 </div>
+

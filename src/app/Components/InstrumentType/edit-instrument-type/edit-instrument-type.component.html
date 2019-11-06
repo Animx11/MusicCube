@@ -1,0 +1,23 @@
+
+  <div class="down70px">
+      <app-search-instrument-type  *ngIf = "!isEditSelected" (instrumentTypeEvent)="instrumentTypeEventHandler($event)" (searchEvent)="searchEventHandler($event)"></app-search-instrument-type>
+          <div *ngIf = "isEditSelected">
+              <h4><i>Edit city: {{selectedInstrumentType.instrumentTypeName}}</i></h4>
+            <form #profileForm = "ngForm" id = "profileForm">
+                <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>Instrument Type Name:</i><br></div>
+                  <input type = "text" name = "instrumentTypeName" [(ngModel)]="instrumentTypeName" class = "inputText" required>
+                </div><br>
+                <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>About Type:</i><br></div>
+                  <textarea type="text" name = "aboutType" id = "inputAbout" [(ngModel)]="aboutType"></textarea>
+              </div><br>
+              <div class = "separateDiv">
+                  <button (click)="update()" [disabled]="!profileForm.valid">Update</button>
+                  <button (click)="delete()">Delete</button>
+              </div><br>
+            </form>
+          </div>
+        </div>
+    
+  

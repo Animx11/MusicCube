@@ -1,11 +1,12 @@
-<button (click)="toggleSearch()">Search people</button>
-<div *ngIf="searchOn">
-  <input #searchBox id="searchBox" (input)="search(searchBox.value)" />
-  <div id="list">
+
+<div>
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..." />
+  <div class="listDisplay">
     <ul>
       <li *ngFor="let person of (persons$ | async)" (click)="onSelect(person)">
-        {{ person.lastName }}
+          {{ person.firstNames }} {{ person.lastName }}
       </li>
     </ul>
   </div>
 </div>
+

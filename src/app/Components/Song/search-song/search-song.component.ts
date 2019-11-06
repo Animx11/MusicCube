@@ -10,17 +10,12 @@ import { Song } from 'src/app/Class/Song';
   styleUrls: ['./search-song.component.css']
 })
 export class SearchSongComponent implements OnInit {
-  private searchOn: boolean;
-  private listOn: boolean;
-  private pageOn: boolean;
-  private pageSize: number;
-  private pageNr: number;
-  private reachedLastPage: boolean;
-  private pageCount: number;
 
   songs$: Observable<Song[]>;
   songPage: Song[];
   private searchTerms = new Subject<string>();
+
+  public isToEditSelected: boolean;
 
   @Output() songEvent = new EventEmitter<Song>();
   @Output() searchEvent = new EventEmitter();
@@ -29,9 +24,7 @@ export class SearchSongComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pageSize = 10;
-    this.pageNr = 0;
-    this.pageCount = 0;
+    this.isToEditSelected = false;
     this.songs$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -45,9 +38,6 @@ export class SearchSongComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((term: string) => this.songService.getBySongName(term))
     );
-    this.searchOn = !this.searchOn;
-    this.listOn = true;
-    this.pageOn = false;
     this.searchEvent.emit();
   }
 
@@ -58,12 +48,10 @@ export class SearchSongComponent implements OnInit {
   }
 
   onSelect(song: Song) {
-    this.searchOn = false;
-    this.listOn = false;
-    this.pageOn = false;
+    this.isToEditSelected = true;
     this.songEvent.emit(song);
   }
-
+/*
   getAll() {
     this.searchOn = false;
     this.listOn = false;
@@ -137,4 +125,5 @@ export class SearchSongComponent implements OnInit {
     this.pageSize = size;
     this.getAll();
   }
+  */
 }

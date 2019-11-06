@@ -1,21 +1,105 @@
 <div class="contentDisplay">
-  <input #searchBox id="searchBox" (input)="search(searchBox.value)"/>
-  <ul>
-    <li *ngFor="let person of (persons$ | async)">[Person] <a>{{person.lastName}}</a></li>
-  </ul>
-  <ul>
-    <li *ngFor="let band of (bands$ | async)">[Band] <a routerLink="/band/{{band.id}}">{{band.bandName}}</a></li>
-  </ul>
-  <ul>
-    <li *ngFor="let album of (albums$ | async)">[Album] <a routerLink="/album/{{album.id}}">{{album.albumName}}</a></li>
-  </ul>
-  <ul>
-    <li *ngFor="let song of (songs$ | async)">[Song] <a routerLink="/song/{{song.id}}">{{song.songName}}</a></li>
-  </ul>
-  <ul>
-    <li *ngFor="let genre of (genres$ | async)">[Genre] <a routerLink="/genre/{{genre.id}}">{{genre.GenreName}}</a></li>
-  </ul>
-  <ul>
-    <li *ngFor="let instrument of (instruments$ | async)">[Instrument] <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a></li>
-  </ul>
+  <input [(ngModel)]="switches[0]" (click)="switchAll()" type="checkbox" class="hidden" id="all-check"><label for="all-check" id="all-check-lbl">Disable all</label>
+  <input [(ngModel)]="switches[1]" (click)="switchCheck(1)" type="checkbox" class="hidden" id="band-check"><label for="band-check">Bands</label>
+  <input [(ngModel)]="switches[2]" (click)="switchCheck(2)" type="checkbox" class="hidden" id="artist-check"><label for="artist-check">Artists</label>
+  <input [(ngModel)]="switches[3]" (click)="switchCheck(3)" type="checkbox" class="hidden" id="album-check"><label for="album-check">Albums</label>
+  <input [(ngModel)]="switches[4]" (click)="switchCheck(4)" type="checkbox" class="hidden" id="song-check"><label for="song-check">Songs</label>
+  <input [(ngModel)]="switches[5]" (click)="switchCheck(5)" type="checkbox" class="hidden" id="instrument-check"><label for="instrument-check">Instruments</label>
+  <input [(ngModel)]="switches[6]" (click)="switchCheck(6)" type="checkbox" class="hidden" id="genre-check"><label for="genre-check">Genres</label>
+  <br/>
+
+  <input #searchBox id="searchBox"/>
+  <button (click)="search(searchBox.value)">Search</button>
+  <button routerLink="/search/advanced">Advanced</button>
+  <div *ngIf="message">{{message}}</div>
+
+  <table *ngIf="switches[1] && bands.length">
+    <thead>
+      <tr>
+        <th>Band</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let band of bands">
+      <td>
+        <a routerLink="/band/{{band.id}}">{{band.bandName}}</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="switches[2] && artists.length">
+    <thead>
+      <tr>
+        <th>
+          Artist
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let artist of artists">
+        <td>
+          <a routerLink="/artist/{{artist.id}}">{{artist.stageName}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="switches[3] && albums.length">
+    <thead>
+      <tr>
+        <th>
+          Album
+        </th>
+      </tr>
+    </thead>
+    <tr *ngFor="let album of albums">
+      <td>
+        <a routerLink="/album/{{album.id}}">{{album.albumName}}</a>
+      </td>
+    </tr>
+  </table>
+
+  <table *ngIf="switches[4] && songs.length">
+    <thead>
+    <tr>
+      <th>Song</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let song of songs">
+      <td><a routerLink="/song/{{song.id}}">{{song.songName}}</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table *ngIf="switches[5] && instruments.length">
+    <thead>
+      <tr>
+        <th>
+          Instrument
+        </th>
+      </tr>
+    </thead>
+    <tr *ngFor="let instrument of instruments">
+      <td>
+        <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a>
+      </td>
+    </tr>
+  </table>
+
+  <table *ngIf="switches[6] && genres.length">
+    <thead>
+      <tr>
+        <th>
+          Genre
+        </th>
+      </tr>
+    </thead>
+    <tr *ngFor="let genre of genres">
+      <td>
+        <a routerLink="/genre/{{genre.id}}">{{genre.genreName}}</a>
+      </td>
+    </tr>
+  </table>
 </div>

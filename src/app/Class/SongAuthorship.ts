@@ -3,10 +3,10 @@ import { Person } from "./Person";
 
 export class SongAuthorship {
   id: number;
-  private wroteText: boolean;
-  private wroteMusic: boolean;
-  private song: Song;
-  private author: Person;
+   wroteText: boolean;
+   wroteMusic: boolean;
+   song: Song;
+   author: Person;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;

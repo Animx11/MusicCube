@@ -1,14 +1,6 @@
 <div>
-  <button (click)="toggleSearch()">Search in albums</button>
-  <button (click)="getAll()">Get all albums</button><br />
-  <input
-    *ngIf="searchOn"
-    #searchBox
-    id="searchBox"
-    (input)="search(searchBox.value)"
-    placeholder="Start typing to search..."
-  />
-  <div id="list">
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..." />
+  <div class="listDisplay">
     <ul>
       <li *ngFor="let album of (albums$ | async)" (click)="onSelect(album)">
         {{ album.albumName }}

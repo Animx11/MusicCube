@@ -1,12 +1,18 @@
+import { InstrumentType } from './InstrumentType';
+
 export class Instrument {
+
   id: number;
-  private instrumentName: string;
-  private type: string;
+  instrumentName: string;
+  instrumentType: InstrumentType;
+  about: string;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
-    this.instrumentName = (obj && obj.instrumentName) || "";
-    this.type = (obj && obj.type) || "";
+    this.instrumentName = (obj && obj.instrumentName) || '';
+    this.instrumentType = (obj && obj.instrumentType) || '';
+    this.about = (obj && obj.aboutInstrument) ||
+      'No description was provided for this instrument. If you think, you could write some, please contact us.';
   }
 
   // Getters
@@ -19,8 +25,12 @@ export class Instrument {
     return this.instrumentName;
   }
 
-  getType(): string {
-    return this.type;
+  getInstrumentType(): InstrumentType {
+    return this.instrumentType;
+  }
+
+  getAbout() {
+    return this.about;
   }
 
   // Setters
@@ -29,7 +39,11 @@ export class Instrument {
     this.instrumentName = instrumentName;
   }
 
-  setType(type: string) {
-    this.type = type;
+  setInstrumentType(instrumentType: InstrumentType) {
+    this.instrumentType = instrumentType;
+  }
+
+  setAbout(about: string) {
+    this.about = about;
   }
 }

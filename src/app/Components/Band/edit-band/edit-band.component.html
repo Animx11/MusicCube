@@ -1,3 +1,35 @@
-<div id = "CRUD">
-  edit-band works!
-</div>
+<div class="down70px">
+    <app-search-band  *ngIf = "!isEditSelected" (bandEvent)="bandEventHandler($event)" (searchEvent)="searchEventHandler($event)"></app-search-band>
+
+    <div *ngIf = "selectedBand">
+        <h4><i>Edit band: {{selectedBand.bandName}}</i></h4>
+        <form #profileForm = "ngForm" id = "profileForm">
+            <div class = "separateDiv">
+              <div class = "textSeparateDiv"><i>Band Name:</i><br></div>
+              <input type = "text" name = "bandName" [(ngModel)]="bandName" class = "inputText" required >
+            </div><br>
+            <div class = "separateDiv">
+              <div class = "textSeparateDiv"><i>Creation Date: {{band.creationDate | date:'d MMMM yyyy'}}</i><br></div>
+              <input type = "date" name = "creationYear" [(ngModel)]="creationYear" class = "inputText" required>
+          </div><br>
+    
+            <div class = "separateDiv">
+                <div class = "textSeparateDiv"><i>City:<div> {{ band.formedIn.cityName }}</div></i><br></div>
+                <button (click)="searchCity()">Set City</button>
+            </div><br>
+    
+            <div class = "separateDiv">
+                <button (click)="update()">Update</button>
+                <button (click)="delete()">Delete</button>
+            </div><br>
+        </form>
+      </div>
+      <div id = "searchPlace" *ngIf = "isCityClicked">
+          <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Search City:</i><br></div>
+            <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
+          </div><br>
+      </div>
+      
+  </div>
+  

@@ -1,0 +1,23 @@
+#cat-select {
+  display: inline-block;
+  margin: 15px;
+  width: 150px;
+}
+#search-opts {
+  display: inline-block;
+}
+
+#search-result {
+  display: inline-block;
+  margin: 30px;
+}
+
+#search-result table {
+  position: relative;
+  top: 0px;
+}
+
+form {
+  position: absolute;
+  top: 0px;
+}

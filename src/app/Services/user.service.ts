@@ -5,7 +5,7 @@ import { JwtResponse } from '../Class/JwtResponse';
 import {Observable, from} from 'rxjs';
 import { SignIn } from '../Class/SignIn';
 
-import { api_url } from "./API_URL";
+import { api_url } from "../Utils/API_URL";
 import { UserAccount } from '../Class/UserAccount';
 import { UserProfile } from '../Class/UserProfile';
 
@@ -31,6 +31,10 @@ export class UserService {
 
   takeUserInfo(userName: string): Observable<Users> {
     return this.http.get<Users>(`${api_url}/user_by_userName?userName=${userName}`);
+  }
+
+  deleteYourAccount(userName: string, password: string): Observable<any> {
+    return this.http.delete(`${api_url}/user?userName=${userName}&password=${password}`);
   }
 
   /*User Profile*/

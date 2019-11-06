@@ -1,0 +1,26 @@
+<div class="down70px">
+    <app-search-country  *ngIf = "!isEditSelected" (countryEvent)="countryEventHandler($event)" (searchEvent)="searchEventHandler($event)"></app-search-country>
+
+    <div id="CRUD" *ngIf = "selectedCountry">
+      <h4><i>Edit country: {{selectedCountry.countryName}}</i></h4>
+        <div>
+          <form #profileForm = "ngForm" id = "profileForm">
+              <div class = "separateDiv">
+                <div class = "textSeparateDiv"><i>Country Name:</i><br></div>
+                <input type = "text" name = "countryName" [(ngModel)]="countryName" class = "inputText" required >
+              </div><br>
+              <div class = "separateDiv">
+                  <div class = "textSeparateDiv"><i>Country Code:</i><br></div>
+                  <input type = "text" name = "code" [(ngModel)]="code" class = "inputText" required >
+              </div><br>
+              <div class = "separateDiv">
+                  <button (click)="update()">Update</button>
+                  <button (click)="delete()">Delete</button>
+              </div><br>
+          </form>
+        </div>
+      
+      </div>
+      
+  </div>
+  

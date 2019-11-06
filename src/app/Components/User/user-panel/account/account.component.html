@@ -3,34 +3,40 @@
     <br>
     <form id = "profileForm">
       <div class = "separateDiv">
-        <div class = "textSeparateDiv"><i>Username</i><br></div>
+        <div class = "textSeparateDiv"><i>Username:</i><br></div>
         <input type = "text" name = "userName" [(ngModel)]="userName" class = "inputText" >
       </div><br>
       <div class = "separateDiv">
           <button (click)="changeUsername()">Change Username</button>
       </div><br>
       <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Email</i><br></div>
+          <div class = "textSeparateDiv"><i>Email:</i><br></div>
           <input type = "text" name = "newEmail" [(ngModel)]="newEmail" class = "inputText" >
         </div><br>
         <div class = "separateDiv">
             <button (click)="changeEmail()">Change Email</button>
         </div><br>
       <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Old Password</i><br></div>
+          <div class = "textSeparateDiv"><i>Old Password:</i><br></div>
         <input type = "password" name = "oldPassword" class = "inputText" [(ngModel)]="oldPassword">
       </div><br>
       <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>New Password</i><br></div>
+          <div class = "textSeparateDiv"><i>New Password:</i><br></div>
         <input type = "password" name = "newPassword" class = "inputText" [(ngModel)]="newPassword">
       </div><br>
       <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>Repeat Password</i><br></div>
+          <div class = "textSeparateDiv"><i>Repeat Password:</i><br></div>
         <input type = "password" name = "repeatPassword" class = "inputText" [(ngModel)]="repeatPassword">
     </div><br>
     <div class = "separateDiv">
       <button (click)="changePassword()">Change Password</button>
-    </div>
+    </div><br>
+    <div class = "separateDiv" *ngIf="authority !== 'admin'">
+        <div class = "textSeparateDiv"><i><b>Delete your account</b></i><br></div>
+        <div class = "textSeparateDiv" *ngIf = "isDeleteClicked"><i>Type your password and then press button again</i><br></div>
+        <input type = "password" name = "confirmPassword" class = "inputText" [(ngModel)]="confirmPassword" *ngIf = "isDeleteClicked"><br><br>
+        <button id = "deleteButton" (click)="deleteAccount()">Delete Account</button>
+      </div>
     </form>
   </div>
   

@@ -1,73 +1,82 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, SystemJsNgModuleLoader } from '@angular/core';
 
-import { Concert } from "src/app/Class/Concert";
-import { Localization } from "src/app/Class/Localization";
-import { ConcertService } from "src/app/Services/concert.service";
-import { LocalizationService } from "src/app/Services/localization.service";
+import { Concert } from 'src/app/Class/Concert';
+import { ConcertService } from 'src/app/Services/concert.service';
+import { stringify } from 'querystring';
 
 @Component({
-  selector: "app-add-concert",
-  templateUrl: "./add-concert.component.html",
-  styleUrls: ["./add-concert.component.css"]
+  selector: 'app-add-concert',
+  templateUrl: './add-concert.component.html',
+  styleUrls: ['./add-concert.component.css']
 })
 export class AddConcertComponent implements OnInit {
   private concert: Concert;
   private concertName: string;
-  private startTime: string;
-  private localization: Localization;
+  private startTime: Date;
   private hour: number;
-  private minute: number;
+  private minutes: number;
 
-  private localizationSelected: boolean;
-  private localizationList: Localization[];
+  private dateString: string[];
+
+  private isCityClicked: boolean;
+  private isCitySelected: boolean;
 
   constructor(
     private concertService: ConcertService,
-    private localizationService: LocalizationService
   ) {}
 
   ngOnInit() {
     this.concert = new Concert();
-    this.concertName = "";
-    this.startTime = "";
-    this.localization = null;
-    this.hour = this.minute = 0;
+    this.concertName = '';
+    this.startTime = null;
+    this.isCityClicked = false;
+    this.isCitySelected = false;
+    this.hour = 0;
+    this.minutes = 0;
   }
 
-  selectLocalization() {
-    this.localizationService.list().subscribe(res => {
-      console.log("add-concert-component received:");
-      console.log(res);
-      this.localizationList = res.map(el => new Localization(el));
-    });
-    this.localizationSelected = true;
+  searchCity(){
+    this.isCityClicked = true;
   }
 
-  addLocalization(origin: Localization) {
-    this.concert.setLocalization(origin);
-    this.localizationSelected = false;
+  cityEventHandler($event: any) {
+    this.concert.setConcertCity($event);
+    this.isCityClicked = false;
+    this.isCitySelected = true;
   }
+
+  makeDate(){
+    this.dateString = this.startTime.toString().split("-");
+    this.startTime = new Date(
+      parseInt(this.dateString[0]), parseInt(this.dateString[1]), parseInt(this.dateString[2]),
+      this.hour, this.minutes
+    );
+  }
+
   addConcert() {
-    if (
-      this.concertName === "" ||
-      this.startTime === "" ||
-      this.concert.getLocalization() == null
-    )
-      window.alert("Incomplete input");
-    else {
-      this.concert.setConcertName(this.concertName);
-      this.concert.setStartTime(
-        new Date(`${this.startTime}T${this.hour}:${this.minute}:00`)
-      );
 
+    if (
+      this.concertName === '' ||
+      this.startTime === null ||
+      this.concert.getConcertCity === null 
+    ) {
+      window.alert('Incomplete input');
+    } else if (this.hour < 0 || this.minutes < 0 || this.hour > 23 || this.minutes > 59){
+      window.alert('Incorect time');
+
+    } else {
+      this.concert.setConcertName(this.concertName);
+      this.makeDate();
+      this.concert.setStartTime(this.startTime);
       this.concertService.create(this.concert).subscribe(
         res => {
-          console.log("add-concert-component received:");
+          console.log('add-concert-component received:');
           console.log(res);
-          window.alert("Concert added");
+          window.alert('Concert added');
+          this.ngOnInit();
         },
         err => {
-          window.alert("Error occured");
+          window.alert('Error occured');
           console.error(err);
         }
       );

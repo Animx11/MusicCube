@@ -16,6 +16,7 @@ export class SearchInstrumentComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   @Output() instrumentEvent = new EventEmitter<Instrument>();
+  @Output() searchEvent = new EventEmitter();
 
   constructor(private instrumentService: InstrumentService) {
     this.searchOn = false;
@@ -32,15 +33,24 @@ export class SearchInstrumentComponent implements OnInit {
   }
 
   toggleSearch() {
-    this.searchOn = !this.searchOn;
+    this.instruments$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term: string) =>
+        this.instrumentService.getByInstrumentName(term)
+      )
+    );
+    this.searchEvent.emit();
   }
 
   search(term: string): void {
-    this.searchTerms.next(term);
+    if (term !== '' && term !== ' '){
+      this.searchTerms.next(term);
+    }
   }
 
   onSelect(instrument: Instrument) {
-    this.toggleSearch();
     this.instrumentEvent.emit(instrument);
   }
+
 }

@@ -1,12 +1,32 @@
-<div class="add">
-  <input [(ngModel)]="genreName" placeholder="genreName" /><br />
-  <input [(ngModel)]="yearOfCreation" type="number" /><br />
-  <h6 *ngIf="genre.origin">
-    {{ genre.origin.country }} {{ genre.origin.city }}
-    {{ genre.origin.address }}
-  </h6>
-  <app-search-localization
-    (localizationEvent)="localizationEventHandler($event)"
-  ></app-search-localization>
-  <button (click)="addGenre()">Add genre</button>
+<div id="CRUD">
+  <div>
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>Genre Name:</i><br></div>
+          <input type = "text" name = "genreName" [(ngModel)]="genreName" class = "inputText" required>
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Creation period:</i><br></div>
+            <input type = "text" name = "creationTime" [(ngModel)]="creationTime" class = "inputText" required>
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Origin: <div *ngIf = "isOriginSelected">{{ genre.origin.countryName }}</div></i><br></div>
+            <button (click)="searchOrigin()">Set Origin</button>
+        </div><br>
+        <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>About Genre:</i><br></div>
+            <textarea type="text" name = "aboutGenre" id = "inputAbout" [(ngModel)]="aboutGenre"></textarea>
+        </div><br>
+        <div class = "separateDiv">
+            <button (click)="addGenre()" [disabled]="!profileForm.valid">Add New Genre</button>
+        </div><br>
+    </form>
+  </div>
+  <div id = "searchPlace" *ngIf = "isOriginClicked">
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>Search Origin Place:</i><br></div>
+        <app-search-country (countryEvent)="countryEventHandler($event)"></app-search-country>
+      </div><br>
+  </div>
+
 </div>

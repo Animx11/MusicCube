@@ -1,16 +1,17 @@
-import { Localization } from "src/app/Class/Localization";
+import { City } from './City';
+
 
 export class Concert {
   id: number;
-  private startTime: Date;
-  private concertName: string;
-  private localization: Localization;
+  startTime: Date;
+  concertName: string;
+  concertCity: City;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
     this.startTime = (obj && obj.startTime) || null;
     this.concertName = (obj && obj.concertName) || "";
-    this.localization = (obj && obj.localization) || null;
+    this.concertCity = (obj && obj.concertCity) || null;
   }
 
   // Getters
@@ -27,8 +28,8 @@ export class Concert {
     return this.concertName;
   }
 
-  getLocalization(): Localization {
-    return this.localization;
+  getConcertCity(): City {
+    return this.concertCity;
   }
 
   // Setters
@@ -41,7 +42,7 @@ export class Concert {
     this.concertName = concertName;
   }
 
-  setLocalization(localization: Localization) {
-    this.localization = localization;
+  setConcertCity(concertCity: City) {
+    this.concertCity = concertCity;
   }
 }

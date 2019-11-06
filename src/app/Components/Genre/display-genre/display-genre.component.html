@@ -1,3 +1,6 @@
 <div *ngIf="genre" class="contentDisplay">
-
+  <h4>{{genre.genreName | titlecase}}</h4>
+  <h5 *ngIf="genre.origin">Origin: {{genre.origin.countryName}}</h5>
+  <h5 *ngIf="genre.creationDate">Beginning: {{genre.creationDate}}</h5>
+  {{genre.aboutGenre}}
 </div>
