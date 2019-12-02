@@ -1,4 +1,4 @@
-import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Song } from 'src/app/Class/Song';
 import { Band } from 'src/app/Class/Band';
 import { Album } from 'src/app/Class/Album';
@@ -33,7 +33,7 @@ export class FavoritesComponent implements OnInit {
 
   ngOnInit() {
     this.isSongListClicked = this.isAlbumListClicked = this.isBandListClicked = this.isArtistListClicked = false;
- 
+
   }
 
   songFavoriteList() {
@@ -42,9 +42,9 @@ export class FavoritesComponent implements OnInit {
     this.favoriteListsService.getUserFavoriteSongsByUserName(this.tokenService.getUsername()).subscribe(
       res => {
         this.songList = new Set<Song>(res);
-        console.log("Successfully taken song list");
+        console.log('Successfully taken song list');
       }, err => {
-        window.alert("Error has occured");
+        window.alert('Error has occurred');
       }
     );
   }
@@ -55,9 +55,9 @@ export class FavoritesComponent implements OnInit {
     this.favoriteListsService.getUserFavoriteAlbumsByUserName(this.tokenService.getUsername()).subscribe(
       res => {
         this.albumList = new Set<Album>(res);
-        console.log("Successfully taken album list");
+        console.log('Successfully taken album list');
       }, err => {
-        window.alert("Error has occured");
+        window.alert('Error has occurred');
       }
     );
   }
@@ -68,9 +68,9 @@ export class FavoritesComponent implements OnInit {
     this.favoriteListsService.getUserFavoriteBandsByUserName(this.tokenService.getUsername()).subscribe(
       res => {
         this.bandList = new Set<Band>(res);
-        console.log("Successfully taken band list");
+        console.log('Successfully taken band list');
       }, err => {
-        window.alert("Error has occured");
+        window.alert('Error has occurred');
       }
     );
   }
@@ -81,14 +81,14 @@ export class FavoritesComponent implements OnInit {
     this.favoriteListsService.getUserFavoriteArtistByUserName(this.tokenService.getUsername()).subscribe(
       res => {
         this.artistList = new Set<Artist>(res);
-        console.log("Successfully taken artist list");
+        console.log('Successfully taken artist list');
       }, err => {
-        window.alert("Error has occured");
+        window.alert('Error has occurred');
       }
     );
   }
 
-  resetValue(){
+  resetValue() {
     this.isSongListClicked = this.isAlbumListClicked = this.isBandListClicked = this.isArtistListClicked = false;
   }
 

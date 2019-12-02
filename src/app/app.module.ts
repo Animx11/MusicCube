@@ -82,6 +82,7 @@ import { SongListDisplayComponent } from './Components/Song/song-list-display/so
 import { AlbumListDisplayComponent } from './Components/Album/album-list-display/album-list-display.component';
 import { GenreListDisplayComponent } from './Components/Genre/genre-list-display/genre-list-display.component';
 import { InstrumentListDisplayComponent } from './Components/Instrument/instrument-list-display/instrument-list-display.component';
+import { ExtrasComponent } from './Components/User/user-panel/extras/extras.component';
 
 
 const ROUTES: Routes = [
@@ -113,6 +114,11 @@ const ROUTES: Routes = [
   {
     path: 'UserPanel', component: UserPanelComponent,
     children: [{ path: 'Favorites', component: FavoritesComponent }]
+  },
+  // User Panel Extras
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'Extras', component: ExtrasComponent}]
   },
 
   // User
@@ -326,6 +332,7 @@ const ROUTES: Routes = [
     AlbumListDisplayComponent,
     GenreListDisplayComponent,
     InstrumentListDisplayComponent,
+    ExtrasComponent,
 
   ],
   imports: [
