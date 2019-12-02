@@ -3,7 +3,9 @@ package musiccube.services.usersongstatus;
 import musiccube.entities.UserSongStatus;
 import musiccube.repositories.UserSongStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserSongStatusServiceImpl implements UserSongStatusService {
     @Autowired
     private UserSongStatusRepo repo;
