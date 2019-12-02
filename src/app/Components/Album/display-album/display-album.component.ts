@@ -73,7 +73,7 @@ export class DisplayAlbumComponent implements OnInit {
   }
 
   private checkIfIsRated() {
-    const id = +this.route.snapshot.paramMap.get('id'); 
+    const id = +this.route.snapshot.paramMap.get('id');
     this.rateService.getByUserNameAndAlbumId(this.userName, id).subscribe(
       res => {
         console.log('This album was rated by user');
@@ -129,7 +129,7 @@ export class DisplayAlbumComponent implements OnInit {
       );
     } else if (!this.isRated && this.selectOption === '0') {
 
-    } else if (!this.isRated){
+    } else if (!this.isRated) {
       this.rateService.createAlbumRate(this.userName, id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);
@@ -155,22 +155,22 @@ export class DisplayAlbumComponent implements OnInit {
 
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
-    if(this.isFavorite) {
+    if (this.isFavorite) {
       this.favoriteListsService.deleteAlbumToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Album succesfully deleted from favorite");
+          console.log('Album successfully deleted from favorite');
         },
         err => {
-          window.alert("Error has occured");
+          window.alert('Error has occurred');
         }
       );
     } else {
       this.favoriteListsService.addAlbumToFavorites(this.tokenStorage.getUsername(), id).subscribe(
         res => {
-          console.log("Album succesfully added to favorite");
+          console.log('Album successfully added to favorite');
         },
         err => {
-          window.alert("Error has occured");
+          window.alert('Error has occurred');
         }
       );
     }
@@ -184,7 +184,7 @@ export class DisplayAlbumComponent implements OnInit {
   sendComment() {
     const id = +this.route.snapshot.paramMap.get('id');
 
-    if(this.commentContent.length > 2) {
+    if (this.commentContent.length > 2) {
       this.comment = new CommentClass();
       this.comment.setCommentContent(this.commentContent);
       this.comment.setCommentDate(new Date());
@@ -196,7 +196,7 @@ export class DisplayAlbumComponent implements OnInit {
           window.location.reload();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
     }
@@ -220,7 +220,7 @@ export class DisplayAlbumComponent implements OnInit {
         window.location.reload();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }

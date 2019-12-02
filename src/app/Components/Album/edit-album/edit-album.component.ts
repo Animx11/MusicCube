@@ -1,12 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { AlbumService } from "src/app/Services/album.service";
-import { Album } from "src/app/Class/Album";
-import { homedir } from 'os';
+import { Component, OnInit } from '@angular/core';
+import { AlbumService } from 'src/app/Services/album.service';
+import { Album } from 'src/app/Class/Album';
 
 @Component({
-  selector: "app-edit-album",
-  templateUrl: "./edit-album.component.html",
-  styleUrls: ["./edit-album.component.css"]
+  selector: 'app-edit-album',
+  templateUrl: './edit-album.component.html',
+  styleUrls: ['./edit-album.component.css']
 })
 export class EditAlbumComponent implements OnInit {
   private selectedAlbum: Album;
@@ -27,12 +26,12 @@ export class EditAlbumComponent implements OnInit {
 
   ngOnInit(): void {
     this.album = new Album();
-    this.albumName = "";
+    this.albumName = '';
     this.minutes = 0;
     this.seconds = 0;
     this.length = 0;
     this.releaseDate = null;
-    this.company = "";
+    this.company = '';
   }
 
   albumEventHandler($event) {
@@ -49,16 +48,15 @@ export class EditAlbumComponent implements OnInit {
   }
 
   albumLengthInSeconds(): boolean {
-    if(this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0){
+    if (this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0) {
       return false;
-    }
-    else{
+    } else {
       this.length = 60 * this.minutes + this.seconds;
       return true;
     }
   }
 
-  lengthInSecondsTodMinutesAndSeconds(){
+  lengthInSecondsTodMinutesAndSeconds() {
       this.toMandS = this.length * 100 / 60;
       this.minutes = (this.toMandS - (this.toMandS % 100)) / 100;
       this.seconds = ((this.toMandS % 100) - (this.toMandS % 1)) * 60 / 100;
@@ -78,17 +76,17 @@ export class EditAlbumComponent implements OnInit {
       }
     );
   }
-  
+
   update() {
     this.albumLengthInSeconds();
-    if(this.albumName === this.selectedAlbum.albumName && this.releaseDate === this.selectedAlbum.releaseDate && this.length === this.selectedAlbum.albumLengthSeconds && this.company === this.selectedAlbum.company) {
+    if (this.albumName === this.selectedAlbum.albumName && this.releaseDate === this.selectedAlbum.releaseDate && this.length === this.selectedAlbum.albumLengthSeconds && this.company === this.selectedAlbum.company) {
       window.alert('You need to do some changes before update');
     } else {
       this.album.id = this.selectedAlbum.id;
       this.album.setAlbumName(this.albumName);
       this.album.setCompany(this.company);
       this.album.setAlbumLengthSeconds(this.length);
-      if (this.releaseDate){
+      if (this.releaseDate) {
         this.album.setReleaseDate(this.releaseDate);
       }
       this.albumService.edit(this.album).subscribe(
@@ -102,7 +100,7 @@ export class EditAlbumComponent implements OnInit {
       );
     }
   }
-  
+
   reset() {
     this.isEditSelected = false;
     this.selectedAlbum = null;
