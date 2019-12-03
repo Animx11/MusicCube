@@ -12,6 +12,8 @@ import { Rate } from 'src/app/Class/Rate';
 import { CommentClass } from 'src/app/Class/CommentClass';
 import { RateService } from 'src/app/Services/rate.service';
 import { CommentService } from 'src/app/Services/comment.service';
+import {UserAlbumStatusService} from '../../../Services/user-album-status.service';
+import {UserAlbumStatus} from '../../../Class/UserAlbumStatus';
 
 @Component({
   selector: 'app-display-album',
@@ -23,21 +25,22 @@ export class DisplayAlbumComponent implements OnInit {
   album: Album;
   bands: Band[];
   songs: Song[];
+  albumStatus: UserAlbumStatus = new UserAlbumStatus();
 
   rate: Rate;
   comment: CommentClass;
   allComments: CommentClass[];
 
-  private isLogged: boolean;
-  private isFavorite: boolean;
+  isLogged: boolean;
+  isFavorite: boolean;
   isOwned: boolean;
   isSought: boolean;
 
-  private isRated: boolean;
+  isRated: boolean;
 
-  private selectOption: string;
+  selectOption: string;
 
-  private commentContent: string;
+  commentContent: string;
   userName: string;
 
   constructor(
@@ -47,7 +50,9 @@ export class DisplayAlbumComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService,
     private rateService: RateService,
-    private commentService: CommentService) { }
+    private commentService: CommentService,
+    private albumStatusService: UserAlbumStatusService
+  ) { }
 
   ngOnInit() {
     this.getAlbum();
@@ -60,7 +65,6 @@ export class DisplayAlbumComponent implements OnInit {
       this.checkIfIsFavorite();
       this.checkIfIsRated();
       this.checkIfIsOwned();
-      this.checkIfIsSought();
     }
   }
 
@@ -145,8 +149,10 @@ export class DisplayAlbumComponent implements OnInit {
         }
       );
     } else if (this.isRated) {
+      // tslint:disable-next-line:radix
       this.rateService.edit(this.rate.getId(), parseInt(this.selectOption)).subscribe(
         res => {
+          // tslint:disable-next-line:radix
           this.rate.setRate(parseInt(this.selectOption));
           console.log('Score has been changed');
         },
@@ -230,18 +236,51 @@ export class DisplayAlbumComponent implements OnInit {
   }
 
   private checkIfIsOwned() {
-// TODO
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.albumStatusService.getByUserAndAlbum(this.userName, id).subscribe(
+      res => {
+        console.log(`UserAlbumStatus found`, res);
+        const albumStatus = new UserAlbumStatus(res);
+        this.isSought = albumStatus.sought;
+        this.isOwned = albumStatus.owned;
+      },
+      err => {
+        if (err.status === 404) {
+          console.error(`UserAlbumStatus not found`);
+        }
+        console.error(err);
+      }
+    );
   }
-
-  private checkIfIsSought() {
-    // TODO
-  }
-
   toSought() {
-    // TODO
+    const id = +this.route.snapshot.paramMap.get('id');
+    if (this.isSought) {
+      this.albumStatusService.update(this.userName, id, false, false).subscribe(
+        res => console.log(res),
+        err => console.error(err)
+      );
+    } else {
+      this.isOwned = false;
+      this.albumStatusService.update(this.userName, id, false, true).subscribe(
+        res => console.log(res),
+        err => console.error(err)
+      );
+    }
   }
 
   toOwned() {
-    // TODO
+    const id = +this.route.snapshot.paramMap.get('id');
+    if (this.isOwned) {
+      this.albumStatusService.update(this.userName, id, false, false).subscribe(
+        res => console.log('Added to owned albums', res),
+        err => console.error(err)
+      );
+    } else {
+      this.isSought = false;
+      this.albumStatusService.update(this.userName, id, true, false).subscribe(
+        res => console.log('Added to sought albums', res),
+        err => console.error(err)
+      );
+    }
   }
 }
