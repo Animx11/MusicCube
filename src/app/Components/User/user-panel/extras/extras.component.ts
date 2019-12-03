@@ -44,8 +44,10 @@ export class ExtrasComponent implements OnInit {
     this.isToListenClicked = true;
     this.userSongService.getListened(this.userName).subscribe(
       res => {
-        console.log(`Extras component received: ${res}`);
-      }
+        console.log('Extras component received songs', res);
+        this.songList = res.map(el => new Song(el.song));
+      },
+      error1 => console.error(error1)
     );
   }
 
@@ -54,8 +56,10 @@ export class ExtrasComponent implements OnInit {
     this.isToListenClicked = true;
     this.userSongService.getToListen(this.userName).subscribe(
       res => {
-        console.log(`Extras component received: ${res}`);
-      }
+        console.log('Extras component received songs', res);
+        this.songList = res.map(el => new Song(el.song));
+      },
+      error1 => console.error(error1)
     );
   }
 
@@ -64,8 +68,10 @@ export class ExtrasComponent implements OnInit {
     this.isOwnedAlbumsClicked = true;
     this.userAlbumService.getOwned(this.userName).subscribe(
       res => {
-        console.log(`Extras component received: ${res}`);
-      }
+        console.log('Extras component received albums', res);
+        this.albumList = res.map(el => new Album(el.album));
+      },
+      error1 => console.error(error1)
     );
 
   }
@@ -75,9 +81,10 @@ export class ExtrasComponent implements OnInit {
     this.isSoughtAlbumsClicked = true;
     this.userAlbumService.getSought(this.userName).subscribe(
       res => {
-        console.log(`Extras component received: ${res}`);
-      }
+        console.log('Extras component received albums', res);
+        this.albumList = res.map(el => new Album(el.album));
+        },
+      error1 => console.error(error1)
     );
-
   }
 }
