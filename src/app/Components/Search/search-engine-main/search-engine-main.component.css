@@ -1,3 +1,4 @@
+/*
 input.hidden {position:absolute;visibility:hidden;opacity:0;}
 input[type=checkbox] + label {
   color: #ccc;
@@ -37,4 +38,62 @@ th, td {
   width: 200px;
   border: 1px solid #dddddd;
 }
+*/
+
+.contentDisplay{
+  background-color: grey;
+  margin-left: 18%;
+  margin-right: 18%;
+  min-height: 87.5vh;
+}
+#searchBlock{
+  position: relative;
+  width: 100%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+
+}
+#searchBox{
+  position: relative;
+  width: 50%;
+  height: 30px;
+  margin-top: 10px;
+  border: none;
+  float: left;
+
+}
+
+#searchButton{
+  position: relative;
+  background-color: white;
+  float: left;
+  margin-top: 10px;
+  height: 32px;
+  width: 32px;
+
+}
+
+#searchButton:hover{
+  background-color: greenyellow;
+  animation-name: buttonAnimation;
+  animation-duration: 0.5s;
+}
+
+#massage{
+  position: relative;
+  padding-top: 5px;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+@keyframes buttonAnimation{
+  0%{
+    background-color: white;
+  }
+  100%{
+    background-color: greenyellow;
+  }
+}
+
 
