@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { api_url } from '../Utils/API_URL';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UserSongStatus} from '../Class/UserSongStatus';
+import {UserSongStatusDto} from '../DTOs/UserSongStatusDto';
 const api = `${api_url}/user`;
 
 @Injectable({
@@ -17,13 +17,23 @@ export class UserSongStatusService {
   getToListen(user: string): Observable<any> {
     return this.http.get(`${api}/songs-to-listen?user=${user}`);
   }
-  create(status: UserSongStatus): Observable<any> {
-    return this.http.post(`${api}/song-status`, status);
-  }
-  edit(status: UserSongStatus): Observable<any> {
-    return this.http.put(`${api}/song-status`, status);
-  }
   delete(id: number): Observable<any> {
     return this.http.delete(`${api}/song-status/${id}`);
   }
+  getByUserAndSong(userName: string, id: number) {
+    return this.http.get(`${api}/song-status?user=${userName}&song=${id}`);
+  }
+
+  update(userName: string, id: number, listened: boolean, toListen: boolean) {
+    return this.http.put(
+      `${api}/song-status`,
+      new UserSongStatusDto(
+        userName,
+        id,
+        listened,
+        toListen
+      )
+    );
+  }
+
 }

@@ -35,7 +35,6 @@ export class DisplayAlbumComponent implements OnInit {
   isFavorite: boolean;
   isOwned: boolean;
   isSought: boolean;
-
   isRated: boolean;
 
   selectOption: string;

@@ -10,6 +10,8 @@ import { RateService } from 'src/app/Services/rate.service';
 import { Rate } from 'src/app/Class/Rate';
 import { CommentService } from 'src/app/Services/comment.service';
 import { CommentClass } from 'src/app/Class/CommentClass';
+import {UserSongStatus} from '../../../Class/UserSongStatus';
+import {UserSongStatusService} from '../../../Services/user-song-status.service';
 
 @Component({
   selector: 'app-display-song',
@@ -27,6 +29,8 @@ export class DisplaySongComponent implements OnInit {
   private isLogged: boolean;
   private isFavorite: boolean;
   private isRated: boolean;
+  isListened: boolean;
+  isToListen: boolean;
 
   private selectOption: string;
 
@@ -41,7 +45,9 @@ export class DisplaySongComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService,
     private rateService: RateService,
-    private commentService: CommentService) { }
+    private commentService: CommentService,
+    private songStatusService: UserSongStatusService
+    ) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -70,7 +76,7 @@ export class DisplaySongComponent implements OnInit {
   }
 
   private checkIfIsRated() {
-    const id = +this.route.snapshot.paramMap.get('id'); 
+    const id = +this.route.snapshot.paramMap.get('id');
     this.rateService.getByUserNameAndSongId(this.userName, id).subscribe(
       res => {
         console.log('This song was rated by user');
@@ -110,7 +116,7 @@ export class DisplaySongComponent implements OnInit {
       );
     } else if (!this.isRated && this.selectOption === '0') {
 
-    } else if (!this.isRated){
+    } else if (!this.isRated) {
       this.rateService.createSongRate(this.userName, id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);
@@ -136,7 +142,7 @@ export class DisplaySongComponent implements OnInit {
 
   toFavorite() {
     const id = +this.route.snapshot.paramMap.get('id');
-    if(this.isFavorite) {
+    if (this.isFavorite) {
       this.favoriteListsService.deleteSongToFavorites(this.userName, id).subscribe(
         res => {
           console.log('Song succesfully deleted from favorite');
@@ -164,7 +170,7 @@ export class DisplaySongComponent implements OnInit {
   sendComment() {
     const id = +this.route.snapshot.paramMap.get('id');
 
-    if(this.commentContent.length > 2) {
+    if (this.commentContent.length > 2) {
       this.comment = new CommentClass();
       this.comment.setCommentContent(this.commentContent);
       this.comment.setCommentDate(new Date());
@@ -205,4 +211,53 @@ export class DisplaySongComponent implements OnInit {
     );
   }
 
+
+  private checkIfIsListened() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.songStatusService.getByUserAndSong(this.userName, id).subscribe(
+      res => {
+        console.log(`UserSongStatus found`, res);
+        const songStatus = new UserSongStatus(res);
+        this.isToListen = songStatus.toListen;
+        this.isListened = songStatus.listened;
+      },
+      err => {
+        if (err.status === 404) {
+          console.error(`UserSongStatus not found`);
+        }
+        console.error(err);
+      }
+    );
+  }
+  toToListen() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    if (this.isToListen) {
+      this.songStatusService.update(this.userName, id, false, false).subscribe(
+        res => console.log(res),
+        err => console.error(err)
+      );
+    } else {
+      this.isListened = false;
+      this.songStatusService.update(this.userName, id, false, true).subscribe(
+        res => console.log(res),
+        err => console.error(err)
+      );
+    }
+  }
+
+  toListened() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    if (this.isListened) {
+      this.songStatusService.update(this.userName, id, false, false).subscribe(
+        res => console.log('Added to listened songs', res),
+        err => console.error(err)
+      );
+    } else {
+      this.isToListen = false;
+      this.songStatusService.update(this.userName, id, true, false).subscribe(
+        res => console.log('Added to toListen songs', res),
+        err => console.error(err)
+      );
+    }
+  }
 }
