@@ -2,7 +2,14 @@ package musiccube.services.useralbumstatus;
 
 import musiccube.entities.UserAlbumStatus;
 
+import java.util.Optional;
+
 public interface UserAlbumStatusService {
-    Iterable<UserAlbumStatus> getOwnedByUserId(int id);
-    Iterable<UserAlbumStatus> getSoughtByUserId(int id);
+    Optional<UserAlbumStatus> getById(int id);
+    UserAlbumStatus save(UserAlbumStatus status);
+    void delete(int id);
+
+    Iterable<UserAlbumStatus> getSoughtByUserName(String userName);
+
+    Iterable<UserAlbumStatus> getOwnedByUserName(String userName);
 }

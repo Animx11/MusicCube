@@ -5,18 +5,35 @@ import musiccube.repositories.UserSongStatusRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserSongStatusServiceImpl implements UserSongStatusService {
     @Autowired
     private UserSongStatusRepo repo;
 
     @Override
-    public Iterable<UserSongStatus> getListenedByUserId(int id) {
-        return repo.findByUserIdAndListened(id,true);
+    public Optional<UserSongStatus> getById(int id) {
+        return repo.findById(id);
     }
 
     @Override
-    public Iterable<UserSongStatus> getToListenByUserId(int id) {
-        return repo.findByUserIdAndToListen(id, true);
+    public Iterable<UserSongStatus> getListenedByUserName(String userName) {
+        return repo.findByUserNameAndListened(userName, true);
+    }
+
+    @Override
+    public Iterable<UserSongStatus> getToListenByUserName(String userName) {
+        return repo.findByUserNameAndToListen(userName, true);
+    }
+
+    @Override
+    public UserSongStatus save(UserSongStatus songStatus) {
+        return repo.save(songStatus);
+    }
+
+    @Override
+    public void delete(int id) {
+        repo.deleteById(id);
     }
 }
