@@ -1,13 +1,15 @@
 package musiccube.controllers;
 
+import musiccube.dtos.UserSongStatusDto;
 import musiccube.entities.UserSongStatus;
 import musiccube.services.usersongstatus.UserSongStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @RestController
@@ -34,20 +36,28 @@ public class UserSongStatusController {
 
     }
 
-    @PostMapping("/song-status")
-    public ResponseEntity<UserSongStatus> create(UserSongStatus status) {
-        statusService.save(status);
-        return ResponseEntity.ok(status);
+    @GetMapping(
+            path = "/song-status",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<UserSongStatus> getByUserAndSong(
+            @RequestParam(name = "user") String userName,
+            @RequestParam(name = "song") int songId
+    ) {
+        Optional<UserSongStatus> status = statusService.getByUserAndSong(userName, songId);
+        if (status.isPresent()) {
+            return ResponseEntity.ok(status.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/song-status")
-    public ResponseEntity<Void> edit(UserSongStatus status) {
-        Optional<UserSongStatus> oldStatus = statusService.getById(status.getId());
-        if (oldStatus.isPresent()) {
-            statusService.save(status);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<UserSongStatus> edit(@RequestBody @Valid @NotNull UserSongStatusDto statusDto) {
+        try {
+            return ResponseEntity.status(201).body(statusService.save(statusDto));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @DeleteMapping("/song-status/{id}")

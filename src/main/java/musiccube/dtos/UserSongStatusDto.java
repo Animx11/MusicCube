@@ -2,7 +2,7 @@ package musiccube.dtos;
 
 public class UserSongStatusDto {
     private String userName;
-    private int albumId;
+    private int songId;
     private boolean listened;
     private boolean toListen;
 
@@ -10,7 +10,7 @@ public class UserSongStatusDto {
 
     public UserSongStatusDto(String userName, int albumId, boolean listened, boolean toListen) {
         this.userName = userName;
-        this.albumId = albumId;
+        this.songId = albumId;
         this.listened = listened;
         this.toListen = toListen;
     }
@@ -23,12 +23,12 @@ public class UserSongStatusDto {
         this.userName = userName;
     }
 
-    public int getAlbumId() {
-        return albumId;
+    public int getSongId() {
+        return songId;
     }
 
-    public void setAlbumId(int albumId) {
-        this.albumId = albumId;
+    public void setSongId(int songId) {
+        this.songId = songId;
     }
 
     public boolean isListened() {
