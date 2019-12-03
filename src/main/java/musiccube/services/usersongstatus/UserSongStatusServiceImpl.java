@@ -19,12 +19,12 @@ public class UserSongStatusServiceImpl implements UserSongStatusService {
 
     @Override
     public Iterable<UserSongStatus> getListenedByUserName(String userName) {
-        return repo.findByUserNameAndListened(userName, true);
+        return repo.findByUserUserNameAndListened(userName, true);
     }
 
     @Override
     public Iterable<UserSongStatus> getToListenByUserName(String userName) {
-        return repo.findByUserNameAndToListen(userName, true);
+        return repo.findByUserUserNameAndToListen(userName, true);
     }
 
     @Override
