@@ -5,5 +5,22 @@
     <div class="componentNavigator" (click)="showOwnedAlbums()">Owned Albums</div>
     <div class="componentNavigator" (click)="showSoughtAlbums()">Sought Albums</div>
   </div>
+  <div *ngIf="isToListenClicked">
+    <li *ngFor="let song of songList">
+      <a></a>
+    </li>
+  </div>
+  <div *ngIf="isYourSongsClicked">
+    <li *ngFor="let song of songList">
+
+    </li></div>
+  <div *ngIf="isSoughtAlbumsClicked">
+    <li *ngFor="let album of albumList">
+
+    </li></div>
+  <div *ngIf="isOwnedAlbumsClicked">
+    <li *ngFor="let album of albumList">
+
+    </li></div>
 </div>
 

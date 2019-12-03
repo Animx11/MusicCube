@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {UserSongStatus} from '../../../../Class/UserSongStatus';
-import {UserAlbumStatus} from '../../../../Class/UserAlbumStatus';
+import {UserAlbumStatusService} from '../../../../Services/user-album-status.service';
+import {UserSongStatusService} from '../../../../Services/user-song-status.service';
+import {TokenStorageService} from '../../../../Services/token-storage.service';
+import {Song} from '../../../../Class/Song';
+import {Album} from '../../../../Class/Album';
 
 @Component({
   selector: 'app-extras',
@@ -14,9 +17,13 @@ export class ExtrasComponent implements OnInit {
   isOwnedAlbumsClicked: boolean;
   isSoughtAlbumsClicked: boolean;
 
-  songList: UserSongStatus[];
-  albumList: UserAlbumStatus[];
-  constructor() { }
+  songList: Song[];
+  albumList: Album[];
+  constructor(
+    private userAlbumService: UserAlbumStatusService,
+    private userSongService: UserSongStatusService,
+    private tokenService: TokenStorageService
+  ) { }
 
   ngOnInit() {
   }
@@ -29,18 +36,30 @@ export class ExtrasComponent implements OnInit {
   }
 
   showListenedSongs() {
-
+    this.reset();
+    this.isYourSongsClicked = true;
+    this.userSongService.getListened(this.tokenService.getUsername()).subscribe(
+      res => {
+        console.log(res);
+      }
+    );
   }
 
   showSongsToListen() {
+    this.reset();
+    this.isToListenClicked = true;
 
   }
 
   showOwnedAlbums() {
+    this.reset();
+    this.isOwnedAlbumsClicked = true;
 
   }
 
   showSoughtAlbums() {
+    this.reset();
+    this.isSoughtAlbumsClicked = true;
 
   }
 }

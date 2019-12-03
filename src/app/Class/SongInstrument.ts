@@ -1,5 +1,5 @@
-import { Song } from "./Song";
-import { Instrument } from "./Instrument";
+import { Song } from './Song';
+import { Instrument } from './Instrument';
 
 export class SongInstrument {
   id: number;
