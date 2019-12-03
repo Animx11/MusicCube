@@ -11,6 +11,8 @@
   Total length: {{album.albumLengthSeconds | secondsToString}}
   <img src="{{album.coverArtLink}}" alt="cover"/><br>
   <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
+  <div *ngIf = "isLogged">Owned: <input type = "checkbox" name = "isOwned" [(ngModel)]="isOwned" (click) = "toOwned()" /></div>
+  <div *ngIf = "isLogged">Sought: <input type = "checkbox" name = "isSought" [(ngModel)]="isSought" (click) = "toSought()" /></div>
   <div *ngIf = "isLogged">Score: 
       <select id = "selectOption" name = "selectOption" [(ngModel)]="selectOption" (change) = "setScore()">
           <option value="0">Select score</option>

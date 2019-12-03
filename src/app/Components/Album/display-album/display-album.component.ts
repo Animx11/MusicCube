@@ -30,6 +30,8 @@ export class DisplayAlbumComponent implements OnInit {
 
   private isLogged: boolean;
   private isFavorite: boolean;
+  isOwned: boolean;
+  isSought: boolean;
 
   private isRated: boolean;
 
@@ -57,6 +59,8 @@ export class DisplayAlbumComponent implements OnInit {
       this.isLogged = true;
       this.checkIfIsFavorite();
       this.checkIfIsRated();
+      this.checkIfIsOwned();
+      this.checkIfIsSought();
     }
   }
 
@@ -225,4 +229,19 @@ export class DisplayAlbumComponent implements OnInit {
     );
   }
 
+  private checkIfIsOwned() {
+// TODO
+  }
+
+  private checkIfIsSought() {
+    // TODO
+  }
+
+  toSought() {
+    // TODO
+  }
+
+  toOwned() {
+    // TODO
+  }
 }

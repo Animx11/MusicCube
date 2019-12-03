@@ -19,6 +19,9 @@ export class ExtrasComponent implements OnInit {
 
   songList: Song[];
   albumList: Album[];
+
+  userName: string;
+
   constructor(
     private userAlbumService: UserAlbumStatusService,
     private userSongService: UserSongStatusService,
@@ -26,6 +29,7 @@ export class ExtrasComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.userName = this.tokenService.getUsername();
   }
 
   reset() {
@@ -37,10 +41,10 @@ export class ExtrasComponent implements OnInit {
 
   showListenedSongs() {
     this.reset();
-    this.isYourSongsClicked = true;
-    this.userSongService.getListened(this.tokenService.getUsername()).subscribe(
+    this.isToListenClicked = true;
+    this.userSongService.getListened(this.userName).subscribe(
       res => {
-        console.log(res);
+        console.log(`Extras component received: ${res}`);
       }
     );
   }
@@ -48,18 +52,32 @@ export class ExtrasComponent implements OnInit {
   showSongsToListen() {
     this.reset();
     this.isToListenClicked = true;
-
+    this.userSongService.getToListen(this.userName).subscribe(
+      res => {
+        console.log(`Extras component received: ${res}`);
+      }
+    );
   }
 
   showOwnedAlbums() {
     this.reset();
     this.isOwnedAlbumsClicked = true;
+    this.userAlbumService.getOwned(this.userName).subscribe(
+      res => {
+        console.log(`Extras component received: ${res}`);
+      }
+    );
 
   }
 
   showSoughtAlbums() {
     this.reset();
     this.isSoughtAlbumsClicked = true;
+    this.userAlbumService.getSought(this.userName).subscribe(
+      res => {
+        console.log(`Extras component received: ${res}`);
+      }
+    );
 
   }
 }
