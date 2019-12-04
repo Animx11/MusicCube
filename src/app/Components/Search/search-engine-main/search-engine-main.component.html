@@ -1,18 +1,30 @@
 <div class="contentDisplay">
-  <input [(ngModel)]="switches[0]" (click)="switchAll()" type="checkbox" class="hidden" id="all-check"><label for="all-check" id="all-check-lbl">Disable all</label>
-  <input [(ngModel)]="switches[1]" (click)="switchCheck(1)" type="checkbox" class="hidden" id="band-check"><label for="band-check">Bands</label>
-  <input [(ngModel)]="switches[2]" (click)="switchCheck(2)" type="checkbox" class="hidden" id="artist-check"><label for="artist-check">Artists</label>
-  <input [(ngModel)]="switches[3]" (click)="switchCheck(3)" type="checkbox" class="hidden" id="album-check"><label for="album-check">Albums</label>
-  <input [(ngModel)]="switches[4]" (click)="switchCheck(4)" type="checkbox" class="hidden" id="song-check"><label for="song-check">Songs</label>
-  <input [(ngModel)]="switches[5]" (click)="switchCheck(5)" type="checkbox" class="hidden" id="instrument-check"><label for="instrument-check">Instruments</label>
-  <input [(ngModel)]="switches[6]" (click)="switchCheck(6)" type="checkbox" class="hidden" id="genre-check"><label for="genre-check">Genres</label>
-  <br/>
 
-  <input #searchBox id="searchBox"/>
-  <button (click)="search(searchBox.value)">Search</button>
-  <button routerLink="/search/advanced">Advanced</button>
-  <div *ngIf="message">{{message}}</div>
+  <!-- 
+    <button (click)="search(searchBox.value)">Search</button>
+    <button routerLink="/search/advanced">Advanced</button>
+    <div *ngIf="message">{{message}}</div>
+  -->
+  <div id = "searchBlock">
+    <input #searchBox id="searchBox"/>
+    <div id = "searchButton" (click)="search(searchBox.value)"><img src="https://static.thenounproject.com/png/197410-200.png" width="30px" height="30px"></div>
+  </div>
+  <div id = "switchPanel">
+      <input [(ngModel)]="switches[0]" (click)="switchAll()" type="checkbox" class="hidden" id="all-check"><label for="all-check" id="all-check-lbl">Disable all</label>
+      <input [(ngModel)]="switches[1]" (click)="switchCheck(1)" type="checkbox" class="hidden" id="band-check"><label for="band-check">Bands</label>
+      <input [(ngModel)]="switches[2]" (click)="switchCheck(2)" type="checkbox" class="hidden" id="artist-check"><label for="artist-check">Artists</label>
+      <input [(ngModel)]="switches[3]" (click)="switchCheck(3)" type="checkbox" class="hidden" id="album-check"><label for="album-check">Albums</label>
+      <input [(ngModel)]="switches[4]" (click)="switchCheck(4)" type="checkbox" class="hidden" id="song-check"><label for="song-check">Songs</label>
+      <input [(ngModel)]="switches[5]" (click)="switchCheck(5)" type="checkbox" class="hidden" id="instrument-check"><label for="instrument-check">Instruments</label>
+      <input [(ngModel)]="switches[6]" (click)="switchCheck(6)" type="checkbox" class="hidden" id="genre-check"><label for="genre-check">Genres</label>
+    </div>
 
+
+
+  <div id = "massage" *ngIf="message">{{message}}</div>
+
+
+<div id = "searchContentBlock">
   <table *ngIf="switches[1] && bands.length">
     <thead>
       <tr>
@@ -102,4 +114,5 @@
       </td>
     </tr>
   </table>
+</div>
 </div>

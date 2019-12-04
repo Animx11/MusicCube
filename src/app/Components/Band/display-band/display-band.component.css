@@ -1,0 +1,124 @@
+.contentDisplay{
+    background-color: rgba(240, 248, 255, 0.9);
+    margin-left: 18%;
+    margin-right: 18%;
+    min-height: 87.5vh;
+  
+  }
+
+  #infoPanel{
+      width: 30%;
+      float: left;
+      background-color: aliceblue;
+      margin-top: 50px;
+      min-height: 70vh;
+    }
+
+    h4{
+        text-align: left;
+        margin-left: 10%;
+    }
+
+  hr{
+      width: 80%;
+  }
+
+  #displayPanel{
+      width: 60%;
+      float: left;
+      min-height: 100%;
+      margin-right: 10%;
+  }
+
+  #about{
+      margin-left: 5%;
+  }
+
+  .aboutContent{
+      margin-bottom: 10px;
+  }
+
+  #optionDisplayPanel{
+    background-color: aliceblue;
+    height: 50px;
+  }
+
+  #displayPanelContent{
+      background-color: lightgray;
+      min-height: 68vh;
+  }
+
+  .optionToDisplay{
+    width: 33.3%;
+    height: 100%;
+    text-align: center;
+    display: inline-block;
+
+
+  }
+
+  #bio{
+      margin-left: 5%;
+  }
+
+  #statistic{
+      margin-left: 5%;
+  }
+
+  #statisticOption{
+      width: 33%;
+      height: 20px;
+      position: relative;
+      background-color: yellow;
+      display: inline-block;
+  }
+
+  #commentSection{
+      margin-top: 5%;
+    margin-left: 5%;
+    
+      width: 95%;
+  }
+
+  #commentHeader{
+      margin-top: 10px;
+      margin-right: 2%;
+      min-height: 30px;
+      text-align: right;
+
+  }
+
+  #commentBody{
+      margin-left: 5%;
+      margin-right: 5%;
+      padding-top: 2%;
+    word-wrap: break-word;
+    display: flexbox;
+    border-style: solid;
+    border-color: aliceblue;
+    border-width: 1px;
+    min-height: 50px;
+    text-align: left;
+  }
+
+  #deleteComment{
+    text-align: right;
+    margin-right: 5%;
+
+  }
+
+  .optionToDisplay:hover{
+    animation-name: hoverAnimation;
+    animation-duration: 2s;
+  }
+
+  @keyframes hoverAnimation {
+    0% {
+      background-color: #d9edff;
+    }
+  
+    100% {
+      background-color: aliceblue;
+    }
+  }
+  

@@ -1,3 +1,4 @@
+/*
 #body{
   background-color: blue;
 }
@@ -85,4 +86,93 @@ th, td {
 
 div.advSrcElement {
   margin-bottom: 25px;
+}
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#header {
+  background-image: linear-gradient(to right bottom,
+   rgba( 240,	248,	255, 0.2),
+   rgba( 240,	248,	255, 0.2)),
+  url( "https://images.pexels.com/photos/2796145/pexels-photo-2796145.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+  background-position: top;
+  background-size: contain;
+  background-attachment: fixed;
+  min-height: 97vh;
+  animation-name: showNavigatorAnimation;
+  animation-duration: 1s;
+}
+
+
+#navigator {
+  width: 100%;
+  height: 40px;
+  background-color: aliceblue;
+  text-align: center;
+  animation-name: showNavigatorAnimation;
+  animation-duration: 2s;
+  
+}
+
+#logo {
+  float: left;
+  padding: 8px;
+  width: 18%;
+}
+
+
+.navigatorOption {
+  height: 100%;
+  display: block;
+  float: left;
+  padding: 8px;
+  width: 8%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+
+}
+
+.navigatorOptionSmaller{
+  width: 8%;
+  float: right;
+}
+
+
+.navigatorOption:link,
+.navigatorOption:visited {
+  text-decoration: no;
+}
+
+.navigatorOption:hover {
+  animation-name: hoverAnimation;
+  animation-duration: 2s;
+
+}
+
+@keyframes hoverAnimation {
+  0% {
+    background-color: #d9edff;
+  }
+
+  100% {
+    background-color: aliceblue;
+  }
+}
+
+
+
+
+@keyframes showNavigatorAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
