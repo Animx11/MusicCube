@@ -7,7 +7,7 @@
       <div id = "textInputs">
         <p><input type = "text" class = "creditals" name = "userName" [(ngModel)]="userName" placeholder="Username" required></p>
         <p><input type = "password" class = "creditals" name = "password" [(ngModel)]="password" placeholder="Password" required></p>
-        <button (click)="signIn()" [disabled]="!signInForm.valid">Sign In</button>
+        <button (click)="signIn()" [disabled]="!signInForm.valid" id = "signInButton">Sign In</button>
       </div>
   </form>
 

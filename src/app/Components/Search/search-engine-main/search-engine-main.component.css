@@ -1,56 +1,19 @@
-/*
-input.hidden {position:absolute;visibility:hidden;opacity:0;}
-input[type=checkbox] + label {
-  color: #ccc;
-  font-style: italic;
-  margin: 10px;
-}
-input[type=checkbox]:checked + label {
-  color: #f00;
-  font-style: normal;
-}
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-table {
-  width: 200px;
-  table-layout: fixed;
-  border-collapse: collapse;
-  font-family: arial, sans-serif;
-  margin: 10px;
-  display: inline-block;
-}
-
-tbody{
-  display:block;
-  overflow: auto;
-  height: 300px;
-}
-
-thead tr {
-  display: block;
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-  width: 200px;
-  border: 1px solid #dddddd;
-}
-*/
 
 .contentDisplay{
-  background-color: grey;
+  background-color: rgba(240, 248, 255, 0.9);
   margin-left: 18%;
   margin-right: 18%;
   min-height: 87.5vh;
+
 }
 #searchBlock{
   position: relative;
   width: 100%;
   left: 75%;
   transform: translate(-50%, -50%);
+  animation-name: introAnimation;
+  animation-duration: 1s;
 
 }
 #searchBox{
@@ -60,6 +23,11 @@ th, td {
   margin-top: 10px;
   border: none;
   float: left;
+
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgray;
+  border-right-style: none;
 
 }
 
@@ -71,13 +39,23 @@ th, td {
   height: 32px;
   width: 32px;
 
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgray;
+  border-left-style: none;
+
+  animation-name: buttonNotHoverAnimation;
+  animation-duration: 0.5s;
+
 }
 
 #searchButton:hover{
   background-color: greenyellow;
-  animation-name: buttonAnimation;
+  animation-name: buttonHoverAnimation;
   animation-duration: 0.5s;
 }
+
+
 
 #massage{
   position: relative;
@@ -87,12 +65,91 @@ th, td {
   width: 100%;
 }
 
-@keyframes buttonAnimation{
+#switchPanel{
+  display: inline-block;
+  text-align: center;
+  padding-left: 1.5%;
+  width: 100%;
+
+
+}
+
+#searchContentBlock{
+  padding-left:5%;
+}
+
+input.hidden {position:absolute;visibility:hidden;opacity:0;}
+input[type=checkbox] + label {
+  color: #ccc;
+  font-style: italic;
+  margin: 10px;
+
+}
+input[type=checkbox]:checked + label {
+  color: #f00;
+  font-style: normal;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+table {
+  width: 30%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-family: arial, sans-serif;
+  margin: 10px;
+  display: inline-block;
+
+}
+
+
+tbody{
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 300px;
+}
+
+thead tr {
+  display: block;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  max-width: 33vh;
+  min-width: 33vh;
+  border: 1px solid #dddddd;
+}
+
+@keyframes introAnimation{
+  0%{
+    opacity: 0;
+    top: -10%;
+  }
+  100%{
+    opacity: 1;
+    top: 0%;
+  }
+}
+
+
+@keyframes buttonHoverAnimation{
   0%{
     background-color: white;
   }
   100%{
     background-color: greenyellow;
+  }
+}
+
+@keyframes buttonNotHoverAnimation{
+  0%{
+    background-color: greenyellow;
+  }
+  100%{
+    background-color: white;
   }
 }
 
