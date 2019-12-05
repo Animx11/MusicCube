@@ -83,6 +83,7 @@ import { AlbumListDisplayComponent } from './Components/Album/album-list-display
 import { GenreListDisplayComponent } from './Components/Genre/genre-list-display/genre-list-display.component';
 import { InstrumentListDisplayComponent } from './Components/Instrument/instrument-list-display/instrument-list-display.component';
 import { ExtrasComponent } from './Components/User/user-panel/extras/extras.component';
+import { RankingsComponent } from './Components/rankings/rankings.component';
 
 
 const ROUTES: Routes = [
@@ -257,6 +258,11 @@ const ROUTES: Routes = [
     component: AdvancedSearchComponent
   },
 
+  {
+    path: 'rankings',
+    component: RankingsComponent
+  },
+
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -333,6 +339,7 @@ const ROUTES: Routes = [
     GenreListDisplayComponent,
     InstrumentListDisplayComponent,
     ExtrasComponent,
+    RankingsComponent,
 
   ],
   imports: [
