@@ -15,5 +15,6 @@ public interface UserService {
 
     boolean existsByUserName(String userName);
     boolean existsByEmail(String email);
+    boolean existsById(int id);
 
 }

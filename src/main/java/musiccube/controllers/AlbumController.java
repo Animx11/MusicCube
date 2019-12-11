@@ -106,7 +106,7 @@ public class AlbumController {
             @RequestParam("company") Optional<String> company
     ) {
         return albumService.advancedSearch(
-                song.orElse("%"),
+                song.orElse("%"),//TODO to jest ZŁE
                 genre.orElse("%"),
                 company.orElse("%")
         );
