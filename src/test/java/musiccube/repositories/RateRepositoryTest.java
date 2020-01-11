@@ -3,9 +3,8 @@ package musiccube.repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 import musiccube.dtos.SongRatingDto;
-import musiccube.entities.Rate;
-import musiccube.entities.Song;
-import musiccube.entities.User;
+import musiccube.entities.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 @RunWith(SpringRunner.class)
@@ -24,9 +24,13 @@ class RateRepositoryTest {
     @Autowired
     private RateRepository rateRepository;
 
-    @Test
-    void alwaysTrue() {
-        assertTrue(true);
+    private User user;
+
+    @BeforeAll
+    void init() {
+        user = new User("user","asdasd","asd@asd.asd",new HashSet<>());
+        testEntityManager.persist(user);
+        testEntityManager.flush();
     }
 
     @Test
@@ -34,8 +38,6 @@ class RateRepositoryTest {
         //given
         Song song = new Song("title",1,10,null,null,null);
         testEntityManager.persist(song);
-        User user = new User("user","asdasd","asd@asd.asd",new HashSet<>());
-        testEntityManager.persist(user);
         Rate rate = new Rate(user,song,7);
         testEntityManager.persist(rate);
         testEntityManager.flush();
@@ -48,6 +50,26 @@ class RateRepositoryTest {
         assertEquals(found.getSongName(),"title");
         assertEquals(found.getAvgRating(),7);
         assertEquals(found.getRatedCount(),1);
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenNoSongWhereRated() {
+        //given
+        Band band = new Band();
+        testEntityManager.persist(band);
+        Album album = new Album();
+        testEntityManager.persist(album);
+        Rate bandRate = new Rate(user,band,10);
+        Rate albumRate = new Rate(user, album, 10);
+        testEntityManager.persist(bandRate);
+        testEntityManager.persist(albumRate);
+        testEntityManager.flush();
+
+        //when
+        ArrayList<SongRatingDto> found = (ArrayList<SongRatingDto>) rateRepository.findSongStatistics();
+
+        //then
+        assertEquals(found.size(),0);
     }
 
 }
