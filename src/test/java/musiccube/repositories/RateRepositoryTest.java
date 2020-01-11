@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import musiccube.dtos.SongRatingDto;
 import musiccube.entities.*;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ class RateRepositoryTest {
 
     private User user;
 
-    @BeforeAll
+    @BeforeEach
     void init() {
         user = new User("user","asdasd","asd@asd.asd",new HashSet<>());
         testEntityManager.persist(user);
@@ -53,7 +53,7 @@ class RateRepositoryTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoSongWhereRated() {
+    void shouldReturnEmptyListWhenNoSongsWhereRated() {
         //given
         Band band = new Band();
         testEntityManager.persist(band);
