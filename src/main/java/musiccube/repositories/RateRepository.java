@@ -1,5 +1,6 @@
 package musiccube.repositories;
 
+import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -37,5 +38,9 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
 
     @Query("SELECT r FROM Rate r WHERE r.band.id = ?1")
     Iterable<Rate> findAllBandRatesByBandId(int id);
+
+
+    @Query("SELECT r.song.id, AVG(r.rate), COUNT(r) FROM Rate r GROUP BY r.song")
+    Iterable<SongRatingDto> findSongStatistics();
 
 }
