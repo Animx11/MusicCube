@@ -45,6 +45,7 @@ class RateRepositoryTest {
 
         //then
         assertEquals(found.getSongId(),1);
+        assertEquals(found.getSongName(),"title");
         assertEquals(found.getAvgRating(),7);
         assertEquals(found.getRatedCount(),1);
     }

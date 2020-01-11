@@ -40,7 +40,7 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
     Iterable<Rate> findAllBandRatesByBandId(int id);
 
 
-    @Query("SELECT r.song.id, AVG(r.rate), COUNT(r) FROM Rate r GROUP BY r.song")
+    @Query("SELECT new musiccube.dtos.SongRatingDto( r.song.id, r.song.songName, AVG(r.rate), COUNT(r) ) FROM Rate r GROUP BY r.song")
     Iterable<SongRatingDto> findSongStatistics();
 
 }
