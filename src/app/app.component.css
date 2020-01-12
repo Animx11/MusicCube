@@ -1,147 +1,47 @@
-/*
-#body{
-  background-color: blue;
-}
-
-#navigationPanel{
-  width: 85%;
-  float: left;
-  position: fixed;
-}
-
-.navigator{
-  width: 12.3%;
-  height: 30px;
-  text-align:center;
-  padding-top: 10px;
-  float: left;
-  background: #d9edff;
-  border-style: solid;
-  border-width: 1px;
-  border-color: white;
-}
-
-.navigator:hover{
-  background: aliceblue;
-}
-
-#loginPanel{
-  width: 15%;
-  position: fixed;
-  right: 0px;
-}
-
-.signNavigator{
-  width: 49%;
-  height: 30px;
-  text-align:center;
-  padding-top: 10px;
-  float: left;
-  background: #d9edff;
-  border-style: solid;
-  border-width: 1px;
-  border-color: white;
-}
-
-.signNavigator:hover{
-  background: aliceblue;
-}
-
-input.year {
-  width: 35px;
-}
-
-button.advReset {
-  margin-left: 10px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-table {
-  width: 200px;
-  table-layout: fixed;
-  border-collapse: collapse;
-  font-family: arial, sans-serif;
-  margin: 10px;
-  display: inline-block;
-}
-
-tbody{
-  display:block;
-  overflow: auto;
-  height: 300px;
-}
-
-thead tr {
-  display: block;
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-  width: 200px;
-  border: 1px solid #dddddd;
-}
-
-div.advSrcElement {
-  margin-bottom: 25px;
-}
-*/
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
 
-#header {
-  background-image: linear-gradient(to right bottom,
-   rgba( 240,	248,	255, 0.2),
-   rgba( 240,	248,	255, 0.2)),
-  url( "https://images.pexels.com/photos/2796145/pexels-photo-2796145.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
-  background-position: top;
-  background-size: contain;
-  background-attachment: fixed;
-  min-height: 97vh;
-  animation-name: showNavigatorAnimation;
-  animation-duration: 1s;
 }
-
 
 #navigator {
-  width: 100%;
-  height: 40px;
+  font-size: 1vw;
   background-color: aliceblue;
   text-align: center;
+  height: 40px;
+  width: 100%;
   animation-name: showNavigatorAnimation;
   animation-duration: 2s;
-  
 }
 
 #logo {
+  vertical-align: middle;
+  line-height: 40px;
   float: left;
-  padding: 8px;
-  width: 18%;
+  width: 18vw;
 }
 
 
 .navigatorOption {
-  height: 100%;
+  line-height: 40px;
+  height: 40px;
   display: block;
   float: left;
-  padding: 8px;
-  width: 8%;
+  width: 8vw;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
 
 }
 
-.navigatorOptionSmaller{
-  width: 8%;
+.smallerNavigatorBox{
   float: right;
+
 }
 
+.navigatorOptionSmaller{
+  width: 5vw;
+}
 
 .navigatorOption:link,
 .navigatorOption:visited {
@@ -154,6 +54,23 @@ div.advSrcElement {
 
 }
 
+.content{
+  margin-top: 10px;
+  background-image: linear-gradient(to right bottom,
+  rgba( 240,	248,	255, 0.2),
+  rgba( 240,	248,	255, 0.2)),
+ url( "https://images.pexels.com/photos/2796145/pexels-photo-2796145.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+ box-sizing: border-box;
+ background-position: top;
+ background-attachment: fixed;
+ background-size: contain;
+ width: 100%;
+ min-height: 90vh;
+ animation-name: showNavigatorAnimation;
+ animation-duration: 1s;
+}
+
+
 @keyframes hoverAnimation {
   0% {
     background-color: #d9edff;
@@ -163,9 +80,6 @@ div.advSrcElement {
     background-color: aliceblue;
   }
 }
-
-
-
 
 @keyframes showNavigatorAnimation {
   0% {

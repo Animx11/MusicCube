@@ -1,11 +1,14 @@
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 .contentDisplay{
   background-color: rgba(240, 248, 255, 0.9);
   margin-left: 18%;
   margin-right: 18%;
-  min-height: 87.5vh;
-
+  min-height: 81vh;
 }
 #searchBlock{
   position: relative;
@@ -36,8 +39,8 @@
   background-color: white;
   float: left;
   margin-top: 10px;
-  height: 32px;
-  width: 32px;
+  height: 30px;
+  width: 30px;
 
   border-style: solid;
   border-width: 1px;
@@ -108,7 +111,7 @@ tbody{
   display: block;
   overflow-y: auto;
   overflow-x: hidden;
-  height: 300px;
+  height: 25vh;
 }
 
 thead tr {
@@ -118,8 +121,7 @@ thead tr {
 th, td {
   padding: 8px;
   text-align: left;
-  max-width: 33vh;
-  min-width: 33vh;
+  width: 20vw;
   border: 1px solid #dddddd;
 }
 

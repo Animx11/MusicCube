@@ -58,19 +58,22 @@
   </table>
 
   <table *ngIf="switches[3] && albums.length">
-    <thead>
-      <tr>
-        <th>
-          Album
-        </th>
-      </tr>
-    </thead>
-    <tr *ngFor="let album of albums">
-      <td>
-        <a routerLink="/album/{{album.id}}">{{album.albumName}}</a>
-      </td>
-    </tr>
-  </table>
+      <thead>
+        <tr>
+          <th>
+            Albums
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let album of albums">
+            <td>
+              <a routerLink="/album/{{album.id}}">{{album.albumName}}</a>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+
 
   <table *ngIf="switches[4] && songs.length">
     <thead>
@@ -85,34 +88,41 @@
     </tbody>
   </table>
 
+
   <table *ngIf="switches[5] && instruments.length">
-    <thead>
-      <tr>
-        <th>
-          Instrument
-        </th>
-      </tr>
-    </thead>
-    <tr *ngFor="let instrument of instruments">
-      <td>
-        <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a>
-      </td>
-    </tr>
-  </table>
+      <thead>
+        <tr>
+          <th>
+             Instrument
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let instrument of instruments">
+              <td>
+                <a routerLink="/instrument/{{instrument.id}}">{{instrument.instrumentName}}</a>
+              </td>
+        </tr>
+      </tbody>
+    </table>
+
 
   <table *ngIf="switches[6] && genres.length">
-    <thead>
-      <tr>
-        <th>
-          Genre
-        </th>
-      </tr>
-    </thead>
-    <tr *ngFor="let genre of genres">
-      <td>
-        <a routerLink="/genre/{{genre.id}}">{{genre.genreName}}</a>
-      </td>
-    </tr>
-  </table>
+      <thead>
+        <tr>
+          <th>
+              Genre
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let genre of genres">
+              <td>
+                  <a routerLink="/genre/{{genre.id}}">{{genre.genreName}}</a>
+                </td>
+        </tr>
+      </tbody>
+    </table>
+  
 </div>
 </div>
