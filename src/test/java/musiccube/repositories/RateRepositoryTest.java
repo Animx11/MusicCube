@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -43,11 +44,10 @@ class RateRepositoryTest {
         testEntityManager.flush();
 
         //when
-        SongRatingDto found  = rateRepository.findSongStatistics().iterator().next();
+        SongRatingDto found  = rateRepository.findBestRatedSongs(new PageRequest(0,10)).iterator().next();
 
         //then
-        assertEquals(found.getSongId(),1);
-        assertEquals(found.getSongName(),"title");
+        assertEquals(found.getSong().getSongName(),"title");
         assertEquals(found.getAvgRating(),7);
         assertEquals(found.getRatedCount(),1);
     }
@@ -66,10 +66,38 @@ class RateRepositoryTest {
         testEntityManager.flush();
 
         //when
-        ArrayList<SongRatingDto> found = (ArrayList<SongRatingDto>) rateRepository.findSongStatistics();
+        ArrayList<SongRatingDto> found = (ArrayList<SongRatingDto>) rateRepository.findBestRatedSongs(new PageRequest(0,10));
 
         //then
         assertEquals(found.size(),0);
+    }
+
+    @Test
+    void shouldReturnRatedSongsInDescendingOrder() {
+        Song song10 = new Song("song10",1,10,null,null,null);
+        Song song8 = new Song("song8",1,10,null,null,null);
+        Song song6 = new Song("song6",1,10,null,null,null);
+
+        Rate rate2 = new Rate(user,song8,8);
+        Rate rate = new Rate(user,song10,10);
+        Rate rate1 = new Rate(user,song6,6);
+
+        testEntityManager.persist(song10);
+        testEntityManager.persist(song8);
+        testEntityManager.persist(song6);
+        testEntityManager.persist(rate2);
+        testEntityManager.persist(rate);
+        testEntityManager.persist(rate1);
+        testEntityManager.flush();
+
+        //when
+        ArrayList<SongRatingDto> found = (ArrayList<SongRatingDto>) rateRepository.findBestRatedSongs(new PageRequest(0, 3));
+
+        //then
+        assertEquals(found.get(0).getSong().getSongName(),"song10");
+        assertEquals(found.get(1).getSong().getSongName(),"song8");
+        assertEquals(found.get(2).getSong().getSongName(),"song6");
+
     }
 
 }

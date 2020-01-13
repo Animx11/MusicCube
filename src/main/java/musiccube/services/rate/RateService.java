@@ -1,7 +1,9 @@
 package musiccube.services.rate;
 
+import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RateService {
@@ -23,5 +25,5 @@ public interface RateService {
     Iterable<Rate> getRatesByBandId(int id);
     Iterable<Rate> getRatesByAlbumId(int id);
 
-
+    List<SongRatingDto> getBestRatedSongs(int limit);
 }

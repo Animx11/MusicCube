@@ -1,24 +1,20 @@
 package musiccube.dtos;
 
+import musiccube.entities.Song;
+
 public class SongRatingDto {
-    private int songId;
-    private String songName;
+    private Song song;
     private double avgRating;
     private long ratedCount;
 
-    public SongRatingDto(int songId, String songName, double avgRating, long ratedCount) {
-        this.songId = songId;
-        this.songName = songName;
+    public SongRatingDto(Song song, double avgRating, long ratedCount) {
+        this.song = song;
         this.avgRating = avgRating;
         this.ratedCount = ratedCount;
     }
 
-    public String getSongName() {
-        return songName;
-    }
-
-    public int getSongId() {
-        return songId;
+    public Song getSong() {
+        return song;
     }
 
     public double getAvgRating() {

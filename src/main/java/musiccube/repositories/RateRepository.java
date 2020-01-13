@@ -2,10 +2,12 @@ package musiccube.repositories;
 
 import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAndSortingRepository<Rate, Integer> {
@@ -40,7 +42,11 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
     Iterable<Rate> findAllBandRatesByBandId(int id);
 
 
-    @Query("SELECT new musiccube.dtos.SongRatingDto( r.song.id, r.song.songName, AVG(r.rate), COUNT(r) ) FROM Rate r GROUP BY r.song")
-    Iterable<SongRatingDto> findSongStatistics();
+    @Query(
+            value = "SELECT new musiccube.dtos.SongRatingDto( r.song, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                "FROM Rate r GROUP BY r.song " +
+                "ORDER BY avgrate DESC"
+    )
+    List<SongRatingDto> findBestRatedSongs(Pageable pageable);
 
 }

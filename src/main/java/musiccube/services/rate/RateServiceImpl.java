@@ -1,10 +1,13 @@
 package musiccube.services.rate;
 
+import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
 import musiccube.repositories.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -78,6 +81,13 @@ public class RateServiceImpl implements RateService {
     @Override
     public Iterable<Rate> getRatesBySongId(int id) {
         return rateRepository.findAllSongRatesBySongId(id);
+    }
+
+
+
+    @Override
+    public List<SongRatingDto> getBestRatedSongs(int limit) {
+        return rateRepository.findBestRatedSongs(new PageRequest(0, limit));
     }
 
 
