@@ -26,6 +26,7 @@
             <p><input type = "password" class = "creditals" name = "password" [(ngModel)]="password" placeholder="Password" required></p>
             <p><input type = "text" class = "creditals" name = "email" [(ngModel)]="email" placeholder="E-mail" required></p>
             <button (click)="signUp()" [disabled]="!signUpForm.valid" id = "signUpButton">Sign Up</button>
+            <div class="signIn"><a href = "SignIn">Already have account?</a></div>
         </div>
     </form>
   

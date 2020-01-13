@@ -5,6 +5,23 @@
 
 }
 
+body{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to right bottom,
+  rgba( 240,	248,	255, 0.2),
+  rgba( 240,	248,	255, 0.2)),
+ url( "https://images.pexels.com/photos/2796145/pexels-photo-2796145.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+ background-size:contain;
+ background-repeat: repeat;
+ overflow-y: scroll;
+
+ height: 100%;
+}
+
 #navigator {
   font-size: 1vw;
   background-color: aliceblue;
@@ -53,23 +70,23 @@
   animation-duration: 2s;
 
 }
-
-.content{
+/*
+#header{
   margin-top: 10px;
   background-image: linear-gradient(to right bottom,
   rgba( 240,	248,	255, 0.2),
   rgba( 240,	248,	255, 0.2)),
  url( "https://images.pexels.com/photos/2796145/pexels-photo-2796145.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
- box-sizing: border-box;
  background-position: top;
  background-attachment: fixed;
  background-size: contain;
+ 
  width: 100%;
  min-height: 90vh;
  animation-name: showNavigatorAnimation;
  animation-duration: 1s;
 }
-
+*/
 
 @keyframes hoverAnimation {
   0% {

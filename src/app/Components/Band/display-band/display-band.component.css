@@ -1,9 +1,16 @@
+* {
+
+  box-sizing: border-box;
+
+}
 .contentDisplay{
     background-color: rgba(240, 248, 255, 0.9);
     margin-left: 18%;
     margin-right: 18%;
-    min-height: 87.5vh;
-  
+    min-height: 80vh;
+    height: auto;
+    overflow-y: scroll;
+
   }
 
   #infoPanel{
@@ -24,9 +31,10 @@
   }
 
   #displayPanel{
+
       width: 60%;
       float: left;
-      min-height: 100%;
+      min-height: 70vh;
       margin-right: 10%;
   }
 
@@ -40,11 +48,12 @@
 
   #optionDisplayPanel{
     background-color: aliceblue;
+    line-height: 50px;
+    font-size: 1.2vw;
     height: 50px;
   }
 
   #displayPanelContent{
-      background-color: lightgray;
       min-height: 68vh;
   }
 
@@ -59,7 +68,7 @@
 
   #bio{
       margin-left: 5%;
-  }
+    }
 
   #statistic{
       margin-left: 5%;
@@ -69,7 +78,6 @@
       width: 33%;
       height: 20px;
       position: relative;
-      background-color: yellow;
       display: inline-block;
   }
 
@@ -86,6 +94,10 @@
       min-height: 30px;
       text-align: right;
 
+  }
+
+  #comment{
+    width: 30vw;
   }
 
   #commentBody{

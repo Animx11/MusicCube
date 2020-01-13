@@ -272,7 +272,8 @@ export class DisplayBandComponent implements OnInit {
 
   switchValue(clicked: boolean): boolean {
     this.resetValue();
-    return !clicked;
+    clicked = true;
+    return clicked;
   }
 
 }
