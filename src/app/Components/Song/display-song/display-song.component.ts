@@ -249,13 +249,13 @@ export class DisplaySongComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     if (this.isListened) {
       this.songStatusService.update(this.userName, id, false, false).subscribe(
-        res => console.log('Added to listened songs', res),
+        res => console.log('Added to listened songRatingDtos', res),
         err => console.error(err)
       );
     } else {
       this.isToListen = false;
       this.songStatusService.update(this.userName, id, true, false).subscribe(
-        res => console.log('Added to toListen songs', res),
+        res => console.log('Added to toListen songRatingDtos', res),
         err => console.error(err)
       );
     }

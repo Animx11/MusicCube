@@ -44,7 +44,7 @@ export class ExtrasComponent implements OnInit {
     this.isToListenClicked = true;
     this.userSongService.getListened(this.userName).subscribe(
       res => {
-        console.log('Extras component received songs', res);
+        console.log('Extras component received songRatingDtos', res);
         this.songList = res.map(el => new Song(el.song));
       },
       error1 => console.error(error1)
@@ -56,7 +56,7 @@ export class ExtrasComponent implements OnInit {
     this.isToListenClicked = true;
     this.userSongService.getToListen(this.userName).subscribe(
       res => {
-        console.log('Extras component received songs', res);
+        console.log('Extras component received songRatingDtos', res);
         this.songList = res.map(el => new Song(el.song));
       },
       error1 => console.error(error1)
