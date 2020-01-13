@@ -1,6 +1,29 @@
 <div *ngIf="genre" class="contentDisplay">
-  <h4>{{genre.genreName | titlecase}}</h4>
-  <h5 *ngIf="genre.origin">Origin: {{genre.origin.countryName}}</h5>
-  <h5 *ngIf="genre.creationDate">Beginning: {{genre.creationDate}}</h5>
-  {{genre.aboutGenre}}
+  <div id = "infoPanel">
+    <h4>Information</h4>
+    <hr>
+    <div id = "about">
+      <div class = "aboutContent"><b>Genre name:</b> {{genre.genreName | titlecase}}</div>
+      <div class = "aboutContent"><b>Origin:</b> {{genre.origin.countryName}}</div>
+      <div class = "aboutContent"><b>Creation date:</b> {{genre.creationDate}}</div>
+
+
+     </div>
+
+   </div>
+   <div id = "displayPanel">
+     <div id = "optionDisplayPanel">
+
+
+     </div>
+   
+   
+     <div id = "displayPanelContent">
+
+      <div id = "bio">
+        <h3>About genre:</h3>
+        <div class="aboutGrnre" *ngIf = "genre.aboutGenre !== ''">{{genre.aboutGenre}}</div>
+      </div>
+
+  </div>
 </div>

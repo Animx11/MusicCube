@@ -1,40 +1,75 @@
 <div *ngIf="song" class="contentDisplay">
-  <h4>{{song.songName}}</h4>
-  <h5>Song<span *ngIf="song.band"> by <a routerLink="/band/{{song.band.id}}">{{song.band.bandName}}</a></span></h5>
-  <div *ngIf="song.album">Album: <a routerLink="/album/{{song.album.id}}">{{song.album.albumName}}</a></div>
-  <div *ngIf="song.genre">Genre: <a routerLink="/genre/{{song.genre.id}}">{{song.genre.genreName | titlecase}}</a></div>
-  <div *ngIf="song.songLengthSeconds">Length: {{song.songLengthSeconds | secondsToString}} </div>
-  <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
-  <div *ngIf = "isLogged">Score: 
-      <select id = "selectOption" name = "selectOption" [(ngModel)]="selectOption" (change) = "setScore()">
-          <option value="0">Select score</option>
-          <option value="1">1 Appalling</option>
-          <option value="2">2 Horrible</option>
-          <option value="3">3 Very Bad</option>
-          <option value="4">4 Bad</option>
-          <option value="5">5 Average</option>
-          <option value="6">6 Fine</option>
-          <option value="7">7 Good</option>
-          <option value="8">8 Very Good</option>
-          <option value="9">9 Great</option>
-          <option value="10" >10 Masterpiece</option>
-        </select>
-  </div><br />
 
+  <div id = "infoPanel">
+    <h4>Information</h4>
+    <hr>
+    <div id = "about">
+      <div class = "aboutContent"><b>Song name:</b> {{song.songName}}</div>
+      <div class = "aboutContent"><b>Band:</b> <a routerLink="/band/{{song.band.id}}">{{song.band.bandName}}</a></div>
+      <div class = "aboutContent"><b>Album name:</b> <a routerLink="/album/{{song.album.id}}">{{song.album.albumName}}</a></div>
+      <div class = "aboutContent"><b>Genre:</b> <a routerLink="/genre/{{song.genre.id}}">{{song.genre.genreName | titlecase}}</a></div>
+      <div class = "aboutContent"><b>Length:</b> {{song.songLengthSeconds | secondsToString}}</div>
+     </div>
+     <h4 style="margin-top: 40px;">Statistics</h4>
+     <hr>
+   
+     <div id = "about">
+         <div class = "aboutContent"><b>Score:</b></div>
+         <div class = "aboutContent"><b>Favorites:</b></div>
+         <div class = "aboutContent"><b>Holders:</b></div>   
+     </div>
+   
+   </div>
+   <div id = "displayPanel">
+     <div id = "optionDisplayPanel">
+
+     </div>
+
+     <div id = "displayPanelContent">
+
+      <div id = "bio">
+        <h3>Lyrics:</h3>
+        Nobody has added lyrics to this song yet<br><br>
+      </div>
+      <hr *ngIf = "isLogged">
+
+      <div id = "statistic" *ngIf = "isLogged">
+        <div class = "statisticOption">Score: </div>
+        <div *ngIf = "isLogged" class = "statisticOption">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
+        <div *ngIf = "isLogged" class = "statisticOption">Your Rate: 
+            <select id = "selectOption" name = "selectOption" [(ngModel)]="selectOption" (change) = "setScore()">
+                <option value="0">Select score</option>
+                <option value="1">1 Appalling</option>
+                <option value="2">2 Horrible</option>
+                <option value="3">3 Very Bad</option>
+                <option value="4">4 Bad</option>
+                <option value="5">5 Average</option>
+                <option value="6">6 Fine</option>
+                <option value="7">7 Good</option>
+                <option value="8">8 Very Good</option>
+                <option value="9">9 Great</option>
+                <option value="10" >10 Masterpiece</option>
+              </select>
+        </div><br />
+      </div><br />
+  <hr>
   <div id = "commentSection">
 
-      <div id = "writeComment" *ngIf = "isLogged">
-        <textarea id = "comment" placeholder="Write your comment" maxlength="255" [(ngModel)] = "commentContent" rows="5" cols="50"></textarea><br />
-        <button (click) = "sendComment()">Send Comment</button> <div id = "clean"><a (click) = "cleanComment()">Clean</a></div>
-      </div>
-      <br><br>
-      Comments:
-      <div id = "showComment" *ngFor="let comment of allComments">
-          <div id = "commentHeader"><b>{{comment.user.userName}}</b> {{comment.commentDate | date:'d MMMM yyyy H:mm'}}</div>
-          <div id = "commentBody">{{comment.commentContent}}</div>
-          <div id = "deleteComment" *ngIf = "comment.user.userName === userName"><a (click) = "deleteComment(comment.id)">Delete comment</a></div>
-      </div>
-      <br>
+    <div id = "writeComment" *ngIf = "isLogged">
+      <textarea id = "comment" placeholder="Write your comment" maxlength="255" [(ngModel)] = "commentContent" rows="5" cols="50"></textarea><br />
+      <button (click) = "sendComment()">Send Comment</button> <!-- <div id = "clean"><a (click) = "cleanComment()">Clean</a></div> -->
+    </div>
+    <br><br>
+    <b>Comments:</b>
+    <hr>
+    <div id = "showComment" *ngFor="let comment of allComments">
+        <div id = "commentHeader"><b>{{comment.user.userName}}</b><br> {{comment.commentDate | date:'d MMMM yyyy H:mm'}}</div>
+        <div id = "commentBody">{{comment.commentContent}}</div>
+        <div id = "deleteComment" *ngIf = "comment.user.userName === userName"><a (click) = "deleteComment(comment.id)">Delete comment</a></div>
+    </div>
+    <br>
   </div>
+</div>
+
 
 </div>

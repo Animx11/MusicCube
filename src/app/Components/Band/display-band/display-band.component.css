@@ -10,6 +10,7 @@
     min-height: 80vh;
     height: auto;
     overflow-y: scroll;
+    overflow: hidden;
 
   }
 
@@ -19,6 +20,8 @@
       background-color: aliceblue;
       margin-top: 50px;
       min-height: 70vh;
+      overflow-y: scroll;
+      overflow: hidden;
     }
 
     h4{
