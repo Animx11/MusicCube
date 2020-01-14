@@ -1,6 +1,9 @@
 <div class="contentDisplay">
+
   <div id="cat-select">
+
     <form>
+     <i> Select what you are looking for: </i> 
       <select #categories id="categories" (change)="selectCat(categories.value)">
         <option value="artists">Artists</option>
         <option value="bands">Bands</option>
@@ -11,8 +14,8 @@
       </select>
     </form>
   </div>
-  <div id="search-opts">
 
+  <div id="search-opts">
     <app-advanced-artist
       *ngIf="artists"
       (artistSearchEvent)="artistSearchHandler($event)"
@@ -35,6 +38,7 @@
     <app-advanced-genre *ngIf="genres" (genreSearchEvent)="genreSearchHandler($event)"></app-advanced-genre>
     <app-advanced-instrument *ngIf="instruments" (instrumentSearchEvent)="instrumentSearchHandler($event)"></app-advanced-instrument>
   </div>
+
   <div id="search-result">
     <app-artist-list-display *ngIf="artists && foundArtists" [list]="foundArtists"></app-artist-list-display>
     <app-band-list-display *ngIf="bands && foundBands" [list]="foundBands"></app-band-list-display>
@@ -43,4 +47,5 @@
     <app-genre-list-display *ngIf="genres && foundGenres" [list]="foundGenres"></app-genre-list-display>
     <app-instrument-list-display *ngIf="instruments && foundInstruments" [list]="foundInstruments"></app-instrument-list-display>
   </div>
+
 </div>

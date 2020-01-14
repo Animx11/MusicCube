@@ -5,6 +5,8 @@
     <button routerLink="/search/advanced">Advanced</button>
     <div *ngIf="message">{{message}}</div>
   -->
+  <button routerLink="/search/advanced">Advanced</button>
+
   <div id = "searchBlock">
     <input #searchBox id="searchBox"/>
     <div id = "searchButton" (click)="search(searchBox.value)"><img src="https://static.thenounproject.com/png/197410-200.png" width="30px" height="30px"></div>
