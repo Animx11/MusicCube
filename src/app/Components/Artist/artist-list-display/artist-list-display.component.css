@@ -1,0 +1,39 @@
+tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  table {
+    
+    width: 90%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-family: arial, sans-serif;
+    margin:0 10%;
+    display: inline-block;
+  
+  }
+  
+  
+  tbody{
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 50vh;
+  }
+  
+  thead tr {
+    display: block;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    width: 50.7vw;
+    border: 1px solid #dddddd;
+  }
+
+  hr{
+      margin-bottom: 30px;
+      margin-left: 15%;
+      margin-right: 15%;
+    width: 70%;
+}

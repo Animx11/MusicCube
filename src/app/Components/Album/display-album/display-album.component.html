@@ -1,49 +1,82 @@
 <div *ngIf="album" class="contentDisplay">
-  <h4>{{album.albumName}}</h4>
-  <h5>Album by <a *ngFor="let band of bands" routerLink="/band/{{band.id}}">{{band.bandName}} </a></h5>
-  <h5>Tracks:</h5>
+
+  <div id = "infoPanel">
+    <img src="{{album.coverArtLink}}" alt="cover" width="100%"/>
+    <h4>Information</h4>
+    <hr>
+    <div id = "about">
+      <div class = "aboutContent"><b>Album name:</b> {{album.albumName}}</div>
+      <div class = "aboutContent"><b>Album by:</b> <a *ngFor="let band of bands" routerLink="/band/{{band.id}}"> {{band.bandName}} </a></div>
+      <div class = "aboutContent"><b>Track count:</b> {{album.trackCount}}</div>
+      <div class = "aboutContent"><b>Total length:</b> {{album.albumLengthSeconds | secondsToString}}</div>
+     </div>
+     <h4 style="margin-top: 40px;">Statistics</h4>
+     <hr>
+   
+     <div id = "about">
+         <div class = "aboutContent"><b>Score:</b></div>
+         <div class = "aboutContent"><b>Favorites:</b></div>
+         <div class = "aboutContent"><b>Holders:</b></div>   
+     </div>
+   
+   </div>
+   <div id = "displayPanel">
+     <div id = "optionDisplayPanel">
+        <!--Options here-->
+     </div>
+
+     
+     <div id = "displayPanelContent">
+<div id = "bio">
+  <h3>Tracks list:</h3>
   <ul>
     <li *ngFor="let song of songs">
       <a routerLink="/song/{{song.id}}">{{song.songName}}</a>
     </li>
   </ul>
-  Track count: {{album.trackCount}}
-  Total length: {{album.albumLengthSeconds | secondsToString}}
-  <img src="{{album.coverArtLink}}" alt="cover"/><br>
-  <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
-  <div *ngIf = "isLogged">Score: 
-      <select id = "selectOption" name = "selectOption" [(ngModel)]="selectOption" (change) = "setScore()">
-          <option value="0">Select score</option>
-          <option value="1">1 Appalling</option>
-          <option value="2">2 Horrible</option>
-          <option value="3">3 Very Bad</option>
-          <option value="4">4 Bad</option>
-          <option value="5">5 Average</option>
-          <option value="6">6 Fine</option>
-          <option value="7">7 Good</option>
-          <option value="8">8 Very Good</option>
-          <option value="9">9 Great</option>
-          <option value="10" >10 Masterpiece</option>
-        </select>
-  </div><br />
+</div>
+
+
+  <br>
+  <hr *ngIf = "isLogged">
+  <div id = "statistic" *ngIf = "isLogged">
+    <div class = "statisticOption">Score: </div>
+    <div *ngIf = "isLogged" class = "statisticOption">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
+    <div *ngIf = "isLogged" class = "statisticOption">Your Rate: 
+        <select id = "selectOption" name = "selectOption" [(ngModel)]="selectOption" (change) = "setScore()">
+            <option value="0">Select score</option>
+            <option value="1">1 Appalling</option>
+            <option value="2">2 Horrible</option>
+            <option value="3">3 Very Bad</option>
+            <option value="4">4 Bad</option>
+            <option value="5">5 Average</option>
+            <option value="6">6 Fine</option>
+            <option value="7">7 Good</option>
+            <option value="8">8 Very Good</option>
+            <option value="9">9 Great</option>
+            <option value="10" >10 Masterpiece</option>
+          </select>
+    </div><br />
+  </div>
+  <hr>
 
   <div id = "commentSection">
 
-      <div id = "writeComment" *ngIf = "isLogged">
-        <textarea id = "comment" placeholder="Write your comment" maxlength="255" [(ngModel)] = "commentContent" rows="5" cols="50"></textarea><br />
-        <button (click) = "sendComment()">Send Comment</button> <div id = "clean"><a (click) = "cleanComment()">Clean</a></div>
-      </div>
-      <br><br>
-      Comments:
-      <div id = "showComment" *ngFor="let comment of allComments">
-          <div id = "commentHeader"><b>{{comment.user.userName}}</b> {{comment.commentDate | date:'d MMMM yyyy H:mm'}}</div>
-          <div id = "commentBody">{{comment.commentContent}}</div>
-          <div id = "deleteComment" *ngIf = "comment.user.userName === userName"><a (click) = "deleteComment(comment.id)">Delete comment</a></div>
-      </div>
-      <br>
+    <div id = "writeComment" *ngIf = "isLogged">
+      <textarea id = "comment" placeholder="Write your comment" maxlength="255" [(ngModel)] = "commentContent" rows="5" cols="50"></textarea><br />
+      <button (click) = "sendComment()">Send Comment</button> <!-- <div id = "clean"><a (click) = "cleanComment()">Clean</a></div> -->
+    </div>
+    <br><br>
+    <b>Comments:</b>
+    <hr>
+    <div id = "showComment" *ngFor="let comment of allComments">
+        <div id = "commentHeader"><b>{{comment.user.userName}}</b><br> {{comment.commentDate | date:'d MMMM yyyy H:mm'}}</div>
+        <div id = "commentBody">{{comment.commentContent}}</div>
+        <div id = "deleteComment" *ngIf = "comment.user.userName === userName"><a (click) = "deleteComment(comment.id)">Delete comment</a></div>
+    </div>
+    <br>
   </div>
-
-
+</div>
 
 </div>
 

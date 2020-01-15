@@ -36,6 +36,10 @@ export class DisplayBandComponent implements OnInit {
   private isFavorite: boolean;
   private isRated: boolean;
 
+  private isMainClicked: boolean;
+  private isLineUpClicked: boolean;
+  private isDiscographyClicked: boolean;
+
   private selectOption: string;
 
   private commentContent: string;
@@ -64,6 +68,9 @@ export class DisplayBandComponent implements OnInit {
       this.checkIfIsFavorite();
       this.checkIfIsRated();
     }
+
+    this.isMainClicked = true;
+    this.isDiscographyClicked = this.isLineUpClicked = false;
   }
 
 
@@ -257,6 +264,16 @@ export class DisplayBandComponent implements OnInit {
         window.alert('Error has occured');
       }
     );
+  }
+
+  resetValue(){
+    this.isMainClicked = this.isLineUpClicked = this.isDiscographyClicked = false;
+  }
+
+  switchValue(clicked: boolean): boolean {
+    this.resetValue();
+    clicked = true;
+    return clicked;
   }
 
 }

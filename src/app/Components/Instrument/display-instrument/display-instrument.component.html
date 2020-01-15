@@ -1,5 +1,27 @@
 <div *ngIf="instrument" class="contentDisplay">
-  <h4>{{instrument.instrumentName| titlecase}}</h4>
-  <h5 *ngIf="instrument.instrumentType">Type: {{instrument.instrumentType.instrumentTypeName}}</h5>
-  {{instrument.about}}
+  <div id = "infoPanel">
+    <h4>Information</h4>
+    <hr>
+    <div id = "about">
+      <div class = "aboutContent"><b>Instrument name:</b> {{instrument.instrumentName| titlecase}}</div>
+      <div class = "aboutContent"><b>Instrument type:</b> {{instrument.instrumentType.instrumentTypeName}}</div>
+     </div>
+
+   
+   </div>
+   <div id = "displayPanel">
+     <div id = "optionDisplayPanel">
+
+     </div>
+   
+   
+     <div id = "displayPanelContent">
+
+
+  <div id = "bio">
+    <h3>About Instrument:</h3>
+    {{instrument.about}}
+  </div>
+
+</div>
 </div>

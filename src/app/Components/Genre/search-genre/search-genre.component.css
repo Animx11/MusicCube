@@ -4,7 +4,8 @@
   margin-top: 15px;
 }
 .listDisplay{
-  margin-top: 15px;
   width: 96%;
   margin-left: 3%;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }

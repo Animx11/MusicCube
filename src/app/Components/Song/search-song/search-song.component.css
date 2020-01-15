@@ -1,10 +1,11 @@
 #searchBox{
-    width: 96%;
-    margin-top: 15px;
-    margin-left: 3%;
-  }
-  .listDisplay{
-    margin-top: 15px;
-    width: 96%;
-    margin-left: 3%;
-  }
+  width: 96%;
+  margin-left: 3%;
+  margin-top: 15px;
+}
+.listDisplay{
+  width: 96%;
+  margin-left: 3%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
