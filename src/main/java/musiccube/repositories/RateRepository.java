@@ -51,6 +51,12 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
     )
     List<SongRatingDto> findBestRatedSongs(Pageable pageable);
     @Query(
+            value = "SELECT new musiccube.dtos.SongRatingDto( r.song, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.song " +
+                    "ORDER BY avgrate DESC"
+    )
+    List<RatingDto> findBestRatedSongsUpdated(Pageable pageable);
+    @Query(
             value = "SELECT new musiccube.dtos.BandRatingDto( r.band, AVG(r.rate) AS avgrate, COUNT(r)) " +
                     "FROM Rate r GROUP BY r.band " +
                     "ORDER BY avgrate DESC"
