@@ -2,6 +2,7 @@ package musiccube.repositories;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import musiccube.dtos.RatingDto;
 import musiccube.dtos.SongRatingDto;
 import musiccube.entities.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,24 +99,6 @@ class RateRepositoryTest {
         assertEquals(found.get(1).getSong().getSongName(),"song8");
         assertEquals(found.get(2).getSong().getSongName(),"song6");
 
-    }
-
-    @Test
-    void shouldReturnCorrectSongRatingDtoUsingGeneralizedMethod() {
-        //given
-        Song song = new Song("title",1,10,null,null,null);
-        testEntityManager.persist(song);
-        Rate rate = new Rate(user,song,7);
-        testEntityManager.persist(rate);
-        testEntityManager.flush();
-
-        //when
-        SongRatingDto found  = rateRepository.findBestRated("song",new PageRequest(0,10)).iterator().next();
-
-        //then
-        assertEquals(found.getSong().getSongName(),"title");
-        assertEquals(found.getAvgRating(),7);
-        assertEquals(found.getRatedCount(),1);
     }
 
 }

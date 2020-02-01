@@ -1,5 +1,6 @@
 package musiccube.repositories;
 
+import musiccube.dtos.RatingDto;
 import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
 import org.springframework.data.domain.Pageable;
@@ -49,12 +50,24 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
                 "ORDER BY avgrate DESC"
     )
     List<SongRatingDto> findBestRatedSongs(Pageable pageable);
-
     @Query(
-            value = "SELECT new musiccube.dtos.RatingDto( r.:table, AVG(r.rate) AS avgrate, COUNT(r)) " +
-                    "FROM Rate r GROUP BY r.:table " +
+            value = "SELECT new musiccube.dtos.BandRatingDto( r.band, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.band " +
                     "ORDER BY avgrate DESC"
     )
-    List<SongRatingDto> findBestRated(@Param("table") String table, Pageable pageable);
+    List<RatingDto> findBestRatedBands(Pageable pageable);
+    @Query(
+            value = "SELECT new musiccube.dtos.AlbumRatingDto( r.album, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.album " +
+                    "ORDER BY avgrate DESC"
+    )
+    List<RatingDto> findBestRatedAlbums(Pageable pageable);
+    @Query(
+            value = "SELECT new musiccube.dtos.ArtistRatingDto( r.artist, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.artist " +
+                    "ORDER BY avgrate DESC"
+    )
+    List<RatingDto> findBestRatedArtists(Pageable pageable);
+    
 
 }
