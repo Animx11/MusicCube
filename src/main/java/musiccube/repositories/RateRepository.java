@@ -1,10 +1,15 @@
 package musiccube.repositories;
 
+import musiccube.dtos.RatingDto;
+import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAndSortingRepository<Rate, Integer> {
@@ -37,5 +42,38 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
 
     @Query("SELECT r FROM Rate r WHERE r.band.id = ?1")
     Iterable<Rate> findAllBandRatesByBandId(int id);
+
+
+    @Query(
+            value = "SELECT new musiccube.dtos.SongRatingDto( r.song, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                "FROM Rate r GROUP BY r.song " +
+                "ORDER BY avgrate DESC"
+    )
+    List<SongRatingDto> findBestRatedSongs(Pageable pageable);
+    @Query(
+            value = "SELECT new musiccube.dtos.RatingDto( r.song, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.song " +
+                    "ORDER BY avgrate DESC"
+    )
+    List<RatingDto> findBestRatedSongsUpdated(Pageable pageable);
+    @Query(
+            value = "SELECT new musiccube.dtos.RatingDto( r.band, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.band " +
+                    "ORDER BY avgrate DESC"
+    )
+    List<RatingDto> findBestRatedBands(Pageable pageable);
+    @Query(
+            value = "SELECT new musiccube.dtos.RatingDto( r.album, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.album " +
+                    "ORDER BY avgrate DESC"
+    )
+    List<RatingDto> findBestRatedAlbums(Pageable pageable);
+    @Query(
+            value = "SELECT new musiccube.dtos.RatingDto( r.artist, AVG(r.rate) AS avgrate, COUNT(r)) " +
+                    "FROM Rate r GROUP BY r.artist " +
+                    "ORDER BY avgrate DESC"
+    )
+    List<RatingDto> findBestRatedArtists(Pageable pageable);
+    
 
 }
