@@ -137,6 +137,7 @@ export class DisplayAlbumComponent implements OnInit {
     } else if (!this.isRated && this.selectOption === '0') {
 
     } else if (!this.isRated) {
+      // tslint:disable-next-line:radix
       this.rateService.createAlbumRate(this.userName, id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);

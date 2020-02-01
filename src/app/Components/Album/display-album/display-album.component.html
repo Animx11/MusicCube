@@ -7,27 +7,6 @@
       <a routerLink="/song/{{song.id}}">{{song.songName}}</a>
     </li>
   </ul>
-  Track count: {{album.trackCount}}
-  Total length: {{album.albumLengthSeconds | secondsToString}}
-  <img src="{{album.coverArtLink}}" alt="cover"/><br>
-  <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
-  <div *ngIf = "isLogged">Owned: <input type = "checkbox" name = "isOwned" [(ngModel)]="isOwned" (click) = "toOwned()" /></div>
-  <div *ngIf = "isLogged">Sought: <input type = "checkbox" name = "isSought" [(ngModel)]="isSought" (click) = "toSought()" /></div>
-  <div *ngIf = "isLogged">Score: 
-      <select id = "selectOption" name = "selectOption" [(ngModel)]="selectOption" (change) = "setScore()">
-          <option value="0">Select score</option>
-          <option value="1">1 Appalling</option>
-          <option value="2">2 Horrible</option>
-          <option value="3">3 Very Bad</option>
-          <option value="4">4 Bad</option>
-          <option value="5">5 Average</option>
-          <option value="6">6 Fine</option>
-          <option value="7">7 Good</option>
-          <option value="8">8 Very Good</option>
-          <option value="9">9 Great</option>
-          <option value="10" >10 Masterpiece</option>
-        </select>
-  </div><br />
 
   <div id = "commentSection">
 
