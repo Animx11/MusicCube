@@ -17,7 +17,8 @@ public class RateServiceImpl implements RateService {
 
     @Autowired
     private RateRepository rateRepository;
-    private RatingDtoFactory dtoFactory = new RatingDtoFactory();
+    @Autowired
+    private RatingDtoFactory dtoFactory;
 
     @Override
     public Optional<Rate> getById(int id) {

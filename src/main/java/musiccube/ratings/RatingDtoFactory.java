@@ -4,10 +4,12 @@ import musiccube.dtos.RatingDto;
 import musiccube.repositories.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class RatingDtoFactory {
     @Autowired
     private RateRepository repository;
