@@ -15,5 +15,14 @@ export class RankingService {
     getTopRatedSongs(size: number): Observable<any> {
         return this.http.get(`${apiUrl}/song?size=${size}`);
     }
+    getTopRatedAlbums(size: number): Observable<any> {
+      return this.http.get(`${apiUrl}/album?size=${size}`);
+    }
+    getTopRatedBands(size: number): Observable<any> {
+      return this.http.get(`${apiUrl}/band?size=${size}`);
+    }
+    getTopRatedArtists(size: number): Observable<any> {
+      return this.http.get(`${apiUrl}/artist?size=${size}`);
+    }
 
 }
