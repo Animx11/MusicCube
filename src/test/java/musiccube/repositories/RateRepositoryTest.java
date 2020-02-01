@@ -100,4 +100,22 @@ class RateRepositoryTest {
 
     }
 
+    @Test
+    void shouldReturnCorrectSongRatingDtoUsingGeneralizedMethod() {
+        //given
+        Song song = new Song("title",1,10,null,null,null);
+        testEntityManager.persist(song);
+        Rate rate = new Rate(user,song,7);
+        testEntityManager.persist(rate);
+        testEntityManager.flush();
+
+        //when
+        SongRatingDto found  = rateRepository.findBestRated("song",new PageRequest(0,10)).iterator().next();
+
+        //then
+        assertEquals(found.getSong().getSongName(),"title");
+        assertEquals(found.getAvgRating(),7);
+        assertEquals(found.getRatedCount(),1);
+    }
+
 }
