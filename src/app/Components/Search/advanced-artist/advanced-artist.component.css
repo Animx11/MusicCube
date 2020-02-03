@@ -22,8 +22,12 @@
 .buttonDiv{
     width: 100%;
     float: left;
-    margin-bottom: 50px;
+    padding-bottom: 3vh;
     margin-left: 50px;
+}
+
+button{
+    width: 15%;
 }
 
 .optionSelectBox{

@@ -1,25 +1,37 @@
-<h5>Find band which:</h5>
 
-<div class="advSrcElement">
-  Is from
-  <span *ngIf="country && isFromCountry">{{country.countryName}}</span>
-  <button *ngIf="country && isFromCountry" (click)="resetCountry()" class="advReset">Clear</button>
-  <span *ngIf="city && isFromCity">{{city.cityName}}</span>
-  <button *ngIf="city && isFromCity" (click)="resetCity()" class="advReset">Clear</button>
-  <form>
-    <select #isFrom (change)="toggleIsFrom(isFrom.value)">
-      <option value="city">city</option>
-      <option value="country">country</option>
-    </select>
-  </form>
-  <app-search-country *ngIf="isFromCountry" (countryEvent)="countryEvent($event)"></app-search-country>
-  <app-search-city *ngIf="isFromCity" (cityEvent)="cityEvent($event)"></app-search-city>
-</div>
+<div class="searchContent">
+  <h3>Find band which:</h3>
+  <br>
+  
+    <div class="advSrcElement">
+      
+      <div class="optionSelectBox"><b>Is from </b></div>
+      <div class="optionSelectBox optionSelectBox2">
+        <form>
+          <select #isFrom (change)="toggleIsFrom(isFrom.value)">
+            <option value="city">city</option>
+            <option value="country">country</option>
+          </select>
+        </form>
+      </div>
+      <div class="optionSelectBox"><b>:</b> </div>
+  
+  
+      <span *ngIf="country && isFromCountry"> {{country.countryName}} </span>
+      <button *ngIf="country && isFromCountry" (click)="resetCountry()" class="advReset">Clear</button>
+      <span *ngIf="city && isFromCity"> {{city.cityName}} </span>
+      <button *ngIf="city && isFromCity" (click)="resetCity()" class="advReset">Clear</button>
+  
+      <app-search-country *ngIf="isFromCountry" (countryEvent)="countryEvent($event)"></app-search-country>
+      <app-search-city *ngIf="isFromCity" (cityEvent)="cityEvent($event)"></app-search-city>
+    </div>
 
-<div class="advSrcElement">
-  Is associated with genre: <span *ngIf="genre">{{genre.genreName}}</span>
-  <button *ngIf="genre" (click)="resetGenre()" class="advReset">Clear</button>
-  <app-search-genre (genreEvent)="genreEvent($event)"></app-search-genre>
-</div>
+    <div class="advSrcElement">
+      <b>Is associated with genre:</b> <span *ngIf="genre">{{genre.genreName}}</span>
+      <button *ngIf="genre" (click)="resetGenre()" class="advReset">Clear</button>
+      <app-search-genre (genreEvent)="genreEvent($event)"></app-search-genre>
+    </div>
 
-<button (click)="search()">Search</button>
+  </div>
+  
+  <div class="buttonDiv"><button (click)="search()">Search</button></div>

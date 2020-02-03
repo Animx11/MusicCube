@@ -17,7 +17,7 @@
       <div class="smallerNavigatorBox">
         <a routerLink = "SignIn" routerLinkActive = "active"><div class = "navigatorOption navigatorOptionSmaller" *ngIf="isLogged === false">Sign in</div></a>
         <a routerLink = "SignUp" routerLinkActive = "active"><div class = "navigatorOption navigatorOptionSmaller" *ngIf="isLogged === false">Sign up</div></a>
-        <a routerLink = "UserPanel" routerLinkActive = "active"><div class="navigatorOption navigatorOptionSmaller" *ngIf="authority === 'user'">User Panel</div></a>
+        <a routerLink = "UserPanel/Profile" routerLinkActive = "active"><div class="navigatorOption navigatorOptionSmaller" *ngIf="authority === 'user'">User Panel</div></a>
         <a routerLink = "AdminPanel" routerLinkActive = "active"> <div class="navigatorOption navigatorOptionSmaller" *ngIf="authority === 'admin'">Admin Panel</div></a>
         <div class="navigatorOption navigatorOptionSmaller" *ngIf="isLogged === true" (click)="signOut()">Sign Out</div>
       </div>

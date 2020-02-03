@@ -5,7 +5,6 @@
     <button routerLink="/search/advanced">Advanced</button>
     <div *ngIf="message">{{message}}</div>
   -->
-  <button routerLink="/search/advanced">Advanced</button>
 
   <div id = "searchBlock">
     <input #searchBox id="searchBox"/>
@@ -19,6 +18,7 @@
       <input [(ngModel)]="switches[4]" (click)="switchCheck(4)" type="checkbox" class="hidden" id="song-check"><label for="song-check">Songs</label>
       <input [(ngModel)]="switches[5]" (click)="switchCheck(5)" type="checkbox" class="hidden" id="instrument-check"><label for="instrument-check">Instruments</label>
       <input [(ngModel)]="switches[6]" (click)="switchCheck(6)" type="checkbox" class="hidden" id="genre-check"><label for="genre-check">Genres</label>
+      <input class = "hidden"><a routerLink="/search/advanced" id = "advancedSearch">Advanced search</a>
     </div>
 
 

@@ -201,7 +201,7 @@ export class AdminPanelComponent implements OnInit {
   }
 
   userPanel() {
-    window.location.replace(thisUrl + "/UserPanel")
+    window.location.replace(thisUrl + "/UserPanel/Profile")
   }
 
 }
