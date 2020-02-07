@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.OneToOne;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -73,4 +74,8 @@ public class SongServiceImpl implements SongService {
         return songRepository.existsByBand(band);
     }
 
+//    @Override
+//    public Iterable<Song> advanced(Map<String, String> params) {
+//        return songRepository.findWithQuery();
+//    }
 }
