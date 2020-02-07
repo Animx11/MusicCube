@@ -9,6 +9,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SongParamInterpreterTest {
 
+
+    @Test
+    void emptyParamMapTest() {
+        Map<String,String> titles = new HashMap<>();
+        AbstractParamInterpreter interpreter = new SongParamInterpreter(titles);
+
+        String query = interpreter.getQuery();
+
+        String excepted = "SELECT s FROM Song s ";
+        assertEquals(excepted,query);
+    }
     @Test
     void titleOnlyProcessingTest() {
         Map<String,String> titles = new HashMap<>();
