@@ -7,6 +7,6 @@ public class SearchWhereDecorator extends AbstractAdvancedSearch {
 
     @Override
     String generateQuery() {
-        return decorated.generateQuery() + "WHERE ";
+        return decorated.generateQuery() + "WHERE (";
     }
 }

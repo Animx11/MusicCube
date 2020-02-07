@@ -11,5 +11,16 @@ public class SongTitleSearchDecorator extends AbstractAdvancedSearch {
     String generateQuery() {
         String[] titlesArr = songTitles.split(",");
         String query = "LOWER(s.songName) IN (";
+        int len = titlesArr.length;
+        for (int i = 0; i < len; i++) {
+            query += ("LOWER(" + titlesArr[i] + ")");
+            if (i < len-1) {
+                query += ",";
+            }
+            query += " ";
+        }
+        query += ") ";
+
+        return decorated.generateQuery() + query;
     }
 }

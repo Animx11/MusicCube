@@ -17,7 +17,7 @@ class SongParamInterpreterTest {
 
         String query = interpreter.getQuery();
 
-        String excepted = "SELECT s FROM Song s WHERE (LOWER(s.songTitle) IN( LOWER(sun), LOWER(rain), LOWER(clouds) ) ";
+        String excepted = "SELECT s FROM Song s WHERE (LOWER(s.songName) IN( LOWER(sun), LOWER(rain), LOWER(clouds) ) ";
         assertEquals(excepted,query);
     }
 
