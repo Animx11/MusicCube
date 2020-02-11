@@ -114,8 +114,8 @@ class SongParamInterpreterTest {
                 .append("SELECT s FROM Song s WHERE ")
                 .append("(LOWER(s.songName) IN( LOWER(sun), LOWER(rain) ) ")
                 .append("AND (LOWER(s.songName) NOT IN( LOWER(clouds) ) ")
-                .append("AND (s.songLengthSeconds > 100 ) ")
-                .append("AND (s.songLengthSeconds < 600 ) ")
+                .append("AND (s.songLengthSeconds >= 100 ) ")
+                .append("AND (s.songLengthSeconds <= 600 ) ")
                 .toString();
         assertEquals(excepted,query);
     }
