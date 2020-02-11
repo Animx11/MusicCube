@@ -1,12 +1,12 @@
 package musiccube.advancedsearch;
 
-public class SongTitleSearchDecorator extends AbstractAdvancedSearch {
+public class SongByTitleSearchDecorator extends AbstractAdvancedSearch {
     private String songTitles;
-    public SongTitleSearchDecorator(AbstractAdvancedSearch search, String titles) {
+    public SongByTitleSearchDecorator(AbstractAdvancedSearch search, String titles) {
         super(search);
         songTitles = titles;
     }
-    public SongTitleSearchDecorator(AbstractAdvancedSearch search, boolean negated, String titles) {
+    public SongByTitleSearchDecorator(AbstractAdvancedSearch search, boolean negated, String titles) {
         super(search,negated);
         songTitles = titles;
     }

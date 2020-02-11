@@ -43,6 +43,25 @@ class SongParamInterpreterTest {
         String excepted = "SELECT s FROM Song s WHERE (LOWER(s.songName) NOT IN( LOWER(sun), LOWER(rain), LOWER(clouds) ) ";
         assertEquals(excepted,query);
     }
+    @Test
+    void queryWith4ParametersTest() {
+        Map<String,String> params = new HashMap<>();
+        params.put("title","sun,rain");
+        params.put("notitle","clouds");
+        params.put("maxlength","600");
+        params.put("minlength","100");
+        AbstractParamInterpreter interpreter = new SongParamInterpreter(params);
 
+        String query = interpreter.getQuery();
+
+        String excepted = (new StringBuilder())
+                .append("SELECT s FROM Song s WHERE ")
+                .append("(LOWER(s.songName) IN( LOWER(sun), LOWER(rain) ) ")
+                .append("AND (LOWER(s.songName) NOT IN( LOWER(sun) ) ")
+                .append("AND (s.songLengthSeconds < 600 ) ")
+                .append("AND (s.songLengthSeconds > 100 ) ")
+                .toString();
+        assertEquals(excepted,query);
+    }
 
 }
