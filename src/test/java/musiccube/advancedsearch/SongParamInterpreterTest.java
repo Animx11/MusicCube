@@ -79,7 +79,13 @@ class SongParamInterpreterTest {
     @Test
     void searchByGenres() {
         Map<String,String> params = new HashMap<>();
+        params.put("genre","rock,blues,jazz");
+        AbstractParamInterpreter interpreter = new SongParamInterpreter(params);
 
+        String query = interpreter.getQuery();
+
+        String excepted = "SELECT s FROM Song s WHERE (LOWER(s.genre.genreName) IN( LOWER(rock), LOWER(blues), LOWER(jazz) ) ";;
+        assertEquals(excepted,query);
     }
     @Test
     void searchByInstruments() {
