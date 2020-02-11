@@ -1,33 +1,30 @@
 package musiccube.advancedsearch;
 
-public class SongByTitleSearchDecorator extends AbstractAdvancedSearch {
-    private String songTitles;
-    public SongByTitleSearchDecorator(AbstractAdvancedSearch search, String titles) {
-        super(search);
-        songTitles = titles;
+public class SongByTitleSearchDecorator extends AbstractAdvancedSearchWithParams {
+    SongByTitleSearchDecorator(AbstractAdvancedSearch search, String params) {
+        super(search,params);
     }
-    public SongByTitleSearchDecorator(AbstractAdvancedSearch search, boolean negated, String titles) {
-        super(search,negated);
-        songTitles = titles;
+    SongByTitleSearchDecorator(AbstractAdvancedSearch search, boolean negated, String params) {
+        super(search,negated,params);
     }
 
     @Override
     String generateQuery() {
-        String[] titlesArr = songTitles.split(",");
-        String query = "LOWER(s.songName) ";
+        String[] titlesArr = paramValues.split(",");
+        StringBuilder query = new StringBuilder("LOWER(s.songName) ");
         if (negated) {
-            query += "NOT ";
+            query.append("NOT ");
         }
-        query += "IN( ";
+        query.append("IN( ");
         int len = titlesArr.length;
         for (int i = 0; i < len; i++) {
-            query += ("LOWER(" + titlesArr[i] + ")");
+            query.append("LOWER(").append(titlesArr[i]).append(")");
             if (i < len-1) {
-                query += ",";
+                query.append(",");
             }
-            query += " ";
+            query.append(" ");
         }
 
-        return decorated.generateQuery() + query;
+        return decorated.generateQuery() + query.toString();
     }
 }

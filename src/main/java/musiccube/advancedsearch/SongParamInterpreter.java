@@ -51,7 +51,7 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
             and();
         }
         if (params.containsKey("noinstrument")) {
-            search = new SongByNoInstrumentSearchDecorator(search,true,params.get("instrument"));
+            search = new SongByInstrumentSearchDecorator(search,true,params.get("instrument"));
             and();
         }
 
