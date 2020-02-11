@@ -27,7 +27,7 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
             and();
         }
         if (params.containsKey("maxlength")) {
-            search = new SongByMaxLengthSearchDecorator(search,params.get("minlength"));
+            search = new SongByMaxLengthSearchDecorator(search,params.get("maxlength"));
             and();
         }
         if (params.containsKey("band")) {
