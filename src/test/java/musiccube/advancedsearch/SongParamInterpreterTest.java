@@ -44,6 +44,37 @@ class SongParamInterpreterTest {
         assertEquals(excepted,query);
     }
     @Test
+    void searchByMaxSongLength() {
+        Map<String,String> params = new HashMap<>();
+        params.put("maxlength","250");
+        AbstractParamInterpreter interpreter = new SongParamInterpreter(params);
+
+        String query = interpreter.getQuery();
+
+        String excepted = "SELECT s FROM Song s WHERE (s.songLengthSeconds < 250 ) ";
+        assertEquals(excepted,query);
+    }
+    @Test
+    void searchByMinSongLength() {
+        Map<String,String> params = new HashMap<>();
+
+    }
+    @Test
+    void searchByBands() {
+        Map<String,String> params = new HashMap<>();
+
+    }
+    @Test
+    void searchByGenres() {
+        Map<String,String> params = new HashMap<>();
+
+    }
+    @Test
+    void searchByInstruments() {
+        Map<String,String> params = new HashMap<>();
+
+    }
+    @Test
     void queryWith4ParametersTest() {
         Map<String,String> params = new HashMap<>();
         params.put("title","sun,rain");
