@@ -68,7 +68,7 @@ class SongParamInterpreterTest {
     @Test
     void searchByBands() {
         Map<String,String> params = new HashMap<>();
-        params.put("band","beatels,rolling stones,the who");
+        params.put("band","beatles,rolling stones,the who");
         AbstractParamInterpreter interpreter = new SongParamInterpreter(params);
 
         String query = interpreter.getQuery();
