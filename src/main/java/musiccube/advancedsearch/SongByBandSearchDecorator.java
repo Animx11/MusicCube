@@ -10,6 +10,10 @@ public class SongByBandSearchDecorator extends AbstractAdvancedSearchWithParams 
 
     @Override
     String generateQuery() {
-        return null;
+        return decorated.generateQuery() + NameInQueryBuilder.build(
+                "s.band.bandName",
+                paramValues,
+                negated
+        );
     }
 }
