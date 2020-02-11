@@ -90,6 +90,13 @@ class SongParamInterpreterTest {
     @Test
     void searchByInstruments() {
         Map<String,String> params = new HashMap<>();
+        params.put("instrument","trumpet,saxophone");
+        AbstractParamInterpreter interpreter = new SongParamInterpreter(params);
+
+        String query = interpreter.getQuery();
+
+        String excepted = "SELECT s FROM Song s WHERE (LOWER(s.genre.genreName) IN( LOWER(rock), LOWER(blues), LOWER(jazz) ) ";;
+        assertEquals(excepted,query);
 
     }
     @Test
@@ -97,8 +104,8 @@ class SongParamInterpreterTest {
         Map<String,String> params = new HashMap<>();
         params.put("title","sun,rain");
         params.put("notitle","clouds");
-        params.put("maxlength","600");
         params.put("minlength","100");
+        params.put("maxlength","600");
         AbstractParamInterpreter interpreter = new SongParamInterpreter(params);
 
         String query = interpreter.getQuery();
@@ -106,9 +113,9 @@ class SongParamInterpreterTest {
         String excepted = (new StringBuilder())
                 .append("SELECT s FROM Song s WHERE ")
                 .append("(LOWER(s.songName) IN( LOWER(sun), LOWER(rain) ) ")
-                .append("AND (LOWER(s.songName) NOT IN( LOWER(sun) ) ")
-                .append("AND (s.songLengthSeconds < 600 ) ")
+                .append("AND (LOWER(s.songName) NOT IN( LOWER(clouds) ) ")
                 .append("AND (s.songLengthSeconds > 100 ) ")
+                .append("AND (s.songLengthSeconds < 600 ) ")
                 .toString();
         assertEquals(excepted,query);
     }
