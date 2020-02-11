@@ -7,6 +7,6 @@ class SearchFinishDecorator extends AbstractAdvancedSearch {
 
     @Override
     String generateQuery() {
-        return decorated.generateQuery() + ") ";
+        return decorated.generateQuery();
     }
 }

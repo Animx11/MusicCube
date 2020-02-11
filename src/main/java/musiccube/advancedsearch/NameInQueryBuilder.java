@@ -4,7 +4,7 @@ class NameInQueryBuilder {
     private NameInQueryBuilder() {}
     static String build(String attributeName, String paramValues, boolean negated){
         String[] titlesArr = paramValues.split(",");
-        StringBuilder query = new StringBuilder("LOWER(").append(attributeName).append(") ");
+        StringBuilder query = new StringBuilder("(LOWER(").append(attributeName).append(") ");
         if (negated) {
             query.append("NOT ");
         }
@@ -17,6 +17,7 @@ class NameInQueryBuilder {
             }
             query.append(" ");
         }
+        query.append(") ");
 
         return query.toString();
     }
