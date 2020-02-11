@@ -9,6 +9,6 @@ public class SongByMaxLengthSearchDecorator extends AbstractAdvancedSearch {
 
     @Override
     String generateQuery() {
-        return decorated.generateQuery() + "s.songLengthSeconds < " + length + " ";
+        return decorated.generateQuery() + "s.songLengthSeconds <= " + length + " ";
     }
 }
