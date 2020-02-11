@@ -1,6 +1,6 @@
 package musiccube.advancedsearch;
 
-public class NameInQueryBuilder {
+class NameInQueryBuilder {
     private NameInQueryBuilder() {}
     static String build(String attributeName, String paramValues, boolean negated){
         String[] titlesArr = paramValues.split(",");

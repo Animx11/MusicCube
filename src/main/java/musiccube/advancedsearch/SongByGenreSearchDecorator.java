@@ -1,6 +1,6 @@
 package musiccube.advancedsearch;
 
-public class SongByGenreSearchDecorator extends AbstractAdvancedSearchWithParams {
+class SongByGenreSearchDecorator extends AbstractAdvancedSearchWithParams {
     SongByGenreSearchDecorator(AbstractAdvancedSearch search, String params) {
         super(search,params);
     }
@@ -10,6 +10,6 @@ public class SongByGenreSearchDecorator extends AbstractAdvancedSearchWithParams
 
     @Override
     String generateQuery() {
-        return null;
+        return decorated.generateQuery() + NameInQueryBuilder.build("s.genre.genreName",paramValues,negated);
     }
 }

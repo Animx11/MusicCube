@@ -43,7 +43,7 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
             and();
         }
         if (params.containsKey("nogenre")) {
-            search = new SongByGenreSearchDecorator(search,true,params.get("genre"));
+            search = new SongByGenreSearchDecorator(search,true,params.get("nogenre"));
             and();
         }
         if (params.containsKey("instrument")) {
@@ -51,7 +51,7 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
             and();
         }
         if (params.containsKey("noinstrument")) {
-            search = new SongByInstrumentSearchDecorator(search,true,params.get("instrument"));
+            search = new SongByInstrumentSearchDecorator(search,true,params.get("noinstrument"));
             and();
         }
 

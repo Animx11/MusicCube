@@ -1,7 +1,7 @@
 package musiccube.advancedsearch;
 
-public class BeginSongSearchDecorator extends AbstractAdvancedSearch {
-    public BeginSongSearchDecorator() {
+class BeginSongSearchDecorator extends AbstractAdvancedSearch {
+    BeginSongSearchDecorator() {
         super(null);
     }
 

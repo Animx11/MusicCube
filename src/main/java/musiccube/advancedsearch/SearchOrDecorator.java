@@ -1,7 +1,7 @@
 package musiccube.advancedsearch;
 
-public class SearchOrDecorator extends AbstractAdvancedSearch {
-    protected SearchOrDecorator(AbstractAdvancedSearch decorated) {
+class SearchOrDecorator extends AbstractAdvancedSearch {
+    SearchOrDecorator(AbstractAdvancedSearch decorated) {
         super(decorated);
     }
 

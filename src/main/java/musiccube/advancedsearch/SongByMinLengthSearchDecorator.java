@@ -1,6 +1,6 @@
 package musiccube.advancedsearch;
 
-public class SongByMinLengthSearchDecorator extends AbstractAdvancedSearch {
+class SongByMinLengthSearchDecorator extends AbstractAdvancedSearch {
     private int lengthInSeconds;
     SongByMinLengthSearchDecorator(AbstractAdvancedSearch search, String minlength) {
         super(search);

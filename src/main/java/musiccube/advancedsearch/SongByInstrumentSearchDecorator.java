@@ -1,6 +1,6 @@
 package musiccube.advancedsearch;
 
-public class SongByInstrumentSearchDecorator extends AbstractAdvancedSearchWithParams {
+class SongByInstrumentSearchDecorator extends AbstractAdvancedSearchWithParams {
     SongByInstrumentSearchDecorator(AbstractAdvancedSearch search, String instruments) {
         super(search,instruments);
     }
