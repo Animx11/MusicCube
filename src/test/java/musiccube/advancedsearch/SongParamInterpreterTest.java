@@ -1,5 +1,6 @@
 package musiccube.advancedsearch;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -88,6 +89,7 @@ class SongParamInterpreterTest {
         assertEquals(excepted,query);
     }
     @Test
+//    @Disabled("Tricky. Select from song won't do.")
     void searchByInstruments() {
         Map<String,String> params = new HashMap<>();
         params.put("instrument","trumpet,saxophone");
@@ -95,7 +97,7 @@ class SongParamInterpreterTest {
 
         String query = interpreter.getQuery();
 
-        String excepted = "SELECT s FROM Song s WHERE (LOWER(s.genre.genreName) IN( LOWER(rock), LOWER(blues), LOWER(jazz) ) ";;
+        String excepted = "SELECT s FROM Song s WHERE (s.id IN (SELECT sa.song.id FROM SongAuthorship sa WHERE LOWER(sa.instrument.instrumentName ) IN (LOWER(trumpet), LOWER(saxophone) ) ) ) ";
         assertEquals(excepted,query);
 
     }
@@ -119,5 +121,4 @@ class SongParamInterpreterTest {
                 .toString();
         assertEquals(excepted,query);
     }
-
 }
