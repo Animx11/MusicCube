@@ -97,7 +97,7 @@ class SongParamInterpreterTest {
 
         String query = interpreter.getQuery();
 
-        String excepted = "SELECT s FROM Song s WHERE (s.id IN (SELECT sa.song.id FROM SongAuthorship sa WHERE (LOWER(sa.instrument.instrumentName ) IN (LOWER(trumpet), LOWER(saxophone) ) ) ) ) ";
+        String excepted = "SELECT s FROM Song s WHERE (s.id IN (SELECT sa.song.id FROM SongAuthorship sa WHERE (LOWER(sa.instrument.instrumentName) IN( LOWER(trumpet), LOWER(saxophone) ) ) ) ) ";
         assertEquals(excepted,query);
 
     }
