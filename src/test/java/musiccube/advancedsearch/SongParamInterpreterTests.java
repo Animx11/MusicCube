@@ -132,10 +132,10 @@ class SongParamInterpreterTests {
         
         String excepted = (new StringBuilder())
                 .append("SELECT s FROM Song s WHERE ")
-                .append("(LOWER(s.band.bandName) IN( LOWER(some band) ) ")
-                .append("AND (s.songLengthSeconds <= 555 ) ")
-                .append("AND (s.id IN (SELECT si.song.id FROM SongInstrument si WHERE (LOWER(si.instrument.instrumentName) IN( LOWER(trumpet), LOWER(saxophone) ) ) )")
-                .append("AND (s.id NOT IN (SELECT si.song.id FROM SongInstrument si WHERE (LOWER(si.instrument.instrumentName) IN( LOWER(trumpet), LOWER(saxophone) ) ) )")
+                .append("(s.songLengthSeconds <= 555 ) ")
+                .append("AND (LOWER(s.band.bandName) IN( LOWER(some band) ) ")
+                .append("AND (s.id IN (SELECT si.song.id FROM SongInstrument si WHERE (LOWER(si.instrument.instrumentName) IN( LOWER(trumpet) ) ) ) ) ")
+                .append("AND (s.id NOT IN (SELECT si.song.id FROM SongInstrument si WHERE (LOWER(si.instrument.instrumentName) IN( LOWER(guitar), LOWER(drums) ) ) ) ) ")
                 .toString();
         assertEquals(excepted,query);
     }

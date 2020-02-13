@@ -10,8 +10,12 @@ class SongByInstrumentSearchDecorator extends AbstractAdvancedSearchWithParams {
 
     @Override
     String generateQuery() {
-        StringBuilder sb = new StringBuilder("(s.id IN (SELECT si.song.id FROM SongInstrument si WHERE ")
-                .append(NameInQueryBuilder.build("si.instrument.instrumentName",paramValues,negated))
+        StringBuilder sb = new StringBuilder("(s.id");
+        if (negated) {
+            sb.append("NOT");
+        }
+        sb.append(" IN (SELECT si.song.id FROM SongInstrument si WHERE ")
+                .append(NameInQueryBuilder.build("si.instrument.instrumentName",paramValues,false))
                 .append(") ) ) ");
         return decorated.generateQuery() + sb.toString();
     }
