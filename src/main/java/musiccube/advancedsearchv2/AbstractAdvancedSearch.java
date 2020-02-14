@@ -5,7 +5,7 @@ import java.util.HashMap;
 abstract class AbstractAdvancedSearch {
     protected final AbstractAdvancedSearch decorated;
     protected boolean negated;
-    protected HashMap queryParams;
+    protected HashMap<String,Object> queryParams;
     protected AbstractAdvancedSearch(AbstractAdvancedSearch decorated) {
         this.decorated = decorated;
         if (decorated != null) {
@@ -21,7 +21,7 @@ abstract class AbstractAdvancedSearch {
     }
 
     abstract StringBuilder getQuery();
-    public HashMap getQueryParams() {
+    public HashMap<String,Object> getQueryParams() {
         return queryParams;
     }
 }

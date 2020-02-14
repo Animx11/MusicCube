@@ -5,7 +5,6 @@ import musiccube.entities.Album;
 import musiccube.entities.Band;
 import musiccube.entities.Song;
 import musiccube.repositories.SongRepository;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -26,7 +25,6 @@ public class SongServiceImpl implements SongService {
     private SongRepository songRepository;
     @Autowired
     private EntityManagerFactory entityManagerFactory;
-    private SessionFactory sessionFactory;
 
     @Override
     public Optional<Song> getById(int id) {
@@ -86,15 +84,20 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public List<Song> advanced(Map<String, String> params) {
-        this.sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
-        Session session = sessionFactory.openSession();
-        SongParamInterpreter interpreter = new SongParamInterpreter(params);
-        Query<Song> query = session.createQuery(interpreter.getQuery().toString());
-        HashMap queryParams = interpreter.getQueryParams();
-        for (Object key : queryParams.keySet()) {
-            query.setParameter((String) key,queryParams.get(key));
+        SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+        SongParamInterpreter interpreter;
+        Query<Song> query;
+        try (Session session = sessionFactory.openSession()) {
+
+            interpreter = new SongParamInterpreter(params);
+            query = session.createQuery(interpreter.getQuery().toString());
+            HashMap<String,Object> queryParams = interpreter.getQueryParams();
+
+            for (Map.Entry<String,Object> entry : queryParams.entrySet()) {
+                query.setParameter(entry.getKey(),entry.getValue());
+            }
+
+            return query.list();
         }
-        System.out.println(query.toString());
-        return query.list();
     }
 }
