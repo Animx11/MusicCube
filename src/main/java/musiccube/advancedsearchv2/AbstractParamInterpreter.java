@@ -12,6 +12,6 @@ abstract class AbstractParamInterpreter {
         this.params = params;
         queryParams = new HashMap();
     }
-    abstract String getQuery();
+    abstract StringBuilder getQuery();
     abstract HashMap getQueryParams();
 }

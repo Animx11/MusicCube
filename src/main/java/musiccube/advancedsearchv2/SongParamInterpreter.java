@@ -10,10 +10,11 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
     }
 
     @Override
-    public String getQuery() {
+    public StringBuilder getQuery() {
         search = new BeginSongSearchDecorator(queryParams);
         paramsCount = params.size();
         if (params.containsKey("title")) {
+            search = new SongByTitleSearchDecorator(search,params.get("title"));
         }
         if (params.containsKey("notitle")) {
         }
@@ -34,11 +35,11 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
         if (params.containsKey("noinstrument")) {
         }
 
-        return "";
+        return search.getQuery();
     }
 
     @Override
     HashMap getQueryParams() {
-        return queryParams;
+        return search.getQueryParams();
     }
 }

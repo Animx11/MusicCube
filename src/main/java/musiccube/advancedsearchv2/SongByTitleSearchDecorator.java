@@ -1,10 +1,11 @@
 package musiccube.advancedsearchv2;
 
-import java.util.HashMap;
-
-public class SongByTitleSearchDecorator extends AbstractAdvancedSearchWithParams {
-    protected SongByTitleSearchDecorator(AbstractAdvancedSearch decorated, boolean negated, String paramVals) {
+class SongByTitleSearchDecorator extends AbstractAdvancedSearchWithParams {
+    SongByTitleSearchDecorator(AbstractAdvancedSearch decorated, boolean negated, String paramVals) {
         super(decorated, negated, paramVals);
+    }
+    SongByTitleSearchDecorator(AbstractAdvancedSearch decorated, String paramVals) {
+        super(decorated, paramVals);
     }
 
     @Override
