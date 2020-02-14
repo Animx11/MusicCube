@@ -8,7 +8,7 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
     }
 
     @Override
-    String getQuery() {
+    public String getQuery() {
         search = new BeginSongSearchDecorator();
         paramsCount = params.size();
         if (! params.isEmpty()) {

@@ -14,8 +14,8 @@ import java.util.Map;
 public class AdvancedSearchController {
     @Autowired
     private SongService songService;
-//    @GetMapping(path = "/song",produces = MediaType.APPLICATION_JSON_VALUE)
-//    public Iterable<Song> song(@RequestParam Map<String,String> params) {
-//        return songService.advanced(params);
-//    }
+    @GetMapping(path = "/song",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Song> song(@RequestParam Map<String,String> params) {
+        return songService.advanced(params);
+    }
 }

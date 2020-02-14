@@ -1,14 +1,21 @@
 package musiccube.services.song;
 
+import musiccube.advancedsearch.SongParamInterpreter;
 import musiccube.entities.Album;
 import musiccube.entities.Band;
 import musiccube.entities.Song;
 import musiccube.repositories.SongRepository;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.OneToOne;
+import javax.persistence.EntityManagerFactory;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -17,6 +24,9 @@ public class SongServiceImpl implements SongService {
 
     @Autowired
     private SongRepository songRepository;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public Optional<Song> getById(int id) {
@@ -74,8 +84,24 @@ public class SongServiceImpl implements SongService {
         return songRepository.existsByBand(band);
     }
 
-//    @Override
-//    public Iterable<Song> advanced(Map<String, String> params) {
-//        return songRepository.findWithQuery();
-//    }
+    @Override
+    public List<Song> advanced(Map<String, String> params) {
+        this.sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+        Session session = sessionFactory.openSession();
+//        Query<Song> query = session.createQuery("SELECT s FROM Song s ", Song.class);
+//        Criteria criteria = session.createCriteria(Song.class);
+
+//        SongParamInterpreter interpreter = new SongParamInterpreter(params);
+//        return session.createQuery(interpreter.getQuery(),Song.class).list();
+        String s = "SELECT s FROM Song s WHERE LOWER(s.songName) LIKE LOWER(CONCAT('%',:title1,'%'))";
+        s += "AND s.id >= :id";
+        Query<Song> query = session.createQuery(s);
+        Map map = new HashMap();
+        map.put("id",100);
+        map.put("title1","sun");
+        for (Object key : map.keySet()) {
+            query.setParameter((String) key,map.get(key));
+        }
+        return query.list();
+    }
 }

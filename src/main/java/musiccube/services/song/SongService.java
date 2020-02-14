@@ -4,6 +4,7 @@ import musiccube.entities.Album;
 import musiccube.entities.Band;
 import musiccube.entities.Song;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,5 +24,5 @@ public interface SongService {
     boolean existsByAlbum(Album album);
     boolean existsByBand(Band band);
 
-//    Iterable<Song> advanced(Map<String, String> params);
+    List<Song> advanced(Map<String, String> params);
 }
