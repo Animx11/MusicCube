@@ -1,5 +1,6 @@
 package musiccube.advancedsearchv2;
 
+@Deprecated
 class SongByTitleSearchDecorator extends AbstractAdvancedSearchWithParams {
     SongByTitleSearchDecorator(AbstractAdvancedSearch decorated, boolean negated, String paramVals) {
         super(decorated, negated, paramVals);

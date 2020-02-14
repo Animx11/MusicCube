@@ -12,4 +12,9 @@ abstract class AbstractParamInterpreter {
     }
     abstract StringBuilder getQuery();
     abstract HashMap getQueryParams();
+    protected void and() {
+        if (--paramsCount > 0) {
+            search = new AndSearchDecorator(search);
+        }
+    }
 }
