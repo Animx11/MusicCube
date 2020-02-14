@@ -10,11 +10,12 @@ class NameInQueryBuilder {
         for (int i = 0; i < length; i++) {
             queryParams.put((nameRoot+i),namesArr[i]);
             query
+                    .append("LOWER(")
                     .append(propName)
-                    .append(" LIKE :")
+                    .append(") LIKE LOWER(CONCAT('%',:")
                     .append(nameRoot)
                     .append(i)
-                    .append(" ");
+                    .append(",'%')) ");
             if (i < length - 1) {
                 query.append("OR ");
             }
