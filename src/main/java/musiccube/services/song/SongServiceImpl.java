@@ -1,6 +1,6 @@
 package musiccube.services.song;
 
-import musiccube.advancedsearch.SongParamInterpreter;
+import musiccube.advancedsearchv2.SongParamInterpreter;
 import musiccube.entities.Album;
 import musiccube.entities.Band;
 import musiccube.entities.Song;
@@ -88,20 +88,13 @@ public class SongServiceImpl implements SongService {
     public List<Song> advanced(Map<String, String> params) {
         this.sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
         Session session = sessionFactory.openSession();
-//        Query<Song> query = session.createQuery("SELECT s FROM Song s ", Song.class);
-//        Criteria criteria = session.createCriteria(Song.class);
-
-//        SongParamInterpreter interpreter = new SongParamInterpreter(params);
-//        return session.createQuery(interpreter.getQuery(),Song.class).list();
-        String s = "SELECT s FROM Song s WHERE LOWER(s.songName) LIKE LOWER(CONCAT('%',:title1,'%'))";
-        s += "AND s.id >= :id";
-        Query<Song> query = session.createQuery(s);
-        Map map = new HashMap();
-        map.put("id",100);
-        map.put("title1","sun");
-        for (Object key : map.keySet()) {
-            query.setParameter((String) key,map.get(key));
+        SongParamInterpreter interpreter = new SongParamInterpreter(params);
+        Query<Song> query = session.createQuery(interpreter.getQuery().toString());
+        HashMap queryParams = interpreter.getQueryParams();
+        for (Object key : queryParams.keySet()) {
+            query.setParameter((String) key,queryParams.get(key));
         }
+        System.out.println(query.toString());
         return query.list();
     }
 }

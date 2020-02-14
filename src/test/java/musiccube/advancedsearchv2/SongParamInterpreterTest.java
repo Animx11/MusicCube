@@ -16,7 +16,7 @@ class SongParamInterpreterTest {
         SongParamInterpreter interpreter = new SongParamInterpreter(params);
 
 
-        String excepted = "SELECT s FROM Song s WHERE (s.songName LIKE :title0 OR s.songName LIKE :title1 ) ";
+        String excepted = "SELECT s FROM Song s WHERE (s.songName LIKE LOWER(CONCAT('%',:title0,'%')) OR s.songName LIKE LOWER(CONCAT('%',:title1,'%')) ) ";
         assertEquals(excepted,interpreter.getQuery().toString());
         assertEquals("sun",interpreter.getQueryParams().get("title0"));
         assertEquals("rain",interpreter.getQueryParams().get("title1"));

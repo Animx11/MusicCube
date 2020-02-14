@@ -42,7 +42,7 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
     }
 
     @Override
-    HashMap getQueryParams() {
+    public HashMap getQueryParams() {
         return search.getQueryParams();
     }
 }

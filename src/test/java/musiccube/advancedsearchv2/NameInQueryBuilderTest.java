@@ -13,7 +13,7 @@ class NameInQueryBuilderTest {
         HashMap map = new HashMap();
         NameInQueryBuilder.build(builder,map,"sun,clouds","title","s.songName");
 
-        assertEquals("s.songName LIKE :title0 OR s.songName LIKE :title1 ",builder.toString());
+        assertEquals("s.songName LIKE LOWER(CONCAT('%',:title0,'%')) OR s.songName LIKE LOWER(CONCAT('%',:title1,'%')) ",builder.toString());
         assertEquals(map.get("title0"),"sun");
         assertEquals(map.get("title1"),"clouds");
     }
