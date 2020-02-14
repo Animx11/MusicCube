@@ -12,7 +12,8 @@ class NameInQueryBuilder {
             query
                     .append(propName)
                     .append(" LIKE :")
-                    .append(namesArr[i])
+                    .append(nameRoot)
+                    .append(i)
                     .append(" ");
             if (i < length - 1) {
                 query.append("OR ");
