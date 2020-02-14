@@ -3,9 +3,9 @@ package musiccube.advancedsearchv2;
 import java.util.HashMap;
 
 class BeginSongSearchDecorator extends AbstractAdvancedSearch {
-    BeginSongSearchDecorator(HashMap queryParams) {
+    BeginSongSearchDecorator() {
         super(null);
-        this.queryParams = queryParams;
+        this.queryParams = new HashMap();
     }
 
     @Override

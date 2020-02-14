@@ -7,12 +7,15 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
 
     public SongParamInterpreter(Map<String,String> params) {
         super(params);
+        search = new BeginSongSearchDecorator();
+        paramsCount = params.size();
     }
 
     @Override
     public StringBuilder getQuery() {
-        search = new BeginSongSearchDecorator(queryParams);
-        paramsCount = params.size();
+        if (! params.isEmpty()) {
+            search = new WhereSearchDecorator(search);
+        }
         if (params.containsKey("title")) {
             search = new SongByTitleSearchDecorator(search,params.get("title"));
         }

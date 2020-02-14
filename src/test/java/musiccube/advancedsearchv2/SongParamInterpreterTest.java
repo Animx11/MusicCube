@@ -16,8 +16,9 @@ class SongParamInterpreterTest {
         SongParamInterpreter interpreter = new SongParamInterpreter(params);
 
 
-        assertEquals("SELECT s FROM Song s WHERE (s.songName LIKE :title0 OR s.songName LIKE :title1 ) ",interpreter.getQuery());
-        assertEquals(interpreter.getQueryParams().get("title0"),"sun");
-        assertEquals(interpreter.getQueryParams().get("title1"),"clouds");
+        String excepted = "SELECT s FROM Song s WHERE (s.songName LIKE :title0 OR s.songName LIKE :title1 ) ";
+        assertEquals(excepted,interpreter.getQuery().toString());
+        assertEquals("sun",interpreter.getQueryParams().get("title0"));
+        assertEquals("rain",interpreter.getQueryParams().get("title1"));
     }
 }
