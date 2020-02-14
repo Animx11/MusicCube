@@ -37,7 +37,7 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
             and();
         }
         if (params.containsKey("noband")) {
-            search = factory.getDecorator(search,params.get("band"),factory.SONG_NO_BAND);
+            search = factory.getDecorator(search,params.get("noband"),factory.SONG_NO_BAND);
             and();
         }
         if (params.containsKey("genre")) {

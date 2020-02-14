@@ -27,7 +27,7 @@ class SongParamInterpreterTest {
         map.put("noband","beatles");
         SongParamInterpreter interpreter = new SongParamInterpreter(map);
 
-        String excepted = "SELECT s FROM Song s WHERE (LOWER(s.band.bandName) NOT LIKE LOWER(CONCAT('%',:noband0,'%')))";
+        String excepted = "SELECT s FROM Song s WHERE (LOWER(s.band.bandName) NOT LIKE LOWER(CONCAT('%',:noband0,'%')) ) ";
         assertEquals(excepted,interpreter.getQuery().toString());
         assertEquals("beatles",interpreter.getQueryParams().get("noband0"));
     }
