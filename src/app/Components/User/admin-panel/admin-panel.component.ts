@@ -17,6 +17,12 @@ export class AdminPanelComponent implements OnInit {
   isManageUsersClicked: boolean;
   showHead: boolean;
 
+    // News
+
+    isNewsClicked: boolean;
+    isNewsAddClicked: boolean;
+    isNewsEditClicked: boolean;
+
   // Song
 
   isSongClicked: boolean;
@@ -85,6 +91,10 @@ export class AdminPanelComponent implements OnInit {
     this.isShowRecordClicked = false;
     this.isManageUsersClicked = false;
     this.showHead = false;
+
+    this.isNewsClicked = false;
+    this.isNewsAddClicked = false;
+    this.isNewsEditClicked = false;
  
     this.isSongClicked = false;
     this.isSongAddClicked = false;
@@ -138,6 +148,7 @@ export class AdminPanelComponent implements OnInit {
   }  
 
   resetRecordValue() {
+    this.isNewsClicked = false;
     this.isSongClicked = false;
     this.isBandClicked = false;
     this.isAlbumClicked  = false;
@@ -151,6 +162,8 @@ export class AdminPanelComponent implements OnInit {
   }
 
   resetOptionValue() {
+    this.isNewsAddClicked = false;
+    this.isNewsEditClicked = false;
     this.isSongAddClicked = false;
     this.isSongEditClicked = false;
     this.isBandAddClicked = false;

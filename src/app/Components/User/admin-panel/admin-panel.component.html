@@ -6,6 +6,7 @@
     <div class = 'navigator' (click)="isShowRecordClicked = swichMainValue(isShowRecordClicked)" *ngIf="!isShowRecordClicked">Manage Records</div>
     <div class = 'navigator' (click)="userPanel()" *ngIf="!isShowRecordClicked">Manage Your Account</div>  
     <div class = 'navigator' (click)="resetValues()" *ngIf="isShowRecordClicked">Back</div>
+    <div class = 'navigator' (click)="isNewsClicked = switchRecordValue(isNewsClicked); isNewsAddClicked = switchOptionValue(isNewsAddClicked)" *ngIf="isShowRecordClicked">News</div>
     <div class = 'navigator' (click)="isSongClicked = switchRecordValue(isSongClicked)" *ngIf="isShowRecordClicked">Song</div>
     <div class = 'navigator' (click)="isBandClicked = switchRecordValue(isBandClicked)" *ngIf="isShowRecordClicked">Band</div>
     <div class = 'navigator' (click)="isAlbumClicked = switchRecordValue(isAlbumClicked)" *ngIf="isShowRecordClicked">Album</div>
@@ -20,6 +21,10 @@
   </div>
     <div id = 'routerOutlet'>
         <div id = "head" *ngIf="showHead">
+
+          <div class="adminComponentPanel" *ngIf="isNewsClicked">
+            <div class="adminComponentNavigator" (click) = "isNewsAddClicked = switchOptionValue(isNewsAddClicked)">Add New News</div>
+          </div>
 
             <div class="adminComponentPanel" *ngIf="isSongClicked">
               <div class="adminComponentNavigator" (click) = "isSongAddClicked = switchOptionValue(isSongAddClicked)">Add New Song</div>
@@ -72,6 +77,8 @@
               </div>
         </div>
 
+        <app-add-news *ngIf = "isNewsAddClicked"></app-add-news>
+
         <app-add-song *ngIf = "isSongAddClicked"></app-add-song>
         <app-edit-song *ngIf = "isSongEditClicked"></app-edit-song>
 
@@ -80,8 +87,6 @@
 
         <app-add-album *ngIf = "isAlbumAddClicked"></app-add-album>
         <app-edit-album *ngIf = "isAlbumEditClicked"></app-edit-album>
-
-        <!--TODO Zamiast artist zrób tu person-->
 
         <app-add-artist *ngIf = "isPersonAddClicked"></app-add-artist>
         <app-edit-artist *ngIf = "isPersonEditClicked"></app-edit-artist>
