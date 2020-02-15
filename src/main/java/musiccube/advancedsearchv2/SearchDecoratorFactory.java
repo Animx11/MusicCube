@@ -32,10 +32,10 @@ class SearchDecoratorFactory {
             return new NameInSearchDecorator(decorated,true,paramVals,"nogenre","s.genre.genreName");
         }
         if (option.equals(SONG_INSTR)) {
-
+            return new SongByInstrumentSearchDecorator(decorated,false,paramVals,"songinstr","si.instrument.instrumentName");
         }
         if (option.equals(SONG_NO_INSTR)) {
-
+            return new SongByInstrumentSearchDecorator(decorated,true,paramVals,"songnoinstr","si.instrument.instrumentName");
         }
         if (option.equals(SONG_MAX)) {
             return new SongByLengthSearchDecorator(decorated,paramVals,"MAX");
