@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SongParamInterpreter extends AbstractParamInterpreter {
-    private NameInSearchDecoratorFactory factory;
+    private SearchDecoratorFactory factory;
 
     public SongParamInterpreter(Map<String,String> params) {
         super(params);
         search = new BeginSongSearchDecorator();
         paramsCount = params.size();
-        factory = new NameInSearchDecoratorFactory();
+        factory = new SearchDecoratorFactory();
     }
 
     @Override
@@ -26,10 +26,12 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
             search = factory.getDecorator(search,params.get("notitle"),factory.SONG_NO_TITLE);
             and();
         }
-        if (params.containsKey("minlength")) {
+        if (params.containsKey("minlen")) {
+            search = factory.getDecorator(search,params.get("minlen"),factory.SONG_MIN);
             and();
         }
-        if (params.containsKey("maxlength")) {
+        if (params.containsKey("maxlen")) {
+            search = factory.getDecorator(search,params.get("maxlen"),factory.SONG_MAX);
             and();
         }
         if (params.containsKey("band")) {
@@ -41,15 +43,19 @@ public class SongParamInterpreter extends AbstractParamInterpreter {
             and();
         }
         if (params.containsKey("genre")) {
+            search = factory.getDecorator(search,params.get("genre"),factory.SONG_GENRE);
             and();
         }
         if (params.containsKey("nogenre")) {
+            search = factory.getDecorator(search,params.get("nogenre"),factory.SONG_NO_GENRE);
             and();
         }
         if (params.containsKey("instrument")) {
+            search = factory.getDecorator(search,params.get("instrument"),factory.SONG_INSTR);
             and();
         }
         if (params.containsKey("noinstrument")) {
+            search = factory.getDecorator(search,params.get("noinstrument"),factory.SONG_NO_INSTR);
             and();
         }
 
