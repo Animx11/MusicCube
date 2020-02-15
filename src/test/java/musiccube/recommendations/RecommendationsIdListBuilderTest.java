@@ -31,4 +31,20 @@ class RecommendationsIdListBuilderTest {
 
         assertTrue(RecommendationsIdListBuilder.build(sets,10).isEmpty());
     }
+    @Test
+    void shouldReturnListOf3Integers() {
+        List<Set> sets = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        sets.add(set);
+
+        List result = RecommendationsIdListBuilder.build(sets,5);
+
+        assertEquals(3,result.size());
+        assertTrue(result.contains(1));
+        assertTrue(result.contains(2));
+        assertTrue(result.contains(3));
+    }
 }
