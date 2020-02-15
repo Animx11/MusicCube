@@ -10,6 +10,7 @@ export class Song {
   album: Album;
   band: Band;
   genre: Genre;
+  songLyrics: string;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
@@ -19,6 +20,7 @@ export class Song {
     this.album = (obj && obj.album) || null;
     this.band = (obj && obj.band) || null;
     this.genre = (obj && obj.genre) || null;
+    this.songLyrics = (obj && obj.songLyrics) || '';
   }
 
   // Getters
@@ -37,6 +39,10 @@ export class Song {
 
   getSongLengthSeconds(): number {
     return this.songLengthSeconds;
+  }
+
+  getSongLyrics(): string {
+    return this.songLyrics;
   }
 
   getAlbum(): Album {
@@ -76,4 +82,9 @@ export class Song {
   setGenre(genre: Genre) {
     this.genre = genre;
   }
+
+  setSongLyrics(songLyrics: string) {
+    this.songLyrics = songLyrics;
+  }
+
 }

@@ -31,7 +31,6 @@
         <button (click)="isGenreClicked = searchValue(isGenreClicked)">Set Genre</button>
     </div><br>
 
-
       <div class = "separateDiv">
        <div class = "textSeparateDiv"><i>Authors:</i>
         <div>
@@ -60,6 +59,11 @@
             </div>
          <br></div>
           <button (click)="isInstrumentClicked = searchValue(isInstrumentClicked)">Set Instruments</button>
+          </div><br>
+
+          <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Song Lyrics:</i><br></div>
+            <textarea name = "songLyrics" [(ngModel)]="songLyrics"></textarea>
           </div><br>
 
 

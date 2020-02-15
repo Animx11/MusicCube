@@ -29,7 +29,7 @@
 
       <div id = "bio">
         <h3>Lyrics:</h3>
-        Nobody has added lyrics to this song yet<br><br>
+        <div [innerHtml]="song.songLyrics"></div><br><br>
       </div>
       <hr *ngIf = "isLogged">
 

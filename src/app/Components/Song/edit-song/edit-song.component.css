@@ -57,6 +57,14 @@
 
 }
 
+
+textarea{
+  min-width: 100%;
+  min-height: 400px;
+  max-width: 100%;
+}
+
+
 .inputTime{
   width: 9%;
   border-color: #f9f9f9;

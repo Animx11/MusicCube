@@ -4,7 +4,7 @@
     <div class="newsFoto"><img src = "{{ news.newsImage }} "></div>
     <div class="newsTitle"><h2>{{ news.newsTitle }}</h2></div>
     <div class="newsDate">{{ news.newsCreationDate | date: 'MM/dd/yyyy HH:MM' }}</div>
-    <div class="newsContent">{{ news.newsContent }}</div>
+    <div class="newsContent" [innerHtml]="news.newsContent"></div>
     <div class="newsCreator">{{ news.creator }}</div>
     <div class="deleteNews" *ngIf="authority === 'admin'"><a (click) = "deleteNews()">Delete news</a></div>
 </div>
