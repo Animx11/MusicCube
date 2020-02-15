@@ -15,4 +15,11 @@ class RecommendationsIdListBuilderTest {
 
         assertTrue(RecommendationsIdListBuilder.build(sets,10).isEmpty());
     }
+    @Test
+    void shouldReturnEmptyListWhenLimitLE0() {
+        List<Set> sets = new ArrayList<>();
+
+        assertTrue(RecommendationsIdListBuilder.build(sets,0).isEmpty());
+        assertTrue(RecommendationsIdListBuilder.build(sets,-10).isEmpty());
+    }
 }
