@@ -3,6 +3,7 @@ package musiccube.recommendations;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,5 +22,13 @@ class RecommendationsIdListBuilderTest {
 
         assertTrue(RecommendationsIdListBuilder.build(sets,0).isEmpty());
         assertTrue(RecommendationsIdListBuilder.build(sets,-10).isEmpty());
+    }
+    @Test
+    void shouldReturnEmptyListWhenGivenListOfEmptySets() {
+        List<Set> sets = new ArrayList<>();
+        sets.add(new HashSet());
+        sets.add(new HashSet());
+
+        assertTrue(RecommendationsIdListBuilder.build(sets,10).isEmpty());
     }
 }
