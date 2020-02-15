@@ -31,15 +31,27 @@ public class Song {
     @ManyToOne
     private Genre genre;
 
+    @Column
+    private String songLyrics;
+
     public Song() {}
 
-    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre) {
+    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre, String songLyrics) {
         this.songName = songName;
         this.trackNumber = trackNumber;
         this.songLengthSeconds = songLengthSeconds;
         this.album = album;
         this.band = band;
         this.genre = genre;
+        this.songLyrics = songLyrics;
+    }
+
+    public String getSongLyrics() {
+        return songLyrics;
+    }
+
+    public void setSongLyrics(String songLyrics) {
+        this.songLyrics = songLyrics;
     }
 
     public int getId() {

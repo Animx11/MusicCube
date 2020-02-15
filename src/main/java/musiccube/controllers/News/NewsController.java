@@ -128,6 +128,22 @@ public class NewsController {
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         News news = newsService.getById(id).orElse(null);
         if(news != null) {
+            File file = new File(news.getContentNewsDirFile());
+
+            System.gc();
+            if(new File("./__tmp.txt").delete()){
+                System.out.println("OK");
+            }
+
+            if(file.delete())
+            {
+                System.out.println("File deleted successfully");
+            }
+            else
+            {
+                System.out.println("Failed to delete the file");
+            }
+
             newsService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

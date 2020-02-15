@@ -93,3 +93,7 @@ hs_err_pid*
 
 #SonarLint
 .idea/sonarlint
+
+#Created folder
+News/
+Lyrics/

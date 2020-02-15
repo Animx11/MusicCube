@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -22,7 +26,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "${serverAddress}")
-public class SongController {
+public class  SongController {
 
     @Autowired
     private SongService songService;
@@ -42,6 +46,19 @@ public class SongController {
     @Autowired
     private UserFavoritesService userFavoritesService;
 
+    private String readLyricFromFile(Song song){
+        try{
+            File fileToRead = new File(song.getSongLyrics());
+            FileReader fileReader = new FileReader(fileToRead);
+            char[] chars = new char[(int) fileToRead.length()];
+            fileReader.read(chars);
+            return new String(chars);
+
+        } catch(IOException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 
 
     // --- Get by id ---
@@ -51,6 +68,11 @@ public class SongController {
     )
     public ResponseEntity<Song> getById(@PathVariable("id") int id) {
         Optional<Song> song = songService.getById(id);
+        if(song.get().getSongLyrics() != null) {
+            String lyrics = readLyricFromFile(song.orElse(null));
+            song.get().setSongLyrics(lyrics);
+        }
+
         return song.isPresent() ?
                 ResponseEntity.ok(song.get()) :
                 ResponseEntity.notFound().build();
@@ -62,7 +84,16 @@ public class SongController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Song> getAll() {
-        return songService.getAll();
+
+        Iterable<Song> songs = songService.getAll();
+        for (Song song: songs) {
+            if(song.getSongLyrics() != null) {
+                String lyrics = readLyricFromFile(song);
+                song.setSongLyrics(lyrics);
+            }
+        }
+
+        return songs;
     }
 
     // --- Get all songs with paging ---
@@ -73,9 +104,22 @@ public class SongController {
     public Iterable<Song> getAllPaging(
             @PathVariable("page") Integer pageNr,
             @RequestParam(name = "size", required = false) Integer perPage) {
-        return perPage == null ?
-                songService.getAllPaging(pageNr, Defaults.PAGESIZE) :
-                songService.getAllPaging(pageNr, perPage);
+        Iterable<Song> songs;
+        if(perPage == null){
+            songs = songService.getAllPaging(pageNr, Defaults.PAGESIZE);
+        } else {
+            songs = songService.getAllPaging(pageNr, perPage);
+        }
+
+        for (Song song: songs) {
+            if(song.getSongLyrics() != null) {
+                String lyrics = readLyricFromFile(song);
+                song.setSongLyrics(lyrics);
+            }
+        }
+
+        return songs;
+
     }
 
     // --- Get by song name ---
@@ -84,23 +128,75 @@ public class SongController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Song> getBySongName(@PathVariable("name") String songName) {
-        return songService.getBySongName(songName);
+
+        Iterable<Song> songs = songService.getBySongName(songName);
+        for (Song song: songs) {
+            if(song.getSongLyrics() != null) {
+                String lyrics = readLyricFromFile(song);
+                song.setSongLyrics(lyrics);
+            }
+        }
+
+        return songs;
     }
 
 /**********************************************************************************/
 
     @PostMapping("/admin/song")
     public ResponseEntity<Song> create(@RequestBody @Valid @NotNull Song song) {
-        songService.save(song);
-        return ResponseEntity.ok().body(song);
+
+        String lyricToSave = song.getSongLyrics();
+
+        song.setSongLyrics("");
+
+        Song song1 = songService.save(song);
+
+        String dir = System.getProperty("user.dir");
+        dir = dir.concat("\\Lyrics\\");
+
+
+
+        String fileDirWithName = dir.concat(String.valueOf(song1.getId()).concat(".txt"));
+
+        try{
+            File newTextFile = new File(fileDirWithName);
+            newTextFile.getParentFile().mkdirs();
+            FileWriter fileWriter = new FileWriter(newTextFile);
+            fileWriter.write(lyricToSave);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        song1.setSongLyrics(fileDirWithName);
+
+        songService.save(song1);
+        return ResponseEntity.ok().body(song1);
     }
 
     @PutMapping("/admin/song")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Song song) {
         Optional<Song> song1 = songService.getById(song.getId());
         if (Objects.nonNull(song1)) {
+
+            String dir = System.getProperty("user.dir");
+            dir = dir.concat("\\Lyrics\\");
+            String fileDirWithName = song1.get().getSongLyrics();
+
+            try{
+                File newTextFile = new File(fileDirWithName);
+                FileWriter fileWriter = new FileWriter(newTextFile);
+                fileWriter.write(song.getSongLyrics());
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+
+            song.setSongLyrics(fileDirWithName);
+
             songService.save(song);
             return new ResponseEntity<>(HttpStatus.CREATED);
+
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -131,6 +227,22 @@ public class SongController {
                 if(userFavoritesSongs.contains(song)) {
                     userFavorites.deleteSongFromFavorites(song);
                 }
+            }
+
+            File file = new File(song.getSongLyrics());
+
+            System.gc();
+            if(new File("./__tmp.txt").delete()){
+                System.out.println("OK");
+            }
+
+            if(file.delete())
+            {
+                System.out.println("File deleted successfully");
+            }
+            else
+            {
+                System.out.println("Failed to delete the file");
             }
 
             songService.delete(id);
