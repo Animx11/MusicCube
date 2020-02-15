@@ -1,6 +1,6 @@
 package musiccube.services.rate;
 
-import musiccube.dtos.RatingDto;
+import musiccube.dtos.RankingDto;
 import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
 
@@ -28,5 +28,5 @@ public interface RateService {
 
     List<SongRatingDto> getBestRatedSongs(int limit);
 
-    List<RatingDto> getBestRated(String tableName, int size);
+    List<RankingDto> getBestRated(String tableName, int size);
 }

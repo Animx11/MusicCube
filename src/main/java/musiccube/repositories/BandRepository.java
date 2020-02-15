@@ -8,6 +8,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
+
 
 public interface BandRepository extends CrudRepository<Band,Integer>, PagingAndSortingRepository<Band,Integer> {
 
@@ -37,4 +39,8 @@ public interface BandRepository extends CrudRepository<Band,Integer>, PagingAndS
     );
     @Query("SELECT DISTINCT s.band FROM Song s WHERE s.genre.genreName LIKE :genre")
     Iterable<Band> findByGenreName(@Param("genre") String genre);
+    @Query("SELECT b FROM Band b WHERE b.creationDate >= :date1 AND b.creationDate <= :date2")
+    Iterable<Band> findByDate(@Param("date1")Date date1, @Param("date2")Date date2);
+
+    Iterable<Band> findByFormedInCountryCountryName(String countryName);
 }

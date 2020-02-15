@@ -1,6 +1,6 @@
-package musiccube.ratings;
+package musiccube.rankings;
 
-import musiccube.dtos.RatingDto;
+import musiccube.dtos.RankingDto;
 import musiccube.entities.Album;
 import musiccube.entities.Rate;
 import musiccube.entities.User;
@@ -19,7 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class RatingDtoFactoryTest {
+class RankingDtoFactoryTest {
     @Mock
     private RateRepository rateRepository;
     @Mock
@@ -27,7 +27,7 @@ class RatingDtoFactoryTest {
     @Mock
     private AlbumRepository albumRepository;
     @InjectMocks
-    private RatingDtoFactory factory = new RatingDtoFactory();
+    private RankingDtoFactory factory = new RankingDtoFactory();
 
     @Test
     @Disabled("Mocki nie działają? Sprawdzić przez integrację")
@@ -50,7 +50,7 @@ class RatingDtoFactoryTest {
         rateRepository.save(rate2);
         rateRepository.save(rate3);
 
-        List<RatingDto> result = factory.getRatingDtos(RatingConstants.ALBUM,5);
+        List<RankingDto> result = factory.getRatingDtos(RankingConstants.ALBUM,5);
         assertEquals("album2",((Album)result.get(0).getRated()).getAlbumName());
         assertEquals("album3",((Album)result.get(1).getRated()).getAlbumName());
         assertEquals("album1",((Album)result.get(2).getRated()).getAlbumName());
