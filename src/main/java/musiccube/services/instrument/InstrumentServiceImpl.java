@@ -4,6 +4,7 @@ import musiccube.entities.Instrument;
 import musiccube.repositories.InstrumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 
     @Override
     public Iterable<Instrument> getAllPaging(Integer pageNr, Integer perPage) {
-        return instrumentRepository.findAll(new PageRequest(pageNr,perPage));
+        return instrumentRepository.findAll(PageRequest.of(pageNr,perPage));
     }
 
     @Override
