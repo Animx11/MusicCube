@@ -13,16 +13,22 @@
                 <button (click)="searchInstrumentType()">Set Type</button>
             </div><br>
             <div class = "separateDiv">
+              <div class = "textSeparateDiv"><i>About Instrument:</i><br></div>
+              <textarea name = "about" [(ngModel)]="about"></textarea>
+            </div><br>
+            <div class = "separateDiv">
                 <button (click)="update()">Update</button>
                 <button (click)="delete()">Delete</button>
             </div><br>
         </form>
       </div>
+
       <div id = "searchPlace" *ngIf = "isInstrumentTypeClicked">
           <div class = "separateDiv">
             <div class = "textSeparateDiv"><i>Search Instrument Type:</i><br></div>
             <app-search-instrument-type (instrumentTypeEvent)="instrumentTypeEventHandler($event)"></app-search-instrument-type>
-          </div><br>
+      </div><br>
+    </div>
     
   </div>
   

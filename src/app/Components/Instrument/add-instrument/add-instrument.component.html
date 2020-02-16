@@ -10,6 +10,13 @@
             <div class = "textSeparateDiv"><i>Instrument Type: <div *ngIf = "isInstrumentTypeSelected">{{ instrument.instrumentType.instrumentTypeName }}</div></i><br></div>
             <button (click)="searchInstrumentType()">Set Type</button>
         </div><br>
+
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>About Instrument:</i><br></div>
+          <textarea name = "about" [(ngModel)]="about"></textarea>
+        </div><br>
+
+
         <div class = "separateDiv">
             <button (click)="addInstrument()" [disabled]="!profileForm.valid">Add New Instrument</button>
         </div><br>

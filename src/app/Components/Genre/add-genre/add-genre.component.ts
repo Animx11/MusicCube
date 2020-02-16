@@ -28,6 +28,7 @@ export class AddGenreComponent implements OnInit {
     this.isOriginClicked = false;
     this.isOriginSelected = false;
     this.genre = new Genre();
+    this.aboutGenre = '';    
   }
 
   searchOrigin() {

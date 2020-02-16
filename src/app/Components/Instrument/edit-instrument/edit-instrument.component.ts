@@ -15,6 +15,7 @@ export class EditInstrumentComponent implements OnInit {
   private instrument: Instrument;
   private instrumentName: string;
   private instrumentTypeName: InstrumentType;
+  private about: string;
 
   private isInstrumentTypeClicked: boolean;
   private isInstrumentTypeSelected: boolean;
@@ -28,6 +29,7 @@ export class EditInstrumentComponent implements OnInit {
     this.instrumentTypeName = null;
     this.isInstrumentTypeClicked = false;
     this.isInstrumentTypeSelected = false;
+    this.about = '';
   }
 
   searchInstrumentType() {
@@ -43,6 +45,7 @@ export class EditInstrumentComponent implements OnInit {
   instrumentEventHandler($event) {
     this.selectedInstrument = $event;
     this.instrumentName = this.selectedInstrument.instrumentName;
+    this.about = this.selectedInstrument.aboutInstrument;
     this.isEditSelected = true;
     this.isInstrumentTypeClicked = false;
     this.isInstrumentTypeSelected = false;
@@ -68,11 +71,12 @@ export class EditInstrumentComponent implements OnInit {
   }
 
   update() {
-    if(this.instrumentName === this.selectedInstrument.instrumentName && this.instrument.getInstrumentType() === this.selectedInstrument.instrumentType) {
+    if(this.instrumentName === this.selectedInstrument.instrumentName && this.instrument.getInstrumentType() === this.selectedInstrument.instrumentType && this.about === this.selectedInstrument.aboutInstrument) {
       window.alert('You need to do some changes before update');
     } else {
       this.instrument.id = this.selectedInstrument.id;
       this.instrument.setInstrumentName(this.instrumentName);
+      this.instrument.setAboutInstrument(this.about);
       this.instrumentService.edit(this.instrument).subscribe(
         res => {
           console.log(res);

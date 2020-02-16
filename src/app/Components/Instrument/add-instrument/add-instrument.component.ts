@@ -12,6 +12,7 @@ export class AddInstrumentComponent implements OnInit {
   private instrument: Instrument;
   private instrumentName: string;
   private instrumentTypeName: InstrumentType;
+  private about: string;
 
   private isInstrumentTypeClicked: boolean;
   private isInstrumentTypeSelected: boolean;
@@ -23,6 +24,7 @@ export class AddInstrumentComponent implements OnInit {
     this.instrumentName = this.instrumentTypeName = null;
     this.isInstrumentTypeClicked = false;
     this.isInstrumentTypeSelected = false;
+    this.about = '';
   }
 
   searchInstrumentType(){
@@ -40,6 +42,7 @@ export class AddInstrumentComponent implements OnInit {
       window.alert("Incomplete input");
     else {
       this.instrument.setInstrumentName(this.instrumentName);
+      this.instrument.setAboutInstrument(this.about);
       this.instrumentService.create(this.instrument).subscribe(
         res => {
           console.log("add-instrument-component received:");

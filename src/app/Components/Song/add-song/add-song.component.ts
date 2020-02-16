@@ -29,6 +29,7 @@ export class AddSongComponent implements OnInit {
   private instrumentList: SongInstrument[];
   private songInstrument: SongInstrument;
   private songLyrics: string;
+  private musicVideoUrl: string;
 
   private isBandClicked: boolean;
   private isAlbumClicked: boolean;
@@ -62,6 +63,7 @@ export class AddSongComponent implements OnInit {
     this.seconds = 0;
     this.minutes = 0;
     this.songLyrics = '';
+    this.musicVideoUrl = '';
 
     this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
     this.isBandSelected = this.isAlbumSelected = this.isGenreSelected = false;
@@ -129,6 +131,7 @@ export class AddSongComponent implements OnInit {
       this.song.setSongLengthSeconds(this.songLengthSeconds);
       this.song.setTrackNumber(this.trackNumber);
       this.song.setSongLyrics(this.songLyrics);
+      this.song.setMusicVideoUrl(this.musicVideoUrl);
       this.songService.create(this.song).subscribe(
         res => {
           console.log('add-song-component received:');
