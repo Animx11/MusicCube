@@ -4,6 +4,10 @@ import { Artist } from 'src/app/Class/Artist';
 import { ArtistService } from 'src/app/Services/artist.service';
 import { Person } from 'src/app/Class/Person';
 import { PersonService } from 'src/app/Services/person.service';
+import { ArtistInstrument } from 'src/app/Class/ArtistInstrument';
+import { ArtistInstrumentService } from 'src/app/Services/artist-instrument.service';
+import { ArtistActivity } from 'src/app/Class/ArtistActivity';
+import { ArtistActivityService } from 'src/app/Services/artist-activity.service';
 
 @Component({
   selector: 'app-add-artist',
@@ -22,7 +26,25 @@ export class AddArtistComponent implements OnInit {
   private isBirthPlaceClicked: boolean;
   private isBirthPlaceSelected: boolean;
 
-  constructor(private artistService: ArtistService, private personService: PersonService) {}
+  private role: string;
+  private roles: string[];
+
+  private isBandClicked: boolean;
+
+  private isInstrumentClicked: boolean;
+  private isArtistActivityClicked: boolean;
+
+  private instrumentList: ArtistInstrument[];
+  private artistInstrument: ArtistInstrument;
+
+  private artistActivityList: ArtistActivity[];
+  private artistActivity: ArtistActivity;
+
+  constructor(
+    private artistService: ArtistService,
+    private personService: PersonService,
+    private artistInstrumentService: ArtistInstrumentService,
+    private artistActivityService: ArtistActivityService) {}
 
   ngOnInit() {
     this.firstNames = this.lastName = this.stageName = '';
@@ -31,6 +53,10 @@ export class AddArtistComponent implements OnInit {
     this.isArtist = false;
     this.isBirthPlaceClicked = false;
     this.isBirthPlaceSelected = false;
+    this.isBandClicked = false;
+    this.instrumentList = [];
+    this.artistActivityList = [];
+
   }
 
   searchBirthPlace(){
@@ -41,6 +67,37 @@ export class AddArtistComponent implements OnInit {
     this.person.setOrigin($event);
     this.isBirthPlaceClicked = false;
     this.isBirthPlaceSelected = true;
+  }
+
+  instrumentEventHandler($event: any) {
+    this.artistInstrument = new ArtistInstrument();
+    this.artistInstrument.setInstrument($event);
+    this.instrumentList.push(this.artistInstrument);
+    console.log($event);
+    console.log(this.instrumentList);
+    this.isInstrumentClicked = false;
+
+  }
+
+  bandEventHandler($event: any) {
+    this.artistActivity = new ArtistActivity();
+    this.artistActivity.setBand($event);
+    this.artistActivityList.push(this.artistActivity);
+    console.log($event);
+    console.log(this.instrumentList);
+    this.isBandClicked = false;
+
+  }
+
+
+  resetClicked() {
+    this.isInstrumentClicked = false;
+    this.isBandClicked = false;
+  }
+
+  searchValue(value: boolean): boolean {
+    this.resetClicked();
+    return !value;
   }
 
   add() {
@@ -64,6 +121,39 @@ export class AddArtistComponent implements OnInit {
             console.log('add-artist-component received artist:');
             console.log(res);
             window.alert('Artist added');
+
+            // Dodawanie instrumentów
+            
+            this.instrumentList.forEach(el => {
+              el.setArtist(res);
+              this.artistInstrumentService.create(el).subscribe(
+                res => {
+                  console.log('add-song-component received:');
+                  console.log(res);
+                },
+                err => {
+                  err => console.error(err);
+                }
+              );
+            });
+
+            // Dodawanie zespołów
+
+            this.artistActivityList.forEach(
+              el => {
+                el.setArtist(res);
+                this.artistActivityService.create(el).subscribe(
+                  res => {
+                    console.log('add-song-component received:');
+                    console.log(res);
+                  },
+                  err => {
+                    err => console.error(err);
+                  }
+                );
+              }
+            );
+
             this.ngOnInit();
           },
           err => {
@@ -71,6 +161,7 @@ export class AddArtistComponent implements OnInit {
             console.error(err);
           }
         );
+
       }
       else{
         this.personService.create(this.person).subscribe(
@@ -88,4 +179,39 @@ export class AddArtistComponent implements OnInit {
     }
     }
   }
+
+  addRole(artistActivity: ArtistActivity){
+    if(artistActivity.tempRole !== '') {
+      this.roles = artistActivity.getRoles();
+      this.roles.push(artistActivity.tempRole);
+      artistActivity.setRoles(this.roles);
+      console.log(this.roles);
+      console.log(artistActivity.getRoles());
+      artistActivity.tempRole = '';
+      this.roles = [];
+    }
+  }
+
+
+  removeInstrument(instrument: ArtistInstrument) {
+    const index = this.instrumentList.indexOf(instrument);
+    if (index > -1) { this.instrumentList.splice(index, 1); }
+  }
+
+  removeArtistActivity(activity: ArtistActivity) {
+    const index = this.artistActivityList.indexOf(activity);
+    if (index > -1) { this.artistActivityList.splice(index, 1); }
+  }
+
+  removeRole(artistActivity: ArtistActivity, role: string) {
+    this.roles = artistActivity.getRoles();
+    const index = this.roles.indexOf(role, 0);
+    if (index > -1) {
+      this.roles.splice(index, 1);
+    }
+    artistActivity.setRoles(this.roles);
+    this.roles = [];
+
+  }
+
 }

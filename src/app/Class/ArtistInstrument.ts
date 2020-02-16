@@ -3,8 +3,8 @@ import { Instrument } from "./Instrument";
 
 export class ArtistInstrument {
   id: number;
-  private artist: Artist;
-  private instrument: Instrument;
+  artist: Artist;
+  instrument: Instrument;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
