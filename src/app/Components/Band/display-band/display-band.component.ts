@@ -26,6 +26,7 @@ export class DisplayBandComponent implements OnInit {
   albums: Album[];
   lnp: ArtistActivity[];
   artistDisplays: ArtistActivityDisplay[];
+  similarBands: Band[];
 
 
   rate: Rate;
@@ -36,9 +37,10 @@ export class DisplayBandComponent implements OnInit {
   private isFavorite: boolean;
   private isRated: boolean;
 
-  private isMainClicked: boolean;
-  private isLineUpClicked: boolean;
-  private isDiscographyClicked: boolean;
+  isMainClicked: boolean;
+  isLineUpClicked: boolean;
+  isDiscographyClicked: boolean;
+  isSimilarBandsClicked: boolean;
 
   private selectOption: string;
 
@@ -70,7 +72,7 @@ export class DisplayBandComponent implements OnInit {
     }
 
     this.isMainClicked = true;
-    this.isDiscographyClicked = this.isLineUpClicked = false;
+    this.isDiscographyClicked = this.isLineUpClicked = this.isSimilarBandsClicked = false;
   }
 
 
@@ -149,6 +151,7 @@ export class DisplayBandComponent implements OnInit {
         this.band = new Band(res);
         this.getAlbums();
         this.getMembers();
+        this.getSimilarBands(10);
       },
       err => console.error(err));
   }
@@ -261,13 +264,13 @@ export class DisplayBandComponent implements OnInit {
         window.location.reload();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }
 
-  resetValue(){
-    this.isMainClicked = this.isLineUpClicked = this.isDiscographyClicked = false;
+  resetValue() {
+    this.isMainClicked = this.isLineUpClicked = this.isDiscographyClicked = this.isSimilarBandsClicked = false;
   }
 
   switchValue(clicked: boolean): boolean {
@@ -276,4 +279,12 @@ export class DisplayBandComponent implements OnInit {
     return clicked;
   }
 
+  private getSimilarBands(limit: number) {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.bandService.getSimilar(this.band.getId(), limit).subscribe(res => {
+        console.log('display-band-component comments, received: ', res);
+        this.similarBands = res.map(el => new Band(el));
+      },
+      err => console.error(err));
+  }
 }

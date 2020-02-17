@@ -22,10 +22,20 @@
     <div class = "optionToDisplay" (click) = "isMainClicked = switchValue(isMainClicked)">Main</div>
     <div class = "optionToDisplay" (click) = "isLineUpClicked = switchValue(isLineUpClicked)">Line up</div>
     <div class = "optionToDisplay" (click) = "isDiscographyClicked = switchValue(isDiscographyClicked)">Discography</div>
+    <div class = "optionToDisplay" (click) = "isSimilarBandsClicked = switchValue(isSimilarBandsClicked)">Similar bands</div>
   </div>
 
 
   <div id = "displayPanelContent">
+
+    <div id = "bio" *ngIf = "isSimilarBandsClicked">
+      <h3>Similar bands:</h3>
+      <ul>
+        <li *ngFor="let band of similarBands">
+          <a routerLink="/band/{{band.bandId}}">{{band.bandName}}</a>
+        </li>
+      </ul>
+    </div>
 
     <div id = "bio" *ngIf = "isLineUpClicked">
       <h3>Lineup:</h3>

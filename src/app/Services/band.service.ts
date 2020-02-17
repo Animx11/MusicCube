@@ -56,4 +56,8 @@ export class BandService {
   delete(id: number): Observable<any> {
     return this.http.delete(`${apiUrl}/admin/band/${id}`);
   }
+
+  getSimilar(bandId: number, limit: number): Observable<any> {
+    return this.http.get(`${api_url}/recommend/band?band=${bandId}&limit=${limit}`);
+  }
 }
