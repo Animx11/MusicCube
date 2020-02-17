@@ -15,7 +15,11 @@ public class RecommendationsIdListBuilder {
                 idsAndWeightsMap.put(id,1);
             }
         }));
-        return new ArrayList<>(sortByValue(idsAndWeightsMap).keySet()).subList(0,limit);
+        List<Integer> result = new ArrayList<>(sortByValue(idsAndWeightsMap).keySet());
+        if (result.size() > limit) {
+            result = result.subList(0,limit);
+        }
+        return result;
     }
 
     private static HashMap<Integer, Integer> sortByValue(HashMap<Integer, Integer> hm)
