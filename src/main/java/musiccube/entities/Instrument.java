@@ -16,7 +16,7 @@ public class Instrument {
     @Column(unique = true)
     private String instrumentName;
 
-    @Column(length = 1024)
+    @Column
     private String aboutInstrument;
 
     @ManyToOne

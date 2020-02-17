@@ -34,9 +34,12 @@ public class Song {
     @Column
     private String songLyrics;
 
+    @Column
+    private String musicVideoUrl;
+
     public Song() {}
 
-    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre, String songLyrics) {
+    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre, String songLyrics, String musicVideoUrl) {
         this.songName = songName;
         this.trackNumber = trackNumber;
         this.songLengthSeconds = songLengthSeconds;
@@ -44,6 +47,7 @@ public class Song {
         this.band = band;
         this.genre = genre;
         this.songLyrics = songLyrics;
+        this.musicVideoUrl = musicVideoUrl;
     }
 
     public String getSongLyrics() {
@@ -111,4 +115,11 @@ public class Song {
         this.genre = genre;
     }
 
+    public String getMusicVideoUrl() {
+        return musicVideoUrl;
+    }
+
+    public void setMusicVideoUrl(String musicVideoUrl) {
+        this.musicVideoUrl = musicVideoUrl;
+    }
 }

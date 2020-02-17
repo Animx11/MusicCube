@@ -22,12 +22,16 @@ public class Genre {
     @Column
     private String creationDate;
 
+    @Column
+    private String aboutGenre;
+
     public Genre() {}
 
-    public Genre(Country origin, String genreName, String creationDate) {
+    public Genre(Country origin, String genreName, String creationDate, String aboutGenre) {
         this.origin = origin;
         this.genreName = genreName;
         this.creationDate = creationDate;
+        this.aboutGenre = aboutGenre;
     }
 
     public int getId() {
@@ -60,5 +64,13 @@ public class Genre {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getAboutGenre() {
+        return aboutGenre;
+    }
+
+    public void setAboutGenre(String aboutGenre) {
+        this.aboutGenre = aboutGenre;
     }
 }

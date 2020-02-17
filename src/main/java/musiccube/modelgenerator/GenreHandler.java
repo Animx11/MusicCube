@@ -33,7 +33,7 @@ public class GenreHandler {
                 logger.info("Genre "+genre.getGenreName()+Constants.EXISTS);
             }
             else {
-                genre = new Genre(null,name,null);
+                genre = new Genre(null,name,null, null);
                 genreService.save(genre);
                 logger.info("Genre "+genre.getGenreName()+Constants.SAVED);
             }

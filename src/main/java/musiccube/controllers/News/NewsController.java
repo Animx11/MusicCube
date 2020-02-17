@@ -36,12 +36,14 @@ public class NewsController {
         Date date = new Date();
         News news = new News();
 
+        newsService.save(news);
+
         news.setCreator(newsFrontendReceiver.getCreator());
         news.setNewsTitle(newsFrontendReceiver.getNewsTitle());
         news.setNewsCreationDate(date);
         news.setImageUrl(newsFrontendReceiver.getNewsImage());
 
-        String fileDirWithName = dir.concat(news.getNewsTitle().replaceAll("\\s+", "").concat(".txt"));
+        String fileDirWithName = dir.concat(String.valueOf(news.getId()).concat(".txt"));
 
         try {
             File newTextFile = new File(fileDirWithName);

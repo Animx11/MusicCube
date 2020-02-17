@@ -72,6 +72,11 @@ public class ArtistActivityController {
 
     @PostMapping(path = "/admin/artistactivity")
     public ResponseEntity<ArtistActivity> create(@RequestBody @Valid @NotNull ArtistActivity activity) {
+        if(activity.getActivityEnd() == null){
+            activity.setActive(true);
+        } else {
+            activity.setActive(false);
+        }
         artistActivityService.save(activity);
         return ResponseEntity.ok().body(activity);
     }

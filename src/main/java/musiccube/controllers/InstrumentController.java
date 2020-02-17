@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -30,12 +34,30 @@ public class InstrumentController {
     @Autowired
     private ArtistInstrumentService artistInstrumentService;
 
+    private String readAboutInstrumentFromFile(Instrument instrument){
+        try{
+            File fileToRead = new File(instrument.getAboutInstrument());
+            FileReader fileReader = new FileReader(fileToRead);
+            char[] chars = new char[(int) fileToRead.length()];
+            fileReader.read(chars);
+            return new String(chars);
+
+        } catch(IOException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
     @GetMapping(
             path = "/instrument/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Instrument> getById(@PathVariable("id") int id) {
         Optional<Instrument> instrument = instrumentService.getById(id);
+        if(instrument.get().getAboutInstrument() != null) {
+            instrument.get().setAboutInstrument(readAboutInstrumentFromFile(instrument.orElse(null)));
+        }
+
         return instrument.isPresent() ?
                 ResponseEntity.ok(instrument.get()) :
                 ResponseEntity.notFound().build();
@@ -46,7 +68,16 @@ public class InstrumentController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Instrument> getAll() {
-        return instrumentService.getAll();
+
+        Iterable<Instrument> instruments = instrumentService.getAll();
+        for (Instrument instrument: instruments) {
+            if(instrument.getAboutInstrument() != null) {
+                instrument.setAboutInstrument(readAboutInstrumentFromFile(instrument));
+            }
+        }
+
+        return instruments;
+
     }
     
     // --- Get all instruments with paging ---
@@ -58,9 +89,22 @@ public class InstrumentController {
             @PathVariable("page") Integer pageNr,
             @RequestParam(name = "size", required = false) Integer perPage
     ) {
-        return perPage == null ?
-                instrumentService.getAllPaging(pageNr, Defaults.PAGESIZE) :
-                instrumentService.getAllPaging(pageNr, perPage);
+
+        Iterable<Instrument> instruments;
+        if(perPage == null) {
+            instruments = instrumentService.getAllPaging(pageNr, Defaults.PAGESIZE);
+        } else {
+            instruments = instrumentService.getAllPaging(pageNr, perPage);
+        }
+
+        for (Instrument instrument: instruments) {
+            if(instrument.getAboutInstrument() != null) {
+                instrument.setAboutInstrument(readAboutInstrumentFromFile(instrument));
+            }
+        }
+
+        return instruments;
+
     }
 
     // --- Get by instrument name ---
@@ -69,19 +113,69 @@ public class InstrumentController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Iterable<Instrument> getByInstrumentName(@PathVariable("name") String instrumentName) {
-        return instrumentService.getByInstrumentName(instrumentName);
+
+        Iterable<Instrument> instruments = instrumentService.getByInstrumentName(instrumentName);
+        for (Instrument instrument: instruments) {
+            if(instrument.getAboutInstrument() != null){
+                instrument.setAboutInstrument(readAboutInstrumentFromFile(instrument));
+            }
+        }
+
+        return instruments;
+
     }
 
     @PostMapping("/admin/instrument")
     public ResponseEntity<Instrument> create(@RequestBody @Valid @NotNull Instrument instrument) {
-        instrumentService.save(instrument);
-        return ResponseEntity.ok().body(instrument);
+
+        String aboutInstrumentToSave = instrument.getAboutInstrument();
+        instrument.setAboutInstrument("");
+
+        Instrument instrument1 = instrumentService.save(instrument);
+
+        String dir = System.getProperty("user.dir");
+        dir = dir.concat("\\AboutInstrument\\");
+
+        String fileDirWithName = dir.concat(String.valueOf(instrument1.getId()).concat(".txt"));
+
+        try{
+            File newTextFile = new File(fileDirWithName);
+            newTextFile.getParentFile().mkdirs();
+            FileWriter fileWriter = new FileWriter(newTextFile);
+            fileWriter.write(aboutInstrumentToSave);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        instrument1.setAboutInstrument(fileDirWithName);
+        instrumentService.save(instrument1);
+
+        return ResponseEntity.ok().body(instrument1);
+
     }
 
     @PutMapping("/admin/instrument")
     public ResponseEntity<Void> edit(@RequestBody @Valid @NotNull Instrument instrument) {
-        Optional<Instrument> artist1 = instrumentService.getById(instrument.getId());
-        if (Objects.nonNull(artist1)) {
+        Optional<Instrument> instrument1 = instrumentService.getById(instrument.getId());
+        if (Objects.nonNull(instrument1)) {
+
+            String dir = System.getProperty("user.dir");
+            dir = dir.concat("\\AboutInstrument\\");
+
+            String fileDirWithName = instrument1.get().getAboutInstrument();
+
+            try{
+                File newTextFile = new File(fileDirWithName);
+                FileWriter fileWriter = new FileWriter(newTextFile);
+                fileWriter.write(instrument.getAboutInstrument());
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+
+            instrument.setAboutInstrument(fileDirWithName);
+
             instrumentService.save(instrument);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -99,6 +193,23 @@ public class InstrumentController {
             for (SongInstrument songInstrument : allSongsWithInstrument) {
                 songInstrumentService.delete(songInstrument.getId());
             }
+
+            File file = new File(instrument.getAboutInstrument());
+
+            System.gc();
+            if(new File("./__tmp.txt").delete()){
+                System.out.println("OK");
+            }
+
+            if(file.delete())
+            {
+                System.out.println("File deleted successfully");
+            }
+            else
+            {
+                System.out.println("Failed to delete the file");
+            }
+
             instrumentService.delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
