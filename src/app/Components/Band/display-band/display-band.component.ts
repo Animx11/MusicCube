@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Location } from '@angular/common';
 
 import { BandService } from '../../../Services/band.service';
@@ -14,6 +14,7 @@ import { Rate } from 'src/app/Class/Rate';
 import { CommentClass } from 'src/app/Class/CommentClass';
 import { RateService } from 'src/app/Services/rate.service';
 import { CommentService } from 'src/app/Services/comment.service';
+import {this_url} from '../../../Utils/API_URL';
 
 @Component({
   selector: 'app-display-band',
@@ -26,6 +27,7 @@ export class DisplayBandComponent implements OnInit {
   albums: Album[];
   lnp: ArtistActivity[];
   artistDisplays: ArtistActivityDisplay[];
+  similarBands: Band[];
 
 
   rate: Rate;
@@ -36,9 +38,10 @@ export class DisplayBandComponent implements OnInit {
   private isFavorite: boolean;
   private isRated: boolean;
 
-  private isMainClicked: boolean;
-  private isLineUpClicked: boolean;
-  private isDiscographyClicked: boolean;
+  isMainClicked: boolean;
+  isLineUpClicked: boolean;
+  isDiscographyClicked: boolean;
+  isSimilarBandsClicked: boolean;
 
   private selectOption: string;
 
@@ -70,7 +73,7 @@ export class DisplayBandComponent implements OnInit {
     }
 
     this.isMainClicked = true;
-    this.isDiscographyClicked = this.isLineUpClicked = false;
+    this.isDiscographyClicked = this.isLineUpClicked = this.isSimilarBandsClicked = false;
   }
 
 
@@ -87,7 +90,7 @@ export class DisplayBandComponent implements OnInit {
   }
 
   private checkIfIsRated() {
-    const id = +this.route.snapshot.paramMap.get('id'); 
+    const id = +this.route.snapshot.paramMap.get('id');
     this.rateService.getByUserNameAndBandId(this.userName, id).subscribe(
       res => {
         console.log('This band was rated by user');
@@ -117,7 +120,7 @@ export class DisplayBandComponent implements OnInit {
       );
     } else if (!this.isRated && this.selectOption === '0') {
 
-    } else if (!this.isRated){
+    } else if (!this.isRated) {
       this.rateService.createBandRate(this.userName, id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);
@@ -149,6 +152,7 @@ export class DisplayBandComponent implements OnInit {
         this.band = new Band(res);
         this.getAlbums();
         this.getMembers();
+        this.getSimilarBands(10);
       },
       err => console.error(err));
   }
@@ -225,7 +229,7 @@ export class DisplayBandComponent implements OnInit {
   sendComment() {
     const id = +this.route.snapshot.paramMap.get('id');
 
-    if(this.commentContent.length > 2) {
+    if (this.commentContent.length > 2) {
       this.comment = new CommentClass();
       this.comment.setCommentContent(this.commentContent);
       this.comment.setCommentDate(new Date());
@@ -237,7 +241,7 @@ export class DisplayBandComponent implements OnInit {
           window.location.reload();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
     }
@@ -261,13 +265,13 @@ export class DisplayBandComponent implements OnInit {
         window.location.reload();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }
 
-  resetValue(){
-    this.isMainClicked = this.isLineUpClicked = this.isDiscographyClicked = false;
+  resetValue() {
+    this.isMainClicked = this.isLineUpClicked = this.isDiscographyClicked = this.isSimilarBandsClicked = false;
   }
 
   switchValue(clicked: boolean): boolean {
@@ -276,4 +280,16 @@ export class DisplayBandComponent implements OnInit {
     return clicked;
   }
 
+  private getSimilarBands(limit: number) {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.bandService.getSimilar(this.band.getId(), limit).subscribe(res => {
+        console.log('display-band-component comments, received: ', res);
+        this.similarBands = res.map(el => new Band(el));
+      },
+      err => console.error(err));
+  }
+
+  reload(id: number) {
+    window.location.assign(`${this_url}/band/${id}`);
+  }
 }
