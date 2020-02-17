@@ -20,6 +20,8 @@ export class EditSongComponent implements OnInit {
   private songLengthSeconds: number;
   private trackNumber: number;
   private song: Song;
+  private songLyrics: string;
+
 
   private authorList: SongAuthorship[];
   private authorship: SongAuthorship;
@@ -45,6 +47,8 @@ export class EditSongComponent implements OnInit {
   private isInstrumentChanged: boolean;
   private isAuthorshipChanged: boolean;
   
+  private musicVideoUrl: string;
+
 
 
   private minutes: number;
@@ -61,8 +65,10 @@ export class EditSongComponent implements OnInit {
     this.authorList = [];
     this.instrumentList = [];
     this.trackNumber = null;
+    this.songLyrics = '';
     this.isAuthorshipChanged = false;
     this.isInstrumentChanged = false;
+    this.musicVideoUrl = '';
     
     this.isEditSelected = false;
 
@@ -70,21 +76,24 @@ export class EditSongComponent implements OnInit {
     this.isBandSelected = this.isAlbumSelected = this.isGenreSelected = false;
   }
 
+
   songEventHandler($event) {
     this.selectedSong = $event;
     this.songName = this.selectedSong.songName;
     this.trackNumber = this.selectedSong.trackNumber;
     this.songLengthSeconds = this.selectedSong.songLengthSeconds;
+    this.songLyrics = this.selectedSong.songLyrics;
+    this.musicVideoUrl = this.selectedSong.musicVideoUrl;
     this.song.setAlbum(this.selectedSong.album);
     this.song.setBand(this.selectedSong.band);
     this.song.setGenre(this.selectedSong.genre);
-    if (this.song.getAlbum()){
+    if (this.song.getAlbum()) {
       this.isAlbumSelected = true;
     }
-    if (this.song.getBand()){
+    if (this.song.getBand()) {
       this.isBandSelected = true;
     }
-    if (this.song.getGenre()){
+    if (this.song.getGenre()) {
       this.isGenreSelected = true;
     }
     this.songAuthorshipService.getBySongId(this.selectedSong.id).subscribe(
@@ -205,13 +214,15 @@ export class EditSongComponent implements OnInit {
   
   update() {
     this.albumLengthInSeconds();
-    if(this.songName === this.selectedSong.songName && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.trackNumber === this.selectedSong.trackNumber && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.song.getAlbum() === this.selectedSong.album && this.song.getBand() === this.selectedSong.band && this.song.getGenre() === this.selectedSong.genre && !this.isAuthorshipChanged && !this.isInstrumentChanged) {
+    if(this.songName === this.selectedSong.songName && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.trackNumber === this.selectedSong.trackNumber && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.song.getAlbum() === this.selectedSong.album && this.song.getBand() === this.selectedSong.band && this.song.getGenre() === this.selectedSong.genre && !this.isAuthorshipChanged && !this.isInstrumentChanged && this.selectedSong.songLyrics === this.songLyrics && this.musicVideoUrl === this.selectedSong.musicVideoUrl) {
       window.alert('You need to do some changes before update');
     } else {
       this.song.id = this.selectedSong.id;
       this.song.setSongName(this.songName);
       this.song.setTrackNumber(this.trackNumber);
       this.song.setSongLengthSeconds(this.songLengthSeconds);
+      this.song.setMusicVideoUrl(this.musicVideoUrl);
+      this.song.setSongLyrics(this.songLyrics);
 
       this.authorList.forEach(el => {
         el.setSong(this.song);

@@ -1,18 +1,19 @@
-<h5>Find album which:</h5>
 
-<div class="advSrcElement">
-  Contains song: <span *ngIf="song">{{song.songName}}</span>
-  <button *ngIf="song" (click)="resetSong()" class="advReset">Clear</button>
-  <app-search-song (songEvent)="songEvent($event)"></app-search-song>
-</div>
-
-<div class="advSrcElement">
-  Is associated with genre: <span *ngIf="genre">{{genre.genreName}}</span>
-  <button *ngIf="genre" (click)="resetGenre()" class="advReset">Clear</button>
-  <app-search-genre (genreEvent)="genreEvent($event)"></app-search-genre>
-</div>
-
-<div class="advSrcElement">
-  Was released by company <input type="text" [(ngModel)]="compName" placeholder="Company name">
-</div>
-  <button (click)="search()">Search</button>
+<div class="searchContent">
+  <h3>Find album which:</h3>
+  <br>
+  
+  <div class="advSrcElement">
+    Contains song: <span *ngIf="song">{{song.songName}}</span>
+    <button *ngIf="song" (click)="resetSong()" class="advReset">Clear</button>
+    <app-search-song (songEvent)="songEvent($event)"></app-search-song>
+  </div>
+  
+  <div class="advSrcElement">
+    Is associated with genre: <span *ngIf="genre">{{genre.genreName}}</span>
+    <button *ngIf="genre" (click)="resetGenre()" class="advReset">Clear</button>
+    <app-search-genre (genreEvent)="genreEvent($event)"></app-search-genre>
+  </div>
+  </div>
+  
+  <div class="buttonDiv"><button (click)="search()">Search</button></div>

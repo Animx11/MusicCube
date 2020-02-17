@@ -5,6 +5,7 @@
 }
 .listDisplay{
   width: 96%;
+  height: 300px;
   margin-left: 3%;
   overflow-x: hidden;
   overflow-y: hidden;

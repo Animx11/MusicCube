@@ -1,0 +1,24 @@
+
+<div id="CRUD">
+    <form #profileForm = "ngForm" id = "profileForm">
+        <div class = "separateDiv">
+          <div class = "textSeparateDiv"><i>News title:</i><br></div>
+          <input type = "text" name = "newsTitle" [(ngModel)]="newsTitle" class = "inputText" required>
+        </div><br>
+
+      <div class = "separateDiv">
+        <div class = "textSeparateDiv"><i>News content:</i><br></div>
+        <textarea type = "text" name = "content" [(ngModel)]="content" class = "inputText" required></textarea>
+    </div><br>
+
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Image URL:</i><br></div>
+      <input type = "text" name = "imageUrl" [(ngModel)]="imageUrl" class = "inputText" required>
+    </div><br>
+
+        <div class = "separateDiv">
+            <button (click)="addNews()" [disabled]="!profileForm.valid">Add New News</button>
+        </div><br>
+    </form>
+
+</div>

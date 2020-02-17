@@ -16,6 +16,11 @@
           <input type = "number" name = "trackNumber" [(ngModel)]="trackNumber" class = "inputTime" min="0">
         </div>
     </div><br>
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Music Video Url:</i>
+        <input type = "text" name = "musicVideoUrl" [(ngModel)]="musicVideoUrl" class = "inputText">
+      </div>
+  </div><br>
 
 
         <div class = "separateDiv">
@@ -30,7 +35,6 @@
         <div class = "textSeparateDiv"><i>Genre:</i> <div *ngIf = "isGenreSelected"><i>{{ song.genre.genreName }}</i></div><br></div>
         <button (click)="isGenreClicked = searchValue(isGenreClicked)">Set Genre</button>
     </div><br>
-
 
       <div class = "separateDiv">
        <div class = "textSeparateDiv"><i>Authors:</i>
@@ -60,6 +64,11 @@
             </div>
          <br></div>
           <button (click)="isInstrumentClicked = searchValue(isInstrumentClicked)">Set Instruments</button>
+          </div><br>
+
+          <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Song Lyrics:</i><br></div>
+            <textarea name = "songLyrics" [(ngModel)]="songLyrics"></textarea>
           </div><br>
 
 

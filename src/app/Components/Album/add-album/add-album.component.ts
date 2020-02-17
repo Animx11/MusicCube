@@ -15,6 +15,8 @@ export class AddAlbumComponent implements OnInit {
   private seconds: number;
   private releaseDate: Date;
   private company: string;
+  private covertArtLink: string;
+  private type: string;
 
   constructor(private albumService: AlbumService) {}
 
@@ -26,6 +28,8 @@ export class AddAlbumComponent implements OnInit {
     this.length = 0;
     this.releaseDate = null;
     this.company = "";
+    this.covertArtLink = "";
+    this.type = "";
   }
 
   albumLengthInSeconds(): boolean {
@@ -44,17 +48,20 @@ export class AddAlbumComponent implements OnInit {
       window.alert("Album lenght is incorect");
     }
     else if (
-      this.albumName === "" ||
+      this.albumName === '' ||
       this.length === 0 ||
       this.releaseDate == null ||
-      this.company === ""
+      this.company === '' ||
+      this.type == ''
     )
-      window.alert("Incomplete input");
+      window.alert('Incomplete input');
     else {
       this.album.setAlbumName(this.albumName);
       this.album.setAlbumLengthSeconds(this.length);
       this.album.setReleaseDate(this.releaseDate);
       this.album.setCompany(this.company);
+      this.album.setCoverArtLink(this.covertArtLink);
+      this.album.setType(this.type);
       this.albumService.create(this.album).subscribe(
         res => {
           console.log("add-album-component received:");

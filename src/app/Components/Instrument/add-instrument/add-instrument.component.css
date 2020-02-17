@@ -42,4 +42,10 @@
 
 }
 
+textarea{
+  min-width: 100%;
+  min-height: 400px;
+  max-width: 100%;
+}
+
 

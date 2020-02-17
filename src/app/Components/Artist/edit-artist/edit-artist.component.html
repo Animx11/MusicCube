@@ -30,6 +30,69 @@
                   <div class = "textSeparateDiv"><i>Stage Name:</i><br></div>
                   <input type = "text" name = "stageName" [(ngModel)]="stageName" class = "inputText" >
                 </div><br>
+
+                <div class = "separateDiv" *ngIf = "isArtist">
+                  <div class = "textSeparateDiv"><i>Instruments:</i>
+                    <div>
+                      <ul *ngIf="instrumentList">
+                          <li *ngFor="let artistInstrument of instrumentList">
+                            {{ artistInstrument.instrument.instrumentName }}
+                            <button (click)="removeInstrument(artistInstrument)">X</button>
+                          </li>
+                        </ul>          
+                    </div>
+                 <br></div>
+                  <button (click)="isInstrumentClicked = searchValue(isInstrumentClicked)">Set Instruments</button>
+                  </div><br>
+
+
+                  <div class = "separateDiv" *ngIf = "isArtist">
+                    <div class = "textSeparateDiv"><i>Activity:</i>
+                      <table border="solid" *ngIf="artistActivityList">
+                        <tr>
+                          <th>Band</th>
+                          <th>Since</th>
+                          <th>Until</th>
+                          <th>Add Role</th>
+                          <th>Roles</th>
+                          <th>Delete</th>
+                        </tr>
+                        <tr *ngFor="let artistActivity of artistActivityList">
+                          <td>
+                            {{ artistActivity.band.bandName }}
+                          </td>
+                          <td>
+                            {{artistActivity.activityStart | date:'d MMMM yyyy'}}
+                            <input type = "date" name = "since" [(ngModel)]="artistActivity.activityStart" class = "inputDateText" required>
+                          </td>
+                          <td>
+                            {{artistActivity.activityEnd | date:'d MMMM yyyy'}}
+                            <input type = "date" name = "until" [(ngModel)]="artistActivity.activityEnd" class = "inputDateText">
+                          </td>
+                          <td>
+                            <input type = "text" name = "role" [(ngModel)]="artistActivity.tempRole" width="75px"><button (click)="addRole(artistActivity)">Add Role</button>
+                          </td>
+        
+                          <td>
+                            <table border="solid">
+                              <tr *ngFor="let role of artistActivity.roles">
+                                <td>{{role}}</td>
+                                <td><button (click)="removeRole(artistActivity, role)">X</button></td>
+                              </tr>  
+                            </table>
+                          </td>
+                          
+                          <td>
+                            <button (click)="removeArtistActivity(artistActivity)">X</button>
+                          </td>
+                      </tr>
+                    </table>
+                   <br></div>
+                    <button (click)="isBandClicked = searchValue(isBandClicked)">Set Band</button>
+                    </div><br>
+
+
+
                 <div class = "separateDiv">
                     <div class = "textSeparateDiv"><i>Place of birth:<div *ngIf = " isBirthPlaceSelected"> {{ person.origin.cityName }}</div></i><br></div>
                     <button (click)="searchBirthPlace()">Set Origin</button>
@@ -42,11 +105,28 @@
         
             </form>
           </div>
+          
           <div id = "searchPlace" *ngIf = "isBirthPlaceClicked">
               <div class = "separateDiv">
                 <div class = "textSeparateDiv"><i>Search Birth Place:</i><br></div>
                 <app-search-city (cityEvent)="cityEventHandler($event)"></app-search-city>
               </div><br>
           </div>
+
+  <div id = "searchPlace" *ngIf = "isInstrumentClicked">
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Search Instrument:</i><br></div>
+      <app-search-instrument
+      (instrumentEvent)="instrumentEventHandler($event)"
+    ></app-search-instrument>
+    </div><br>
+  </div>
+
+  <div id = "searchPlace" *ngIf = "isBandClicked">
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Search Band</i><br></div>
+      <app-search-band (bandEvent)="bandEventHandler($event)"></app-search-band>
+    </div><br>
+</div>
 
 </div>

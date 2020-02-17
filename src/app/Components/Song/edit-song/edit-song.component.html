@@ -19,6 +19,12 @@
         </div>
     </div><br>
 
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Music Video Url:</i>
+        <input type = "text" name = "musicVideoUrl" [(ngModel)]="musicVideoUrl" class = "inputText">
+      </div>
+  </div><br>
+
 
         <div class = "separateDiv">
             <div class = "textSeparateDiv"><i>Band: <div *ngIf = "isBandSelected">{{ song.band.bandName }}</div></i><br></div>
@@ -62,6 +68,12 @@
             </div>
          <br></div>
           <button (click)="isInstrumentClicked = searchValue(isInstrumentClicked)">Set Instruments</button>
+          </div><br>
+
+
+          <div class = "separateDiv">
+            <div class = "textSeparateDiv"><i>Song Lyrics:</i><br></div>
+            <textarea name = "songLyrics" [(ngModel)]="songLyrics"></textarea>
           </div><br>
 
 

@@ -4,7 +4,7 @@
       <div id = "logo"> MusicCube</div>
 
       <div class="biggerNavigatorBox">
-        <div class = "navigatorOption">News</div>
+        <a routerLink="/news"><div class = "navigatorOption">News</div></a>
         <a routerLink="/search"><div class = "navigatorOption">Search</div></a>
         <div class = "navigatorOption">Rankings</div>
         <div class = "navigatorOption">Contact</div>
@@ -17,7 +17,7 @@
       <div class="smallerNavigatorBox">
         <a routerLink = "SignIn" routerLinkActive = "active"><div class = "navigatorOption navigatorOptionSmaller" *ngIf="isLogged === false">Sign in</div></a>
         <a routerLink = "SignUp" routerLinkActive = "active"><div class = "navigatorOption navigatorOptionSmaller" *ngIf="isLogged === false">Sign up</div></a>
-        <a routerLink = "UserPanel" routerLinkActive = "active"><div class="navigatorOption navigatorOptionSmaller" *ngIf="authority === 'user'">User Panel</div></a>
+        <a routerLink = "UserPanel/Profile" routerLinkActive = "active"><div class="navigatorOption navigatorOptionSmaller" *ngIf="authority === 'user'">User Panel</div></a>
         <a routerLink = "AdminPanel" routerLinkActive = "active"> <div class="navigatorOption navigatorOptionSmaller" *ngIf="authority === 'admin'">Admin Panel</div></a>
         <div class="navigatorOption navigatorOptionSmaller" *ngIf="isLogged === true" (click)="signOut()">Sign Out</div>
       </div>

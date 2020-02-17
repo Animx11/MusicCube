@@ -1,39 +1,32 @@
 
-#marginLeft{
-  padding-top: 70px;
-  width: 21.2%;
-  height:100%;
-  float: left;
-}
+.centralDiv{
 
-#marginRight{
-  padding-top: 70px;
-  width: 14.8%;
-  height:100%;
-  float: right;
-
-}
-
-#centralDiv{
-  margin-top: 70px;
-  float: left;
-  width: 64%;
-  min-height: 85vh;
   background-color: rgba(240, 248, 255, 0.9);
+  margin-top: 5vh;
+  margin-left: 18%;
+  margin-right: 18%;
+  padding-bottom: 5vh;
+
+  min-height: 81vh;
+  height: auto;
+  overflow-y: scroll;
+  overflow: hidden;
+  animation-name: introAnimation2;
+  animation-duration: 3s;
 
 }
 
 #adminPanel{
-  width: 12.7%;
+  width: 20%;
   padding-top: 70px;
   float: left;
-  padding-left: 10px;
+  padding-left: 5%;
 }
 
 #routerOutlet{
   padding-top: 70px;
   float: left;
-  width: 53.3%;
+  width: 70%;
   text-align: center;
 }
 
@@ -53,6 +46,7 @@
 .navigator:hover{
   background:aliceblue;
 }
+
 
 #head{
   width: 97%;
@@ -77,4 +71,13 @@
 
 .adminComponentNavigator:hover{
   background: aliceblue;
+}
+
+@keyframes introAnimation2{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
 }

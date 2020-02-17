@@ -27,6 +27,17 @@ export class SongService {
   listPaging(pageNr: number, pageSize: number): Observable<any> {
     return this.http.get(`${apiUrl}/song/page/${pageNr}?size=${pageSize}`);
   }
+  advanced(paramMap: Map<string, string>): Observable<any> {
+    console.log(paramMap);
+    let url = `${api_url}/search/song?`;
+    if (paramMap.has('title')) {
+      url += (`title=${paramMap.get('title')}`);
+    }
+    if (paramMap.has('notitle')) {
+      url += (`notitle=${paramMap.get('notitle')}`);
+    }
+    return this.http.get(url);
+  }
 
   create(song: Song): Observable<any> {
     return this.http.post(`${apiUrl}/admin/song`, song);

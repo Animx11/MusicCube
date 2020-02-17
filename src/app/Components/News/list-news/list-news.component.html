@@ -1,0 +1,24 @@
+
+<div class="contentDisplay">
+
+  <div>
+    <br>
+    <div class="newsList">
+      <div class = "listElement" *ngFor="let news of newsPaged">
+        <div class = "newsFoto"><img src = "{{news.newsImage}}"></div>
+        <a routerLink="/news/{{news.id}}"><div class = "newsTitle"><h2>{{ news.newsTitle }}</h2></div></a>
+        <hr>
+        <div class = "newsContent">{{ news.newsContent }}</div>
+      </div>
+    </div>
+
+    <div class = "pageDiv">
+      <div>Showing page {{pageNr+1}} of {{pageCount}}</div>
+      <span *ngIf="pageNr > 0" class="pagingOpts" (click)="prevPage()">Previous page</span>
+      <span class="pagingOpts" (click)="nextPage()">Next page</span>
+    </div>
+  </div>
+
+</div>
+
+

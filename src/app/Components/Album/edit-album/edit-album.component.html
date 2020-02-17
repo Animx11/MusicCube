@@ -22,6 +22,17 @@
         <div class = "textSeparateDiv"><i>Record Company:</i><br></div>
         <input type = "text" name = "company" [(ngModel)]="company" class = "inputText" required>
     </div><br>
+
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Type:</i><br></div>
+      <input type = "text" name = "type" [(ngModel)]="type" class = "inputText" required>
+    </div><br>
+
+    <div class = "separateDiv">
+      <div class = "textSeparateDiv"><i>Covert Art Link:</i><br></div>
+      <input type = "text" name = "covertArtLink" [(ngModel)]="covertArtLink" class = "inputText">
+    </div><br>
+    
         <div class = "separateDiv">
             <button (click)="update()">Update</button>
             <button (click)="delete()">Delete</button>

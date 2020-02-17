@@ -19,6 +19,8 @@ export class EditAlbumComponent implements OnInit {
   private releaseDate: Date;
   private company: string;
   private toMandS: number;
+  private covertArtLink: string;
+  private type: string;
 
   private isEditSelected: boolean;
 
@@ -33,6 +35,8 @@ export class EditAlbumComponent implements OnInit {
     this.length = 0;
     this.releaseDate = null;
     this.company = "";
+    this.covertArtLink = "";
+    this.type = "";
   }
 
   albumEventHandler($event) {
@@ -43,6 +47,8 @@ export class EditAlbumComponent implements OnInit {
     this.length = this.selectedAlbum.albumLengthSeconds;
     this.isEditSelected = true;
     this.lengthInSecondsTodMinutesAndSeconds();
+    this.covertArtLink = this.selectedAlbum.coverArtLink;
+    this.type = this.selectedAlbum.type;
   }
   searchEventHandler($event) {
     this.selectedAlbum = null;
@@ -81,13 +87,15 @@ export class EditAlbumComponent implements OnInit {
   
   update() {
     this.albumLengthInSeconds();
-    if(this.albumName === this.selectedAlbum.albumName && this.releaseDate === this.selectedAlbum.releaseDate && this.length === this.selectedAlbum.albumLengthSeconds && this.company === this.selectedAlbum.company) {
+    if(this.albumName === this.selectedAlbum.albumName && this.releaseDate === this.selectedAlbum.releaseDate && this.length === this.selectedAlbum.albumLengthSeconds && this.company === this.selectedAlbum.company && this.covertArtLink === this.selectedAlbum.coverArtLink && this.type === this.selectedAlbum.type) {
       window.alert('You need to do some changes before update');
     } else {
       this.album.id = this.selectedAlbum.id;
       this.album.setAlbumName(this.albumName);
       this.album.setCompany(this.company);
       this.album.setAlbumLengthSeconds(this.length);
+      this.album.setType(this.type);
+      this.album.setCoverArtLink(this.covertArtLink);
       if (this.releaseDate){
         this.album.setReleaseDate(this.releaseDate);
       }

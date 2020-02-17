@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .contentDisplay{
+    background-color: rgba(240, 248, 255, 0.9);
+    margin-left: 18%;
+    margin-right: 18%;
+    min-height: 81vh;
+    padding-bottom: 3vh;
+  
+    height: auto;
+    overflow-y: scroll;
+    overflow: hidden;
+    animation-name: introAnimation2;
+    animation-duration: 3s;
+  
+  }
+
+  .newsList{
+      width: 100%;
+      padding-left: 10%;
+      padding-right: 10%;
+      padding-top: 50px;
+  }
+
+  .listElement{
+      border-style: solid;
+      border-color: aliceblue;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      height: 150px;
+  }
+
+  .newsFoto{
+      width: 150px;
+      height: 100%;
+      float: left;
+  }
+
+  img{
+    width: 150px;
+    height: 100%;
+  }
+
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+
+  hr{
+    color: aliceblue;
+    margin-top: 5px;
+    }
+
+  .newsTitle{
+      padding-left: 160px;
+  }
+
+  .newsContent{
+      padding-top: 10px;
+      padding-left: 160px;
+  }
+
+  .pageDiv{
+      text-align: center;
+  }
+  
+  @keyframes introAnimation{
+    0%{
+      opacity: 0;
+      top: -10%;
+    }
+    100%{
+      opacity: 1;
+      top: 0%;
+    }
+  }
+  
+  @keyframes introAnimation2{
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  
+  
+  @keyframes buttonHoverAnimation{
+    0%{
+      background-color: white;
+    }
+    100%{
+      background-color: greenyellow;
+    }
+  }
+  
+  @keyframes buttonNotHoverAnimation{
+    0%{
+      background-color: greenyellow;
+    }
+    100%{
+      background-color: white;
+    }
+  }
+  
+  
+  

@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+.searchContent{
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.advSrcElement{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 20px;
+    border-style: solid;
+    border-color: lightgray;
+    float: left;
+}
+
+.buttonDiv{
+    width: 100%;
+    float: left;
+    padding-bottom: 3vh;
+    margin-left: 50px;
+}
+
+button{
+    width: 15%;
+}
+
+.optionSelectBox{
+    float: left;
+}
+.optionSelectBox2{
+    margin-left: 2px;
+    margin-right: 1px;
+}

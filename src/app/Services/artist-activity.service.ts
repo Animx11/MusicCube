@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { api_url } from '../Utils/API_URL';
+import { ArtistActivity } from '../Class/ArtistActivity';
 
 const apiUrl = api_url;
 
@@ -31,11 +32,11 @@ export class ArtistActivityService {
     return this.http.get(`${apiUrl}/artistactivity/band/${id}?active=${active}`);
   }
 
-  create(artistInBand: ArtistActivityService): Observable<any> {
+  create(artistInBand: ArtistActivity): Observable<any> {
     return this.http.post(`${apiUrl}/admin/artistactivity`, artistInBand);
   }
 
-  edit(artistInBand: ArtistActivityService): Observable<any> {
+  edit(artistInBand: ArtistActivity): Observable<any> {
     return this.http.put(`${apiUrl}/admin/artistactivity`, artistInBand);
   }
 

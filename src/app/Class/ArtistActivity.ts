@@ -9,6 +9,7 @@ export class ArtistActivity {
   activityEnd: Date;
   isActive: boolean;
   roles: string[];
+  tempRole: string;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
@@ -18,6 +19,7 @@ export class ArtistActivity {
     this.activityEnd = (obj && obj.activityEnd) || null;
     this.isActive = (obj && obj.active) || null;
     this.roles = (obj && obj.roles) || [];
+    this.tempRole = '';
   }
 
   // Getters
@@ -48,4 +50,31 @@ export class ArtistActivity {
   getRoles(): string[] {
     return this.roles;
   }
+
+  // Setters
+
+  setArtist(artist: Artist) {
+    this.artist = artist;
+  }
+
+  setBand(band: Band) {
+    this.band = band;
+  }
+
+  setActivityStart(date: Date) {
+    this.activityStart = date;
+  }
+
+  setActivityEnd(date: Date) {
+    this.activityEnd = date;
+  }
+
+  setIsActive(isActive: boolean) {
+    this.isActive = isActive;
+  }
+
+  setRoles(roles: string[]) {
+    this.roles = roles;
+  }
+
 }
