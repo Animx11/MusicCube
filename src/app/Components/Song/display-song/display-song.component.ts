@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -10,6 +10,8 @@ import { RateService } from 'src/app/Services/rate.service';
 import { Rate } from 'src/app/Class/Rate';
 import { CommentService } from 'src/app/Services/comment.service';
 import { CommentClass } from 'src/app/Class/CommentClass';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Genre } from 'src/app/Class/Genre';
 
 @Component({
   selector: 'app-display-song',
@@ -23,10 +25,13 @@ export class DisplaySongComponent implements OnInit {
   comment: CommentClass;
   allComments: CommentClass[];
 
+  genre: Genre;
+
 
   private isLogged: boolean;
   private isFavorite: boolean;
   private isRated: boolean;
+  private isMusicVideo: boolean;
 
   private selectOption: string;
 
@@ -41,10 +46,12 @@ export class DisplaySongComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService,
     private rateService: RateService,
+    private sanitizer: DomSanitizer,
     private commentService: CommentService) { }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
+    this.isMusicVideo = false;
     this.getSong();
     this.getComments();
     this.isLogged = false;
@@ -91,6 +98,13 @@ export class DisplaySongComponent implements OnInit {
     this.songService.getById(id).subscribe(
       res => {
         this.song = new Song(res);
+        if(this.song.getMusicVideoUrl() !== '' || this.song.getMusicVideoUrl() !== null) {
+          this.isMusicVideo = true;
+        }
+        if(this.song.getGenre() === null){
+          this.genre = new Genre();
+          this.song.setGenre(this.genre);
+        }
         console.log('display-song-component received: ', res);
       },
       err => console.error(err));
@@ -204,5 +218,4 @@ export class DisplaySongComponent implements OnInit {
       }
     );
   }
-
 }

@@ -126,6 +126,11 @@
       animation-name: hoverAnimation;
       animation-duration: 2s;
     }
+
+    iframe{
+      margin-left: 5%;
+    }
+
   
     @keyframes hoverAnimation {
       0% {

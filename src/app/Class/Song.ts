@@ -1,6 +1,8 @@
 import { Album } from './Album';
 import { Band } from './Band';
 import { Genre } from './Genre';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Sanitizer } from '@angular/core';
 
 export class Song {
   id: number;
@@ -12,6 +14,7 @@ export class Song {
   genre: Genre;
   songLyrics: string;
   musicVideoUrl: string;
+  safeMusicVideo: SafeResourceUrl;
 
   constructor(obj?: any) {
     this.id = (obj && obj.id) || 0;
@@ -23,7 +26,7 @@ export class Song {
     this.genre = (obj && obj.genre) || null;
     this.songLyrics = (obj && obj.songLyrics) || '';
     this.musicVideoUrl = (obj && obj.musicVideoUrl) || '';
-
+    this.safeMusicVideo = '';
   }
 
   // Getters
@@ -64,6 +67,11 @@ export class Song {
     return this.genre;
   }
 
+  getSafeUrl(): SafeResourceUrl {
+    return this.safeMusicVideo;
+  }
+
+
   // Setters
 
   setSongName(songName: string) {
@@ -96,6 +104,10 @@ export class Song {
 
   setSongLyrics(songLyrics: string) {
     this.songLyrics = songLyrics;
+  }
+
+  setSafeUrl(safeMusicVideo: string) {
+    this.safeMusicVideo = safeMusicVideo;
   }
 
 }
