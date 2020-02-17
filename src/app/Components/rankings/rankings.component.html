@@ -1,0 +1,115 @@
+<table *ngIf="bandRatingDtos && bandRatingDtos.length">
+  <thead>
+  <tr>
+    <th>
+      Band
+    </th>
+    <th>
+      Average rate
+    </th>
+    <th>
+      Times rated
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dto of bandRatingDtos">
+    <td>
+      <a routerLink="/band/{{dto.band.id}}">{{dto.band.bandName}}</a>
+    </td>
+    <td>
+      {{dto.avgRating}}
+    </td>
+    <td>
+      {{dto.ratedCount}}
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<table *ngIf="albumRatingDtos && albumRatingDtos.length">
+  <thead>
+  <tr>
+    <th>
+      Album
+    </th>
+    <th>
+      Average rate
+    </th>
+    <th>
+      Times rated
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dto of albumRatingDtos">
+    <td>
+      <a routerLink="/album/{{dto.album.id}}">{{dto.album.albumName}}</a>
+    </td>
+    <td>
+      {{dto.avgRating}}
+    </td>
+    <td>
+      {{dto.ratedCount}}
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<table *ngIf="songRatingDtos && songRatingDtos.length">
+  <thead>
+  <tr>
+    <th>
+      Song
+    </th>
+    <th>
+      Average rate
+    </th>
+    <th>
+      Times rated
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dto of songRatingDtos">
+    <td>
+      <a routerLink="/song/{{dto.song.id}}">{{dto.song.songName}}</a>
+    </td>
+    <td>
+      {{dto.avgRating}}
+    </td>
+    <td>
+      {{dto.ratedCount}}
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<table *ngIf="artistRatingDtos && artistRatingDtos.length">
+  <thead>
+  <tr>
+    <th>
+      Artist
+    </th>
+    <th>
+      Average rate
+    </th>
+    <th>
+      Times rated
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let dto of artistRatingDtos">
+    <td>
+      <a routerLink="/artist/{{dto.artist.id}}">{{dto.artist.stageName}}</a>
+    </td>
+    <td>
+      {{dto.avgRating}}
+    </td>
+    <td>
+      {{dto.ratedCount}}
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -1,4 +1,4 @@
-<div *ngIf="song" class="contentDisplay">
+z<div *ngIf="song" class="contentDisplay">
 
   <div id = "infoPanel">
     <div class = "musicVideo" *ngIf = "isMusicVideo">
@@ -47,9 +47,10 @@
       <hr *ngIf = "isLogged">
 
       <div id = "statistic" *ngIf = "isLogged">
-        <div class = "statisticOption">Score: </div>
-        <div *ngIf = "isLogged" class = "statisticOption">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
-        <div *ngIf = "isLogged" class = "statisticOption">Your Rate: 
+        <div *ngIf = "isLogged">Favorite: <input type = "checkbox" name = "isFavorite" [(ngModel)]="isFavorite" (click) = "toFavorite()" /></div>
+        <div *ngIf = "isLogged">Listened: <input type = "checkbox" name = "isListened" [(ngModel)]="isListened" (click) = "toListened()" /></div>
+        <div *ngIf = "isLogged">To listen: <input type = "checkbox" name = "isToListen" [(ngModel)]="isToListen" (click) = "toToListen()" /></div>
+        <div *ngIf = "isLogged">Score: 
             <select id = "selectOption" name = "selectOption" [(ngModel)]="selectOption" (change) = "setScore()">
                 <option value="0">Select score</option>
                 <option value="1">1 Appalling</option>

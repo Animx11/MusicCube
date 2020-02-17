@@ -40,13 +40,13 @@
   </div>
 <!--
 
-  <button (click)="toggleSearch()">Search in songs</button><button (click)="getAll()">Get all songs</button>
+  <button (click)="toggleSearch()">Search in songRatingDtos</button><button (click)="getAll()">Get all songRatingDtos</button>
 <div *ngIf="searchOn">
   <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..."/>
 </div>
 <div *ngIf="listOn" class="listDisplay">
   <ul>
-    <li *ngFor="let song of (songs$ | async)" (click)="onSelect(song)">
+    <li *ngFor="let song of (songRatingDtos$ | async)" (click)="onSelect(song)">
       {{ song.songName }}
     </li>
   </ul>

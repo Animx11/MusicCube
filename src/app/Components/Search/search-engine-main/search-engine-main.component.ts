@@ -137,7 +137,7 @@ export class SearchEngineMainComponent implements OnInit {
   }
   searchSongs(term: string) {
     this.songService.getBySongName(term).subscribe(res => {
-      console.log('search-engine received songs:', res);
+      console.log('search-engine received songRatingDtos:', res);
       this.songs = res.map(el => new Song(el));
       this.message += `${this.songs.length} songs `;
     }, err => console.error(err));

@@ -86,6 +86,8 @@ import { DisplayNewsComponent } from './Components/News/display-news/display-new
 import { ListNewsComponent } from './Components/News/list-news/list-news.component';
 import { SearchNewsComponent } from './Components/News/search-news/search-news.component';
 import { AddNewsComponent } from './Components/News/add-news/add-news.component';
+import { ExtrasComponent } from './Components/User/user-panel/extras/extras.component';
+import { RankingsComponent } from './Components/rankings/rankings.component';
 
 
 const ROUTES: Routes = [
@@ -117,6 +119,11 @@ const ROUTES: Routes = [
   {
     path: 'UserPanel', component: UserPanelComponent,
     children: [{ path: 'Favorites', component: FavoritesComponent }]
+  },
+  // User Panel Extras
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'Extras', component: ExtrasComponent}]
   },
 
   // User
@@ -273,6 +280,11 @@ const ROUTES: Routes = [
     component: AdvancedSearchComponent
   },
 
+  {
+    path: 'rankings',
+    component: RankingsComponent
+  },
+
   { path: '', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -352,6 +364,8 @@ const ROUTES: Routes = [
     ListNewsComponent,
     SearchNewsComponent,
     AddNewsComponent,
+    ExtrasComponent,
+    RankingsComponent,
 
   ],
   imports: [

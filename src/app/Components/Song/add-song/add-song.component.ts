@@ -5,12 +5,7 @@ import { SongAuthorshipService } from 'src/app/Services/song-authorship.service'
 import { SongInstrumentService } from 'src/app/Services/song-instrument.service';
 
 import { Song } from 'src/app/Class/Song';
-import { Band } from 'src/app/Class/Band';
-import { Album } from 'src/app/Class/Album';
-import { Genre } from 'src/app/Class/Genre';
-import { Person } from 'src/app/Class/Person';
 import { SongAuthorship } from 'src/app/Class/SongAuthorship';
-import { Instrument } from 'src/app/Class/Instrument';
 import { SongInstrument } from 'src/app/Class/SongInstrument';
 
 
@@ -41,7 +36,7 @@ export class AddSongComponent implements OnInit {
   private isAlbumSelected: boolean;
   private isGenreSelected: boolean;
 
-  
+
   private minutes: number;
   private seconds: number;
   private toMandS: number;
@@ -74,10 +69,9 @@ export class AddSongComponent implements OnInit {
   }
 
   albumLengthInSeconds(): boolean {
-    if(this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0) {
+    if (this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0) {
       return false;
-    }
-    else{
+    } else {
       this.songLengthSeconds = 60 * this.minutes + this.seconds;
       return true;
     }
@@ -121,10 +115,9 @@ export class AddSongComponent implements OnInit {
   }
 
   addSong() {
-    if(!this.albumLengthInSeconds()) {
+    if (!this.albumLengthInSeconds()) {
       window.alert('Incorect song length');
-    }
-    else if (this.songName === '' || this.songLengthSeconds === 0) {
+    } else if (this.songName === '' || this.songLengthSeconds === 0) {
       window.alert('Dane są niekompletne i/lub nieprawidłowe');
     } else {
       this.song.setSongName(this.songName);

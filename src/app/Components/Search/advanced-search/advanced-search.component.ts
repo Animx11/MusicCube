@@ -48,7 +48,7 @@ export class AdvancedSearchComponent implements OnInit {
         this.albums = true;
         this.bands = this.artists = this.songs = this.genres = this.instruments = false;
         break;
-      case 'songs':
+      case 'songRatingDtos':
         this.songs = true;
         this.bands = this.albums = this.artists = this.genres = this.instruments = false;
         break;
