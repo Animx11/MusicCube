@@ -50,6 +50,15 @@ public class Song {
         this.musicVideoUrl = musicVideoUrl;
     }
 
+    public Song(String songName, int trackNumber, int songLengthSeconds, Album album, Band band, Genre genre) {
+        this.songName = songName;
+        this.trackNumber = trackNumber;
+        this.songLengthSeconds = songLengthSeconds;
+        this.album = album;
+        this.band = band;
+        this.genre = genre;
+    }
+
     public String getSongLyrics() {
         return songLyrics;
     }
