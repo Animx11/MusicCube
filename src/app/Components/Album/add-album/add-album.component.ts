@@ -41,7 +41,7 @@ export class AddAlbumComponent implements OnInit {
 
   addAlbum(): void {
     if (!this.albumLengthInSeconds()) {
-      window.alert('Album lenght is incorect');
+      window.alert('Album length is incorrect');
     } else if (
       this.albumName === '' ||
       this.length === 0 ||
@@ -49,7 +49,7 @@ export class AddAlbumComponent implements OnInit {
       this.company === ''
     ) {
       window.alert('Incomplete input');
-         } else {
+    } else {
       this.album.setAlbumName(this.albumName);
       this.album.setAlbumLengthSeconds(this.length);
       this.album.setReleaseDate(this.releaseDate);
