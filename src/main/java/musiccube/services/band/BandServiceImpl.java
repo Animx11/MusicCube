@@ -108,30 +108,25 @@ public class BandServiceImpl implements BandService {
         HashSet<Integer> sameGenres = new HashSet<>();
         HashSet<Integer> sameEra = new HashSet<>();
 
-        if (band.getFormedIn() != null) {
-            sameCity.addAll(
-                    StreamSupport.stream(getByCity(band.getFormedIn().getCityName()).spliterator(),false)
-                    .map(Band::getId)
-                    .collect(Collectors.toSet())
-            );
-            sameCountry.addAll(
-                    StreamSupport.stream(getByCountry(band.getFormedIn().getCountry().getCountryName()).spliterator(),false)
-                    .map(Band::getId)
-                    .collect(Collectors.toSet())
-            );
-        }
+        findBandsSameArea(band, sameCity, sameCountry);
 
-        ArrayList<Genre> genres = (ArrayList<Genre>)(getBandGenres(bandId));
-        if (! genres.isEmpty()) {
-            genres.forEach(
-                    genre -> sameGenres.addAll(
-                            StreamSupport.stream(bandRepository.findByGenreName(genre.getGenreName()).spliterator(),false)
-                            .map(Band::getId)
-                            .collect(Collectors.toSet())
-                    )
-            );
-        }
+        findBandsWithSameGenres(bandId, sameGenres);
 
+        findBandsSameEra(band, sameEra);
+
+        idSets.add(sameCity);
+        idSets.add(sameCountry);
+        idSets.add(sameGenres);
+        idSets.add(sameEra);
+
+        List<Integer> ids = RecommendationsIdListBuilder.build(idSets,limit);
+
+        results = (List<Band>) bandRepository.findAllById(ids);
+
+        return results;
+    }
+
+    private void findBandsSameEra(Band band, HashSet<Integer> sameEra) {
         if (band.getCreationDate() != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(band.getCreationDate());
@@ -146,16 +141,41 @@ public class BandServiceImpl implements BandService {
                     .collect(Collectors.toSet())
             );
         }
+    }
 
-        idSets.add(sameCity);
-        idSets.add(sameCountry);
-        idSets.add(sameGenres);
-        idSets.add(sameEra);
+    private void findBandsSameArea(Band band, HashSet<Integer> sameCity, HashSet<Integer> sameCountry) {
+        if (band.getFormedIn() != null) {
+            findBandsFromSameCity(band, sameCity);
+            findBandsFromSameCountry(band, sameCountry);
+        }
+    }
 
-        List<Integer> ids = RecommendationsIdListBuilder.build(idSets,limit);
+    private void findBandsWithSameGenres(int bandId, HashSet<Integer> sameGenres) {
+        ArrayList<Genre> genres = (ArrayList<Genre>)(getBandGenres(bandId));
+        if (! genres.isEmpty()) {
+            genres.forEach(
+                    genre -> sameGenres.addAll(
+                            StreamSupport.stream(bandRepository.findByGenreName(genre.getGenreName()).spliterator(),false)
+                            .map(Band::getId)
+                            .collect(Collectors.toSet())
+                    )
+            );
+        }
+    }
 
-        results = (List<Band>) bandRepository.findAllById(ids);
+    private void findBandsFromSameCountry(Band band, HashSet<Integer> sameCountry) {
+        sameCountry.addAll(
+                StreamSupport.stream(getByCountry(band.getFormedIn().getCountry().getCountryName()).spliterator(),false)
+                .map(Band::getId)
+                .collect(Collectors.toSet())
+        );
+    }
 
-        return results;
+    private void findBandsFromSameCity(Band band, HashSet<Integer> sameCity) {
+        sameCity.addAll(
+                StreamSupport.stream(getByCity(band.getFormedIn().getCityName()).spliterator(),false)
+                .map(Band::getId)
+                .collect(Collectors.toSet())
+        );
     }
 }
