@@ -2,6 +2,8 @@ package musiccube.recommendations;
 
 import java.util.*;
 
+import static java.util.Comparator.reverseOrder;
+
 public class RecommendationsIdListBuilder {
     private RecommendationsIdListBuilder() {}
 
@@ -30,6 +32,7 @@ public class RecommendationsIdListBuilder {
 
         // Sort the list 
         list.sort(Comparator.comparing(o -> (o.getValue())));
+        Collections.reverse(list);
 
         // put data from sorted list to hashmap  
         HashMap<Integer, Integer> temp = new LinkedHashMap<>();
