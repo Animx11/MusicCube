@@ -61,7 +61,7 @@
   }
 
   .optionToDisplay{
-    width: 33.3%;
+    width: 25%;
     height: 100%;
     text-align: center;
     display: inline-block;
@@ -136,4 +136,3 @@
       background-color: aliceblue;
     }
   }
-  

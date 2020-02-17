@@ -1,0 +1,26 @@
+<div id = "centerDiv">
+  <div id = "head">
+    <div class="componentNavigator" (click)="showListenedSongs()">Your Songs</div>
+    <div class="componentNavigator" (click)="showSongsToListen()">To Listen</div>
+    <div class="componentNavigator" (click)="showOwnedAlbums()">Owned Albums</div>
+    <div class="componentNavigator" (click)="showSoughtAlbums()">Sought Albums</div>
+  </div>
+  <div *ngIf="isToListenClicked">
+    <li *ngFor="let song of songList" class="listDisplay">
+      <a routerLink="/song/{{song.id}}">{{ song.songName }}</a>
+    </li>
+  </div>
+  <div *ngIf="isYourSongsClicked" class="listDisplay">
+    <li *ngFor="let song of songList">
+      <a routerLink="/song/{{song.id}}">{{ song.songName }}</a>
+    </li></div>
+  <div *ngIf="isSoughtAlbumsClicked" class="listDisplay">
+    <li *ngFor="let album of albumList">
+      <a routerLink="/album/{{album.id}}">{{ album.albumName }}</a>
+    </li></div>
+  <div *ngIf="isOwnedAlbumsClicked" class="listDisplay">
+    <li *ngFor="let album of albumList">
+      <a routerLink="/album/{{album.id}}">{{ album.albumName }}</a>
+    </li></div>
+</div>
+
