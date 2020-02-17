@@ -1,16 +1,17 @@
 package musiccube.repositories;
 
-import musiccube.dtos.RatingDto;
+import musiccube.dtos.RankingDto;
 import musiccube.dtos.SongRatingDto;
+import musiccube.entities.Band;
 import musiccube.entities.Rate;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAndSortingRepository<Rate, Integer> {
 
@@ -30,6 +31,9 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
 
     @Query("SELECT r FROM Rate r WHERE r.user.userName like ?1")
     Iterable<Rate> findAllUserRates(String userName);
+
+    @Query("SELECT r.band.id FROM Rate r WHERE r.user.userName like ?1")
+    Iterable<Integer> findBandIdsByUserName(String userName);
 
     @Query("SELECT r FROM Rate r WHERE r.artist.id = ?1")
     Iterable<Rate> findAllArtistRatesByArtistId(int id);
@@ -51,29 +55,29 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
     )
     List<SongRatingDto> findBestRatedSongs(Pageable pageable);
     @Query(
-            value = "SELECT new musiccube.dtos.RatingDto( r.song, AVG(r.rate) AS avgrate, COUNT(r)) " +
+            value = "SELECT new musiccube.dtos.RankingDto( r.song, AVG(r.rate) AS avgrate, COUNT(r)) " +
                     "FROM Rate r GROUP BY r.song " +
                     "ORDER BY avgrate DESC"
     )
-    List<RatingDto> findBestRatedSongsUpdated(Pageable pageable);
+    List<RankingDto> findBestRatedSongsUpdated(Pageable pageable);
     @Query(
-            value = "SELECT new musiccube.dtos.RatingDto( r.band, AVG(r.rate) AS avgrate, COUNT(r)) " +
+            value = "SELECT new musiccube.dtos.RankingDto( r.band, AVG(r.rate) AS avgrate, COUNT(r)) " +
                     "FROM Rate r GROUP BY r.band " +
                     "ORDER BY avgrate DESC"
     )
-    List<RatingDto> findBestRatedBands(Pageable pageable);
+    List<RankingDto> findBestRatedBands(Pageable pageable);
     @Query(
-            value = "SELECT new musiccube.dtos.RatingDto( r.album, AVG(r.rate) AS avgrate, COUNT(r)) " +
+            value = "SELECT new musiccube.dtos.RankingDto( r.album, AVG(r.rate) AS avgrate, COUNT(r)) " +
                     "FROM Rate r GROUP BY r.album " +
                     "ORDER BY avgrate DESC"
     )
-    List<RatingDto> findBestRatedAlbums(Pageable pageable);
+    List<RankingDto> findBestRatedAlbums(Pageable pageable);
     @Query(
-            value = "SELECT new musiccube.dtos.RatingDto( r.artist, AVG(r.rate) AS avgrate, COUNT(r)) " +
+            value = "SELECT new musiccube.dtos.RankingDto( r.artist, AVG(r.rate) AS avgrate, COUNT(r)) " +
                     "FROM Rate r GROUP BY r.artist " +
                     "ORDER BY avgrate DESC"
     )
-    List<RatingDto> findBestRatedArtists(Pageable pageable);
+    List<RankingDto> findBestRatedArtists(Pageable pageable);
     
 
 }

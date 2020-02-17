@@ -2,7 +2,6 @@ package musiccube.repositories;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import musiccube.dtos.RatingDto;
 import musiccube.dtos.SongRatingDto;
 import musiccube.entities.*;
 import org.junit.jupiter.api.BeforeEach;

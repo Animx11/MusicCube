@@ -21,7 +21,8 @@ public interface SongRepository extends CrudRepository<Song,Integer>, PagingAndS
     @Query("SELECT s FROM Song s where s.band.id = ?1")
     Iterable<Song> findByBandId(int id);
 
-
+@Query("SELECT s from Song s where s.songLengthSeconds <= 44 OR s.id IN ( SELECT sa.song.id FROM SongAuthorship sa)")
+    Iterable<Song> a();
     boolean existsBySongName(String songName);
     boolean existsByAlbum(Album album);
     boolean existsByBand(Band band);

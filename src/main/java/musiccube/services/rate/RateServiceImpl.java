@@ -1,9 +1,9 @@
 package musiccube.services.rate;
 
-import musiccube.dtos.RatingDto;
+import musiccube.dtos.RankingDto;
 import musiccube.dtos.SongRatingDto;
 import musiccube.entities.Rate;
-import musiccube.ratings.RatingDtoFactory;
+import musiccube.rankings.RankingDtoFactory;
 import musiccube.repositories.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +18,7 @@ public class RateServiceImpl implements RateService {
     @Autowired
     private RateRepository rateRepository;
     @Autowired
-    private RatingDtoFactory dtoFactory;
+    private RankingDtoFactory dtoFactory;
 
     @Override
     public Optional<Rate> getById(int id) {
@@ -95,7 +95,7 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public List<RatingDto> getBestRated(String tableName, int size) {
+    public List<RankingDto> getBestRated(String tableName, int size) {
         return dtoFactory.getRatingDtos(tableName,size);
     }
 }

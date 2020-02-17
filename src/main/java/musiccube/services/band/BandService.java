@@ -22,6 +22,8 @@ public interface BandService {
 
     Iterable<Band> getByCity(String cityName);
 
+    Iterable<Band> getByCountry(String countryName);
+
     Iterable<Genre> getBandGenres(int bandId);
 
     Iterable<Album> getBandAlbums(int bandId);
@@ -31,4 +33,6 @@ public interface BandService {
     boolean existsByMbId(String mbid);
 
     Iterable<Band> advancedSearch(int cityId, int countryId, String genre);
+
+    Iterable<Band> getSimilar(int bandId, int limit, Optional<String> userName);
 }
