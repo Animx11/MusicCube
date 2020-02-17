@@ -98,7 +98,7 @@ public class BandServiceImpl implements BandService {
     @Override
     public Iterable<Band> getSimilar(int bandId, int limit) {
         List<Band> results = new ArrayList<>();
-        List<Set> idSets = new ArrayList<>();
+        List<Set<Integer>> idSets = new ArrayList<>();
 
         Band band = getById(bandId).orElse(null);
         if (band == null) return results;
@@ -152,7 +152,9 @@ public class BandServiceImpl implements BandService {
         idSets.add(sameGenres);
         idSets.add(sameEra);
 
-        results = RecommendationsIdListBuilder.build(idSets,limit);
+        List<Integer> ids = RecommendationsIdListBuilder.build(idSets,limit);
+
+        results = (List<Band>) bandRepository.findAllById(ids);
 
         return results;
     }

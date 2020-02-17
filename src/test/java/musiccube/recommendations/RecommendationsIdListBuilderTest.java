@@ -12,20 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class RecommendationsIdListBuilderTest {
     @Test
     void shouldReturnEmptyListWhenEmptyInputSet() {
-        List<Set> sets = new ArrayList<>();
+        List<Set<Integer>> sets = new ArrayList<>();
 
         assertTrue(RecommendationsIdListBuilder.build(sets,10).isEmpty());
     }
     @Test
     void shouldReturnEmptyListWhenLimitLE0() {
-        List<Set> sets = new ArrayList<>();
+        List<Set<Integer>> sets = new ArrayList<>();
 
         assertTrue(RecommendationsIdListBuilder.build(sets,0).isEmpty());
         assertTrue(RecommendationsIdListBuilder.build(sets,-10).isEmpty());
     }
     @Test
     void shouldReturnEmptyListWhenGivenListOfEmptySets() {
-        List<Set> sets = new ArrayList<>();
+        List<Set<Integer>> sets = new ArrayList<>();
         sets.add(new HashSet());
         sets.add(new HashSet());
 
@@ -33,7 +33,7 @@ class RecommendationsIdListBuilderTest {
     }
     @Test
     void shouldReturnListOf3Integers() {
-        List<Set> sets = new ArrayList<>();
+        List<Set<Integer>> sets = new ArrayList<>();
         Set<Integer> set = new HashSet<>();
         set.add(1);
         set.add(2);
