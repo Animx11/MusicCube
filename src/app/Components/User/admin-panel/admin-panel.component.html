@@ -2,10 +2,10 @@
 <div class = "centralDiv">
   <div id = 'adminPanel'>
     <div class = 'navigator' id = 'notClickable'>Admin Panel</div>
-    <div class = 'navigator' *ngIf="!isShowRecordClicked">Manage Users</div>
-    <div class = 'navigator' (click)="isShowRecordClicked = swichMainValue(isShowRecordClicked)" *ngIf="!isShowRecordClicked">Manage Records</div>
-    <div class = 'navigator' (click)="userPanel()" *ngIf="!isShowRecordClicked">Manage Your Account</div>  
-    <div class = 'navigator' (click)="resetValues()" *ngIf="isShowRecordClicked">Back</div>
+    <div class = 'navigator' (click)="isManageUsersClicked = switchMainValue(isManageUsersClicked)" *ngIf="!isShowRecordClicked && !isManageUsersClicked">Manage Users</div>
+    <div class = 'navigator' (click)="isShowRecordClicked = switchMainValue(isShowRecordClicked)" *ngIf="!isShowRecordClicked && !isManageUsersClicked">Manage Records</div>
+    <div class = 'navigator' (click)="userPanel()" *ngIf="!isShowRecordClicked && !isManageUsersClicked">Manage Your Account</div>  
+    <div class = 'navigator' (click)="resetValues()" *ngIf="isShowRecordClicked || isManageUsersClicked">Back</div>
     <div class = 'navigator' (click)="isNewsClicked = switchRecordValue(isNewsClicked); isNewsAddClicked = switchOptionValue(isNewsAddClicked)" *ngIf="isShowRecordClicked">News</div>
     <div class = 'navigator' (click)="isSongClicked = switchRecordValue(isSongClicked)" *ngIf="isShowRecordClicked">Song</div>
     <div class = 'navigator' (click)="isBandClicked = switchRecordValue(isBandClicked)" *ngIf="isShowRecordClicked">Band</div>
@@ -78,6 +78,9 @@
         </div>
 
         <app-add-news *ngIf = "isNewsAddClicked"></app-add-news>
+
+        <app-search-user *ngIf = "isManageUsersClicked"></app-search-user>
+
 
         <app-add-song *ngIf = "isSongAddClicked"></app-add-song>
         <app-edit-song *ngIf = "isSongEditClicked"></app-edit-song>

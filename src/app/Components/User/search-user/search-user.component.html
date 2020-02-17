@@ -1,0 +1,28 @@
+<div>
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..."/>
+</div>
+  <table border="solid">
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th>Delete</th>
+    </tr>
+    <tr *ngFor="let user of (users$ | async)">
+      <td>
+        {{ user.userName }}
+    </td>
+      <td>
+        {{user.email}}
+    </td>
+      <td>
+          <!--{{user.ngFor(Roles.name)}}-->
+
+
+      </td>
+      
+      <td>
+        <button>X</button>
+      </td>
+  </tr>
+</table>

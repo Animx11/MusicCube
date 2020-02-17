@@ -86,6 +86,7 @@ import { DisplayNewsComponent } from './Components/News/display-news/display-new
 import { ListNewsComponent } from './Components/News/list-news/list-news.component';
 import { SearchNewsComponent } from './Components/News/search-news/search-news.component';
 import { AddNewsComponent } from './Components/News/add-news/add-news.component';
+import { SearchUserComponent } from './Components/User/search-user/search-user.component';
 
 
 const ROUTES: Routes = [
@@ -352,6 +353,7 @@ const ROUTES: Routes = [
     ListNewsComponent,
     SearchNewsComponent,
     AddNewsComponent,
+    SearchUserComponent,
 
   ],
   imports: [
