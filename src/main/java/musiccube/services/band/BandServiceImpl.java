@@ -5,6 +5,7 @@ import musiccube.entities.Band;
 import musiccube.entities.Genre;
 import musiccube.recommendations.RecommendationsIdListBuilder;
 import musiccube.repositories.BandRepository;
+import musiccube.repositories.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class BandServiceImpl implements BandService {
 
     @Autowired
     private BandRepository bandRepository;
+    @Autowired
+    private RateRepository rateRepository;
 
     @Override
     public Optional<Band> getById(int id) {
@@ -96,7 +99,7 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public Iterable<Band> getSimilar(int bandId, int limit) {
+    public Iterable<Band> getSimilar(int bandId, int limit, Optional<String> userName) {
         List<Band> results = new ArrayList<>();
         List<Set<Integer>> idSets = new ArrayList<>();
 
@@ -114,6 +117,11 @@ public class BandServiceImpl implements BandService {
 
         findBandsSameEra(band, sameEra);
 
+        if (userName.isPresent()) {
+            String user = userName.get();
+            removeAlreadyRated(sameCity, sameCountry, sameGenres, sameEra, user);
+        }
+
         idSets.add(sameCity);
         idSets.add(sameCountry);
         idSets.add(sameGenres);
@@ -124,6 +132,14 @@ public class BandServiceImpl implements BandService {
         results = (List<Band>) bandRepository.findAllById(ids);
 
         return results;
+    }
+
+    private void removeAlreadyRated(HashSet<Integer> sameCity, HashSet<Integer> sameCountry, HashSet<Integer> sameGenres, HashSet<Integer> sameEra, String user) {
+        Collection<Integer> ratedIds = (Collection<Integer>) rateRepository.findBandIdsByUserName(user);
+        sameCity.retainAll(ratedIds);
+        sameCountry.retainAll(ratedIds);
+        sameGenres.retainAll(ratedIds);
+        sameEra.retainAll(ratedIds);
     }
 
     private void findBandsSameEra(Band band, HashSet<Integer> sameEra) {

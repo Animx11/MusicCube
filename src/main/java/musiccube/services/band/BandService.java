@@ -34,5 +34,5 @@ public interface BandService {
 
     Iterable<Band> advancedSearch(int cityId, int countryId, String genre);
 
-    Iterable<Band> getSimilar(int bandId, int limit);
+    Iterable<Band> getSimilar(int bandId, int limit, Optional<String> userName);
 }
