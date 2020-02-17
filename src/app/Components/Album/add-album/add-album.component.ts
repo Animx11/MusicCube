@@ -25,7 +25,9 @@ export class AddAlbumComponent implements OnInit {
     this.seconds = 0;
     this.length = 0;
     this.releaseDate = null;
-    this.company = '';
+    this.company = "";
+    this.covertArtLink = "";
+    this.type = "";
   }
 
   albumLengthInSeconds(): boolean {
