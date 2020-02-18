@@ -61,7 +61,7 @@ public class UserSongStatusServiceImpl implements UserSongStatusService {
 
             newStatus = new UserSongStatus();
 
-            Optional<User> optUser = userRepository.findByUserName(statusDto.getUserName());
+            Optional<User> optUser = userRepository.findOneByUserName(statusDto.getUserName());
             if (!optUser.isPresent()) { throw new IllegalArgumentException("no such user"); }
             Optional<Song> optSong = songRepository.findById(statusDto.getSongId());
             if (!optSong.isPresent()) { throw new IllegalArgumentException("no such song"); }

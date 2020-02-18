@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
@@ -57,7 +56,7 @@ public class RateController {
 
     @PostMapping(path = "/rate/song", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Rate> createSongRate(@RequestParam("userName") String userName, @RequestParam("songId") int id, @RequestParam("rate") int rate) {
-        User user = userService.getByUserName(userName).orElse(null);
+        User user = userService.getOneByUserName(userName).orElse(null);
         Song song = songService.getById(id).orElse(null);
         if(user != null && song != null){
             Rate rateSong = new Rate(user, song, rate);
@@ -70,7 +69,7 @@ public class RateController {
 
     @PostMapping(path = "/rate/album", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Rate> createAlbumRate(@RequestParam("userName") String userName, @RequestParam("albumId") int id, @RequestParam("rate") int rate) {
-        User user = userService.getByUserName(userName).orElse(null);
+        User user = userService.getOneByUserName(userName).orElse(null);
         Album album = albumService.getById(id).orElse(null);
         if(user != null && album != null){
             Rate rateAlbum = new Rate(user, album, rate);
@@ -83,7 +82,7 @@ public class RateController {
 
     @PostMapping(path = "/rate/band", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Rate> createBandRate(@RequestParam("userName") String userName, @RequestParam("bandId") int id, @RequestParam("rate") int rate) {
-        User user = userService.getByUserName(userName).orElse(null);
+        User user = userService.getOneByUserName(userName).orElse(null);
         Band band = bandService.getById(id).orElse(null);
         if(user != null && band != null){
             Rate rateBand = new Rate(user, band, rate);
@@ -96,7 +95,7 @@ public class RateController {
 
     @PostMapping(path = "/rate/artist", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Rate> createArtistRate(@RequestParam("userName") String userName, @RequestParam("artistId") int id, @RequestParam("rate") int rate) {
-        User user = userService.getByUserName(userName).orElse(null);
+        User user = userService.getOneByUserName(userName).orElse(null);
         Artist artist = artistService.getById(id).orElse(null);
         if(user != null && artist != null){
             Rate rateArtist = new Rate(user, artist, rate);

@@ -11,8 +11,11 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("SELECT u from User u where u.id = ?1")
     Optional<User> findById(int id);
 
+    @Query("SELECT u from User u WHERE LOWER(u.userName) LIKE LOWER(CONCAT('%',?1,'%'))")
+    Iterable<User> findByUserName(String userName);
 
-    Optional<User> findByUserName(String userName);
+
+    Optional<User> findOneByUserName(String userName);
 
     @Query("select password from User u where u.userName like ?1")
     String findPasswordByUserName(String userName);

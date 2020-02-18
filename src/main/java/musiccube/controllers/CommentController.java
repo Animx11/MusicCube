@@ -1,7 +1,6 @@
 package musiccube.controllers;
 
 import musiccube.entities.Comment;
-import musiccube.repositories.CommentRepository;
 import musiccube.services.comment.CommentService;
 import musiccube.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class CommentController {
     @PostMapping(path = "/comment/{userName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Comment> create(@RequestBody @Valid @NotNull Comment comment, @PathVariable("userName") String userName) {
         if(comment != null){
-            comment.setUser(userService.getByUserName(userName).orElse(null));
+            comment.setUser(userService.getOneByUserName(userName).orElse(null));
             if(comment.getUser() != null) {
                 commentService.save(comment);
                 return ResponseEntity.ok().body(comment);

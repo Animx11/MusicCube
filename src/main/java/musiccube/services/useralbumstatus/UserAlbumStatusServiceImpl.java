@@ -55,7 +55,7 @@ public class UserAlbumStatusServiceImpl implements UserAlbumStatusService {
 
             newStatus = new UserAlbumStatus();
 
-            Optional<User> optUser = userRepository.findByUserName(statusDto.getUserName());
+            Optional<User> optUser = userRepository.findOneByUserName(statusDto.getUserName());
             if (!optUser.isPresent()) { throw new IllegalArgumentException("no such user"); }
             Optional<Album> optAlbum = albumRepository.findById(statusDto.getAlbumId());
             if (!optAlbum.isPresent()) { throw new IllegalArgumentException("no such album"); }

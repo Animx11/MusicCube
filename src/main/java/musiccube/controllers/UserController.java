@@ -10,6 +10,7 @@ import musiccube.services.rate.RateService;
 import musiccube.services.user.UserService;
 import musiccube.services.userFavorites.UserFavoritesService;
 import musiccube.user.UserAccount;
+import musiccube.user.UserManage;
 import musiccube.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -74,6 +77,26 @@ public class UserController {
 
     }
 
+    // Get User
+
+
+    @GetMapping(value = "/userManage_by_userName", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<UserManage> getUserByUserName(@RequestParam("userName") String userName){
+        Iterable<User> users = userService.getByUserName(userName);
+        Iterable<UserManage> userManageIterable;
+        ArrayList<UserManage> userManageArray = new ArrayList<UserManage>();
+        for (User user: users) {
+            UserManage userManage = new UserManage(user);
+            userManageArray.add(userManage);
+        }
+        userManageIterable = userManageArray;
+        return userManageIterable;
+
+
+    }
+
+
+
     // Delete User
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
@@ -81,7 +104,7 @@ public class UserController {
     public ResponseEntity<User> delete(@RequestParam("userName") String userName, @RequestParam("password") String password){
 
         if(jwtProvider.validateJwt(getJwt(httpRequest))) {
-                User user = userService.getByUserName(userName).orElse(null);
+                User user = userService.getOneByUserName(userName).orElse(null);
                 if(user != null) {
                     if (passwordEncoder.matches(password, user.getPassword())) {
                         UserFavorites userFavorites = userFavoritesService.getUserFavoriteAllByUserName(userName).orElse(null);
@@ -116,7 +139,7 @@ public class UserController {
 
     @GetMapping(value = "/user_by_userName", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getByUserName(@RequestParam("userName") String userName){
-        return userService.getByUserName(userName);
+        return userService.getOneByUserName(userName);
     }
 
     // Edit User
@@ -141,7 +164,7 @@ public class UserController {
 
     @GetMapping(value = "/userProfile_by_userName", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<UserProfile> getProfileByUserName(@RequestParam("userName") String userName){
-        User user = userService.getByUserName(userName).orElse(new User());
+        User user = userService.getOneByUserName(userName).orElse(new User());
         UserProfile userProfile = new UserProfile(user);
         return Optional.of(userProfile);
     }
@@ -173,7 +196,7 @@ public class UserController {
 
     @PutMapping(value = "/edit_userName")
     public ResponseEntity<?> editUserName(@RequestParam("newUserName") String newUserName, @RequestBody @Valid @NotNull UserAccount userAccount){
-        User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
+        User takeUser = userService.getOneByUserName(userAccount.getUserName()).orElse(null);
         if(jwtProvider.validateJwt(getJwt(httpRequest))) {
             if (takeUser != null) {
                 if (!userService.existsByUserName(newUserName)) {
@@ -195,7 +218,7 @@ public class UserController {
 
     @PutMapping(value = "edit_email")
     public ResponseEntity<?> editEmail(@RequestBody @Valid @NotNull UserAccount userAccount){
-        User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
+        User takeUser = userService.getOneByUserName(userAccount.getUserName()).orElse(null);
         if(jwtProvider.validateJwt(getJwt(httpRequest))) {
             if(takeUser != null) {
                 if(!userService.existsByEmail(userAccount.getEmail())){
@@ -217,7 +240,7 @@ public class UserController {
 
     @PutMapping(value = "/edit_password")
     public ResponseEntity<?> editPassword(@RequestParam("newPassword") String newPassword, @RequestBody @Valid @NotNull UserAccount userAccount){
-        User takeUser = userService.getByUserName(userAccount.getUserName()).orElse(null);
+        User takeUser = userService.getOneByUserName(userAccount.getUserName()).orElse(null);
         if(jwtProvider.validateJwt(getJwt(httpRequest))) {
             if (takeUser != null) {
                 if (passwordEncoder.matches(userAccount.getPassword(), takeUser.getPassword())) {

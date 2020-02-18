@@ -38,9 +38,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Optional<User> getByUserName(String userName){
+    public Optional<User> getOneByUserName(String userName){
+        return userRepository.findOneByUserName(userName);
+    }
+
+    @Override
+    public Iterable<User> getByUserName(String userName){
         return userRepository.findByUserName(userName);
     }
+
 
     @Override
     public Iterable<User> listUsers(){
@@ -66,7 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUserName(userName).orElseThrow(() -> new UsernameNotFoundException("User not found with: " + userName));
+        User user = userRepository.findOneByUserName(userName).orElseThrow(() -> new UsernameNotFoundException("User not found with: " + userName));
         return UserPrinciple.build(user);
 
     }

@@ -10,8 +10,9 @@ public interface UserService {
     void delete(Integer id);
 
     Optional<User> getById(int id);
-    Optional<User> getByUserName(String userName);
+    Optional<User> getOneByUserName(String userName);
     Iterable<User> listUsers();
+    Iterable<User> getByUserName(String userName);
 
     boolean existsByUserName(String userName);
     boolean existsByEmail(String email);
