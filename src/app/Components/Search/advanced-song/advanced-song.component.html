@@ -1,4 +1,27 @@
 
 <div class="searchContent">
+  Title contains:{{titles}}
+  <input type="text" [(ngModel)]="newTitle"><button (click)="addTitle()">add</button><br/>
+  Title doesn't contain:{{noTitles}}
+  <input type="text" [(ngModel)]="newNoTitle"><button (click)="addNoTitle()">add</button><br/>
+  Max length
+  <input type="number" [(ngModel)]="maxMin">
+  <input type="number" [(ngModel)]="maxSec"><br/>
+  Min length
+  <input type="number" [(ngModel)]="minMin">
+  <input type="number" [(ngModel)]="minSec"><br/>
+  Include band:{{bands}}
+  <input type="text" [(ngModel)]="newBand"><button (click)="addBand()">add</button><br/>
+  Exclude band:{{noBands}}
+  <input type="text" [(ngModel)]="newNoBand"><button (click)="addNoBand()">add</button><br/>
+  Include genre:{{genres}}
+  <input type="text" [(ngModel)]="newGenre"><button (click)="addGenre()">add</button><br/>
+  Exclude genre:{{noGenres}}
+  <input type="text"  [(ngModel)]="newNoGenre"><button (click)="addNoGenre()">add</button><br/>
+  Include instrument:{{instruments}}
+  <input type="text" [(ngModel)]="newInstrument"><button (click)="addInstrument()">add</button><br/>
+  Exclude instrument:{{noInstruments}}
+  <input type="text"  [(ngModel)]="newNoInstrument"><button (click)="addNoInstrument()">add</button><br/>
+  <button (click)="go()">Go</button>
 
 </div>

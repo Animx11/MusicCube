@@ -7,7 +7,6 @@
       <select #categories id="categories" (change)="selectCat(categories.value)">
         <option value="artists">Artists</option>
         <option value="bands">Bands</option>
-        <option value="albums">Albums</option>
         <option value="songs">Songs</option>
       </select>
     </form>
@@ -26,19 +25,12 @@
       (noResultEvent)="noResultEventHandler($event)"
     ></app-advanced-band>
 
-    <app-advanced-album
-      *ngIf="albums"
-      (albumSearchEvent)="albumSearchHandler($event)"
-      (noResultEvent)="noResultEventHandler($event)"
-    ></app-advanced-album>
-
     <app-advanced-song *ngIf="songs" (songSearchEvent)="songSearchHandler($event)"></app-advanced-song>
   </div>
 
   <div id="search-result">
     <app-artist-list-display *ngIf="artists && foundArtists" [list]="foundArtists"></app-artist-list-display>
     <app-band-list-display *ngIf="bands && foundBands" [list]="foundBands"></app-band-list-display>
-    <app-album-list-display *ngIf="albums && foundAlbums" [list]="foundAlbums"></app-album-list-display>
     <app-song-list-display *ngIf="songs && foundSongs" [list]="foundSongs"></app-song-list-display>
   </div>
 

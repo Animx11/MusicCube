@@ -58,6 +58,9 @@ export class BandService {
   }
 
   getSimilar(bandId: number, limit: number): Observable<any> {
-    return this.http.get(`${api_url}/recommend/band?band=${bandId}&limit=${limit}`);
+    return this.http.get(`${api_url}/similar/band?band=${bandId}&limit=${limit}`);
+  }
+  getRecommended(user: string, limit: number): Observable<any> {
+    return this.http.get(`${api_url}/recommended/band?limit=${limit}&user=${user}`);
   }
 }

@@ -1,0 +1,24 @@
+.contentDisplay{
+  background-color: rgba(240, 248, 255, 0.9);
+  margin-left: 18%;
+  margin-right: 18%;
+  min-height: 81vh;
+  padding-bottom: 3vh;
+  padding-right: 5%;
+  padding-left: 5%;
+
+  height: auto;
+  animation-name: introAnimation2;
+  animation-duration: 3s;
+
+}
+@keyframes introAnimation{
+  0%{
+    opacity: 0;
+    top: -10%;
+  }
+  100%{
+    opacity: 1;
+    top: 0%;
+  }
+}

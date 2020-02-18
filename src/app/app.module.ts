@@ -88,6 +88,7 @@ import { SearchNewsComponent } from './Components/News/search-news/search-news.c
 import { AddNewsComponent } from './Components/News/add-news/add-news.component';
 import { ExtrasComponent } from './Components/User/user-panel/extras/extras.component';
 import { RankingsComponent } from './Components/rankings/rankings.component';
+import { RecommendedComponent } from './Components/User/user-panel/recommended/recommended.component';
 
 
 const ROUTES: Routes = [
@@ -125,6 +126,12 @@ const ROUTES: Routes = [
     path: 'UserPanel', component: UserPanelComponent,
     children: [{ path: 'Extras', component: ExtrasComponent}]
   },
+  // User Panel Recommendations
+  {
+    path: 'UserPanel', component: UserPanelComponent,
+    children: [{ path: 'Recommendations', component: RecommendedComponent}]
+  },
+
 
   // User
 
@@ -366,6 +373,7 @@ const ROUTES: Routes = [
     AddNewsComponent,
     ExtrasComponent,
     RankingsComponent,
+    RecommendedComponent,
 
   ],
   imports: [

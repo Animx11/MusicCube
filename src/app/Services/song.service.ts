@@ -29,14 +29,12 @@ export class SongService {
   }
   advanced(paramMap: Map<string, string>): Observable<any> {
     console.log(paramMap);
-    let url = `${api_url}/search/song?`;
-    if (paramMap.has('title')) {
-      url += (`title=${paramMap.get('title')}`);
+    let url = `${api_url}/search/song`;
+    if (paramMap.size !== 0) {
+      url += '?';
+      paramMap.forEach((value, key) => url += (`${key}=${value}&`));
     }
-    if (paramMap.has('notitle')) {
-      url += (`notitle=${paramMap.get('notitle')}`);
-    }
-    return this.http.get(url);
+    return this.http.get(url.slice(0, url.length - 1));
   }
 
   create(song: Song): Observable<any> {
