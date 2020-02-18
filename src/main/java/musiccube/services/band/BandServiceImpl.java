@@ -7,6 +7,7 @@ import musiccube.entities.Rate;
 import musiccube.recommendations.RecommendationsIdListBuilder;
 import musiccube.repositories.BandRepository;
 import musiccube.repositories.RateRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class BandServiceImpl implements BandService {
     private BandRepository bandRepository;
     @Autowired
     private RateRepository rateRepository;
+    private Logger logger = Logger.getLogger(BandServiceImpl.class);
 
     @Override
     public Optional<Band> getById(int id) {
@@ -143,17 +145,18 @@ public class BandServiceImpl implements BandService {
     @Override
     public Iterable<Band> getRecommended(String userName, int limit) {
         List<Rate> rates = (List<Rate>) rateRepository.findByUserUserNameAndBandIsNotNull(userName);
+        logger.info("user rated "+rates.size()+" bands");
         Set<Integer> recommendedSet = new HashSet<>();
         rates.stream()
                 .filter(rate -> rate.getRate() > 5)
                 .map(rate -> rate.getBand().getId())
                 .forEach(id -> {
+                    logger.info("looking for bands similar to "+id);
                     Optional<Band> band = bandRepository.findById(id);
-                    if (band.isPresent()) {
-                        recommendedSet.addAll(getSimilarBandsIds(band.get(),limit,Optional.of(userName)));
-                    }
+                    band.ifPresent(band1 -> recommendedSet.addAll(getSimilarBandsIds(band1, limit, Optional.of(userName))));
                 });
         List<Integer> recommendedList = new ArrayList<>(recommendedSet);
+        logger.info(recommendedList);
         Random random = new Random();
         while (recommendedList.size() > limit) {
             recommendedList.remove(random.nextInt(recommendedList.size()));
@@ -163,10 +166,10 @@ public class BandServiceImpl implements BandService {
 
     private void removeAlreadyRated(HashSet<Integer> sameCity, HashSet<Integer> sameCountry, HashSet<Integer> sameGenres, HashSet<Integer> sameEra, String user) {
         Collection<Integer> ratedIds = (Collection<Integer>) rateRepository.findBandIdsByUserName(user);
-        sameCity.retainAll(ratedIds);
-        sameCountry.retainAll(ratedIds);
-        sameGenres.retainAll(ratedIds);
-        sameEra.retainAll(ratedIds);
+        sameCity.removeAll(ratedIds);
+        sameCountry.removeAll(ratedIds);
+        sameGenres.removeAll(ratedIds);
+        sameEra.removeAll(ratedIds);
     }
 
     private void findBandsSameEra(Band band, HashSet<Integer> sameEra) {
