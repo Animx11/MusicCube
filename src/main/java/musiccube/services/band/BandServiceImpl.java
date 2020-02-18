@@ -1,5 +1,6 @@
 package musiccube.services.band;
 
+import musiccube.advancedsearchv2.BandParamInterpreter;
 import musiccube.entities.Album;
 import musiccube.entities.Band;
 import musiccube.entities.Genre;
@@ -8,10 +9,14 @@ import musiccube.recommendations.RecommendationsIdListBuilder;
 import musiccube.repositories.BandRepository;
 import musiccube.repositories.RateRepository;
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -24,6 +29,8 @@ public class BandServiceImpl implements BandService {
     @Autowired
     private RateRepository rateRepository;
     private Logger logger = Logger.getLogger(BandServiceImpl.class);
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
     public Optional<Band> getById(int id) {
@@ -162,6 +169,25 @@ public class BandServiceImpl implements BandService {
             recommendedList.remove(random.nextInt(recommendedList.size()));
         }
         return bandRepository.findAllById(recommendedList);
+    }
+
+    @Override
+    public Iterable<Band> advanced(Map<String, String> params) {
+        SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+        BandParamInterpreter interpreter;
+        Query<Band> query;
+        try (Session session = sessionFactory.openSession()) {
+
+            interpreter = new BandParamInterpreter(params);
+            query = session.createQuery(interpreter.getQuery().toString());
+            HashMap<String,Object> queryParams = interpreter.getQueryParams();
+
+            for (Map.Entry<String,Object> entry : queryParams.entrySet()) {
+                query.setParameter(entry.getKey(),entry.getValue());
+            }
+
+            return query.list();
+        }
     }
 
     private void removeAlreadyRated(HashSet<Integer> sameCity, HashSet<Integer> sameCountry, HashSet<Integer> sameGenres, HashSet<Integer> sameEra, String user) {
