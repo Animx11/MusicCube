@@ -1,15 +1,19 @@
+import { Role } from './role';
+
 export class UserManage {
 
     id: number;
     userName: string;
     email: string;
-    roles: string[];
+    roles: Role[];
+    primaryRole: string;
 
     constructor(obj?: any) {
         this.id = (obj && obj.id) || 0;
         this.userName = (obj && obj.userName) || '';
         this.email = (obj && obj.email) || '';
         this.roles = (obj && obj.roles) || null;
+        this.primaryRole = (obj && obj.primaryRole) || '';
       }
 
         /** Getters */
@@ -26,9 +30,14 @@ export class UserManage {
     return this.email;
   }
 
-  getRoles(): string[] {
+  getRoles(): Role[] {
     return this.roles;
   }
+
+  getPrimaryRole(): string {
+    return this.primaryRole;
+  }
+
 
   /** Setters */
 
@@ -40,8 +49,13 @@ export class UserManage {
     this.email = value;
   }
 
-  setRoles(value: string[]) {
+  setRoles(value: Role[]) {
     this.roles = value;
   }
+
+  setPrimaryRole(primaryRole: string) {
+    this.primaryRole = primaryRole;
+  }
+
 
 }

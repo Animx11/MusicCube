@@ -3,7 +3,7 @@ import { RoleName } from './RoleName';
 export class Role {
 
     id: number;
-    name: RoleName;
+    name: string;
 
     constructor(obj?: any) {
         this.id = (obj && obj.id ) || 0;
@@ -14,11 +14,11 @@ export class Role {
         return this.id
     }
 
-    getName(): RoleName {
+    getName(): string {
         return this.name;
     }
 
-    setName(name: RoleName) {
+    setName(name: string) {
         this.name = name;
     }
 

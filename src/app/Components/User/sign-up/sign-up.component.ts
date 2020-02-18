@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserAccount } from '../../../Class/UserAccount';
 import { UserService } from '../../../Services/user.service';
-import { this_url } from 'src/app/Utils/API_URL';
+import { this_url, this_url_news } from 'src/app/Utils/API_URL';
 
 const thisURL = this_url;
+const thisNewsUrl = this_url_news;
 
 @Component({
   selector: 'app-sign-up',
@@ -34,7 +35,7 @@ export class SignUpComponent implements OnInit {
     this.user.setPassword(this.password);
     this.user.setEmail(this.email);
     this.userService.signUp(this.user).subscribe(
-      res => {window.location.assign(thisURL); },
+      res => {window.location.assign(thisNewsUrl); },
       err => {
         console.log(err);
         if (err.status === 409) {

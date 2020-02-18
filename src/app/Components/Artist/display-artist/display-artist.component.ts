@@ -13,6 +13,8 @@ import { TokenStorageService } from 'src/app/Services/token-storage.service';
 import { FavoriteListsService } from 'src/app/Services/favorite-lists.service';
 import { RateService } from 'src/app/Services/rate.service';
 import { CommentService } from 'src/app/Services/comment.service';
+import { ArtistInstrument } from 'src/app/Class/ArtistInstrument';
+import { ArtistInstrumentService } from 'src/app/Services/artist-instrument.service';
 
 @Component({
   selector: 'app-display-artist',
@@ -24,6 +26,8 @@ export class DisplayArtistComponent implements OnInit {
   artist: Artist;
   activities: ArtistActivity[];
   displays: ArtistActivityDisplay[] = [];
+
+  artistInstruments: ArtistInstrument[];
 
   rate: Rate;
   comment: CommentClass;
@@ -46,7 +50,8 @@ export class DisplayArtistComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private favoriteListsService: FavoriteListsService,
     private rateService: RateService,
-    private commentService: CommentService) { }
+    private commentService: CommentService,
+    private artistInstrumentService: ArtistInstrumentService) { }
 
   ngOnInit() {
     this.getArtist();
@@ -206,6 +211,7 @@ export class DisplayArtistComponent implements OnInit {
         console.log('display-artist-component received: ', res);
         this.artist = new Artist(res);
         this.getBands();
+        this.getInstruments();
       },
       err => console.error(err));
   }
@@ -216,6 +222,13 @@ export class DisplayArtistComponent implements OnInit {
       this.handleActivities();
     },
     err => console.error(err));
+  }
+
+  private getInstruments() {
+    this.artistInstrumentService.getByArtistId(this.artist.id).subscribe(res => {
+      console.log('display-artist-component recived: ', res);
+      this.artistInstruments = res.map(el => new ArtistInstrument(el));
+    });
   }
 
   handleActivities() {
