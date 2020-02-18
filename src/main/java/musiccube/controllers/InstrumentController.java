@@ -134,7 +134,7 @@ public class InstrumentController {
         Instrument instrument1 = instrumentService.save(instrument);
 
         String dir = System.getProperty("user.dir");
-        dir = dir.concat("\\AboutInstrument\\");
+        dir = dir.concat("/TxtFiles/AboutInstrument/");
 
         String fileDirWithName = dir.concat(String.valueOf(instrument1.getId()).concat(".txt"));
 
@@ -161,9 +161,14 @@ public class InstrumentController {
         if (Objects.nonNull(instrument1)) {
 
             String dir = System.getProperty("user.dir");
-            dir = dir.concat("\\AboutInstrument\\");
+            dir = dir.concat("/TxtFiles/AboutInstrument/");
 
             String fileDirWithName = instrument1.get().getAboutInstrument();
+
+            if(fileDirWithName == null){
+                fileDirWithName = dir.concat(String.valueOf(instrument.getId()).concat(".txt"));
+            }
+
 
             try{
                 File newTextFile = new File(fileDirWithName);

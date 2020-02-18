@@ -31,7 +31,7 @@ public class NewsController {
     public ResponseEntity<News> create(@RequestBody @Valid @NotNull NewsFrontendReceiver newsFrontendReceiver){
 
         String dir = System.getProperty("user.dir");
-        dir = dir.concat("\\News\\");
+        dir = dir.concat("/TxtFiles/News/");
 
         Date date = new Date();
         News news = new News();

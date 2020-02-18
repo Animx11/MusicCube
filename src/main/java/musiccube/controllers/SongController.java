@@ -152,7 +152,7 @@ public class  SongController {
         Song song1 = songService.save(song);
 
         String dir = System.getProperty("user.dir");
-        dir = dir.concat("\\Lyrics\\");
+        dir = dir.concat("/TxtFiles/Lyrics/");
 
 
 
@@ -180,8 +180,13 @@ public class  SongController {
         if (Objects.nonNull(song1)) {
 
             String dir = System.getProperty("user.dir");
-            dir = dir.concat("\\Lyrics\\");
+            dir = dir.concat("/TxtFiles/Lyrics/");
             String fileDirWithName = song1.get().getSongLyrics();
+
+            if(fileDirWithName == null){
+                fileDirWithName = dir.concat(String.valueOf(song.getId()).concat(".txt"));
+            }
+
 
             try{
                 File newTextFile = new File(fileDirWithName);

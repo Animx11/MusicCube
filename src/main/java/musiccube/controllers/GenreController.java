@@ -129,7 +129,7 @@ public class GenreController {
         Genre genre1 = genreService.save(genre);
 
         String dir = System.getProperty("user.dir");
-        dir = dir.concat("\\AboutGenre\\");
+        dir = dir.concat("/TxtFiles/AboutGenre/");
 
         String fileDirWithName = dir.concat(String.valueOf(genre1.getId()).concat(".txt"));
 
@@ -155,9 +155,14 @@ public class GenreController {
         if (Objects.nonNull(genre1)) {
 
             String dir = System.getProperty("user.dir");
-            dir = dir.concat("\\AboutGenre\\");
+            dir = dir.concat("/TxtFiles/AboutGenre/");
 
             String fileDirWithName = genre1.get().getAboutGenre();
+
+            if(fileDirWithName == null){
+                fileDirWithName = dir.concat(String.valueOf(genre.getId()).concat(".txt"));
+            }
+
 
             try{
                 File newTextFile = new File(fileDirWithName);
