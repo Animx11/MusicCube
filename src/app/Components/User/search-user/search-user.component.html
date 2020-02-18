@@ -22,7 +22,7 @@
         <button *ngIf = "user.primaryRole === 'User'" (click) = "makeAdmin(user.id)">Make admin</button>
         <button *ngIf = "user.primaryRole === 'Admin' " (click) = "makeUser(user.id)">Make user</button>
       <td>
-        <button>X</button>
+        <button (click) = "deleteUser(user.id)">X</button>
       </td>
   </tr>
 </table>

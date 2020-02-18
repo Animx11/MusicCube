@@ -10,3 +10,8 @@
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
+table{
+    margin-left: 5%;
+    margin-top: 20px;
+}

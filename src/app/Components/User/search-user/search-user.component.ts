@@ -58,6 +58,7 @@ export class SearchUserComponent implements OnInit {
   
   makeAdmin(id: number) {
     this.userService.editRole(id, "Admin").subscribe(res => {
+      window.location.reload();
       console.log(res);
     },
     err => {
@@ -69,9 +70,22 @@ export class SearchUserComponent implements OnInit {
 
     this.userService.editRole(id, "User").subscribe(res => {
       console.log(res);
+      window.location.reload();
     },
     err => {
       console.log(err);
     });
+  }
+
+  deleteUser(id: number) {
+
+    this.userService.deleteAccount(id).subscribe(res => {
+      console.log(res);
+      window.location.reload();
+    },
+    err => {
+      console.log(err);
+    });
+
   }
 }
