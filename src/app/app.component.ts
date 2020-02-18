@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './Services/token-storage.service';
-import { this_url } from './Utils/API_URL';
+import { this_url, this_url_news } from './Utils/API_URL';
 
 
 const thisURL = this_url;
+const thisNewsUrl = this_url_news;
 
 @Component({
   selector: 'app-root',
@@ -41,7 +42,7 @@ export class AppComponent implements OnInit {
   signOut() {
     this.isLogged = false;
     window.sessionStorage.clear();
-    window.location.assign(thisURL);
+    window.location.assign(thisNewsUrl);
 
   }
 }

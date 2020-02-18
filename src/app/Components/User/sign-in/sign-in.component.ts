@@ -2,9 +2,10 @@ import { Component, OnInit, Output, EventEmitter, SystemJsNgModuleLoader } from 
 import { UserService } from '../../../Services/user.service';
 import { SignIn } from 'src/app/Class/SignIn';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
-import { this_url } from 'src/app/Utils/API_URL';
+import { this_url, this_url_news } from 'src/app/Utils/API_URL';
 
 const thisURL = this_url;
+const thisNewsUrl = this_url_news;
 
 @Component({
   selector: 'app-sign-in',
@@ -38,7 +39,7 @@ export class SignInComponent implements OnInit {
         this.tokenStorage.saveAuthorities(res.authorities);
         this.isLoginFailed = false;
 
-        window.location.assign(thisURL);
+        window.location.assign(thisNewsUrl);
       },
       err => {
         console.log(err);

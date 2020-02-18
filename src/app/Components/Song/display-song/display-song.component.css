@@ -121,6 +121,15 @@
       margin-right: 5%;
   
     }
+
+    #sendButton{
+      float: left;
+    }
+
+    #clean {
+      margin-left: 22vw;
+      float: left;
+    }
   
     .optionToDisplay:hover{
       animation-name: hoverAnimation;

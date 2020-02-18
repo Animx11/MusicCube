@@ -6,7 +6,9 @@
       <div class = "aboutContent"><b>Name:</b> {{artist.firstNames}} {{artist.lastName}}</div>
       <div class = "aboutContent"><b>Stage Name:</b> {{artist.stageName}}</div>
       <div class = "aboutContent"><b>Born:</b>{{artist.birthDate | date:'d MMMM yyyy'}}</div>
+      <div class = "aboutContent" *ngIf = "artist.deathDate !== null"><b>Born:</b>{{artist.deathDate | date:'d MMMM yyyy'}}</div>
      </div>
+     
      <h4 style="margin-top: 40px;">Statistics</h4>
      <hr>
    
@@ -38,6 +40,14 @@
       </li>
     </ul>
   </div>
+    <div id = "bio">
+      <h3>Instruments:</h3>
+      <ul>
+        <li *ngFor="let instrument of artistInstruments">
+          <a routerLink="/instrument/{{instrument.instrument.id}}">{{instrument.instrument.instrumentName}}</a>
+        </li>
+      </ul>
+    </div>
 
     <hr *ngIf = "isLogged">
     <div id = "statistic" *ngIf = "isLogged">
@@ -66,7 +76,7 @@
 
       <div id = "writeComment" *ngIf = "isLogged">
         <textarea id = "comment" placeholder="Write your comment" maxlength="255" [(ngModel)] = "commentContent" rows="5" cols="50"></textarea><br />
-        <button (click) = "sendComment()">Send Comment</button> <!-- <div id = "clean"><a (click) = "cleanComment()">Clean</a></div> -->
+        <div id = "sendButton"><button (click) = "sendComment()">Send Comment</button></div> <div id = "clean"><a (click) = "cleanComment()">Clean</a></div>
       </div>
       <br><br>
       <b>Comments:</b>

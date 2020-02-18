@@ -103,6 +103,16 @@
     width: 30vw;
   }
 
+  #sendButton{
+    float: left;
+  }
+
+  #clean {
+    margin-left: 22vw;
+    float: left;
+  }
+
+
   #commentBody{
       margin-left: 5%;
       margin-right: 5%;

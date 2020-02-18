@@ -6,10 +6,6 @@
           <input type = "text" name = "instrumentTypeName" [(ngModel)]="instrumentTypeName" class = "inputText" required>
         </div><br>
         <div class = "separateDiv">
-          <div class = "textSeparateDiv"><i>About Type:</i><br></div>
-          <textarea type="text" name = "aboutType" id = "inputAbout" [(ngModel)]="aboutType"></textarea>
-      </div><br>
-        <div class = "separateDiv">
             <button (click)="addInstrumentType()" [disabled]="!profileForm.valid">Add New Instrument Type</button>
         </div><br>
     </form>

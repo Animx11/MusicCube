@@ -1,0 +1,28 @@
+<div>
+  <input #searchBox id="searchBox" (input)="search(searchBox.value)" placeholder="Start typing to search..."/>
+</div>
+  <table border="solid">
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th>Change Role</th>
+      <th>Delete</th>
+    </tr>
+    <tr *ngFor="let user of (users$ | async)">
+      <td>
+        {{ user.userName }}
+    </td>
+      <td>
+        {{user.email}}
+    </td>
+      <td>
+        {{user.primaryRole}}
+      </td>
+        <button *ngIf = "user.primaryRole === 'User'" (click) = "makeAdmin(user.id)">Make admin</button>
+        <button *ngIf = "user.primaryRole === 'Admin' " (click) = "makeUser(user.id)">Make user</button>
+      <td>
+        <button (click) = "deleteUser(user.id)">X</button>
+      </td>
+  </tr>
+</table>

@@ -194,7 +194,7 @@ export class AdminPanelComponent implements OnInit {
 
   // Switch
 
-  swichMainValue(clicked: boolean): boolean {
+  switchMainValue(clicked: boolean): boolean {
     return !clicked;
   }
 

@@ -8,6 +8,7 @@ import { SignIn } from '../Class/SignIn';
 import { api_url } from "../Utils/API_URL";
 import { UserAccount } from '../Class/UserAccount';
 import { UserProfile } from '../Class/UserProfile';
+import { UserManage } from '../Class/UserManage';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -35,6 +36,10 @@ export class UserService {
 
   deleteYourAccount(userName: string, password: string): Observable<any> {
     return this.http.delete(`${api_url}/user?userName=${userName}&password=${password}`);
+  }
+
+  deleteAccount(id: number): Observable<any> {
+    return this.http.delete(`${api_url}/admin/user?id=${id}`);
   }
 
   /*User Profile*/
@@ -68,4 +73,14 @@ export class UserService {
     return this.http.put<Users>(`${api_url}/changePassword?oldPassword=${oldPassword}`, obj);
   }
 
+  // Get user
+
+  getUserByUserName(userName: string): Observable<any> {
+    return this.http.get<UserManage>(`${api_url}/admin/userManage_by_userName?userName=${userName}`);
+  }
+
+  editRole(id: number, roleName: string): Observable<any> {
+    return this.http.get(`${api_url}/admin/editRole?id=${id}&role=${roleName}`);
+  }
+  
 }
