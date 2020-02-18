@@ -55,5 +55,23 @@ export class SearchUserComponent implements OnInit {
   onSelect(userManage: UserManage) {
     this.userManageEvent.emit(userManage);
   }
+  
+  makeAdmin(id: number) {
+    this.userService.editRole(id, "Admin").subscribe(res => {
+      console.log(res);
+    },
+    err => {
+      console.log(err);
+    });
+  }
 
+  makeUser(id: number) {
+
+    this.userService.editRole(id, "User").subscribe(res => {
+      console.log(res);
+    },
+    err => {
+      console.log(err);
+    });
+  }
 }

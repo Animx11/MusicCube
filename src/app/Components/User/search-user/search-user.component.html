@@ -6,6 +6,7 @@
       <th>User Name</th>
       <th>Email</th>
       <th>Roles</th>
+      <th>Change Role</th>
       <th>Delete</th>
     </tr>
     <tr *ngFor="let user of (users$ | async)">
@@ -18,7 +19,8 @@
       <td>
         {{user.primaryRole}}
       </td>
-      
+        <button *ngIf = "user.primaryRole === 'User'" (click) = "makeAdmin(user.id)">Make admin</button>
+        <button *ngIf = "user.primaryRole === 'Admin' " (click) = "makeUser(user.id)">Make user</button>
       <td>
         <button>X</button>
       </td>

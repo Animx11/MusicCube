@@ -72,7 +72,11 @@ export class UserService {
   // Get user
 
   getUserByUserName(userName: string): Observable<any> {
-    return this.http.get<UserManage>(`${api_url}/userManage_by_userName?userName=${userName}`);
+    return this.http.get<UserManage>(`${api_url}/admin/userManage_by_userName?userName=${userName}`);
+  }
+
+  editRole(id: number, roleName: string): Observable<any> {
+    return this.http.get(`${api_url}/admin/editRole?id=${id}&role=${roleName}`);
   }
   
 }
