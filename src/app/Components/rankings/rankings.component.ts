@@ -12,9 +12,9 @@ import {ArtistRatingDto} from '../../DTOs/ArtistRatingDto';
 })
 export class RankingsComponent implements OnInit {
   songRatingDtos: SongRatingDto[];
-  private artistRatingDtos: ArtistRatingDto[];
-  private bandRatingDtos: BandRatingDto[];
-  private albumRatingDtos: AlbumRatingDto[];
+  artistRatingDtos: ArtistRatingDto[];
+  bandRatingDtos: BandRatingDto[];
+  albumRatingDtos: AlbumRatingDto[];
 
   constructor(private rankingService: RankingService) { }
 

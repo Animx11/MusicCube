@@ -26,11 +26,11 @@ export class AdvancedArtistComponent implements OnInit {
 
   isFromCity: boolean;
   isFromCountry: boolean;
-  private band: Band;
+  band: Band;
   country: Country;
   city: City;
-  private instrument: Instrument;
-  private result: Artist[];
+  instrument: Instrument;
+  result: Artist[];
 
   @Output() artistSearchEvent = new EventEmitter<Artist[]>();
   @Output() noResultEvent = new EventEmitter<string>();

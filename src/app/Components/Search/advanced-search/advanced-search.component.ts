@@ -18,10 +18,10 @@ export class AdvancedSearchComponent implements OnInit {
   genres: boolean;
   instruments: boolean;
 
-  private foundArtists: Artist[];
-  private foundBands: Band[];
-  private foundAlbums: Album[]
-  private foundSongs: Song[];
+  foundArtists: Artist[];
+  foundBands: Band[];
+  foundAlbums: Album[];
+  foundSongs: Song[];
 
   constructor() {
     this.artists = true;
