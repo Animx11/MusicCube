@@ -140,7 +140,36 @@ public class UserController {
 
     }
 
-    // Finding User
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/admin/user")
+    public ResponseEntity<User> deleteUser(@RequestParam("id") int id){
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
+            User user = userService.getById(id).orElse(null);
+            if(user != null) {
+                    UserFavorites userFavorites = userFavoritesService.getUserFavoriteAllByUserName(user.getUserName()).orElse(null);
+
+                    Iterable<Rate> allUserRates = rateService.getAllUserRates(user.getUserName());
+                    for (Rate rate : allUserRates) {
+                        rateService.delete(rate.getId());
+                    }
+
+                    Iterable<Comment> allUserComments = commentService.getAllUserComments(user.getUserName());
+                    for (Comment comment : allUserComments) {
+                        commentService.delete(comment.getId());
+                    }
+
+                    if(userFavorites != null) {
+                        userFavoritesService.delete(userFavorites.getId());
+                    }
+                    userService.delete(user.getId());
+                    return new ResponseEntity<>(HttpStatus.OK);
+            } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+
+        // Finding User
 
     @GetMapping(value = "/user_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getById(@RequestParam("id") int id){
@@ -169,7 +198,7 @@ public class UserController {
 
     }
 
-    @GetMapping(value = "/editRole")
+    @GetMapping(value = "/admin/editRole")
     public ResponseEntity<Void> editRole(@RequestParam int id, @RequestParam String role) {
 
         User user = userService.getById(id).orElse(null);
