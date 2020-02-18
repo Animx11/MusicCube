@@ -1,0 +1,13 @@
+<div id = "centerDiv">
+  <div id = "head">Recommended bands</div>
+  <br>
+  <p *ngIf="!bands || bands.length === 0">Rate some bands 6 or higher in order to receive recommendations.</p>
+  <ul *ngIf="bands && bands.length">
+    <li *ngFor="let band of bands">
+      <a routerLink="/band/{{band.id}}">{{band.bandName}}</a>
+    </li>
+  </ul>
+  <button *ngIf="limit > 10" (click)="showLess()">Show less</button>
+  <button *ngIf="limit <= 50" (click)="showMore()">Show more</button>
+  <button (click)="getBands()">Search again</button>
+</div>

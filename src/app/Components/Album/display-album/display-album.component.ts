@@ -41,6 +41,9 @@ export class DisplayAlbumComponent implements OnInit {
 
   commentContent: string;
   userName: string;
+  holdCount: number;
+  favCount: number;
+  score: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -104,6 +107,9 @@ export class DisplayAlbumComponent implements OnInit {
         console.log('display-album-component received: ', res);
         this.getBands();
         this.getSongs();
+        this.getScore();
+        this.getFavCount();
+        this.getHoldCount();
       },
       err => console.error(err));
   }
@@ -281,5 +287,17 @@ export class DisplayAlbumComponent implements OnInit {
         err => console.error(err)
       );
     }
+  }
+
+  private getScore() {
+
+  }
+
+  private getFavCount() {
+
+  }
+
+  private getHoldCount() {
+
   }
 }

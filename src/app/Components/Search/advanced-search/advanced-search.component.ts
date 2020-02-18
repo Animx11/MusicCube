@@ -24,7 +24,7 @@ export class AdvancedSearchComponent implements OnInit {
   foundSongs: Song[];
 
   constructor() {
-    this.artists = true;
+    this.songs = true;
   }
 
   ngOnInit() {
@@ -65,6 +65,9 @@ export class AdvancedSearchComponent implements OnInit {
   }
   noResultEventHandler($event) {
     window.alert(`No ${$event} found`);
+  }
+  clearHandler($event) {
+    this.foundSongs = this.foundArtists = this.foundAlbums = this.foundBands = [];
   }
 
 }
