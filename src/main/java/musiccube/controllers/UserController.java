@@ -33,6 +33,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static musiccube.entities.RoleName.ROLE_ADMIN;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "${serverAddress}")
@@ -86,7 +88,15 @@ public class UserController {
         Iterable<UserManage> userManageIterable;
         ArrayList<UserManage> userManageArray = new ArrayList<UserManage>();
         for (User user: users) {
+
             UserManage userManage = new UserManage(user);
+
+            Role role = roleRepository.findByName(ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Fail! -> User Role not found"));
+            if(userManage.getRoles().contains(role) == true){
+                userManage.setPrimaryRole("Admin");
+            } else if(userManage.getRoles().contains(role) == false) {
+                userManage.setPrimaryRole("User");
+            }
             userManageArray.add(userManage);
         }
         userManageIterable = userManageArray;
