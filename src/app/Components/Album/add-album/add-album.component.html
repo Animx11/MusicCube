@@ -33,11 +33,5 @@
             <button (click)="addAlbum()" [disabled]="!profileForm.valid">Add New Album</button>
         </div><br>
     </form>
-  <div id = "searchPlace" *ngIf = "isOriginClicked">
-      <div class = "separateDiv">
-        <div class = "textSeparateDiv"><i>Search Origin Place:</i><br></div>
-        <app-search-country (countryEvent)="countryEventHandler($event)"></app-search-country>
-      </div><br>
-  </div>
 
 </div>

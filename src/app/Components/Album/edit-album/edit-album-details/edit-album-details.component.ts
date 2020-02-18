@@ -8,7 +8,7 @@ import { Album } from 'src/app/Class/Album';
   styleUrls: ['./edit-album-details.component.css'],
 })
 export class EditAlbumDetailsComponent implements OnInit {
-  @Input() private album: Album;
+  @Input() album: Album;
 
   constructor() {}
 
