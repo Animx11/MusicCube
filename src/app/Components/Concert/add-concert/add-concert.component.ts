@@ -10,16 +10,16 @@ import { stringify } from 'querystring';
   styleUrls: ['./add-concert.component.css']
 })
 export class AddConcertComponent implements OnInit {
-  private concert: Concert;
-  private concertName: string;
-  private startTime: Date;
-  private hour: number;
-  private minutes: number;
+  concert: Concert;
+  concertName: string;
+  startTime: Date;
+  hour: number;
+  minutes: number;
 
-  private dateString: string[];
+  dateString: string[];
 
-  private isCityClicked: boolean;
-  private isCitySelected: boolean;
+  isCityClicked: boolean;
+  isCitySelected: boolean;
 
   constructor(
     private concertService: ConcertService,
@@ -35,7 +35,7 @@ export class AddConcertComponent implements OnInit {
     this.minutes = 0;
   }
 
-  searchCity(){
+  searchCity() {
     this.isCityClicked = true;
   }
 
@@ -45,8 +45,8 @@ export class AddConcertComponent implements OnInit {
     this.isCitySelected = true;
   }
 
-  makeDate(){
-    this.dateString = this.startTime.toString().split("-");
+  makeDate() {
+    this.dateString = this.startTime.toString().split('-');
     this.startTime = new Date(
       parseInt(this.dateString[0]), parseInt(this.dateString[1]), parseInt(this.dateString[2]),
       this.hour, this.minutes
@@ -58,11 +58,11 @@ export class AddConcertComponent implements OnInit {
     if (
       this.concertName === '' ||
       this.startTime === null ||
-      this.concert.getConcertCity === null 
+      this.concert.getConcertCity === null
     ) {
       window.alert('Incomplete input');
-    } else if (this.hour < 0 || this.minutes < 0 || this.hour > 23 || this.minutes > 59){
-      window.alert('Incorect time');
+    } else if (this.hour < 0 || this.minutes < 0 || this.hour > 23 || this.minutes > 59) {
+      window.alert('Incorrect time');
 
     } else {
       this.concert.setConcertName(this.concertName);
@@ -76,7 +76,7 @@ export class AddConcertComponent implements OnInit {
           this.ngOnInit();
         },
         err => {
-          window.alert('Error occured');
+          window.alert('Error occurred');
           console.error(err);
         }
       );

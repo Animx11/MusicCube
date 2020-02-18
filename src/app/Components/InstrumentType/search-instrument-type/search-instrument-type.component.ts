@@ -11,15 +11,14 @@ import { InstrumentType } from 'src/app/Class/InstrumentType';
 })
 export class SearchInstrumentTypeComponent implements OnInit {
 
-
-  private searchOn: boolean;
-  private listOn: boolean;
-  private reachedLastPage: boolean;
-  private pageCount: number;
+  searchOn: boolean;
+  listOn: boolean;
+  reachedLastPage: boolean;
+  pageCount: number;
 
   instrumentTypes$: Observable<InstrumentType[]>;
   instrumentTypePage: InstrumentType[];
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() instrumentTypeEvent = new EventEmitter<InstrumentType>();
   @Output() searchEvent = new EventEmitter();

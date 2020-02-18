@@ -11,14 +11,14 @@ import { Country } from 'src/app/Class/Country';
 })
 export class SearchCountryComponent implements OnInit {
 
-  private searchOn: boolean;
-  private listOn: boolean;
-  private reachedLastPage: boolean;
-  private pageCount: number;
+  searchOn: boolean;
+  listOn: boolean;
+  reachedLastPage: boolean;
+  pageCount: number;
 
   countries$: Observable<Country[]>;
   countryPage: Country[];
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() countryEvent = new EventEmitter<Country>();
   @Output() searchEvent = new EventEmitter();

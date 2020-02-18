@@ -11,10 +11,10 @@ import {AlbumService} from '../../../Services/album.service';
 })
 export class AdvancedAlbumComponent implements OnInit {
 
-  private song: Song;
-  private compName: string;
-  private genre: Genre;
-  private result: Album[];
+  song: Song;
+  compName: string;
+  genre: Genre;
+  result: Album[];
 
   constructor(private service: AlbumService) {
     this.song = null;

@@ -29,13 +29,13 @@ export class DisplayArtistComponent implements OnInit {
   comment: CommentClass;
   allComments: CommentClass[];
 
-  private isLogged: boolean;
-  private isFavorite: boolean;
-  private isRated: boolean;
+   isLogged: boolean;
+   isFavorite: boolean;
+   isRated: boolean;
 
-  private selectOption: string;
+   selectOption: string;
 
-  private commentContent: string;
+   commentContent: string;
   userName: string;
 
   constructor(
@@ -104,12 +104,12 @@ export class DisplayArtistComponent implements OnInit {
       );
     } else if (!this.isRated && this.selectOption === '0') {
 
-    } else if (!this.isRated){
+    } else if (!this.isRated) {
       this.rateService.createArtistRate(this.userName, id, parseInt(this.selectOption)).subscribe(
         res => {
           this.rate = new Rate(res);
           this.isRated = true;
-          console.log('New score was setted');
+          console.log('New score was set');
         },
         err => {
           console.error('Error has occurred');
@@ -210,7 +210,7 @@ export class DisplayArtistComponent implements OnInit {
       err => console.error(err));
   }
   private getBands() {
-    this.artistInBandService.getByArtistId(this.artist.id).subscribe(res =>{
+    this.artistInBandService.getByArtistId(this.artist.id).subscribe(res => {
       console.log('display-artist-component received: ', res);
       this.activities = res.map(el => new ArtistActivity(el));
       this.handleActivities();

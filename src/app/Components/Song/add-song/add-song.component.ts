@@ -15,31 +15,31 @@ import { SongInstrument } from 'src/app/Class/SongInstrument';
   styleUrls: ['./add-song.component.css']
 })
 export class AddSongComponent implements OnInit {
-  private songName: string;
-  private songLengthSeconds: number;
-  private trackNumber: number;
-  private song: Song;
-  private authorList: SongAuthorship[];
-  private authorship: SongAuthorship;
-  private instrumentList: SongInstrument[];
-  private songInstrument: SongInstrument;
-  private songLyrics: string;
-  private musicVideoUrl: string;
+  songName: string;
+  songLengthSeconds: number;
+  trackNumber: number;
+  song: Song;
+  authorList: SongAuthorship[];
+  authorship: SongAuthorship;
+  instrumentList: SongInstrument[];
+  songInstrument: SongInstrument;
+  songLyrics: string;
+  musicVideoUrl: string;
 
-  private isBandClicked: boolean;
-  private isAlbumClicked: boolean;
-  private isGenreClicked: boolean;
-  private isAuthorClicked: boolean;
-  private isInstrumentClicked: boolean;
+  isBandClicked: boolean;
+  isAlbumClicked: boolean;
+  isGenreClicked: boolean;
+  isAuthorClicked: boolean;
+  isInstrumentClicked: boolean;
 
-  private isBandSelected: boolean;
-  private isAlbumSelected: boolean;
-  private isGenreSelected: boolean;
+  isBandSelected: boolean;
+  isAlbumSelected: boolean;
+  isGenreSelected: boolean;
 
 
-  private minutes: number;
-  private seconds: number;
-  private toMandS: number;
+  minutes: number;
+  seconds: number;
+  toMandS: number;
 
 
 

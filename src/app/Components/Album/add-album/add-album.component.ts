@@ -8,15 +8,15 @@ import { Album } from 'src/app/Class/Album';
   styleUrls: ['./add-album.component.css']
 })
 export class AddAlbumComponent implements OnInit {
-  private album: Album;
-  private albumName: string;
-  private length: number;
-  private minutes: number;
-  private seconds: number;
-  private releaseDate: Date;
-  private company: string;
-  private covertArtLink: string;
-  private type: string;
+  album: Album;
+  albumName: string;
+  length: number;
+  minutes: number;
+  seconds: number;
+  releaseDate: Date;
+  company: string;
+  covertArtLink: string;
+  type: string;
 
   constructor(private albumService: AlbumService) {}
 
@@ -27,9 +27,9 @@ export class AddAlbumComponent implements OnInit {
     this.seconds = 0;
     this.length = 0;
     this.releaseDate = null;
-    this.company = "";
-    this.covertArtLink = "";
-    this.type = "";
+    this.company = '';
+    this.covertArtLink = '';
+    this.type = '';
   }
 
   albumLengthInSeconds(): boolean {
@@ -42,18 +42,17 @@ export class AddAlbumComponent implements OnInit {
   }
 
   addAlbum(): void {
-    if(!this.albumLengthInSeconds()){
-      window.alert("Album lenght is incorect");
-    }
-    else if (
+    if (!this.albumLengthInSeconds()) {
+      window.alert('Album length is incorrect');
+    } else if (
       this.albumName === '' ||
       this.length === 0 ||
       this.releaseDate == null ||
       this.company === '' ||
-      this.type == ''
-    )
+      this.type === ''
+    ) {
       window.alert('Incomplete input');
-    else {
+ } else {
       this.album.setAlbumName(this.albumName);
       this.album.setAlbumLengthSeconds(this.length);
       this.album.setReleaseDate(this.releaseDate);

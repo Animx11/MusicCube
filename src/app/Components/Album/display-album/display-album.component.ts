@@ -141,7 +141,7 @@ export class DisplayAlbumComponent implements OnInit {
         res => {
           this.rate = new Rate(res);
           this.isRated = true;
-          console.log('New score was setted');
+          console.log('New score was set');
         },
         err => {
           console.error('Error has occurred');

@@ -9,8 +9,6 @@
         <option value="bands">Bands</option>
         <option value="albums">Albums</option>
         <option value="songs">Songs</option>
-        <option value="genres">Genres</option>
-        <option value="instruments">Instruments</option>
       </select>
     </form>
   </div>
@@ -35,8 +33,6 @@
     ></app-advanced-album>
 
     <app-advanced-song *ngIf="songs" (songSearchEvent)="songSearchHandler($event)"></app-advanced-song>
-    <app-advanced-genre *ngIf="genres" (genreSearchEvent)="genreSearchHandler($event)"></app-advanced-genre>
-    <app-advanced-instrument *ngIf="instruments" (instrumentSearchEvent)="instrumentSearchHandler($event)"></app-advanced-instrument>
   </div>
 
   <div id="search-result">
@@ -44,8 +40,6 @@
     <app-band-list-display *ngIf="bands && foundBands" [list]="foundBands"></app-band-list-display>
     <app-album-list-display *ngIf="albums && foundAlbums" [list]="foundAlbums"></app-album-list-display>
     <app-song-list-display *ngIf="songs && foundSongs" [list]="foundSongs"></app-song-list-display>
-    <app-genre-list-display *ngIf="genres && foundGenres" [list]="foundGenres"></app-genre-list-display>
-    <app-instrument-list-display *ngIf="instruments && foundInstruments" [list]="foundInstruments"></app-instrument-list-display>
   </div>
 
 </div>

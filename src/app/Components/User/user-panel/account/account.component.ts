@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Users } from 'src/app/Class/Users';
 import { UserService } from 'src/app/Services/user.service';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
-import { userInfo } from 'os';
-import { SignIn } from 'src/app/Class/SignIn';
 import { this_url } from 'src/app/Utils/API_URL';
 import { UserAccount } from 'src/app/Class/UserAccount';
 
@@ -24,8 +22,8 @@ export class AccountComponent implements OnInit {
   newEmail: string;
   user: Users;
   userAccount: UserAccount;
-  
-  
+
+
   roles: string[];
   authority: string;
   isLogged: boolean;
@@ -42,17 +40,15 @@ export class AccountComponent implements OnInit {
       this.isLogged = true;
       this.roles = this.tokenStorageService.getAuthorities();
       this.roles.forEach(role => {
-        if(role === 'ROLE_ADMIN'){
+        if (role === 'ROLE_ADMIN') {
           this.authority = 'admin';
-        }
-        else if(role === 'ROLE_MOD' && this.authority !== 'admin'){
+        } else if (role === 'ROLE_MOD' && this.authority !== 'admin') {
           this.authority = 'mod';
-        }
-        else if(role === 'ROLE_USER' && this.authority !== 'admin' && this.authority !== 'mod'){
+        } else if (role === 'ROLE_USER' && this.authority !== 'admin' && this.authority !== 'mod') {
           this.authority = 'user';
         }
       });
- 
+
     }
 
     this.userName = '';
@@ -177,7 +173,7 @@ export class AccountComponent implements OnInit {
             } else if (err.status === 400) {
               window.alert('If you see this massage, something unexpected happen, contact with code mainteners');
             } else {
-              window.alert(`Unknown error has occured`);
+              window.alert(`Unknown error has occurred`);
             }
           }
         );

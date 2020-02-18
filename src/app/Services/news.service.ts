@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { News } from '../Class/news';
+import { News } from '../Class/News';
 import { Observable } from 'rxjs';
 import { api_url } from '../Utils/API_URL';
 

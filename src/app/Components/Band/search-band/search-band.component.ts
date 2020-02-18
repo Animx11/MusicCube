@@ -10,10 +10,10 @@ import { Band } from 'src/app/Class/Band';
   styleUrls: ['./search-band.component.css']
 })
 export class SearchBandComponent implements OnInit {
-  private searchOn: boolean;
+  searchOn: boolean;
 
   bands$: Observable<Band[]>;
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() bandEvent = new EventEmitter<Band>();
   @Output() searchEvent = new EventEmitter();

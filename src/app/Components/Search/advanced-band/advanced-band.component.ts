@@ -27,7 +27,7 @@ export class AdvancedBandComponent implements OnInit {
     this.genre = null;
   }
   @Output() bandSearchEvent = new EventEmitter<Band[]>();
-  @Output() noResultEvent = new EventEmitter<String>();
+  @Output() noResultEvent = new EventEmitter<string>();
   ngOnInit() {
   }
   toggleIsFrom(where: string) {

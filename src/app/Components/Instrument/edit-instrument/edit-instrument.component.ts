@@ -10,16 +10,16 @@ import { InstrumentType } from 'src/app/Class/InstrumentType';
 })
 export class EditInstrumentComponent implements OnInit {
 
-  private selectedInstrument: Instrument;
+  selectedInstrument: Instrument;
 
-  private instrument: Instrument;
-  private instrumentName: string;
-  private instrumentTypeName: InstrumentType;
-  private about: string;
+  instrument: Instrument;
+  instrumentName: string;
+  instrumentTypeName: InstrumentType;
+  about: string;
 
-  private isInstrumentTypeClicked: boolean;
-  private isInstrumentTypeSelected: boolean;
-  private isEditSelected: boolean;
+  isInstrumentTypeClicked: boolean;
+  isInstrumentTypeSelected: boolean;
+  isEditSelected: boolean;
 
   constructor(private instrumentService: InstrumentService) {}
 
@@ -50,7 +50,7 @@ export class EditInstrumentComponent implements OnInit {
     this.isInstrumentTypeClicked = false;
     this.isInstrumentTypeSelected = false;
     this.instrument.setInstrumentType(this.selectedInstrument.instrumentType);
-    if(this.instrument.getInstrumentType !== null) {
+    if (this.instrument.getInstrumentType !== null) {
       this.isInstrumentTypeSelected = true;
     }
   }
@@ -65,13 +65,13 @@ export class EditInstrumentComponent implements OnInit {
         this.reset();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }
 
   update() {
-    if(this.instrumentName === this.selectedInstrument.instrumentName && this.instrument.getInstrumentType() === this.selectedInstrument.instrumentType && this.about === this.selectedInstrument.aboutInstrument) {
+    if (this.instrumentName === this.selectedInstrument.instrumentName && this.instrument.getInstrumentType() === this.selectedInstrument.instrumentType && this.about === this.selectedInstrument.aboutInstrument) {
       window.alert('You need to do some changes before update');
     } else {
       this.instrument.id = this.selectedInstrument.id;

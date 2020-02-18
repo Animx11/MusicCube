@@ -10,10 +10,10 @@ import { Person } from 'src/app/Class/Person';
   styleUrls: ['./search-person.component.css']
 })
 export class SearchPersonComponent implements OnInit {
-  private searchOn: boolean;
+  searchOn: boolean;
 
   persons$: Observable<Person[]>;
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() personEvent = new EventEmitter<Person>();
   @Output() searchEvent = new EventEmitter();

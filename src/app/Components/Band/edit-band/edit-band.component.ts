@@ -9,15 +9,15 @@ import { Band } from 'src/app/Class/Band';
 })
 export class EditBandComponent implements OnInit {
 
-  private band: Band;
-  private selectedBand: Band;
+  band: Band;
+  selectedBand: Band;
 
-  private bandName: string;
-  private creationYear: Date;
+  bandName: string;
+  creationYear: Date;
 
-  private isCityClicked: boolean;
-  private isCitySelected: boolean;
-  private isEditSelected: boolean;
+  isCityClicked: boolean;
+  isCitySelected: boolean;
+  isEditSelected: boolean;
 
   constructor(private bandService: BandService) { }
 
@@ -63,7 +63,7 @@ export class EditBandComponent implements OnInit {
         this.reset();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }
@@ -83,7 +83,7 @@ export class EditBandComponent implements OnInit {
           this.reset();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
     }

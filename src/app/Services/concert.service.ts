@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Concert } from 'src/app/Class/Concert';
 
 import { api_url } from '../Utils/API_URL';
-import { SrvRecord } from 'dns';
 
 const apiUrl = api_url;
 

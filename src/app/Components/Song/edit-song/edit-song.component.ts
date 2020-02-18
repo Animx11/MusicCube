@@ -14,50 +14,50 @@ import { SongInstrumentService } from 'src/app/Services/song-instrument.service'
   styleUrls: ['./edit-song.component.css']
 })
 export class EditSongComponent implements OnInit {
-  private selectedSong: Song;
+  selectedSong: Song;
 
-  private songName: string;
-  private songLengthSeconds: number;
-  private trackNumber: number;
-  private song: Song;
-  private songLyrics: string;
-
-
-  private authorList: SongAuthorship[];
-  private authorship: SongAuthorship;
-
-  private instrumentList: SongInstrument[];
-  private songInstrument: SongInstrument;
-
-  private isBandClicked: boolean;
-  private isAlbumClicked: boolean;
-  private isGenreClicked: boolean;
-  private isAuthorClicked: boolean;
-  private isInstrumentClicked: boolean;
-
-  private isBandSelected: boolean;
-  private isAlbumSelected: boolean;
-  private isGenreSelected: boolean;
+  songName: string;
+  songLengthSeconds: number;
+  trackNumber: number;
+  song: Song;
+  songLyrics: string;
 
 
-  private isEditSelected: boolean;
-  private isCountryClicked: boolean;
-  private isCountrySelected: boolean;
+  authorList: SongAuthorship[];
+  authorship: SongAuthorship;
 
-  private isInstrumentChanged: boolean;
-  private isAuthorshipChanged: boolean;
-  
-  private musicVideoUrl: string;
+  instrumentList: SongInstrument[];
+  songInstrument: SongInstrument;
+
+  isBandClicked: boolean;
+  isAlbumClicked: boolean;
+  isGenreClicked: boolean;
+  isAuthorClicked: boolean;
+  isInstrumentClicked: boolean;
+
+  isBandSelected: boolean;
+  isAlbumSelected: boolean;
+  isGenreSelected: boolean;
+
+
+  isEditSelected: boolean;
+  isCountryClicked: boolean;
+  isCountrySelected: boolean;
+
+  isInstrumentChanged: boolean;
+  isAuthorshipChanged: boolean;
+
+  musicVideoUrl: string;
 
 
 
-  private minutes: number;
-  private seconds: number;
-  private toMandS: number;
+  minutes: number;
+  seconds: number;
+  toMandS: number;
 
   constructor(private songService: SongService,
-    private songAuthorshipService: SongAuthorshipService,
-    private songInstrumentService: SongInstrumentService) {}
+              private songAuthorshipService: SongAuthorshipService,
+              private songInstrumentService: SongInstrumentService) {}
 
   ngOnInit() {
     this.songName = '';
@@ -69,7 +69,7 @@ export class EditSongComponent implements OnInit {
     this.isAuthorshipChanged = false;
     this.isInstrumentChanged = false;
     this.musicVideoUrl = '';
-    
+
     this.isEditSelected = false;
 
     this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
@@ -106,7 +106,7 @@ export class EditSongComponent implements OnInit {
         this.instrumentList = res.map(el => new SongInstrument(el));
       }
     );
-  this.lengthInSecondsTodMinutesAndSeconds();
+    this.lengthInSecondsTodMinutesAndSeconds();
 
     this.isEditSelected = true;
     this.isCountryClicked = false;
@@ -120,16 +120,15 @@ export class EditSongComponent implements OnInit {
 
 
   albumLengthInSeconds(): boolean {
-    if(this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0){
+    if (this.minutes < 0 || this.seconds < 0 || this.seconds > 59 || this.minutes === 0 && this.seconds === 0) {
       return false;
-    }
-    else{
+    } else {
       this.songLengthSeconds = 60 * this.minutes + this.seconds;
       return true;
     }
   }
 
-  lengthInSecondsTodMinutesAndSeconds(){
+  lengthInSecondsTodMinutesAndSeconds() {
       this.toMandS = this.songLengthSeconds * 100 / 60;
       this.minutes = (this.toMandS - (this.toMandS % 100)) / 100;
       this.seconds = ((this.toMandS % 100) - (this.toMandS % 1)) * 60 / 100;
@@ -142,8 +141,8 @@ export class EditSongComponent implements OnInit {
 
 
 
-  
-  resetClicked(){
+
+  resetClicked() {
     this.isBandClicked = this.isAlbumClicked = this.isGenreClicked = this.isAuthorClicked = this.isInstrumentClicked = false;
   }
 
@@ -211,10 +210,10 @@ export class EditSongComponent implements OnInit {
       }
     );
   }
-  
+
   update() {
     this.albumLengthInSeconds();
-    if(this.songName === this.selectedSong.songName && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.trackNumber === this.selectedSong.trackNumber && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.song.getAlbum() === this.selectedSong.album && this.song.getBand() === this.selectedSong.band && this.song.getGenre() === this.selectedSong.genre && !this.isAuthorshipChanged && !this.isInstrumentChanged && this.selectedSong.songLyrics === this.songLyrics && this.musicVideoUrl === this.selectedSong.musicVideoUrl) {
+    if (this.songName === this.selectedSong.songName && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.trackNumber === this.selectedSong.trackNumber && this.songLengthSeconds === this.selectedSong.songLengthSeconds && this.song.getAlbum() === this.selectedSong.album && this.song.getBand() === this.selectedSong.band && this.song.getGenre() === this.selectedSong.genre && !this.isAuthorshipChanged && !this.isInstrumentChanged && this.selectedSong.songLyrics === this.songLyrics && this.musicVideoUrl === this.selectedSong.musicVideoUrl) {
       window.alert('You need to do some changes before update');
     } else {
       this.song.id = this.selectedSong.id;
@@ -259,7 +258,7 @@ export class EditSongComponent implements OnInit {
       );
     }
   }
-  
+
   reset() {
     this.isInstrumentChanged = false;
     this.isAuthorshipChanged = false;

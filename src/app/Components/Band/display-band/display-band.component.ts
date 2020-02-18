@@ -34,18 +34,18 @@ export class DisplayBandComponent implements OnInit {
   comment: CommentClass;
   allComments: CommentClass[];
 
-  private isLogged: boolean;
-  private isFavorite: boolean;
-  private isRated: boolean;
+  isLogged: boolean;
+  isFavorite: boolean;
+  isRated: boolean;
 
   isMainClicked: boolean;
   isLineUpClicked: boolean;
   isDiscographyClicked: boolean;
   isSimilarBandsClicked: boolean;
 
-  private selectOption: string;
+  selectOption: string;
 
-  private commentContent: string;
+  commentContent: string;
   userName: string;
 
   constructor(
@@ -99,7 +99,7 @@ export class DisplayBandComponent implements OnInit {
         this.selectOption = this.rate.getRate().toString();
       },
       err => {
-        console.log('User hasn\'t rated this nabd yet');
+        console.log('User hasn\'t rated this band yet');
         this.isRated = false;
         this.selectOption = '0';
       }

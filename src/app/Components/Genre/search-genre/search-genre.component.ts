@@ -10,10 +10,10 @@ import { Genre } from 'src/app/Class/Genre';
   styleUrls: ['./search-genre.component.css']
 })
 export class SearchGenreComponent implements OnInit {
-  private searchOn: boolean;
+  searchOn: boolean;
 
   genres$: Observable<Genre[]>;
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() genreEvent = new EventEmitter<Genre>();
   @Output() searchEvent = new EventEmitter();

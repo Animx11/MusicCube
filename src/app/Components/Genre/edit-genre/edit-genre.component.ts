@@ -10,17 +10,17 @@ import { Genre } from 'src/app/Class/Genre';
 })
 export class EditGenreComponent implements OnInit {
 
-  private genre: Genre;
-  private selectedGenre: Genre;
+  genre: Genre;
+  selectedGenre: Genre;
 
-  private origin: Country;
-  private genreName: string;
-  private creationTime: string;
-  private aboutGenre: string;
+  origin: Country;
+  genreName: string;
+  creationTime: string;
+  aboutGenre: string;
 
-  private isOriginSelected: boolean;
-  private isOriginClicked: boolean;
-  private isEditSelected: boolean;
+  isOriginSelected: boolean;
+  isOriginClicked: boolean;
+  isEditSelected: boolean;
 
   constructor(private genreService: GenreService) {}
 
@@ -42,7 +42,7 @@ export class EditGenreComponent implements OnInit {
     this.isOriginClicked = false;
     this.isOriginSelected = false;
     this.genre.setOrigin(this.selectedGenre.origin);
-    if(this.genre.getOrigin() != null) {
+    if (this.genre.getOrigin() != null) {
       this.isOriginSelected = true;
     }
   }
@@ -69,13 +69,13 @@ export class EditGenreComponent implements OnInit {
         this.reset();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }
 
   update() {
-    if(this.genreName === this.selectedGenre.genreName && this.genre.getOrigin() === this.selectedGenre.origin && this.creationTime === this.selectedGenre.creationDate && this.aboutGenre === this.selectedGenre.aboutGenre) {
+    if (this.genreName === this.selectedGenre.genreName && this.genre.getOrigin() === this.selectedGenre.origin && this.creationTime === this.selectedGenre.creationDate && this.aboutGenre === this.selectedGenre.aboutGenre) {
       window.alert('You need to do some changes before update');
     } else {
       this.genre.id = this.selectedGenre.id;
@@ -88,7 +88,7 @@ export class EditGenreComponent implements OnInit {
           this.reset();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
     }

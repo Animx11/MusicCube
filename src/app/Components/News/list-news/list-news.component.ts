@@ -1,6 +1,6 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { NewsService } from 'src/app/Services/news.service';
-import { News } from 'src/app/Class/news';
+import { News } from 'src/app/Class/News';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 
@@ -38,17 +38,15 @@ export class ListNewsComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.roles = this.tokenStorage.getAuthorities();
       this.roles.forEach(role => {
-        if(role === 'ROLE_ADMIN'){
+        if (role === 'ROLE_ADMIN') {
           this.authority = 'admin';
-        }
-        else if(role === 'ROLE_MOD' && this.authority !== 'admin'){
+        } else if (role === 'ROLE_MOD' && this.authority !== 'admin') {
           this.authority = 'mod';
-        }
-        else if(role === 'ROLE_USER' && this.authority !== 'admin' && this.authority !== 'mod'){
+        } else if (role === 'ROLE_USER' && this.authority !== 'admin' && this.authority !== 'mod') {
           this.authority = 'user';
         }
       });
- 
+
     }
   }
 
@@ -62,7 +60,7 @@ export class ListNewsComponent implements OnInit {
         this.news.setCreator(el.creator);
         this.news.setNewsCreationDate(el.newsCreationDate);
         this.news.setNewsImage(this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, this.sanitizer.bypassSecurityTrustResourceUrl(el.imageUrl)));
-        if(el.contentNewsDirFile.length > 250) {
+        if (el.contentNewsDirFile.length > 250) {
           this.news.setNewsContent(el.contentNewsDirFile.substring(0, 250).concat('...'));
         } else {
           this.news.setNewsContent(el.contentNewsDirFile);

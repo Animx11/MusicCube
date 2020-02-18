@@ -3,7 +3,6 @@ import { ArtistService } from 'src/app/Services/artist.service';
 import { PersonService } from 'src/app/Services/person.service';
 import { Person } from 'src/app/Class/Person';
 import { Artist } from 'src/app/Class/Artist';
-import { isArray } from 'util';
 import { ArtistInstrumentService } from 'src/app/Services/artist-instrument.service';
 import { ArtistInstrument } from 'src/app/Class/ArtistInstrument';
 import { ArtistActivity } from 'src/app/Class/ArtistActivity';
@@ -16,43 +15,43 @@ import { ArtistActivityService } from 'src/app/Services/artist-activity.service'
 })
 export class EditArtistComponent implements OnInit {
 
-  private person: Person;
-  private artist: Artist;
-  private selectedArtist: Artist;
-  private firstNames: string;
-  private lastName: string;
-  private stageName: string;
-  private birthDate: Date;
-  private deathDate: Date;
-  private isArtist: boolean;
-  private isBirthPlaceClicked: boolean;
-  private isBirthPlaceSelected: boolean;
+  person: Person;
+  artist: Artist;
+  selectedArtist: Artist;
+  firstNames: string;
+  lastName: string;
+  stageName: string;
+  birthDate: Date;
+  deathDate: Date;
+  isArtist: boolean;
+  isBirthPlaceClicked: boolean;
+  isBirthPlaceSelected: boolean;
 
-  private isEditSelected: boolean;
+  isEditSelected: boolean;
 
-  private role: string;
-  private roles: string[];
+  role: string;
+  roles: string[];
 
-  private isBandClicked: boolean;
+  isBandClicked: boolean;
 
-  private isInstrumentClicked: boolean;
-  private isArtistActivityClicked: boolean;
+  isInstrumentClicked: boolean;
+  isArtistActivityClicked: boolean;
 
-  private instrumentList: ArtistInstrument[];
-  private artistInstrument: ArtistInstrument;
+  instrumentList: ArtistInstrument[];
+  artistInstrument: ArtistInstrument;
 
-  private artistActivityList: ArtistActivity[];
-  private artistActivity: ArtistActivity;
+  artistActivityList: ArtistActivity[];
+  artistActivity: ArtistActivity;
 
-  private toDeleteInstruments: number[];
-  private toDeleteActivities: number[];
+  toDeleteInstruments: number[];
+  toDeleteActivities: number[];
 
   constructor(
     private artistService: ArtistService,
     private personService: PersonService,
     private artistInstrumentService: ArtistInstrumentService,
     private artistActivityService: ArtistActivityService) {}
-  
+
   ngOnInit() {
     this.firstNames = this.lastName = this.stageName = '';
     this.person = new Person();
@@ -128,7 +127,7 @@ export class EditArtistComponent implements OnInit {
         console.log(res);
         this.artistActivityList = res;
       }
-    )
+    );
 
     this.isEditSelected = true;
     this.isBirthPlaceClicked = false;
@@ -168,21 +167,21 @@ export class EditArtistComponent implements OnInit {
       }
     );
   }
-  
+
   update() {
-    if( this.firstNames === this.selectedArtist.firstNames && this.lastName === this.selectedArtist.lastName && this.birthDate !== null && this.birthDate === this.selectedArtist.birthDate && this.deathDate !== null && this.deathDate === this.selectedArtist.deathDate) {
+    if ( this.firstNames === this.selectedArtist.firstNames && this.lastName === this.selectedArtist.lastName && this.birthDate !== null && this.birthDate === this.selectedArtist.birthDate && this.deathDate !== null && this.deathDate === this.selectedArtist.deathDate) {
       window.alert('You need to do some changes before update');
     } else {
       this.person.id = this.selectedArtist.id;
       this.person.setFirstNames(this.firstNames);
       this.person.setLastName(this.lastName);
-      if(this.birthDate) {
+      if (this.birthDate) {
         this.person.setBirthDate(this.birthDate);
       }
-      if(this.deathDate) {
+      if (this.deathDate) {
         this.person.setDeathDate(this.deathDate);
       }
-      if(this.isArtist) {
+      if (this.isArtist) {
 
         this.artist = new Artist(this.person);
         this.artist.setStageName(this.stageName);
@@ -194,7 +193,7 @@ export class EditArtistComponent implements OnInit {
 
             this.instrumentList.forEach(el => {
 
-              if(this.toDeleteInstruments.indexOf(el.id) === -1){
+              if (this.toDeleteInstruments.indexOf(el.id) === -1) {
               el.artist = this.artist;
               this.artistInstrumentService.edit(el).subscribe(
                 res => {
@@ -213,7 +212,7 @@ export class EditArtistComponent implements OnInit {
             this.artistActivityList.forEach(
               el => {
 
-                if(this.toDeleteActivities.indexOf(el.id) === -1){
+                if (this.toDeleteActivities.indexOf(el.id) === -1) {
                 el.artist = this.artist;
                 this.artistActivityService.edit(el).subscribe(
                   res => {
@@ -230,7 +229,7 @@ export class EditArtistComponent implements OnInit {
             this.toDeleteActivities.forEach(el => {
               this.artistActivityService.delete(el).subscribe(
                 el => {
-                  console.log("deleted");
+                  console.log('deleted');
                 }
               );
             });
@@ -238,7 +237,7 @@ export class EditArtistComponent implements OnInit {
             this.toDeleteInstruments.forEach(el => {
               this.artistInstrumentService.delete(el).subscribe(
                 el => {
-                  console.log("deleted");
+                  console.log('deleted');
                 }
               );
             });
@@ -248,7 +247,7 @@ export class EditArtistComponent implements OnInit {
             this.reset();
           },
           err => {
-            window.alert('Error has occured');
+            window.alert('Error has occurred');
           }
         );
 
@@ -259,13 +258,13 @@ export class EditArtistComponent implements OnInit {
           this.reset();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
       }
     }
   }
-  
+
   reset() {
     this.firstNames = this.lastName = this.stageName = '';
     this.person = new Person();
@@ -278,8 +277,8 @@ export class EditArtistComponent implements OnInit {
   }
 
 
-  addRole(artistActivity: ArtistActivity){
-    if(artistActivity.tempRole !== '') {
+  addRole(artistActivity: ArtistActivity) {
+    if (artistActivity.tempRole !== '') {
       this.roles = artistActivity.roles;
       this.roles.push(artistActivity.tempRole);
       artistActivity.roles = this.roles;

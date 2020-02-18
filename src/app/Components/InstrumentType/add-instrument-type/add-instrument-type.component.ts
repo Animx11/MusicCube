@@ -9,9 +9,9 @@ import { InstrumentTypeService } from 'src/app/Services/instrument-type.service'
 })
 export class AddInstrumentTypeComponent implements OnInit {
 
-  private instrumentType: InstrumentType;
-  private instrumentTypeName: string;
-  private aboutType: string;
+  instrumentType: InstrumentType;
+  instrumentTypeName: string;
+  aboutType: string;
 
   constructor(private instrumentTypeService: InstrumentTypeService) { }
 
@@ -23,7 +23,7 @@ export class AddInstrumentTypeComponent implements OnInit {
 
   addInstrumentType() {
     if (this.instrumentTypeName === '') {
-      window.alert('Incomplete input')
+      window.alert('Incomplete input');
     } else {
       this.instrumentType.setInstrumentTypeName(this.instrumentTypeName);
       this.instrumentType.setAboutType(this.aboutType);

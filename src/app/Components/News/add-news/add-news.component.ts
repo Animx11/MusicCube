@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { News } from 'src/app/Class/news';
+import { News } from 'src/app/Class/News';
 import { NewsService } from 'src/app/Services/news.service';
 import { TokenStorageService } from 'src/app/Services/token-storage.service';
 
@@ -10,10 +10,10 @@ import { TokenStorageService } from 'src/app/Services/token-storage.service';
 })
 export class AddNewsComponent implements OnInit {
 
-  private news: News;
-  private newsTitle: string;
-  private content: string;
-  private imageUrl: string;
+  news: News;
+  newsTitle: string;
+  content: string;
+  imageUrl: string;
 
   constructor(
     private newsService: NewsService,
@@ -26,7 +26,7 @@ export class AddNewsComponent implements OnInit {
     this.imageUrl = '';
   }
 
-  addNews(){
+  addNews() {
     this.news.setNewsTitle(this.newsTitle);
     this.news.setNewsContent(this.content);
     this.news.setNewsImage(this.imageUrl);
@@ -34,16 +34,16 @@ export class AddNewsComponent implements OnInit {
 
     this.newsService.create(this.news).subscribe(
       res => {
-        console.log("add-news-component received:");
+        console.log('add-news-component received:');
         console.log(res);
-        window.alert("News added");
+        window.alert('News added');
         this.ngOnInit();
       },
       err => {
-        window.alert("Error occured");
+        window.alert('Error occurred');
         console.error(err);
       }
-    )
+    );
 
   }
 

@@ -10,14 +10,14 @@ import { Country } from 'src/app/Class/Country';
 })
 export class EditCityComponent implements OnInit {
 
-  private selectedCity: City;
-  private isEditSelected: boolean;
+  selectedCity: City;
+  isEditSelected: boolean;
 
-  private city: City;
-  private cityName: string;
+  city: City;
+  cityName: string;
 
-  private isCountryClicked: boolean;
-  private isCountrySelected: boolean;
+  isCountryClicked: boolean;
+  isCountrySelected: boolean;
 
   constructor(private cityService: CityService) { }
 
@@ -56,13 +56,13 @@ export class EditCityComponent implements OnInit {
         this.reset();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }
 
   update() {
-    if(this.cityName === this.selectedCity.cityName && this.city.getCountry() === this.selectedCity.country) {
+    if (this.cityName === this.selectedCity.cityName && this.city.getCountry() === this.selectedCity.country) {
       window.alert('You need to do some changes before update');
     } else {
       this.city.id = this.selectedCity.id;
@@ -73,7 +73,7 @@ export class EditCityComponent implements OnInit {
           this.reset();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
     }

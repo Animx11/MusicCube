@@ -9,21 +9,21 @@ import { Concert } from 'src/app/Class/Concert';
 })
 export class EditConcertComponent implements OnInit {
 
-  private selectedConcert: Concert;
+  selectedConcert: Concert;
 
-  private concert: Concert;
-  private concertName: string;
-  private startTime: Date;
-  private hour: number;
-  private minutes: number;
+  concert: Concert;
+  concertName: string;
+  startTime: Date;
+  hour: number;
+  minutes: number;
 
-  private comparedDate: Date;
+  comparedDate: Date;
 
-  private dateString: string[];
+  dateString: string[];
 
-  private isCityClicked: boolean;
-  private isCitySelected: boolean;
-  private isEditSelected: boolean;
+  isCityClicked: boolean;
+  isCitySelected: boolean;
+  isEditSelected: boolean;
 
 
   constructor(private concertService: ConcertService) { }
@@ -48,13 +48,13 @@ export class EditConcertComponent implements OnInit {
   }
 
 
-  searchCity(){
+  searchCity() {
     this.isCityClicked = true;
   }
 
-  makeDate(){
-    if(this.startTime !== null && this.hour !== null && this.minutes !== null){
-      this.dateString = this.startTime.toString().split("-");
+  makeDate() {
+    if (this.startTime !== null && this.hour !== null && this.minutes !== null) {
+      this.dateString = this.startTime.toString().split('-');
       this.startTime = new Date(
         parseInt(this.dateString[0]), parseInt(this.dateString[1]) - 1, parseInt(this.dateString[2]),
         this.hour, this.minutes
@@ -85,7 +85,7 @@ export class EditConcertComponent implements OnInit {
 
   update() {
     this.makeDate();
-    if(this.concertName === this.selectedConcert.concertName && this.concert.getConcertCity() === this.selectedConcert.concertCity && this.startTime === this.selectedConcert.startTime) {
+    if (this.concertName === this.selectedConcert.concertName && this.concert.getConcertCity() === this.selectedConcert.concertCity && this.startTime === this.selectedConcert.startTime) {
       window.alert('You need to do some changes before update');
     } else {
       this.concert.id = this.selectedConcert.id;

@@ -15,30 +15,30 @@ import { ArtistActivityService } from 'src/app/Services/artist-activity.service'
   styleUrls: ['./add-artist.component.css']
 })
 export class AddArtistComponent implements OnInit {
-  private person: Person;
-  private artist: Artist;
-  private firstNames: string;
-  private lastName: string;
-  private stageName: string;
-  private birthDate: Date;
-  private deathDate: Date;
-  private isArtist: boolean;
-  private isBirthPlaceClicked: boolean;
-  private isBirthPlaceSelected: boolean;
+  person: Person;
+  artist: Artist;
+  firstNames: string;
+  lastName: string;
+  stageName: string;
+  birthDate: Date;
+  deathDate: Date;
+  isArtist: boolean;
+  isBirthPlaceClicked: boolean;
+  isBirthPlaceSelected: boolean;
 
-  private role: string;
-  private roles: string[];
+  role: string;
+  roles: string[];
 
-  private isBandClicked: boolean;
+  isBandClicked: boolean;
 
-  private isInstrumentClicked: boolean;
-  private isArtistActivityClicked: boolean;
+  isInstrumentClicked: boolean;
+  isArtistActivityClicked: boolean;
 
-  private instrumentList: ArtistInstrument[];
-  private artistInstrument: ArtistInstrument;
+  instrumentList: ArtistInstrument[];
+  artistInstrument: ArtistInstrument;
 
-  private artistActivityList: ArtistActivity[];
-  private artistActivity: ArtistActivity;
+  artistActivityList: ArtistActivity[];
+  artistActivity: ArtistActivity;
 
   constructor(
     private artistService: ArtistService,
@@ -59,7 +59,7 @@ export class AddArtistComponent implements OnInit {
 
   }
 
-  searchBirthPlace(){
+  searchBirthPlace() {
     this.isBirthPlaceClicked = true;
   }
 
@@ -105,7 +105,7 @@ export class AddArtistComponent implements OnInit {
       this.firstNames === '' ||
       this.lastName === '' ||
       this.birthDate == null ||
-      this.person.getOrigin() === null 
+      this.person.getOrigin() === null
     ) {
       window.alert('Incomplete input');
     } else {
@@ -113,7 +113,7 @@ export class AddArtistComponent implements OnInit {
       this.person.setLastName(this.lastName);
       this.person.setBirthDate(this.birthDate);
       this.person.setDeathDate(this.deathDate);
-      if(this.isArtist){
+      if (this.isArtist) {
         this.artist = new Artist(this.person);
         this.artist.setStageName(this.stageName);
         this.artistService.create(this.artist).subscribe(
@@ -123,7 +123,7 @@ export class AddArtistComponent implements OnInit {
             window.alert('Artist added');
 
             // Dodawanie instrumentów
-            
+
             this.instrumentList.forEach(el => {
               el.setArtist(res);
               this.artistInstrumentService.create(el).subscribe(
@@ -157,13 +157,12 @@ export class AddArtistComponent implements OnInit {
             this.ngOnInit();
           },
           err => {
-            window.alert('Error occured');
+            window.alert('Error occurred');
             console.error(err);
           }
         );
 
-      }
-      else{
+      } else {
         this.personService.create(this.person).subscribe(
           res => {
             console.log('add-artist-component received person:');
@@ -172,7 +171,7 @@ export class AddArtistComponent implements OnInit {
             this.ngOnInit();
           },
           err => {
-            window.alert('Error occured');
+            window.alert('Error occurred');
             console.error(err);
           }
         );
@@ -180,8 +179,8 @@ export class AddArtistComponent implements OnInit {
     }
   }
 
-  addRole(artistActivity: ArtistActivity){
-    if(artistActivity.tempRole !== '') {
+  addRole(artistActivity: ArtistActivity) {
+    if (artistActivity.tempRole !== '') {
       this.roles = artistActivity.getRoles();
       this.roles.push(artistActivity.tempRole);
       artistActivity.setRoles(this.roles);

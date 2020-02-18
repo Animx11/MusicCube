@@ -29,17 +29,16 @@ export class DisplaySongComponent implements OnInit {
 
   genre: Genre;
 
-
-  private isLogged: boolean;
-  private isFavorite: boolean;
-  private isRated: boolean;
-  private isMusicVideo: boolean;
+  isLogged: boolean;
+  isFavorite: boolean;
+  isRated: boolean;
+  isMusicVideo: boolean;
   isListened: boolean;
   isToListen: boolean;
 
-  private selectOption: string;
+  selectOption: string;
 
-  private commentContent: string;
+  commentContent: string;
   userName: string;
 
 
@@ -104,10 +103,10 @@ export class DisplaySongComponent implements OnInit {
     this.songService.getById(id).subscribe(
       res => {
         this.song = new Song(res);
-        if(this.song.getMusicVideoUrl() !== '' || this.song.getMusicVideoUrl() !== null) {
+        if (this.song.getMusicVideoUrl() !== '' || this.song.getMusicVideoUrl() !== null) {
           this.isMusicVideo = true;
         }
-        if(this.song.getGenre() === null){
+        if (this.song.getGenre() === null) {
           this.genre = new Genre();
           this.song.setGenre(this.genre);
         }
@@ -135,7 +134,7 @@ export class DisplaySongComponent implements OnInit {
         res => {
           this.rate = new Rate(res);
           this.isRated = true;
-          console.log('New score was setted');
+          console.log('New score was set');
         },
         err => {
           console.error('Error has occurred');
@@ -168,7 +167,7 @@ export class DisplaySongComponent implements OnInit {
     } else {
       this.favoriteListsService.addSongToFavorites(this.userName, id).subscribe(
         res => {
-          console.log('Song succesfully added to favorite');
+          console.log('Song successfully added to favorite');
         },
         err => {
           console.error('Error has occurred');
@@ -220,7 +219,7 @@ export class DisplaySongComponent implements OnInit {
         window.location.reload();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }

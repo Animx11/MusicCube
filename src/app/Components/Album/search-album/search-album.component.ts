@@ -12,7 +12,7 @@ import { Album } from 'src/app/Class/Album';
 export class SearchAlbumComponent implements OnInit {
 
   albums$: Observable<Album[]>;
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() albumEvent = new EventEmitter<Album>();
   @Output() searchEvent = new EventEmitter();

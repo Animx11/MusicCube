@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Country } from 'src/app/Class/Country';
 import { CountryService } from 'src/app/Services/country.service';
-import { EditConcertDetailsComponent } from '../../Concert/edit-concert/edit-concert-details/edit-concert-details.component';
 
 @Component({
   selector: 'app-edit-country',
@@ -10,13 +9,13 @@ import { EditConcertDetailsComponent } from '../../Concert/edit-concert/edit-con
 })
 export class EditCountryComponent implements OnInit {
 
-  private selectedCountry: Country;
-  private isEditSelected: boolean;
+  selectedCountry: Country;
+  isEditSelected: boolean;
 
-  private countryName: string;
-  private code: string;
+  countryName: string;
+  code: string;
 
-  private country: Country;
+  country: Country;
 
   constructor(private countryService: CountryService) {}
 
@@ -41,13 +40,13 @@ export class EditCountryComponent implements OnInit {
         this.reset();
       },
       err => {
-        window.alert('Error has occured');
+        window.alert('Error has occurred');
       }
     );
   }
 
   update() {
-    if(this.countryName === this.selectedCountry.countryName && this.code === this.selectedCountry.code) {
+    if (this.countryName === this.selectedCountry.countryName && this.code === this.selectedCountry.code) {
       window.alert('You need to do some changes before update');
     } else {
       this.country = new Country();
@@ -60,7 +59,7 @@ export class EditCountryComponent implements OnInit {
           this.reset();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
     }

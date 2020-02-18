@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Artist} from '../../../Class/Artist';
 import {Album} from '../../../Class/Album';
 import {Band} from '../../../Class/Band';
-import {Genre} from '../../../Class/Genre';
 import {Song} from '../../../Class/Song';
-import {Instrument} from '../../../Class/Instrument';
 
 @Component({
   selector: 'app-advanced-search',
@@ -13,19 +11,17 @@ import {Instrument} from '../../../Class/Instrument';
 })
 export class AdvancedSearchComponent implements OnInit {
 
-  private artists: boolean;
-  private bands: boolean;
-  private albums: boolean;
-  private songs: boolean;
-  private genres: boolean;
-  private instruments: boolean;
+  artists: boolean;
+  bands: boolean;
+  albums: boolean;
+  songs: boolean;
+  genres: boolean;
+  instruments: boolean;
 
   private foundArtists: Artist[];
   private foundBands: Band[];
   private foundAlbums: Album[]
   private foundSongs: Song[];
-  private foundGenres: Genre[];
-  private foundInstruments: Instrument[];
 
   constructor() {
     this.artists = true;
@@ -48,17 +44,10 @@ export class AdvancedSearchComponent implements OnInit {
         this.albums = true;
         this.bands = this.artists = this.songs = this.genres = this.instruments = false;
         break;
-      case 'songRatingDtos':
+      case 'songs':
         this.songs = true;
         this.bands = this.albums = this.artists = this.genres = this.instruments = false;
         break;
-      case 'genres':
-        this.genres = true;
-        this.bands = this.albums = this.songs = this.artists = this.instruments = false;
-        break;
-      case 'instruments':
-        this.instruments = true;
-        this.bands = this.albums = this.songs = this.genres = this.artists = false;
     }
   }
 
@@ -73,12 +62,6 @@ export class AdvancedSearchComponent implements OnInit {
   }
   songSearchHandler($event) {
     this.foundSongs = $event;
-  }
-  genreSearchHandler($event) {
-    this.foundGenres = $event;
-  }
-  instrumentSearchHandler($event) {
-    this.foundInstruments = $event;
   }
   noResultEventHandler($event) {
     window.alert(`No ${$event} found`);

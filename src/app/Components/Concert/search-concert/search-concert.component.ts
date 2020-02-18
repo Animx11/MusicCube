@@ -11,14 +11,14 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class SearchConcertComponent implements OnInit {
 
-  private searchOn: boolean;
-  private listOn: boolean;
-  private reachedLastPage: boolean;
-  private pageCount: number;
+  searchOn: boolean;
+  listOn: boolean;
+  reachedLastPage: boolean;
+  pageCount: number;
 
   concerts$: Observable<Concert[]>;
   concertPage: Concert[];
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() concertEvent = new EventEmitter<Concert>();
   @Output() searchEvent = new EventEmitter();

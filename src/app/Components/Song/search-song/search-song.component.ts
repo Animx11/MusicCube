@@ -13,7 +13,7 @@ export class SearchSongComponent implements OnInit {
 
   songs$: Observable<Song[]>;
   songPage: Song[];
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   public isToEditSelected: boolean;
 

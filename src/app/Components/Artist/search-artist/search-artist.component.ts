@@ -14,15 +14,15 @@ import { Person } from 'src/app/Class/Person';
 export class SearchArtistComponent implements OnInit {
 
 
-  private searchOn: boolean;
-  private listOn: boolean;
-  private reachedLastPage: boolean;
-  private pageCount: number;
+  searchOn: boolean;
+  listOn: boolean;
+  reachedLastPage: boolean;
+  pageCount: number;
 
 
   persons$: Observable<Artist[]>;
   personPage: Artist[];
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() artistEvent = new EventEmitter<Artist>();
   @Output() searchEvent = new EventEmitter();

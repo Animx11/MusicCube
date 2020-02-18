@@ -10,15 +10,15 @@ import { BandService } from 'src/app/Services/band.service';
   styleUrls: ['./add-band.component.css']
 })
 export class AddBandComponent implements OnInit {
-  private band: Band;
+  band: Band;
 
-  private bandName: string;
-  private creationYear: Date;
+  bandName: string;
+  creationYear: Date;
 
-  private isCityClicked: boolean;
+  isCityClicked: boolean;
 
 
-  private isCitySelected: boolean;
+  isCitySelected: boolean;
 
 
   constructor(private bandService: BandService) {}
@@ -31,7 +31,7 @@ export class AddBandComponent implements OnInit {
     this.isCitySelected = false;
   }
 
-  searchCity(){
+  searchCity() {
     this.isCityClicked = true;
   }
 
@@ -48,8 +48,7 @@ export class AddBandComponent implements OnInit {
       this.band.getFormedIn() === null
     ) {
       window.alert('Incomplete input');
-    }
-    else {
+    } else {
       this.band.setBandName(this.bandName);
       this.band.setCreationDate(new Date(`${this.creationYear}-01-01`));
 

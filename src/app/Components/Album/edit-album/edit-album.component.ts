@@ -8,20 +8,20 @@ import { Album } from 'src/app/Class/Album';
   styleUrls: ['./edit-album.component.css']
 })
 export class EditAlbumComponent implements OnInit {
-  private selectedAlbum: Album;
+  selectedAlbum: Album;
 
-  private album: Album;
-  private albumName: string;
-  private length: number;
-  private minutes: number;
-  private seconds: number;
-  private releaseDate: Date;
-  private company: string;
-  private toMandS: number;
-  private covertArtLink: string;
-  private type: string;
+  album: Album;
+  albumName: string;
+  length: number;
+  minutes: number;
+  seconds: number;
+  releaseDate: Date;
+  company: string;
+  toMandS: number;
+  covertArtLink: string;
+  type: string;
 
-  private isEditSelected: boolean;
+  isEditSelected: boolean;
 
 
   constructor(private albumService: AlbumService) {}
@@ -33,9 +33,9 @@ export class EditAlbumComponent implements OnInit {
     this.seconds = 0;
     this.length = 0;
     this.releaseDate = null;
-    this.company = "";
-    this.covertArtLink = "";
-    this.type = "";
+    this.company = '';
+    this.covertArtLink = '';
+    this.type = '';
   }
 
   albumEventHandler($event) {
@@ -85,7 +85,7 @@ export class EditAlbumComponent implements OnInit {
 
   update() {
     this.albumLengthInSeconds();
-    if(this.albumName === this.selectedAlbum.albumName && this.releaseDate === this.selectedAlbum.releaseDate && this.length === this.selectedAlbum.albumLengthSeconds && this.company === this.selectedAlbum.company && this.covertArtLink === this.selectedAlbum.coverArtLink && this.type === this.selectedAlbum.type) {
+    if (this.albumName === this.selectedAlbum.albumName && this.releaseDate === this.selectedAlbum.releaseDate && this.length === this.selectedAlbum.albumLengthSeconds && this.company === this.selectedAlbum.company && this.covertArtLink === this.selectedAlbum.coverArtLink && this.type === this.selectedAlbum.type) {
       window.alert('You need to do some changes before update');
     } else {
       this.album.id = this.selectedAlbum.id;
@@ -94,7 +94,7 @@ export class EditAlbumComponent implements OnInit {
       this.album.setAlbumLengthSeconds(this.length);
       this.album.setType(this.type);
       this.album.setCoverArtLink(this.covertArtLink);
-      if (this.releaseDate){
+      if (this.releaseDate) {
         this.album.setReleaseDate(this.releaseDate);
       }
       this.albumService.edit(this.album).subscribe(

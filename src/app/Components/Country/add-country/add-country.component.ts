@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { Country } from "src/app/Class/Country";
+import { Component, OnInit } from '@angular/core';
+import { Country } from 'src/app/Class/Country';
 import { CountryService } from 'src/app/Services/country.service';
 
 @Component({
@@ -9,11 +9,10 @@ import { CountryService } from 'src/app/Services/country.service';
 })
 export class AddCountryComponent implements OnInit {
 
+  country: Country;
 
-  private country: Country;
-
-  private countryName: string;
-  private code: string;
+  countryName: string;
+  code: string;
 
   constructor(private countryService: CountryService) {}
 
@@ -26,8 +25,7 @@ export class AddCountryComponent implements OnInit {
   addCountry() {
     if (this.countryName === '' || this.code === '') {
       window.alert('Incomplete input');
-    }
-    else {
+    } else {
       this.country.setCountryName(this.countryName);
       this.country.setCode(this.code);
       this.countryService.create(this.country).subscribe(
@@ -42,7 +40,7 @@ export class AddCountryComponent implements OnInit {
           console.error(err);
           window.alert('Error occurred');
         }
-      )
+      );
     }
   }
 }

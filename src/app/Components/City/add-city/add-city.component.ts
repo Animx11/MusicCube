@@ -10,11 +10,11 @@ import { Country } from 'src/app/Class/Country';
 })
 export class AddCityComponent implements OnInit {
 
-  private city: City;
-  private cityName: string;
+  city: City;
+  cityName: string;
 
-  private isCountryClicked: boolean;
-  private isCountrySelected: boolean;
+  isCountryClicked: boolean;
+  isCountrySelected: boolean;
 
   constructor(private cityService: CityService) { }
 

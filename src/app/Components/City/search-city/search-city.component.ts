@@ -12,14 +12,14 @@ import { City } from 'src/app/Class/City';
 export class SearchCityComponent implements OnInit {
 
 
-  private searchOn: boolean;
-  private listOn: boolean;
-  private reachedLastPage: boolean;
-  private pageCount: number;
+  searchOn: boolean;
+  listOn: boolean;
+  reachedLastPage: boolean;
+  pageCount: number;
 
   cities$: Observable<City[]>;
   cityPage: City[];
-  private searchTerms = new Subject<string>();
+  searchTerms = new Subject<string>();
 
   @Output() cityEvent = new EventEmitter<City>();
   @Output() searchEvent = new EventEmitter();

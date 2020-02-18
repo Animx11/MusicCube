@@ -9,17 +9,17 @@ import { InstrumentTypeService } from 'src/app/Services/instrument-type.service'
 })
 export class EditInstrumentTypeComponent implements OnInit {
 
-  private selectedInstrumentType: InstrumentType;
+  selectedInstrumentType: InstrumentType;
 
-  private instrumentType: InstrumentType;
-  private instrumentTypeName: string;
-  private aboutType: string;
+  instrumentType: InstrumentType;
+  instrumentTypeName: string;
+  aboutType: string;
 
-  private isEditSelected: boolean;
+  isEditSelected: boolean;
 
-  private isInstrumentTypeClicked: boolean;
-  private isInstrumentTypeSelected: boolean;
-  
+  isInstrumentTypeClicked: boolean;
+  isInstrumentTypeSelected: boolean;
+
 
   constructor(private instrumentTypeService: InstrumentTypeService) { }
 
@@ -55,7 +55,7 @@ export class EditInstrumentTypeComponent implements OnInit {
   }
 
   update() {
-    if(this.instrumentTypeName === this.selectedInstrumentType.instrumentTypeName && this.aboutType === this.selectedInstrumentType.aboutType) {
+    if (this.instrumentTypeName === this.selectedInstrumentType.instrumentTypeName && this.aboutType === this.selectedInstrumentType.aboutType) {
       window.alert('You need to do some changes before update');
     } else {
       this.instrumentType.id = this.selectedInstrumentType.id;
@@ -67,10 +67,10 @@ export class EditInstrumentTypeComponent implements OnInit {
           this.reset();
         },
         err => {
-          window.alert('Error has occured');
+          window.alert('Error has occurred');
         }
       );
-      
+
     }
   }
 
