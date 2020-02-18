@@ -46,4 +46,5 @@ public class RankingController {
     public List<RankingDto> getTopAlbums(@RequestParam(name = "size") int size) {
         return size > 0 ? rateService.getBestRated(RankingConstants.ALBUM,size) : new ArrayList<>();
     }
+
 }
