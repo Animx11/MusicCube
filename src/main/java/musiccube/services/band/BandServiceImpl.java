@@ -156,6 +156,7 @@ public class BandServiceImpl implements BandService {
                     .map(Band::getId)
                     .collect(Collectors.toSet())
             );
+            sameEra.remove(band.getId());
         }
     }
 
@@ -177,6 +178,7 @@ public class BandServiceImpl implements BandService {
                     )
             );
         }
+        sameGenres.remove(bandId);
     }
 
     private void findBandsFromSameCountry(Band band, HashSet<Integer> sameCountry) {
@@ -185,6 +187,7 @@ public class BandServiceImpl implements BandService {
                 .map(Band::getId)
                 .collect(Collectors.toSet())
         );
+        sameCountry.remove(band.getId());
     }
 
     private void findBandsFromSameCity(Band band, HashSet<Integer> sameCity) {
@@ -193,5 +196,6 @@ public class BandServiceImpl implements BandService {
                 .map(Band::getId)
                 .collect(Collectors.toSet())
         );
+        sameCity.remove(band.getId());
     }
 }
