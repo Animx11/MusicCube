@@ -1,15 +1,22 @@
 package musiccube.services.band;
 
+import musiccube.advancedsearchv2.BandParamInterpreter;
 import musiccube.entities.Album;
 import musiccube.entities.Band;
 import musiccube.entities.Genre;
+import musiccube.entities.Rate;
 import musiccube.recommendations.RecommendationsIdListBuilder;
 import musiccube.repositories.BandRepository;
 import musiccube.repositories.RateRepository;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -21,6 +28,9 @@ public class BandServiceImpl implements BandService {
     private BandRepository bandRepository;
     @Autowired
     private RateRepository rateRepository;
+    private Logger logger = Logger.getLogger(BandServiceImpl.class);
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
     public Optional<Band> getById(int id) {
@@ -98,14 +108,23 @@ public class BandServiceImpl implements BandService {
         }
     }
 
+
     @Override
     public Iterable<Band> getSimilar(int bandId, int limit, Optional<String> userName) {
         List<Band> results = new ArrayList<>();
-        List<Set<Integer>> idSets = new ArrayList<>();
 
         Band band = getById(bandId).orElse(null);
         if (band == null) return results;
 
+        List<Integer> ids = getSimilarBandsIds(band, limit, userName);
+
+        results = (List<Band>) bandRepository.findAllById(ids);
+
+        return results;
+    }
+
+    private List<Integer> getSimilarBandsIds(Band band, int limit, Optional<String> userName) {
+        List<Set<Integer>> idSets = new ArrayList<>();
         HashSet<Integer> sameCity = new HashSet<>();
         HashSet<Integer> sameCountry =  new HashSet<>();
         HashSet<Integer> sameGenres = new HashSet<>();
@@ -113,7 +132,7 @@ public class BandServiceImpl implements BandService {
 
         findBandsSameArea(band, sameCity, sameCountry);
 
-        findBandsWithSameGenres(bandId, sameGenres);
+        findBandsWithSameGenres(band, sameGenres);
 
         findBandsSameEra(band, sameEra);
 
@@ -127,22 +146,60 @@ public class BandServiceImpl implements BandService {
         idSets.add(sameGenres);
         idSets.add(sameEra);
 
-        List<Integer> ids = RecommendationsIdListBuilder.build(idSets,limit);
+        return RecommendationsIdListBuilder.build(idSets,limit);
+    }
 
-        results = (List<Band>) bandRepository.findAllById(ids);
+    @Override
+    public Iterable<Band> getRecommended(String userName, int limit) {
+        List<Rate> rates = (List<Rate>) rateRepository.findByUserUserNameAndBandIsNotNull(userName);
+        logger.info("user rated "+rates.size()+" bands");
+        Set<Integer> recommendedSet = new HashSet<>();
+        rates.stream()
+                .filter(rate -> rate.getRate() > 5)
+                .map(rate -> rate.getBand().getId())
+                .forEach(id -> {
+                    logger.info("looking for bands similar to "+id);
+                    Optional<Band> band = bandRepository.findById(id);
+                    band.ifPresent(band1 -> recommendedSet.addAll(getSimilarBandsIds(band1, limit, Optional.of(userName))));
+                });
+        List<Integer> recommendedList = new ArrayList<>(recommendedSet);
+        logger.info(recommendedList);
+        Random random = new Random();
+        while (recommendedList.size() > limit) {
+            recommendedList.remove(random.nextInt(recommendedList.size()));
+        }
+        return bandRepository.findAllById(recommendedList);
+    }
 
-        return results;
+    @Override
+    public Iterable<Band> advanced(Map<String, String> params) {
+        SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+        BandParamInterpreter interpreter;
+        Query<Band> query;
+        try (Session session = sessionFactory.openSession()) {
+
+            interpreter = new BandParamInterpreter(params);
+            query = session.createQuery(interpreter.getQuery().toString());
+            HashMap<String,Object> queryParams = interpreter.getQueryParams();
+
+            for (Map.Entry<String,Object> entry : queryParams.entrySet()) {
+                query.setParameter(entry.getKey(),entry.getValue());
+            }
+
+            return query.list();
+        }
     }
 
     private void removeAlreadyRated(HashSet<Integer> sameCity, HashSet<Integer> sameCountry, HashSet<Integer> sameGenres, HashSet<Integer> sameEra, String user) {
         Collection<Integer> ratedIds = (Collection<Integer>) rateRepository.findBandIdsByUserName(user);
-        sameCity.retainAll(ratedIds);
-        sameCountry.retainAll(ratedIds);
-        sameGenres.retainAll(ratedIds);
-        sameEra.retainAll(ratedIds);
+        sameCity.removeAll(ratedIds);
+        sameCountry.removeAll(ratedIds);
+        sameGenres.removeAll(ratedIds);
+        sameEra.removeAll(ratedIds);
     }
 
     private void findBandsSameEra(Band band, HashSet<Integer> sameEra) {
+        System.out.println(band.getId());
         if (band.getCreationDate() != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(band.getCreationDate());
@@ -156,6 +213,8 @@ public class BandServiceImpl implements BandService {
                     .map(Band::getId)
                     .collect(Collectors.toSet())
             );
+            sameEra.remove(band.getId());
+            System.out.println(sameEra.toString());
         }
     }
 
@@ -166,8 +225,8 @@ public class BandServiceImpl implements BandService {
         }
     }
 
-    private void findBandsWithSameGenres(int bandId, HashSet<Integer> sameGenres) {
-        ArrayList<Genre> genres = (ArrayList<Genre>)(getBandGenres(bandId));
+    private void findBandsWithSameGenres(Band band, HashSet<Integer> sameGenres) {
+        ArrayList<Genre> genres = (ArrayList<Genre>)(getBandGenres(band.getId()));
         if (! genres.isEmpty()) {
             genres.forEach(
                     genre -> sameGenres.addAll(
@@ -177,6 +236,7 @@ public class BandServiceImpl implements BandService {
                     )
             );
         }
+        sameGenres.remove(band.getId());
     }
 
     private void findBandsFromSameCountry(Band band, HashSet<Integer> sameCountry) {
@@ -185,6 +245,7 @@ public class BandServiceImpl implements BandService {
                 .map(Band::getId)
                 .collect(Collectors.toSet())
         );
+        sameCountry.remove(band.getId());
     }
 
     private void findBandsFromSameCity(Band band, HashSet<Integer> sameCity) {
@@ -193,5 +254,6 @@ public class BandServiceImpl implements BandService {
                 .map(Band::getId)
                 .collect(Collectors.toSet())
         );
+        sameCity.remove(band.getId());
     }
 }

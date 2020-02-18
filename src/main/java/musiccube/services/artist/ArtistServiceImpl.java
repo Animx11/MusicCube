@@ -4,12 +4,15 @@ import musiccube.entities.Artist;
 import musiccube.entities.ArtistActivity;
 import musiccube.repositories.ArtistActivityRepository;
 import musiccube.repositories.ArtistRepository;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,6 +23,8 @@ public class ArtistServiceImpl implements ArtistService{
     private ArtistRepository artistRepository;
     @Autowired
     ArtistActivityRepository activityRepository;
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
     public Optional<Artist> getById(int id) {
@@ -109,5 +114,11 @@ public class ArtistServiceImpl implements ArtistService{
             return artistRepository.findByInstrument(instrumentId.get());
         }
         return new ArrayList<>();
+    }
+
+    @Override
+    public Iterable<Artist> advanced(Map<String, String> params) {
+        SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+        return null;
     }
 }

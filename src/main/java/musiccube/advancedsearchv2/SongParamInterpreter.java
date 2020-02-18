@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SongParamInterpreter extends AbstractParamInterpreter {
-    private SearchDecoratorFactory factory;
 
     public SongParamInterpreter(Map<String,String> params) {
         super(params);

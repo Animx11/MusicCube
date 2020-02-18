@@ -2,6 +2,7 @@ package musiccube.services.artist;
 
 import musiccube.entities.Artist;
 
+import java.util.Map;
 import java.util.Optional;
 
 public interface ArtistService {
@@ -26,4 +27,5 @@ public interface ArtistService {
             Optional<Integer> instrument
     );
 
+    Iterable<Artist> advanced(Map<String, String> params);
 }

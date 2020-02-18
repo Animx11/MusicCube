@@ -4,6 +4,7 @@ import musiccube.entities.Album;
 import musiccube.entities.Band;
 import musiccube.entities.Genre;
 
+import java.util.Map;
 import java.util.Optional;
 
 public interface BandService {
@@ -35,4 +36,8 @@ public interface BandService {
     Iterable<Band> advancedSearch(int cityId, int countryId, String genre);
 
     Iterable<Band> getSimilar(int bandId, int limit, Optional<String> userName);
+
+    Iterable<Band> getRecommended(String userName, int limit);
+
+    Iterable<Band> advanced(Map<String, String> params);
 }

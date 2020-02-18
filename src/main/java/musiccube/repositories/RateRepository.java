@@ -78,6 +78,8 @@ public interface RateRepository extends CrudRepository<Rate, Integer>, PagingAnd
                     "ORDER BY avgrate DESC"
     )
     List<RankingDto> findBestRatedArtists(Pageable pageable);
+
+    Iterable<Rate> findByUserUserNameAndBandIsNotNull(String userName);
     
 
 }

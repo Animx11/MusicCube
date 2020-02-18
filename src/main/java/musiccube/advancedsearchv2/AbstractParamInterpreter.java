@@ -7,6 +7,8 @@ abstract class AbstractParamInterpreter {
     protected Map<String,String> params;
     protected int paramsCount;
     protected AbstractAdvancedSearch search;
+    protected SearchDecoratorFactory factory;
+
     protected AbstractParamInterpreter(Map<String,String> params) {
         this.params = params;
     }
