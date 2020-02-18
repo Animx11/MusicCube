@@ -35,4 +35,6 @@ public interface BandService {
     Iterable<Band> advancedSearch(int cityId, int countryId, String genre);
 
     Iterable<Band> getSimilar(int bandId, int limit, Optional<String> userName);
+
+    Iterable<Band> getRecommended(String userName, int limit);
 }
