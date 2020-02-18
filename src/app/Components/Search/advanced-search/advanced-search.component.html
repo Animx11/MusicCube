@@ -5,9 +5,9 @@
     <form>
      <i> Select what you are looking for: </i> 
       <select #categories id="categories" (change)="selectCat(categories.value)">
-        <option value="artists">Artists</option>
-        <option value="bands">Bands</option>
         <option value="songs">Songs</option>
+        <option value="bands">Bands</option>
+        <option value="artists">Artists</option>
       </select>
     </form>
   </div>
@@ -22,10 +22,17 @@
     <app-advanced-band
       *ngIf="bands"
       (bandSearchEvent)="bandSearchHandler($event)"
+      (clearEvent)="clearHandler($event)"
       (noResultEvent)="noResultEventHandler($event)"
+
     ></app-advanced-band>
 
-    <app-advanced-song *ngIf="songs" (songSearchEvent)="songSearchHandler($event)"></app-advanced-song>
+    <app-advanced-song
+      *ngIf="songs"
+      (songSearchEvent)="songSearchHandler($event)"
+      (clearEvent)="clearHandler($event)"
+      (noResultEvent)="noResultEventHandler($event)"
+    ></app-advanced-song>
   </div>
 
   <div id="search-result">

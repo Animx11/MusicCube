@@ -1,8 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Band} from '../../../Class/Band';
-import {Country} from '../../../Class/Country';
-import {City} from '../../../Class/City';
-import {Genre} from '../../../Class/Genre';
 import {BandService} from '../../../Services/band.service';
 
 @Component({
@@ -12,76 +9,107 @@ import {BandService} from '../../../Services/band.service';
 })
 export class AdvancedBandComponent implements OnInit {
 
-  isFromCity: boolean;
-  isFromCountry: boolean;
-  country: Country;
-  city: City;
-  genre: Genre;
   result: Band[];
 
   constructor(private service: BandService) {
-    this.isFromCity = true;
-    this.isFromCountry = false;
-    this.city = null;
-    this.country = null;
-    this.genre = null;
   }
   @Output() bandSearchEvent = new EventEmitter<Band[]>();
   @Output() noResultEvent = new EventEmitter<string>();
+  @Output() clearEvent = new EventEmitter<void>();
+
+  names: string;
+  newName: string;
+  nonames: string;
+  newNoName: string;
+  yearAfter: number;
+  yearBefore: number;
+  countries: string;
+  newCountry: string;
+  nocountries: string;
+  newNoCountry: string;
+  genres: string;
+  newGenre: string;
   ngOnInit() {
-  }
-  toggleIsFrom(where: string) {
-    switch (where) {
-      case 'city':
-        this.isFromCity = true;
-        this.isFromCountry = false;
-        this.country = null;
-        break;
-      case 'country':
-        this.isFromCountry = true;
-        this.isFromCity = false;
-        this.city = null;
-    }
-  }
-  countryEvent($event) {
-    this.country = new Country($event);
-  }
-  cityEvent($event) {
-    this.city = new City($event);
-  }
-  genreEvent($event) {
-    this.genre = new Genre($event);
-  }
-  resetGenre() {
-    this.genre = null;
-  }
-  resetCity() {
-    this.city = null;
-  }
-  resetCountry() {
-    this.country = null;
+    this.clear();
   }
 
   search() {
-    if (this.city || this.country || this.genre) {
-      this.service.advancedSearch(this.city, this.country, this.genre).subscribe(
-        res => {
-          this.result = res.map(el => new Band(el));
-          console.log('Advanced band search received bands:', res);
-          if (this.result.length) {
-            this.bandSearchEvent.emit(this.result);
-          } else {
-            this.noResultEvent.emit('bands');
-          }
-        },
-        err => {
-          console.error(err);
-        }
-      );
-    } else {
-      window.alert('Provide at least one parameter');
+    let params: Map<string, string>;
+    params = new Map<string, string>();
+    if (this.names) {
+      params.set('name', this.names.slice(0, this.names.length - 1));
     }
+    if (this.nonames) {
+      params.set('noname', this.nonames.slice(0, this.names.length - 1));
+    }
+    if (this.yearAfter) {
+      // const date: Date = new Date(this.yearAfter, 0);
+      params.set('formedafter', this.yearAfter.toString());
+    }
+    if (this.yearBefore) {
+      // const date: Date = new Date(this.yearBefore, 0);
+      params.set('formedbefore', this.yearBefore.toString());
+    }
+    if (this.countries) {
+      params.set('country', this.countries);
+    }
+    if (this.nocountries) {
+      params.set('nocountry', this.nocountries);
+    }
+    if (this.genres) {
+      params.set('genre', this.genres);
+    }
+
+    this.service.advanced(params).subscribe(res => {
+      this.result = res.map(el => new Band(el));
+      if (this.result.length) {
+        this.bandSearchEvent.emit(this.result);
+      } else {
+        this.noResultEvent.emit('bands');
+      }
+    }, error1 => console.error(error1));
   }
 
 
+  addName() {
+    this.names += (this.newName + ',');
+    this.newName = '';
+  }
+
+  addNoName() {
+    this.nonames += (this.newNoName + ',');
+    this.newNoName = '';
+  }
+
+  addCountry() {
+    this.countries += (this.newCountry + ',');
+    this.newCountry = '';
+  }
+
+  addNoCountry() {
+    this.nocountries += (this.newNoCountry + ',');
+    this.newNoCountry = '';
+  }
+
+  addGenre() {
+    this.genres += (this.newGenre + ',');
+    this.newGenre = '';
+  }
+
+  clear() {
+    this.nonames =
+      this.names =
+        this.newGenre =
+          this.newNoCountry =
+            this.newCountry =
+              this.newGenre =
+                this.newNoName =
+                  this.newName =
+                    this.genres =
+                      this.nocountries =
+                        this.countries = '';
+    this.yearBefore = this.yearAfter = undefined;
+    this.result = [];
+    this.clearEvent.emit();
+  }
 }

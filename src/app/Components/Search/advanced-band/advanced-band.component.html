@@ -1,37 +1,28 @@
 
 <div class="searchContent">
-  <h3>Find band which:</h3>
-  <br>
-  
-    <div class="advSrcElement">
-      
-      <div class="optionSelectBox"><b>Is from </b></div>
-      <div class="optionSelectBox optionSelectBox2">
-        <form>
-          <select #isFrom (change)="toggleIsFrom(isFrom.value)">
-            <option value="city">city</option>
-            <option value="country">country</option>
-          </select>
-        </form>
-      </div>
-      <div class="optionSelectBox"><b>:</b> </div>
-  
-  
-      <span *ngIf="country && isFromCountry"> {{country.countryName}} </span>
-      <button *ngIf="country && isFromCountry" (click)="resetCountry()" class="advReset">Clear</button>
-      <span *ngIf="city && isFromCity"> {{city.cityName}} </span>
-      <button *ngIf="city && isFromCity" (click)="resetCity()" class="advReset">Clear</button>
-  
-      <app-search-country *ngIf="isFromCountry" (countryEvent)="countryEvent($event)"></app-search-country>
-      <app-search-city *ngIf="isFromCity" (cityEvent)="cityEvent($event)"></app-search-city>
-    </div>
-
-    <div class="advSrcElement">
-      <b>Is associated with genre:</b> <span *ngIf="genre">{{genre.genreName}}</span>
-      <button *ngIf="genre" (click)="resetGenre()" class="advReset">Clear</button>
-      <app-search-genre (genreEvent)="genreEvent($event)"></app-search-genre>
-    </div>
-
+  <div class="advSrcElement">
+    Name contains:{{names}}<input type="text" [(ngModel)]="newName"/><button (click)="addName()">Add</button>
   </div>
+  <div class="advSrcElement">
+    Name doesn't contain:{{nonames}}<input type="text" [(ngModel)]="newNoName"/><button (click)="addNoName()">Add</button>
+  </div>
+  <div class="advSrcElement">
+    Formed In or Later:<input type="number" [(ngModel)]="yearAfter">
+  </div>
+  <div class="advSrcElement">
+    Formed In or Before:<input type="number" [(ngModel)]="yearBefore">
+  </div>
+  <div class="advSrcElement">
+    Include country:{{countries}}<input type="text" [(ngModel)]="newCountry"><button (click)="addCountry()">Add</button>
+  </div>
+  <div class="advSrcElement">
+    Exclude country:{{nocountries}}<input type="text" [(ngModel)]="newNoCountry"><button (click)="addNoCountry()">Add</button>
+  </div>
+  <div class="advSrcElement">
+    Include genre:{{genres}}<input type="text" [(ngModel)]="newGenre"><button (click)="addGenre()">Add</button>
+  </div>
+
+</div>
   
-  <div class="buttonDiv"><button (click)="search()">Search</button></div>
+<div class="buttonDiv"><button (click)="search()">Go</button></div>
+<div class="buttonDiv"><button (click)="clear()">Clear</button> </div>

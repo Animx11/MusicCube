@@ -31,11 +31,22 @@ export class AdvancedSongComponent implements OnInit {
   newInstrument: string;
   newNoInstrument: string;
 
+  result: Song[];
+
   constructor(private service: SongService) {
+    this.clear();
+  }
+
+  private clear() {
     this.titles = this.noTitles = this.bands = this.noBands = this.genres = this.noGenres = this.instruments = this.noInstruments = '';
     this.newTitle = this.newNoTitle = this.newBand = this.newNoBand = this.newGenre = this.newNoGenre = this.newInstrument = this.newNoInstrument = '';
+    this.result = [];
+    this.clearEvent.emit();
   }
+
   @Output() songSearchEvent = new EventEmitter<Song[]>();
+  @Output() noResultEvent = new EventEmitter<string>();
+  @Output() clearEvent = new EventEmitter<void>();
   ngOnInit() {
 
   }
@@ -116,6 +127,12 @@ export class AdvancedSongComponent implements OnInit {
 
     this.service.advanced(params).subscribe(res => {
       console.log('advanced song search results:', res);
+      this.result = res.map(el => new Song(el));
+      if (this.result.length) {
+        this.songSearchEvent.emit(this.result);
+      } else {
+        this.noResultEvent.emit('songs');
+      }
     });
   }
 }

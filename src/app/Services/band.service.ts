@@ -63,4 +63,14 @@ export class BandService {
   getRecommended(user: string, limit: number): Observable<any> {
     return this.http.get(`${api_url}/recommended/band?limit=${limit}&user=${user}`);
   }
+
+  advanced(params: Map<string, string>): Observable<any> {
+    console.log(params);
+    let url = `${api_url}/search/band`;
+    if (params.size !== 0) {
+      url += '?';
+      params.forEach((value, key) => url += (`${key}=${value}&`));
+    }
+    return this.http.get(url.slice(0, url.length - 1));
+  }
 }
