@@ -13,6 +13,7 @@ public class UserManage {
     private String userName;
     private String email;
     private Set<Role> roles = new HashSet<>();
+    private String primaryRole;
 
     // Constructors
 
@@ -26,6 +27,14 @@ public class UserManage {
         this.roles = user.getRoles();
     }
 
+    public UserManage(int id, String userName, String email, Set<Role> roles, String primaryRole) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.roles = roles;
+        this.primaryRole = primaryRole;
+    }
+
     public UserManage(int id, String userName, String email, Set<Role> roles) {
         this.id = id;
         this.userName = userName;
@@ -34,8 +43,23 @@ public class UserManage {
 
     }
 
+    public UserManage(int id, String userName, String email, String primaryRole) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.primaryRole = primaryRole;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public String getPrimaryRole() {
+        return this.primaryRole;
+    }
+
+    public void setPrimaryRole(String primaryRole) {
+        this.primaryRole = primaryRole;
     }
 
     public String getUserName() {

@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/api/auth/**").anonymous()
                 .antMatchers("/test").anonymous()
                 .antMatchers("/generateModel").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
                 //.antMatchers("/**").authenticated()
                 .anyRequest().authenticated()

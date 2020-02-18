@@ -33,6 +33,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static musiccube.entities.RoleName.ROLE_ADMIN;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "${serverAddress}")
@@ -80,13 +82,21 @@ public class UserController {
     // Get User
 
 
-    @GetMapping(value = "/userManage_by_userName", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/admin/userManage_by_userName", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<UserManage> getUserByUserName(@RequestParam("userName") String userName){
         Iterable<User> users = userService.getByUserName(userName);
         Iterable<UserManage> userManageIterable;
         ArrayList<UserManage> userManageArray = new ArrayList<UserManage>();
         for (User user: users) {
+
             UserManage userManage = new UserManage(user);
+
+            Role role = roleRepository.findByName(ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Fail! -> User Role not found"));
+            if(userManage.getRoles().contains(role) == true){
+                userManage.setPrimaryRole("Admin");
+            } else if(userManage.getRoles().contains(role) == false) {
+                userManage.setPrimaryRole("User");
+            }
             userManageArray.add(userManage);
         }
         userManageIterable = userManageArray;
@@ -130,7 +140,36 @@ public class UserController {
 
     }
 
-    // Finding User
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/admin/user")
+    public ResponseEntity<User> deleteUser(@RequestParam("id") int id){
+        if(jwtProvider.validateJwt(getJwt(httpRequest))) {
+            User user = userService.getById(id).orElse(null);
+            if(user != null) {
+                    UserFavorites userFavorites = userFavoritesService.getUserFavoriteAllByUserName(user.getUserName()).orElse(null);
+
+                    Iterable<Rate> allUserRates = rateService.getAllUserRates(user.getUserName());
+                    for (Rate rate : allUserRates) {
+                        rateService.delete(rate.getId());
+                    }
+
+                    Iterable<Comment> allUserComments = commentService.getAllUserComments(user.getUserName());
+                    for (Comment comment : allUserComments) {
+                        commentService.delete(comment.getId());
+                    }
+
+                    if(userFavorites != null) {
+                        userFavoritesService.delete(userFavorites.getId());
+                    }
+                    userService.delete(user.getId());
+                    return new ResponseEntity<>(HttpStatus.OK);
+            } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+
+        // Finding User
 
     @GetMapping(value = "/user_by_id", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<User> getById(@RequestParam("id") int id){
@@ -154,6 +193,30 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @GetMapping(value = "/admin/editRole")
+    public ResponseEntity<Void> editRole(@RequestParam int id, @RequestParam String role) {
+
+        User user = userService.getById(id).orElse(null);
+
+        if(user != null){
+            Set<Role> userRoles = user.getRoles();
+            System.out.println(userRoles);
+            Role roleTo = roleRepository.findByName(ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Fail! -> User Role not found"));
+            System.out.println(role);
+            if(role.equals("Admin")){
+                userRoles.add(roleTo);
+            } else {
+                userRoles.remove(roleTo);
+            }
+            user.setRoles(userRoles);
+            userService.save(user);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
