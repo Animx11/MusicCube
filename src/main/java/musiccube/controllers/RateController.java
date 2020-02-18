@@ -156,4 +156,5 @@ public class RateController {
                 ResponseEntity.notFound().build();
     }
 
+
 }
