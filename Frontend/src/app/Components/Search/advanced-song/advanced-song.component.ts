@@ -37,7 +37,7 @@ export class AdvancedSongComponent implements OnInit {
     this.clear();
   }
 
-  private clear() {
+  clear() {
     this.titles = this.noTitles = this.bands = this.noBands = this.genres = this.noGenres = this.instruments = this.noInstruments = '';
     this.newTitle = this.newNoTitle = this.newBand = this.newNoBand = this.newGenre = this.newNoGenre = this.newInstrument = this.newNoInstrument = '';
     this.result = [];
